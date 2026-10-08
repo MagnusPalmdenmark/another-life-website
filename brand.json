@@ -96,7 +96,7 @@
           "dimensions_cm": {
             "height": 32,
             "width": 75,
-            "length": 206
+            "length": 211
           },
           "seat_height_cm": 32,
           "category": "Lounger",
@@ -114,18 +114,6 @@
           "category": "Bench",
           "url": "https://YOUR-DOMAIN.com/the-bench.html",
           "description": "A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair."
-        },
-        {
-          "name": "The Small Sun Lounger",
-          "dimensions_cm": {
-            "height": 32,
-            "width": 75,
-            "length": 160
-          },
-          "seat_height_cm": 32,
-          "category": "Lounger",
-          "url": "https://YOUR-DOMAIN.com/the-small-sun-lounger.html",
-          "description": "A shorter sun lounger, 160 cm long, with the same adjustable backrest as The Sun Lounger. For smaller terraces and balconies."
         },
         {
           "name": "The Lounge Chair",
@@ -167,7 +155,7 @@
     }
   ],
   "glossary": {
-    "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table and The Coffee Table.",
+    "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table.",
     "Repurposed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
     "Joglo": "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.",
     "Shou Sugi Ban": "The Japanese practice of protecting wood with flame rather than chemicals. The finish on every SATU piece.",

@@ -17,9 +17,9 @@ Lounge Chairs on a garden terrace. Cushions and textiles are styling for the pho
 Another material. Another owner. Another place. Another life.
 Teak that already lived once, made into furniture that can outlast the room it was bought for.
 Luxury is longevity.
-CollectionSATU. Seven pieces, one system.
+CollectionSATU. Six pieces, one system.
 Satu is Indonesian for one. Our first collection shares one material, one finish and one way of building: knock-down, bolted and repairable.
-01The ChairDining rooms, restaurants and terracesH 80 / W 45 / L 45 cm02The Sun LoungerPoolside and outdoorsH 32 / W 75 / L 206 cm03The BenchDining tables, terraces and hallsH 45 / W 206 / L 40 cm04The Small Sun LoungerTerraces, balconies and poolsideH 32 / W 75 / L 160 cm05The Lounge ChairLounges, lobbies and terracesH 78 / W 68 / L 60 cm06The Side TablePoolside, terraces and loungesH 32 / W 75 / L 75 cm07The Coffee TableLounges, lobbies and terracesH 32 / W 75 / L 100 cm
+01The ChairDining rooms, restaurants and terracesH 80 / W 45 / L 45 cm02The Sun LoungerPoolside and outdoorsH 32 / W 75 / L 211 cm03The BenchDining tables, terraces and hallsH 45 / W 206 / L 40 cm04The Lounge ChairLounges, lobbies and terracesH 78 / W 68 / L 60 cm05The Side TablePoolside, terraces and loungesH 32 / W 75 / L 75 cm06The Coffee TableLounges, lobbies and terracesH 32 / W 75 / L 100 cm
 How we buildThree things every piece does.
 Parts fit by hand and bolt together.
 Reclaimed
@@ -39,7 +39,7 @@ Furniture for hospitality: hotels, resorts, restaurants and cafés
 Purpose
 We exist to make furniture that lasts a long time.
 First collection
-SATU: seven pieces. See the collection
+SATU: six pieces. See the collection
 Material
 Repurposed teak, often from old joglo houses
 Finish
@@ -65,13 +65,13 @@ URL: https://YOUR-DOMAIN.com/collection.html
 
 Collection
 SATU
-Our first collection. Seven pieces in one material, one finish and one way of building.
+Our first collection. Six pieces in one material, one finish and one way of building.
 Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.
 Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, you replace the part, not the piece.
 The surface is finished with Shou Sugi Ban, the Japanese practice of protecting wood with flame rather than chemicals. What is left is the material itself: honest, tactile, and made to age well.
 Materials from another life. Designed for another life.
 Last updated 2026-10-08
-01The ChairA knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.H 80 / W 45 / L 45 cm02The Sun LoungerA slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.H 32 / W 75 / L 206 cm03The BenchA long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.H 45 / W 206 / L 40 cm04The Small Sun LoungerA shorter sun lounger, 160 cm long, with the same adjustable backrest as The Sun Lounger. For smaller terraces and balconies.H 32 / W 75 / L 160 cm05The Lounge ChairA low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.H 78 / W 68 / L 60 cm06The Side TableA low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.H 32 / W 75 / L 75 cm07The Coffee TableA low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.H 32 / W 75 / L 100 cm
+01The ChairA knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.H 80 / W 45 / L 45 cm02The Sun LoungerA slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.H 32 / W 75 / L 211 cm03The BenchA long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.H 45 / W 206 / L 40 cm04The Lounge ChairA low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.H 78 / W 68 / L 60 cm05The Side TableA low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.H 32 / W 75 / L 75 cm06The Coffee TableA low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.H 32 / W 75 / L 100 cm
 Shared by every pieceOne design. Different lives.
 Material
 Repurposed teak
@@ -91,7 +91,7 @@ On request. Ex works, Bali
 # The Chair — SATU
 URL: https://YOUR-DOMAIN.com/the-chair.html
 
-SATU · 01 / 07
+SATU · 01 / 06
 The Chair
 A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.
 The Chair from behind, showing the open backrest, the slatted seat and the bolt clusters on the back legs
@@ -136,7 +136,7 @@ Another Life PassportSix questions, answered for this piece.
 06What happens at the end of its first life?
 Each piece carries a QR code linking to its record. About the Passport
 Pairs with
-SATU · 03The BenchDining tables, terraces and hallsSATU · 06The Side TablePoolside, terraces and lounges
+SATU · 03The BenchDining tables, terraces and hallsSATU · 05The Side TablePoolside, terraces and lounges
 Last updated 2026-10-08
 
 ---
@@ -144,7 +144,7 @@ Last updated 2026-10-08
 # The Sun Lounger — SATU
 URL: https://YOUR-DOMAIN.com/the-sun-lounger.html
 
-SATU · 02 / 07
+SATU · 02 / 06
 The Sun Lounger
 A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.
 The Sun Lounger in repurposed teak with a Shou Sugi Ban finish, its slatted backrest raised
@@ -153,7 +153,7 @@ SATU
 Category
 Lounger
 Dimensions
-H 32 / W 75 / L 206 cm
+H 32 / W 75 / L 211 cm
 Seat height
 32 cm
 Material
@@ -185,7 +185,7 @@ Another Life PassportSix questions, answered for this piece.
 06What happens at the end of its first life?
 Each piece carries a QR code linking to its record. About the Passport
 Pairs with
-SATU · 04The Small Sun LoungerTerraces, balconies and poolsideSATU · 06The Side TablePoolside, terraces and lounges
+SATU · 05The Side TablePoolside, terraces and loungesSATU · 04The Lounge ChairLounges, lobbies and terraces
 Last updated 2026-10-08
 
 ---
@@ -193,7 +193,7 @@ Last updated 2026-10-08
 # The Bench — SATU
 URL: https://YOUR-DOMAIN.com/the-bench.html
 
-SATU · 03 / 07
+SATU · 03 / 06
 The Bench
 A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.
 The Bench, a long slatted bench in repurposed teak with a Shou Sugi Ban finish and three-bolt clusters at each leg
@@ -233,55 +233,7 @@ Another Life PassportSix questions, answered for this piece.
 06What happens at the end of its first life?
 Each piece carries a QR code linking to its record. About the Passport
 Pairs with
-SATU · 01The ChairDining rooms, restaurants and terracesSATU · 07The Coffee TableLounges, lobbies and terraces
-Last updated 2026-10-08
-
----
-
-# The Small Sun Lounger — SATU
-URL: https://YOUR-DOMAIN.com/the-small-sun-lounger.html
-
-SATU · 04 / 07
-The Small Sun Lounger
-A shorter sun lounger, 160 cm long, with the same adjustable backrest as The Sun Lounger. For smaller terraces and balconies.
-The Small Sun Lounger in repurposed teak with a Shou Sugi Ban finish, its backrest raised
-Collection
-SATU
-Category
-Lounger
-Dimensions
-H 32 / W 75 / L 160 cm
-Seat height
-32 cm
-Material
-Repurposed teak, often from old joglo houses
-Finish
-Shou Sugi Ban: protected with flame rather than chemicals.
-Construction
-Modular, knock-down. To assemble
-Use
-Terraces, balconies and poolside
-Made in
-Bali, Indonesia
-Price
-On request. Ex works, Bali
-Shipping
-Flat-packed, assembled on site
-Enquire about The Small Sun Lounger
-DetailsAbout The Small Sun Lounger.
-Built on the same frame and parts as The Sun Lounger, only shorter.
-The backrest adjusts, and every part can be replaced on its own.
-Like every Another Life piece, it is made from timber that already had a first life. Holes and marks from that life are left natural and never filled with glue, and only where they don't reduce strength.
-Another Life PassportSix questions, answered for this piece.
-01Where did the material come from?
-02Who made it?
-03How was it transported?
-04Can it be repaired?
-05Can parts be replaced?
-06What happens at the end of its first life?
-Each piece carries a QR code linking to its record. About the Passport
-Pairs with
-SATU · 02The Sun LoungerPoolside and outdoorsSATU · 06The Side TablePoolside, terraces and lounges
+SATU · 01The ChairDining rooms, restaurants and terracesSATU · 06The Coffee TableLounges, lobbies and terraces
 Last updated 2026-10-08
 
 ---
@@ -289,7 +241,7 @@ Last updated 2026-10-08
 # The Lounge Chair — SATU
 URL: https://YOUR-DOMAIN.com/the-lounge-chair.html
 
-SATU · 05 / 07
+SATU · 04 / 06
 The Lounge Chair
 A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.
 The Lounge Chair from the side: a low, deep slatted seat and backrest in repurposed teak, with three-bolt clusters at the front and back legs
@@ -330,7 +282,7 @@ Another Life PassportSix questions, answered for this piece.
 06What happens at the end of its first life?
 Each piece carries a QR code linking to its record. About the Passport
 Pairs with
-SATU · 07The Coffee TableLounges, lobbies and terracesSATU · 06The Side TablePoolside, terraces and lounges
+SATU · 06The Coffee TableLounges, lobbies and terracesSATU · 05The Side TablePoolside, terraces and lounges
 Last updated 2026-10-08
 
 ---
@@ -338,7 +290,7 @@ Last updated 2026-10-08
 # The Side Table — SATU
 URL: https://YOUR-DOMAIN.com/the-side-table.html
 
-SATU · 06 / 07
+SATU · 05 / 06
 The Side Table
 A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.
 The Side Table from the front: repurposed teak with a Shou Sugi Ban finish, tapered legs and a three-bolt cluster at each top corner
@@ -364,7 +316,7 @@ Shipping
 Flat-packed, assembled on site
 Enquire about The Side Table
 DetailsAbout The Side Table.
-At 32 cm high it sits level with the seats of The Sun Lounger, The Small Sun Lounger and The Lounge Chair.
+At 32 cm high it sits level with the seats of The Sun Lounger and The Lounge Chair.
 Like every SATU piece, it travels flat and goes together on site.
 Like every Another Life piece, it is made from timber that already had a first life. Holes and marks from that life are left natural and never filled with glue, and only where they don't reduce strength.
 Another Life PassportSix questions, answered for this piece.
@@ -376,7 +328,7 @@ Another Life PassportSix questions, answered for this piece.
 06What happens at the end of its first life?
 Each piece carries a QR code linking to its record. About the Passport
 Pairs with
-SATU · 02The Sun LoungerPoolside and outdoorsSATU · 05The Lounge ChairLounges, lobbies and terraces
+SATU · 02The Sun LoungerPoolside and outdoorsSATU · 04The Lounge ChairLounges, lobbies and terraces
 Last updated 2026-10-08
 
 ---
@@ -384,7 +336,7 @@ Last updated 2026-10-08
 # The Coffee Table — SATU
 URL: https://YOUR-DOMAIN.com/the-coffee-table.html
 
-SATU · 07 / 07
+SATU · 06 / 06
 The Coffee Table
 A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.
 A low SATU table in repurposed teak with a slatted top and a Shou Sugi Ban finish
@@ -422,7 +374,7 @@ Another Life PassportSix questions, answered for this piece.
 06What happens at the end of its first life?
 Each piece carries a QR code linking to its record. About the Passport
 Pairs with
-SATU · 05The Lounge ChairLounges, lobbies and terracesSATU · 03The BenchDining tables, terraces and halls
+SATU · 04The Lounge ChairLounges, lobbies and terracesSATU · 03The BenchDining tables, terraces and halls
 Last updated 2026-10-08
 
 ---
@@ -527,7 +479,7 @@ Our standard
 Sustainability is for everyone. Conscious style is not.
 GlossaryTerms we use.
 SATU
-The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table and The Coffee Table.
+The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table.
 Repurposed teak
 Teak that has already been cut and used. Much of ours comes from old joglo houses.
 Joglo
@@ -684,7 +636,7 @@ Stine Palm and Magnus Palm. The idea grew out of the Green School community in B
 What does the name mean?
 Another material. Another owner. Another place. Another life. The teak we use has already had one life, and every piece is made to carry on: repaired, moved and passed on.
 What is SATU?
-SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece.
+SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece.
 What is the furniture made from?
 Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands.
 What is Shou Sugi Ban?
@@ -723,7 +675,7 @@ The canonical facts about Another Life, for press, partners and anyone summarisi
 A machine-readable version is at brand.json and llms.txt. If something here differs from another source, this page is correct.
 Last updated 2026-10-08
 Summary
-Another Life makes hospitality furniture from reclaimed teak in Bali: Danish design, shipped flat and built to be repaired. We exist to make furniture that lasts a long time. The first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in the Green School community in Bali and sells mainly to hospitality businesses.
+Another Life makes hospitality furniture from reclaimed teak in Bali: Danish design, shipped flat and built to be repaired. We exist to make furniture that lasts a long time. The first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in the Green School community in Bali and sells mainly to hospitality businesses.
 Key facts
 Brand
 Another Life (wordmark: ANOTHER — LIFE)
@@ -732,7 +684,7 @@ Furniture for hospitality: hotels, resorts, restaurants and cafés
 Purpose
 We exist to make furniture that lasts a long time.
 First collection
-SATU: seven pieces. See the collection
+SATU: six pieces. See the collection
 Material
 Repurposed teak, often from old joglo houses
 Finish
@@ -761,11 +713,9 @@ Products
 The Chair
 H 80 / W 45 / L 45 cm · seat height 45 cm · details
 The Sun Lounger
-H 32 / W 75 / L 206 cm · seat height 32 cm · details
+H 32 / W 75 / L 211 cm · seat height 32 cm · details
 The Bench
 H 45 / W 206 / L 40 cm · seat height 45 cm · details
-The Small Sun Lounger
-H 32 / W 75 / L 160 cm · seat height 32 cm · details
 The Lounge Chair
 H 78 / W 68 / L 60 cm · seat height 32 cm · details
 The Side Table
@@ -776,7 +726,7 @@ How to write about us
 Name
 Another Life. The wordmark is ANOTHER — LIFE, always with the dash.
 Products
-Use the SATU names: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table, The Coffee Table.
+Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table.
 Please don't say
 That our furniture is completely sustainable, or quote carbon or transport figures we haven't published.
 Please don't print
@@ -802,7 +752,7 @@ Name
 Business
 Type of placeBoutique hotelResortRestaurantCaféArchitect or interior designerOther
 Location
-Pieces you are interested in The Chair The Sun Lounger The Bench The Small Sun Lounger The Lounge Chair The Side Table The Coffee Table
+Pieces you are interested in The Chair The Sun Lounger The Bench The Lounge Chair The Side Table The Coffee Table
 About the project
 Add your name and business so we know who to reply to.
 Prepare enquiry

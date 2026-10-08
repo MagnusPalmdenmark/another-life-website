@@ -48,14 +48,14 @@ PRODUCTS = [
               "The bolts are part of the look. Three-bolt clusters at the seat and leg joints hold the frame and let it be taken apart again.",
               "Every component can be replaced on its own. A broken leg is a new leg, not a new chair."],
        pairs=["the-bench","the-side-table"]),
-  dict(slug="the-sun-lounger", name="The Sun Lounger", category="Lounger", order=2, dims=(32,75,206), seat=32,
+  dict(slug="the-sun-lounger", name="The Sun Lounger", category="Lounger", order=2, dims=(32,75,211), seat=32,
        img="assets/sunlounger-studio2.jpg", img_alt="The Sun Lounger in repurposed teak with a Shou Sugi Ban finish, its slatted backrest raised",
        gallery=[("sunlounger-side.jpg","The Sun Lounger from the side, the backrest raised on its support strut and bolt clusters at each end"),("sunlounger-drawing.png","Line drawing of The Sun Lounger in profile, showing the backrest, its support strut and the bolted legs")],
        short="A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.",
        use="Poolside and outdoors",
        notes=["The backrest adjusts, so the same piece works for reading and for lying flat in the sun.",
               "Slats, rails and backrest are separate parts. Any one of them can be replaced without replacing the lounger."],
-       pairs=["the-small-sun-lounger","the-side-table"]),
+       pairs=["the-side-table","the-lounge-chair"]),
   dict(slug="the-bench", name="The Bench", category="Bench", order=3, dims=(45,206,40), seat=45,
        img="assets/bench.jpg", img_alt="The Bench, a long slatted bench in repurposed teak with a Shou Sugi Ban finish and three-bolt clusters at each leg",
        short="A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.",
@@ -63,14 +63,7 @@ PRODUCTS = [
        notes=["The slats sit in a bolted frame. Any slat or leg can be replaced on its own.",
               "At 45 cm, its seat height matches The Chair, so the two work at the same table."],
        pairs=["the-chair","the-coffee-table"]),
-  dict(slug="the-small-sun-lounger", name="The Small Sun Lounger", category="Lounger", order=4, dims=(32,75,160), seat=32,
-       img="assets/small-sunlounger.jpg", img_alt="The Small Sun Lounger in repurposed teak with a Shou Sugi Ban finish, its backrest raised",
-       short="A shorter sun lounger, 160 cm long, with the same adjustable backrest as The Sun Lounger. For smaller terraces and balconies.",
-       use="Terraces, balconies and poolside",
-       notes=["Built on the same frame and parts as The Sun Lounger, only shorter.",
-              "The backrest adjusts, and every part can be replaced on its own."],
-       pairs=["the-sun-lounger","the-side-table"]),
-  dict(slug="the-lounge-chair", name="The Lounge Chair", category="Lounge chair", order=5, dims=(78,68,60), seat=32,
+  dict(slug="the-lounge-chair", name="The Lounge Chair", category="Lounge chair", order=4, dims=(78,68,60), seat=32,
        img="assets/loungechair-studio.jpg", img_alt="The Lounge Chair from the side: a low, deep slatted seat and backrest in repurposed teak, with three-bolt clusters at the front and back legs",
        gallery=[("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden. Cushions and textiles are styling for the photograph and are not part of the collection.")],
        short="A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.",
@@ -78,14 +71,14 @@ PRODUCTS = [
        notes=["Same repurposed teak, same Shou Sugi Ban finish, same bolted system as The Chair.",
               "Seat and backrest are made of separate slats held in a bolted frame, so parts can be replaced."],
        pairs=["the-coffee-table","the-side-table"]),
-  dict(slug="the-side-table", name="The Side Table", category="Table", order=6, dims=(32,75,75), seat=None,
+  dict(slug="the-side-table", name="The Side Table", category="Table", order=5, dims=(32,75,75), seat=None,
        img="assets/sidetable.jpg", img_alt="The Side Table from the front: repurposed teak with a Shou Sugi Ban finish, tapered legs and a three-bolt cluster at each top corner",
        short="A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.",
        use="Poolside, terraces and lounges",
-       notes=["At 32 cm high it sits level with the seats of The Sun Lounger, The Small Sun Lounger and The Lounge Chair.",
+       notes=["At 32 cm high it sits level with the seats of The Sun Lounger and The Lounge Chair.",
               "Like every SATU piece, it travels flat and goes together on site."],
        pairs=["the-sun-lounger","the-lounge-chair"]),
-  dict(slug="the-coffee-table", name="The Coffee Table", category="Table", order=7, dims=(32,75,100), seat=None,
+  dict(slug="the-coffee-table", name="The Coffee Table", category="Table", order=6, dims=(32,75,100), seat=None,
        img="assets/table-studio.jpg", img_alt="A low SATU table in repurposed teak with a slatted top and a Shou Sugi Ban finish",
        short="A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.",
        use="Lounges, lobbies and terraces",
@@ -103,7 +96,7 @@ FAQ = [
   ("Where is Another Life based?", "In Bali, Indonesia, where every piece is designed and made by hand."),
   ("Who founded Another Life?", "Stine Palm and Magnus Palm. The idea grew out of the Green School community in Bali."),
   ("What does the name mean?", "Another material. Another owner. Another place. Another life. The teak we use has already had one life, and every piece is made to carry on: repaired, moved and passed on."),
-  ("What is SATU?", "SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece."),
+  ("What is SATU?", "SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece."),
   ("What is the furniture made from?", "Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands."),
   ("What is Shou Sugi Ban?", "Shou Sugi Ban is the Japanese practice of protecting wood with flame rather than chemicals. The surface of the teak is burned, which gives it a deep black colour and a texture you can feel. It is made to age beautifully."),
   ("Why does every piece look a little different?", "Because the teak has a history. Marks and nail holes from the wood's first life are part of its character, and we keep them visible as a quiet record of where it has been. Strength always comes first, so each piece is built to last."),
@@ -120,7 +113,7 @@ FAQ = [
 ]
 
 GLOSSARY = [
-  ("SATU", "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table and The Coffee Table."),
+  ("SATU", "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table."),
   ("Repurposed teak", "Teak that has already been cut and used. Much of ours comes from old joglo houses."),
   ("Joglo", "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses."),
   ("Shou Sugi Ban", "The Japanese practice of protecting wood with flame rather than chemicals. The finish on every SATU piece."),
@@ -447,7 +440,7 @@ KEY_FACTS = [
   ("Brand", "Another Life (wordmark: ANOTHER — LIFE)"),
   ("What we make", "Furniture for hospitality: hotels, resorts, restaurants and cafés"),
   ("Purpose", e(BRAND["mission"])),
-  ("First collection", 'SATU: seven pieces. <a href="collection.html">See the collection</a>'),
+  ("First collection", 'SATU: six pieces. <a href="collection.html">See the collection</a>'),
   ("Material", "Repurposed teak, often from old joglo houses"),
   ("Finish", "Shou Sugi Ban. Protected with flame, not chemicals."),
   ("Construction", "Modular and knock-down. Travels flat, comes apart without damage, parts replaceable"),
@@ -504,7 +497,7 @@ home = f'''
 </div></section>
 
 <section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Seven pieces, one system.</h2></div>
+ <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Six pieces, one system.</h2></div>
  <p class="prose" style="margin:0">Satu is Indonesian for one. Our first collection shares one material, one finish and one way of building: knock-down, bolted and repairable.</p></div>
   <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["use"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
 </div></section>
@@ -541,7 +534,7 @@ coll = f'''
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Collection</span>
  <h1 class="disp">SATU</h1>
- <div class="split page-head-body" style="margin-top:32px"><p class="pull">Our first collection. Seven pieces in one material, one finish and one way of building.</p>
+ <div class="split page-head-body" style="margin-top:32px"><p class="pull">Our first collection. Six pieces in one material, one finish and one way of building.</p>
  <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, you replace the part, not the piece.</p><p>The surface is finished with Shou Sugi Ban, the Japanese practice of protecting wood with flame rather than chemicals. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Materials from another life. Designed for another life.</strong></p></div></div>
  {updated()}
 </div></section>
@@ -554,7 +547,7 @@ coll = f'''
  {ledger([("Material","Repurposed teak"),("Finish","Shou Sugi Ban. Flame, not chemicals."),("Construction","Modular, knock-down, replaceable parts"),("Shipping","Flat-packed. Assembled on site."),("Made in","Bali, Indonesia"),("Pricing","On request. Ex works, Bali")])}
 </div></section>
 '''
-pages["collection.html"] = ("SATU Collection", "SATU is Another Life's first collection of seven pieces: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table and The Coffee Table, in repurposed teak with a Shou Sugi Ban finish.", coll,
+pages["collection.html"] = ("SATU Collection", "SATU is Another Life's first collection of six pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table, in repurposed teak with a Shou Sugi Ban finish.", coll,
   [breadcrumb([("index.html","Home"),("collection.html","SATU")]),
    {"@type":"CollectionPage","name":"SATU collection","url":url("collection.html"),"about":{"@id":url("index.html")+"#org"},
     "mainEntity":{"@type":"ItemList","numberOfItems":len(PRODUCTS),"itemListElement":[{"@type":"ListItem","position":p["order"],"url":url(p["slug"]+".html"),"name":p["name"]} for p in PRODUCTS]}}])
@@ -869,7 +862,7 @@ facts_body = f'''
 </div></section>
 <section style="padding-top:0;border-top:0"><div class="wrap split">
  <div><h2 class="disp">Summary</h2></div>
- <div class="prose"><p>{e(BRAND["one_line"])} {e(BRAND["mission"])} The first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in the Green School community in Bali and sells mainly to hospitality businesses.</p></div>
+ <div class="prose"><p>{e(BRAND["one_line"])} {e(BRAND["mission"])} The first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in the Green School community in Bali and sells mainly to hospitality businesses.</p></div>
 </div></section>
 <section><div class="wrap split">
  <div><h2 class="disp">Key facts</h2></div>
@@ -881,7 +874,7 @@ facts_body = f'''
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><h2 class="disp">How to write about us</h2></div>
- {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table, The Coffee Table."),("Please don't say","That our furniture is completely sustainable, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak in Bali.")])}
+ {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table."),("Please don't say","That our furniture is completely sustainable, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak in Bali.")])}
 </div></section>
 '''
 pages["facts.html"] = ("Another Life Brand Facts", "Canonical facts about Another Life: what it makes, where, from what material, the SATU products and sizes, founders, customers and how to describe the brand.", facts_body,
@@ -962,7 +955,7 @@ llms = f"""# Another Life
 
 > {BRAND['one_line']} {BRAND['mission']}
 
-Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (protected with flame rather than chemicals). Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Bali.
+Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (protected with flame rather than chemicals). Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Bali.
 
 Key facts:
 - Purpose: to make furniture that lasts a long time.
