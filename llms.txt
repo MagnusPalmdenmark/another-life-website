@@ -1,8 +1,8 @@
 # Another Life
 
-> Another Life makes hospitality furniture from reclaimed teak in Bali: Danish design, shipped flat and built to be repaired. We exist to make furniture that lasts a long time.
+> Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired. We exist to make furniture that lasts a long time.
 
-Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (protected with flame rather than chemicals). Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Bali.
+Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
 
 Key facts:
 - Purpose: to make furniture that lasts a long time.
@@ -16,7 +16,7 @@ Key facts:
 - [Brand facts](https://YOUR-DOMAIN.com/facts.html): canonical facts, products, sizes and how to describe the brand
 - [Brand DNA](https://YOUR-DOMAIN.com/brand.html): purpose, origin, beliefs, Conscious Sustainability, design principles, voice, lines, glossary
 - [In use](https://YOUR-DOMAIN.com/in-use.html): photographs of the furniture in restaurants, terraces and homes
-- [Material and making](https://YOUR-DOMAIN.com/material.html): repurposed teak, Shou Sugi Ban finish, making in Bali, flat-pack shipping
+- [Material and making](https://YOUR-DOMAIN.com/material.html): repurposed teak, Shou Sugi Ban finish, making in Indonesia, flat-pack shipping
 - [Another Life Passport](https://YOUR-DOMAIN.com/passport.html): traceability record and circular services in development
 - [For hospitality](https://YOUR-DOMAIN.com/hospitality.html): who we work with and how an order works
 - [Questions](https://YOUR-DOMAIN.com/faq.html): 18 answered questions

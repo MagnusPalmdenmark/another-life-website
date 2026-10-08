@@ -15,17 +15,17 @@ e = html.escape
 BRAND = {
   "name": "Another Life",
   "wordmark": "ANOTHER — LIFE",
-  "one_line": "Another Life makes hospitality furniture from reclaimed teak in Bali: Danish design, shipped flat and built to be repaired.",
+  "one_line": "Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired.",
   "mission": "We exist to make furniture that lasts a long time.",
   "founders": ["Stine Palm", "Magnus Palm"],
   "based": "Bali, Indonesia",
-  "made_in": "Bali, Indonesia",
+  "made_in": "Indonesia",
   "collection": "SATU",
   "material": "Repurposed teak, often from old joglo houses",
-  "finish": "Shou Sugi Ban: the Japanese practice of protecting wood with flame rather than chemicals.",
+  "finish": "Shou Sugi Ban: flame-darkened teak, finished with natural oil to preserve the character of the wood.",
   "construction": "Knock-down: ships flat, bolts together on site, can be taken apart again and has replaceable parts",
   "customers": "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them",
-  "pricing": "On request. Ex works, Bali.",
+  "pricing": "On request. Ex works, Indonesia.",
   "slogans": [
     "Made for this life. And another.",
     "Furniture worth keeping.",
@@ -86,29 +86,29 @@ PRODUCTS = [
               "Like every SATU piece, it travels flat and goes together on site."],
        pairs=["the-lounge-chair","the-bench"]),
 ]
-for _p in PRODUCTS: _p["construction"]="Modular, knock-down. To assemble"
+for _p in PRODUCTS: _p["construction"]="Modular and knock-down. Assembled on site"
 def dims(p):
   h,w,l = p["dims"]; return f"H {h} / W {w} / L {l} cm"
 PBY = {p["slug"]: p for p in PRODUCTS}
 
 FAQ = [
   ("What is Another Life?", "Another Life is a hospitality furniture brand from Bali. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
-  ("Where is Another Life based?", "In Bali, Indonesia, where every piece is designed and made by hand."),
-  ("Who founded Another Life?", "Stine Palm and Magnus Palm. The idea grew out of the Green School community in Bali."),
+  ("Where is Another Life based?", "The company is based in Bali. Every piece is made by hand in Indonesia."),
+  ("Who founded Another Life?", "Stine Palm and Magnus Palm. The idea was born in Bali, where the family moved partly for Green School."),
   ("What does the name mean?", "Another material. Another owner. Another place. Another life. The teak we use has already had one life, and every piece is made to carry on: repaired, moved and passed on."),
   ("What is SATU?", "SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece."),
   ("What is the furniture made from?", "Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands."),
-  ("What is Shou Sugi Ban?", "Shou Sugi Ban is the Japanese practice of protecting wood with flame rather than chemicals. The surface of the teak is burned, which gives it a deep black colour and a texture you can feel. It is made to age beautifully."),
+  ("What is Shou Sugi Ban?", "Shou Sugi Ban is a Japanese technique of darkening wood with flame. We burn the surface of the teak, then finish it with natural oil to preserve the character of the wood. The result is a deep black colour and a texture you can feel, made to age beautifully."),
   ("Why does every piece look a little different?", "Because the teak has a history. Marks and nail holes from the wood's first life are part of its character, and we keep them visible as a quiet record of where it has been. Strength always comes first, so each piece is built to last."),
-  ("Is Another Life furniture sustainable?", "Sustainability guides every decision we make: repurposed teak, a finish made with flame, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make."),
+  ("Is Another Life furniture sustainable?", "Sustainability guides every decision we make: repurposed teak, a flame-darkened finish with natural oil, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make."),
   ("How do you show where the wood comes from?", "Every piece will have its own record: where the material came from, who made it and how it travelled. We are building this as the Another Life Passport, so the story of each piece can be read with a QR code."),
   ("Can the furniture be used outdoors?", "Yes. It is made for hospitality spaces indoors and out, from dining rooms and lobbies to pools, terraces and gardens."),
-  ("How is the furniture shipped?", "Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site in minutes."),
+  ("How is the furniture shipped?", "Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site."),
   ("Can it be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
   ("What is the Another Life Passport?", "A digital story for every piece, opened with a QR code on the furniture. It shows where the material came from, who made it, how it travelled and how it can be cared for, repaired and passed on."),
   ("Who do you make furniture for?", "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for."),
-  ("Is Another Life Danish?", "The design follows a Danish and Scandinavian tradition: simple, functional and made to last. The furniture is made in Bali, close to the material and the makers."),
-  ("How much does it cost?", "We price every project individually, ex works Bali. Tell us about your space and we will come back with a proposal."),
+  ("Is Another Life Danish?", "The design follows a Danish and Scandinavian tradition: simple, functional and made to last. The furniture is made by hand in Indonesia, close to the material and the makers."),
+  ("How much does it cost?", "We price every project individually, ex works Indonesia. Tell us about your space and we will come back with a proposal."),
   ("How do I order?", "Send us a message with your space, the pieces you like and your timeline. We will reply with options, pricing and lead times."),
 ]
 
@@ -116,7 +116,7 @@ GLOSSARY = [
   ("SATU", "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table."),
   ("Repurposed teak", "Teak that has already been cut and used. Much of ours comes from old joglo houses."),
   ("Joglo", "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses."),
-  ("Shou Sugi Ban", "The Japanese practice of protecting wood with flame rather than chemicals. The finish on every SATU piece."),
+  ("Shou Sugi Ban", "A Japanese technique of darkening wood with flame. On SATU it is finished with natural oil."),
   ("Knock-down", "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once."),
   ("Conscious Sustainability", "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation."),
   ("Another Life Passport", "The digital record attached to each piece by QR code. It starts at the workshop and is meant to grow with the piece through installation, repairs, refinishing and return."),
@@ -399,12 +399,12 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 
 FOOTER = f'''<footer><div class="wrap">
 <div class="foot">
- <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from reclaimed teak. Made in Bali, Indonesia.</p></div>
+ <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul>{"".join(f'<li><a href="{p["slug"]}.html">{p["name"]}</a></li>' for p in PRODUCTS)}</ul></div>
  <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
  <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp {WHATSAPP}</li></ul></div>
 </div>
-<div class="foot-base"><span class="label">Made in Bali, Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
+<div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>'''
 
 def ledger(pairs):
@@ -442,12 +442,13 @@ KEY_FACTS = [
   ("Purpose", e(BRAND["mission"])),
   ("First collection", 'SATU: six pieces. <a href="collection.html">See the collection</a>'),
   ("Material", "Repurposed teak, often from old joglo houses"),
-  ("Finish", "Shou Sugi Ban. Protected with flame, not chemicals."),
+  ("Finish", "Shou Sugi Ban. Flame-darkened, finished with natural oil."),
   ("Construction", "Modular and knock-down. Travels flat, comes apart without damage, parts replaceable"),
   ("Design", "Danish and Scandinavian design tradition"),
-  ("Made in", "Bali, Indonesia"),
+  ("Made in", "Indonesia"),
+  ("Based in", "Bali, Indonesia"),
   ("Founders", "Stine Palm and Magnus Palm"),
-  ("Pricing", "On request. Ex works, Bali"),
+  ("Pricing", "On request. Ex works, Indonesia"),
 ]
 
 # ------------------------------------------------------------------ pages
@@ -465,7 +466,7 @@ home = f'''
  </div></div>
 </div>
 <div class="wrap hero-foot">
- <p>Another Life makes hospitality furniture from reclaimed teak in Bali. Danish design, shipped flat, and built to be repaired for decades rather than replaced.</p>
+ <p>Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired for decades rather than replaced.</p>
  <div class="btns"><button class="btn" type="button" id="film-open">Watch the film · 0:34</button><a class="label tlink" href="collection.html">See the SATU collection</a></div>
 </div></section>
 <div class="film-ov" id="film-ov" hidden role="dialog" aria-modal="true" aria-label="Another Life brand film">
@@ -523,9 +524,9 @@ home = f'''
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
 </div></section>
 '''
-pages["index.html"] = ("Another Life", "Another Life makes hospitality furniture from reclaimed teak in Bali: Danish design, shipped flat and built to be repaired. First collection: SATU.", home,
+pages["index.html"] = ("Another Life", "Another Life makes hospitality furniture from repurposed teak: Danish design, made in Indonesia, shipped flat and built to be repaired. First collection: SATU.", home,
   [breadcrumb([("index.html","Home")]),
-   {"@type":"VideoObject","name":"Another Life — brand film","description":"A 34-second film about Another Life: reclaimed timber, making furniture by hand in Bali, and The Chair in rooms and by the sea. Ends with the line Danish furniture, designed for tomorrow.",
+   {"@type":"VideoObject","name":"Another Life — brand film","description":"A 34-second film about Another Life: reclaimed timber, making furniture by hand in Indonesia, and The Chair in rooms and by the sea. Ends with the line Danish furniture, designed for tomorrow.",
     "thumbnailUrl":[url("assets/film-poster.jpg"),url("assets/film-card.jpg")],"uploadDate":"2026-10-08","duration":"PT34S","contentUrl":url("assets/film.mp4"),
     "publisher":{"@id":url("index.html")+"#org"},"inLanguage":"en"}], "film-card.jpg")
 
@@ -535,7 +536,7 @@ coll = f'''
  <span class="label eyebrow">Collection</span>
  <h1 class="disp">SATU</h1>
  <div class="split page-head-body" style="margin-top:32px"><p class="pull">Our first collection. Six pieces in one material, one finish and one way of building.</p>
- <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, you replace the part, not the piece.</p><p>The surface is finished with Shou Sugi Ban, the Japanese practice of protecting wood with flame rather than chemicals. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Materials from another life. Designed for another life.</strong></p></div></div>
+ <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, you replace the part, not the piece.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Materials from another life. Designed for another life.</strong></p></div></div>
  {updated()}
 </div></section>
 {bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up",lazy=False)}
@@ -544,7 +545,7 @@ coll = f'''
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Shared by every piece</span><h2 class="disp">One design. Different lives.</h2></div>
- {ledger([("Material","Repurposed teak"),("Finish","Shou Sugi Ban. Flame, not chemicals."),("Construction","Modular, knock-down, replaceable parts"),("Shipping","Flat-packed. Assembled on site."),("Made in","Bali, Indonesia"),("Pricing","On request. Ex works, Bali")])}
+ {ledger([("Material","Repurposed teak"),("Finish","Shou Sugi Ban. Flame-darkened, natural oil."),("Construction","Modular, knock-down, replaceable parts"),("Shipping","Flat-packed. Assembled on site."),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}
 </div></section>
 '''
 pages["collection.html"] = ("SATU Collection", "SATU is Another Life's first collection of six pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table, in repurposed teak with a Shou Sugi Ban finish.", coll,
@@ -559,15 +560,15 @@ for p in PRODUCTS:
     visual = f'<figure style="margin:0"><img class="{photo_cls}" src="{p["img"]}" alt="{e(p["img_alt"])}"{_wh(p["img"][7:])}><figcaption class="cap" style="margin-top:10px">{e(p["img_alt"])}</figcaption></figure>'
   else:
     visual = f'''<div class="tag" aria-label="Product tag for {p["name"]}"><span class="label">SATU · {p["order"]:02d} / {len(PRODUCTS):02d}</span><div class="disp">{p["name"]}</div>
-    <p class="muted" style="margin:0">Repurposed teak · Shou Sugi Ban · Made in Bali</p>
+    <p class="muted" style="margin:0">Repurposed teak · Shou Sugi Ban · Made in Indonesia</p>
     <div class="tag-foot"><span class="cap">{dims(p)}</span><span class="cap">Photograph coming soon</span></div></div>'''
   g = p.get("gallery") or []
   gallery_html = ('<section><div class="wrap stack"><span class="label muted">In detail</span>' + "".join(duo(fig(g[i][0],g[i][1],g[i][1]), fig(g[i+1][0],g[i+1][1],g[i+1][1]) if i+1<len(g) else "") for i in range(0,len(g),2)) + '</div></section>') if g else ""
   pairs = "".join(f'<a href="{s}.html"><span class="label muted">SATU · {PBY[s]["order"]:02d}</span><span class="disp" style="font-size:26px">{PBY[s]["name"]}</span><span class="cap">{e(PBY[s]["use"])}</span></a>' for s in p["pairs"])
   specs = [("Collection","SATU"),("Category",p["category"]),("Dimensions",dims(p))] + ([("Seat height",f'{p["seat"]} cm')] if p["seat"] else []) + [
            ("Material","Repurposed teak, often from old joglo houses"),
-           ("Finish","Shou Sugi Ban: protected with flame rather than chemicals."),("Construction",e(p["construction"])),("Use",e(p["use"])),
-           ("Made in","Bali, Indonesia"),("Price","On request. Ex works, Bali"),("Shipping","Flat-packed, assembled on site")]
+           ("Finish","Shou Sugi Ban: flame-darkened teak, finished with natural oil."),("Construction",e(p["construction"])),("Use",e(p["use"])),
+           ("Made in","Indonesia"),("Price","On request. Ex works, Indonesia"),("Shipping","Flat-packed, assembled on site")]
   body = f'''
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow"><a href="collection.html" class="tlink">SATU</a> · {p["order"]:02d} / {len(PRODUCTS):02d}</span>
@@ -586,7 +587,7 @@ for p in PRODUCTS:
 {gallery_html}
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Another Life Passport</span><h2 class="disp">Six questions, answered for this piece.</h2></div>
- <div>{rows(PASSPORT_Q, numbered=True)}<p class="cap" style="margin-top:20px">Each piece carries a QR code linking to its record. <a href="passport.html">About the Passport</a></p></div>
+ <div>{rows(PASSPORT_Q, numbered=True)}<p class="cap" style="margin-top:20px">Each piece will carry a QR code linking to its record. <a href="passport.html">About the Passport</a></p></div>
 </div></section>
 <section><div class="wrap">
  <span class="label eyebrow muted">Pairs with</span>
@@ -631,10 +632,10 @@ brand = f'''
 </div></section>
 
 <section id="origin"><div class="wrap split">
- <div><span class="label eyebrow muted">Origin</span><h2 class="disp">Started at Green School, Bali.</h2><div class="lead-img">{fig("design-desk.jpg","A work table seen from above with chair drawings, a sketchbook, a burned teak sample, a hinge prototype and two coffee cups","Drawings, samples and hardware on the work table.")}</div></div>
+ <div><span class="label eyebrow muted">Origin</span><h2 class="disp">An idea born in Bali.</h2><div class="lead-img">{fig("design-desk.jpg","A work table seen from above with chair drawings, a sketchbook, a burned teak sample, a hinge prototype and two coffee cups","Drawings, samples and hardware on the work table.")}</div></div>
  <div class="prose"><p>We moved to Bali partly for Green School. Its ethos, to do better, stayed with us, and it is why this company exists.</p>
  <p>We wanted to build something that does good and still lets us live a healthy family life, rather than chase scale for its own sake. The idea came from looking around: hotels across Bali and the islands east of it, full of plastic furniture with short lives.</p>
- <p>Another Life was founded by Stine Palm and Magnus Palm. We have spent about a year in Bali learning Indonesian timber and working with local makers.</p></div>
+ <p>Another Life was founded by Stine Palm and Magnus Palm. We have spent about a year in Indonesia learning its timber and working with local makers.</p></div>
 </div></section>
 
 <section id="beliefs"><div class="wrap split">
@@ -649,7 +650,7 @@ brand = f'''
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">The real goal</span><h2 class="disp">Furniture that never becomes trash.</h2></div>
+ <div><span class="label eyebrow muted">The real goal</span><h2 class="disp">Furniture designed never to become trash.</h2></div>
  <div class="prose"><p>Recycling alone doesn't make something sustainable. The better aim is to design furniture that never becomes waste in the first place: built to last decades, to be repaired, reimagined and passed on.</p>
  <p class="pull" style="margin-top:24px">Sustainability isn't only about how furniture is made. It's about how long we can avoid making it again.</p></div>
 </div></section>
@@ -657,7 +658,7 @@ brand = f'''
 
 <section id="design"><div class="wrap split">
  <div><span class="label eyebrow muted">Design principles</span><h2 class="disp">Danish design, made where the material is.</h2>
- <p class="prose" style="margin-top:24px">Our design follows a Scandinavian tradition: simple, functional, made to last and to never go out of style. The pieces are made in Bali, close to the timber and the people who work it.</p></div>
+ <p class="prose" style="margin-top:24px">Our design follows a Scandinavian tradition: simple, functional, made to last and to never go out of style. The pieces are made by hand in Indonesia, close to the timber and the people who work it.</p></div>
  {rows([("Knock-down","Every piece ships disassembled and bolts together on site. Flat furniture takes far less space to move than assembled furniture."),
         ("Reassemblable","Joints must survive being taken apart and put back together many times, not once. A hotel can move, store or reconfigure its furniture."),
         ("Modular","Each component can be replaced on its own. One design can take different materials and parts over time, like a system rather than a single object."),
@@ -695,7 +696,7 @@ brand = f'''
  {rows(GLOSSARY)}
 </div></section>
 '''
-pages["brand.html"] = ("Another Life Brand DNA", "The brand DNA of Another Life: purpose, origin at Green School Bali, beliefs, Conscious Sustainability, design principles, voice, brand lines and glossary.", brand,
+pages["brand.html"] = ("Another Life Brand DNA", "The brand DNA of Another Life: purpose, origin in Bali, beliefs, Conscious Sustainability, design principles, voice, brand lines and glossary.", brand,
   [breadcrumb([("index.html","Home"),("brand.html","Brand DNA")]),
    {"@type":"AboutPage","name":"Another Life Brand DNA","url":url("brand.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED},
    {"@type":"DefinedTermSet","name":"Another Life glossary","url":url("brand.html")+"#glossary",
@@ -717,29 +718,29 @@ material = f'''
 {bleed("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk","Old posts and beams, marked and sorted before they are cut.")}
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Finish</span><h2 class="disp">Shou Sugi Ban.</h2><div class="lead-img">{vid("burning.mp4","burning-poster.jpg","Flames running along the surface of a teak board as it is burned","Burning the surface of the timber.")}</div></div>
- <div>{rows(["We burn the surface of the teak.","Flame protects the wood, rather than chemicals.","What is left is the material itself: honest, tactile, and made to age well."], numbered=True)}
- <p class="cap" style="margin-top:20px">Shou Sugi Ban is the Japanese practice of protecting wood with flame.</p></div>
+ <div>{rows(["We burn the surface of the teak to darken it.","We finish it with natural oil to preserve the character of the wood.","What is left is the material itself: honest, tactile, and made to age well."], numbered=True)}
+ <p class="cap" style="margin-top:20px">Shou Sugi Ban is a Japanese technique of darkening wood with flame.</p></div>
 </div></section>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Our standard</span><h2 class="disp">Defects stay. Strength comes first.</h2><div class="lead-img">{fig("timber-boards.jpg","Close-up of stacked repurposed teak boards, with old nail holes, cracks and saw marks along their edges","Old nail holes and marks stay part of the board.")}</div></div>
  <div class="prose"><p>Reclaimed wood carries holes and marks from its first life. We leave them natural and never fill them with glue.</p><p>We use them only where they don't weaken the piece. Character is welcome. A weaker chair is not.</p></div>
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Bali.</h2><div class="lead-img">{fig("workshop-drill.jpg","A maker in the workshop drilling a teak part on a pillar drill","Drilling the bolt holes by hand.")}</div></div>
- <div class="prose"><p>Every piece is made in Bali by local makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.</p>
+ <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img">{fig("workshop-drill.jpg","A maker in the workshop drilling a teak part on a pillar drill","Drilling the bolt holes by hand.")}</div></div>
+ <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.</p>
  <p>Producing close to the material keeps the supply chain short and visible.</p></div>
 </div></section>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Shipping</span><h2 class="disp">Flat, then bolted.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand, then bolt together.")}</div></div>
  <div class="prose"><p>Assembled furniture is mostly air in a container. Ours ships knocked down, so far more pieces fit in the same space, and it is bolted together on site.</p>
- <p>The same bolts let a piece be taken apart again to move it, store it, or replace a part. Prices are ex works, Bali.</p></div>
+ <p>The same bolts let a piece be taken apart again to move it, store it, or replace a part. Prices are ex works, Indonesia.</p></div>
 </div></section>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Over time</span><h2 class="disp">One design. Different lives.</h2><div class="lead-img">{fig("chair-detail-bw.jpg","Close-up of The Chair's frame and the three-bolt cluster that holds the seat to the leg")}</div></div>
  <div class="prose"><p>Our pieces are built as a system. The design stays; the material and components can change. Today SATU is made in repurposed teak with a Shou Sugi Ban finish. Future versions may use other timbers or materials, chosen by the same six questions we ask of everything.</p></div>
 </div></section>
 '''
-pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak, often from old joglo houses, finished with Shou Sugi Ban. Made in Bali, shipped flat.", material,
+pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak, often from old joglo houses, finished with Shou Sugi Ban and natural oil. Made in Indonesia, shipped flat.", material,
   [breadcrumb([("index.html","Home"),("material.html","Material and making")]),
    {"@type":"WebPage","name":"Material and making","url":url("material.html"),"about":[{"@type":"Thing","name":"Reclaimed teak"},{"@type":"Thing","name":"Joglo"},{"@type":"Thing","name":"Shou Sugi Ban"}],"dateModified":UPDATED}])
 
@@ -797,7 +798,7 @@ hosp = f'''
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">How it works</span><h2 class="disp">From enquiry to installation.</h2></div>
- {rows(["Tell us about the space, the pieces you need and your timeline.","We reply with options, pricing ex works Bali, and lead times.","Your pieces are made in Bali in small batches.","They ship flat and are bolted together on site.","Each piece arrives with its Passport."], numbered=True)}
+ {rows(["Tell us about the space, the pieces you need and your timeline.","We reply with options, pricing ex works Indonesia, and lead times.","Your pieces are made by hand in Indonesia in small batches.","They ship flat and are bolted together on site.","Each piece is documented for its Passport."], numbered=True)}
 </div></section>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Start</span><h2 class="disp">Tell us what you're building.</h2></div>
@@ -862,7 +863,7 @@ facts_body = f'''
 </div></section>
 <section style="padding-top:0;border-top:0"><div class="wrap split">
  <div><h2 class="disp">Summary</h2></div>
- <div class="prose"><p>{e(BRAND["one_line"])} {e(BRAND["mission"])} The first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in the Green School community in Bali and sells mainly to hospitality businesses.</p></div>
+ <div class="prose"><p>{e(BRAND["one_line"])} {e(BRAND["mission"])} The first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in Bali and sells mainly to hospitality businesses.</p></div>
 </div></section>
 <section><div class="wrap split">
  <div><h2 class="disp">Key facts</h2></div>
@@ -874,7 +875,7 @@ facts_body = f'''
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><h2 class="disp">How to write about us</h2></div>
- {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table."),("Please don't say","That our furniture is completely sustainable, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak in Bali.")])}
+ {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table."),("Please don't say","That our furniture is completely sustainable, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak. Danish design, made in Indonesia.")])}
 </div></section>
 '''
 pages["facts.html"] = ("Another Life Brand Facts", "Canonical facts about Another Life: what it makes, where, from what material, the SATU products and sizes, founders, customers and how to describe the brand.", facts_body,
@@ -892,7 +893,7 @@ contact = f'''
  <div>
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <div class="lead-img">{fig("sea-room.jpg","The Chair alone in a glass-walled room facing the sea at sunset")}</div>
-  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Based in","Bali, Indonesia"),("Pricing","On request. Ex works, Bali")])}</div>
+  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Based in","Bali, Indonesia"),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
  <div>
   <form id="enq" novalidate>
@@ -955,7 +956,7 @@ llms = f"""# Another Life
 
 > {BRAND['one_line']} {BRAND['mission']}
 
-Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (protected with flame rather than chemicals). Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Bali.
+Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has six pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
 
 Key facts:
 - Purpose: to make furniture that lasts a long time.
@@ -969,7 +970,7 @@ Key facts:
 - [Brand facts]({url('facts.html')}): canonical facts, products, sizes and how to describe the brand
 - [Brand DNA]({url('brand.html')}): purpose, origin, beliefs, Conscious Sustainability, design principles, voice, lines, glossary
 - [In use]({url('in-use.html')}): photographs of the furniture in restaurants, terraces and homes
-- [Material and making]({url('material.html')}): repurposed teak, Shou Sugi Ban finish, making in Bali, flat-pack shipping
+- [Material and making]({url('material.html')}): repurposed teak, Shou Sugi Ban finish, making in Indonesia, flat-pack shipping
 - [Another Life Passport]({url('passport.html')}): traceability record and circular services in development
 - [For hospitality]({url('hospitality.html')}): who we work with and how an order works
 - [Questions]({url('faq.html')}): {len(FAQ)} answered questions
@@ -986,14 +987,14 @@ Key facts:
 brand_json = {
   "name":"Another Life","wordmark":"ANOTHER — LIFE","url":SITE_URL,"updated":UPDATED,
   "description":BRAND["one_line"],"purpose":BRAND["mission"],"founders":BRAND["founders"],
-  "based_in":BRAND["based"],"made_in":BRAND["made_in"],"origin":"Founded in the Green School community, Bali",
+  "based_in":BRAND["based"],"made_in":BRAND["made_in"],"origin":"An idea born in Bali",
   "category":"Hospitality furniture (B2B)","customers":BRAND["customers"],
   "design_tradition":"Danish / Scandinavian",
   "material":{"name":"Repurposed teak","source":"Often old joglo houses, Indonesia"},
-  "finish":{"name":"Shou Sugi Ban","process":"The Japanese practice of protecting wood with flame rather than chemicals.","standard":"Holes and marks from reclaimed timber left natural, never filled with glue, never at the cost of strength."},
+  "finish":{"name":"Shou Sugi Ban","process":"Flame-darkened teak, finished with natural oil to preserve the character of the wood.","standard":"Holes and marks from reclaimed timber left natural, never filled with glue, never at the cost of strength."},
   "construction":["Modular","Knock-down: travels flat and is assembled on site","Comes apart without damage and goes back together as it was","If one part reaches its end, you replace the part, not the piece"],
   "use":"Indoor and outdoor hospitality spaces",
-  "pricing":"On request, ex works Bali",
+  "pricing":"On request, ex works Indonesia",
   "philosophy":{"name":"Conscious Sustainability","criteria":[c for c,_ in CRITERIA],"core_line":"Sustainability isn't one feature. It's every decision.","claims_policy":"Never claim a piece is completely sustainable; never publish unverified carbon or transport figures."},
   "traceability":{"name":"Another Life Passport","status":"In development","questions":PASSPORT_Q},
   "circular_services_in_development":["Replacement parts","Refinishing","Reconfiguration","Refurbishment","Take-back"],
