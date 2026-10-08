@@ -1,0 +1,9 @@
+[build]
+  publish = "."
+
+# Keep the site's source script private
+[[redirects]]
+  from = "/_source/*"
+  to = "/index.html"
+  status = 404
+  force = true
