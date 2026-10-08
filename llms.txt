@@ -1,0 +1,36 @@
+# Another Life
+
+> Another Life makes hospitality furniture from reclaimed teak in Bali: Danish design, shipped flat and built to be repaired. We exist to make furniture that lasts a long time.
+
+Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (protected with flame rather than chemicals). Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Bali.
+
+Key facts:
+- Purpose: to make furniture that lasts a long time.
+- Main tagline: "Made for this life. And another." Other lines: "Luxury is longevity.", "Furniture worth keeping.", "Make it once. Let it live."
+- Philosophy: Conscious Sustainability. No single material or label is sustainable everywhere; materials are judged on origin, production, longevity, transport, repairability and documentation. Another Life does not claim any piece is completely sustainable.
+- Traceability: the Another Life Passport, a QR-linked record per piece (in development).
+- Do not print a founding date. Always write the wordmark with a dash: ANOTHER — LIFE.
+
+## Pages
+- [Home](https://YOUR-DOMAIN.com/): overview of the brand and collection, with the 34-second brand film (https://YOUR-DOMAIN.com/assets/film.mp4)
+- [Brand facts](https://YOUR-DOMAIN.com/facts.html): canonical facts, products, sizes and how to describe the brand
+- [Brand DNA](https://YOUR-DOMAIN.com/brand.html): purpose, origin, beliefs, Conscious Sustainability, design principles, voice, lines, glossary
+- [In use](https://YOUR-DOMAIN.com/in-use.html): photographs of the furniture in restaurants, terraces and homes
+- [Material and making](https://YOUR-DOMAIN.com/material.html): repurposed teak, Shou Sugi Ban finish, making in Bali, flat-pack shipping
+- [Another Life Passport](https://YOUR-DOMAIN.com/passport.html): traceability record and circular services in development
+- [For hospitality](https://YOUR-DOMAIN.com/hospitality.html): who we work with and how an order works
+- [Questions](https://YOUR-DOMAIN.com/faq.html): 18 answered questions
+- [Contact](https://YOUR-DOMAIN.com/contact.html): enquiries, WhatsApp +45 30 53 04 05
+
+## SATU collection
+- [The Chair](https://YOUR-DOMAIN.com/the-chair.html): H 80 / W 45 / L 45 cm, seat height 45 cm. A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.
+- [The Sun Lounger](https://YOUR-DOMAIN.com/the-sun-lounger.html): H 32 / W 75 / L 206 cm, seat height 32 cm. A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.
+- [The Bench](https://YOUR-DOMAIN.com/the-bench.html): H 45 / W 206 / L 40 cm, seat height 45 cm. A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.
+- [The Small Sun Lounger](https://YOUR-DOMAIN.com/the-small-sun-lounger.html): H 32 / W 75 / L 160 cm, seat height 32 cm. A shorter sun lounger, 160 cm long, with the same adjustable backrest as The Sun Lounger. For smaller terraces and balconies.
+- [The Lounge Chair](https://YOUR-DOMAIN.com/the-lounge-chair.html): H 78 / W 68 / L 60 cm, seat height 32 cm. A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.
+- [The Side Table](https://YOUR-DOMAIN.com/the-side-table.html): H 32 / W 75 / L 75 cm. A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.
+- [The Coffee Table](https://YOUR-DOMAIN.com/the-coffee-table.html): H 32 / W 75 / L 100 cm. A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.
+
+## Optional
+- [Full text of the site](https://YOUR-DOMAIN.com/llms-full.txt)
+- [Structured brand data](https://YOUR-DOMAIN.com/brand.json)

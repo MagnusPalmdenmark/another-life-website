@@ -1,0 +1,214 @@
+{
+  "name": "Another Life",
+  "wordmark": "ANOTHER — LIFE",
+  "url": "https://YOUR-DOMAIN.com",
+  "updated": "2026-10-08",
+  "description": "Another Life makes hospitality furniture from reclaimed teak in Bali: Danish design, shipped flat and built to be repaired.",
+  "purpose": "We exist to make furniture that lasts a long time.",
+  "founders": [
+    "Stine Palm",
+    "Magnus Palm"
+  ],
+  "based_in": "Bali, Indonesia",
+  "made_in": "Bali, Indonesia",
+  "origin": "Founded in the Green School community, Bali",
+  "category": "Hospitality furniture (B2B)",
+  "customers": "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them",
+  "design_tradition": "Danish / Scandinavian",
+  "material": {
+    "name": "Repurposed teak",
+    "source": "Often old joglo houses, Indonesia"
+  },
+  "finish": {
+    "name": "Shou Sugi Ban",
+    "process": "The Japanese practice of protecting wood with flame rather than chemicals.",
+    "standard": "Holes and marks from reclaimed timber left natural, never filled with glue, never at the cost of strength."
+  },
+  "construction": [
+    "Modular",
+    "Knock-down: travels flat and is assembled on site",
+    "Comes apart without damage and goes back together as it was",
+    "If one part reaches its end, you replace the part, not the piece"
+  ],
+  "use": "Indoor and outdoor hospitality spaces",
+  "pricing": "On request, ex works Bali",
+  "philosophy": {
+    "name": "Conscious Sustainability",
+    "criteria": [
+      "Origin",
+      "Production",
+      "Longevity",
+      "Transport",
+      "Repairability",
+      "Documentation"
+    ],
+    "core_line": "Sustainability isn't one feature. It's every decision.",
+    "claims_policy": "Never claim a piece is completely sustainable; never publish unverified carbon or transport figures."
+  },
+  "traceability": {
+    "name": "Another Life Passport",
+    "status": "In development",
+    "questions": [
+      "Where did the material come from?",
+      "Who made it?",
+      "How was it transported?",
+      "Can it be repaired?",
+      "Can parts be replaced?",
+      "What happens at the end of its first life?"
+    ]
+  },
+  "circular_services_in_development": [
+    "Replacement parts",
+    "Refinishing",
+    "Reconfiguration",
+    "Refurbishment",
+    "Take-back"
+  ],
+  "taglines": [
+    "Made for this life. And another.",
+    "Furniture worth keeping.",
+    "Luxury is longevity.",
+    "Make it once. Let it live.",
+    "DANISH DESIGN · BUILT TO LAST",
+    "Sustainability is for everyone. Conscious style is not.",
+    "Another material. Another owner. Another place. Another life.",
+    "Materials from another life. Designed for another life."
+  ],
+  "collections": [
+    {
+      "name": "SATU",
+      "meaning": "Indonesian for 'one'",
+      "products": [
+        {
+          "name": "The Chair",
+          "dimensions_cm": {
+            "height": 80,
+            "width": 45,
+            "length": 45
+          },
+          "seat_height_cm": 45,
+          "category": "Chair",
+          "url": "https://YOUR-DOMAIN.com/the-chair.html",
+          "description": "A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced."
+        },
+        {
+          "name": "The Sun Lounger",
+          "dimensions_cm": {
+            "height": 32,
+            "width": 75,
+            "length": 206
+          },
+          "seat_height_cm": 32,
+          "category": "Lounger",
+          "url": "https://YOUR-DOMAIN.com/the-sun-lounger.html",
+          "description": "A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site."
+        },
+        {
+          "name": "The Bench",
+          "dimensions_cm": {
+            "height": 45,
+            "width": 206,
+            "length": 40
+          },
+          "seat_height_cm": 45,
+          "category": "Bench",
+          "url": "https://YOUR-DOMAIN.com/the-bench.html",
+          "description": "A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair."
+        },
+        {
+          "name": "The Small Sun Lounger",
+          "dimensions_cm": {
+            "height": 32,
+            "width": 75,
+            "length": 160
+          },
+          "seat_height_cm": 32,
+          "category": "Lounger",
+          "url": "https://YOUR-DOMAIN.com/the-small-sun-lounger.html",
+          "description": "A shorter sun lounger, 160 cm long, with the same adjustable backrest as The Sun Lounger. For smaller terraces and balconies."
+        },
+        {
+          "name": "The Lounge Chair",
+          "dimensions_cm": {
+            "height": 78,
+            "width": 68,
+            "length": 60
+          },
+          "seat_height_cm": 32,
+          "category": "Lounge chair",
+          "url": "https://YOUR-DOMAIN.com/the-lounge-chair.html",
+          "description": "A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces."
+        },
+        {
+          "name": "The Side Table",
+          "dimensions_cm": {
+            "height": 32,
+            "width": 75,
+            "length": 75
+          },
+          "seat_height_cm": null,
+          "category": "Table",
+          "url": "https://YOUR-DOMAIN.com/the-side-table.html",
+          "description": "A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair."
+        },
+        {
+          "name": "The Coffee Table",
+          "dimensions_cm": {
+            "height": 32,
+            "width": 75,
+            "length": 100
+          },
+          "seat_height_cm": null,
+          "category": "Table",
+          "url": "https://YOUR-DOMAIN.com/the-coffee-table.html",
+          "description": "A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces."
+        }
+      ]
+    }
+  ],
+  "glossary": {
+    "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Small Sun Lounger, The Lounge Chair, The Side Table and The Coffee Table.",
+    "Repurposed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
+    "Joglo": "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.",
+    "Shou Sugi Ban": "The Japanese practice of protecting wood with flame rather than chemicals. The finish on every SATU piece.",
+    "Knock-down": "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once.",
+    "Conscious Sustainability": "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation.",
+    "Another Life Passport": "The digital record attached to each piece by QR code. It starts at the workshop and is meant to grow with the piece through installation, repairs, refinishing and return.",
+    "Proof of Reclaim": "The part of the Passport that documents where a piece's timber came from and its earlier life."
+  },
+  "images": [
+    {
+      "url": "https://YOUR-DOMAIN.com/assets/restaurant-mountain.jpg",
+      "caption": "The Chair at restaurant tables beside a long upholstered banquette, forested hills through floor-to-ceiling windows."
+    },
+    {
+      "url": "https://YOUR-DOMAIN.com/assets/lounge-terrace.jpg",
+      "caption": "Lounge Chairs and a low table on a stone terrace under trees. Cushions and textiles are styling for the photograph and are not part of the collection."
+    },
+    {
+      "url": "https://YOUR-DOMAIN.com/assets/terrace-jungle.jpg",
+      "caption": "The Chair on a rain-wet timber terrace above the jungle at sunset, next to a round teak table."
+    },
+    {
+      "url": "https://YOUR-DOMAIN.com/assets/sea-room.jpg",
+      "caption": "The Chair alone in a glass-walled room facing the sea, a leather daybed in the foreground."
+    },
+    {
+      "url": "https://YOUR-DOMAIN.com/assets/sea-house.jpg",
+      "caption": "Chairs around a round table in a house by the sea, evening light across a stone floor."
+    }
+  ],
+  "contact": {
+    "whatsapp": "+45 30 53 04 05",
+    "enquiry": "https://YOUR-DOMAIN.com/contact.html"
+  },
+  "logo": {
+    "wordmark": "ANOTHER — LIFE",
+    "tagline": "Danish furniture. Designed for tomorrow.",
+    "file": "https://YOUR-DOMAIN.com/assets/logo-lockup.png"
+  },
+  "naming_rules": [
+    "Always ANOTHER — LIFE with a dash in the wordmark",
+    "No founding date or Est. line anywhere"
+  ]
+}
