@@ -25,6 +25,7 @@
 }
 @font-face{font-family:"AL Display";src:url("assets/display.ttf") format("truetype");font-weight:700;font-style:normal;font-display:swap}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/24px var(--font-mono)}
@@ -143,7 +144,7 @@ dl.ledger dd{margin:0;min-width:0}
 .pitem .n{font-family:var(--font-display);font-size:24px}
 .pitem .disp{font-size:clamp(26px,3.6vw,40px);line-height:1}
 .pitem .sku{font-variant-numeric:tabular-nums}
-@media (max-width:760px){.pitem{grid-template-columns:40px 64px minmax(0,1fr);align-items:start}.pitem .pthumb{width:64px}.pitem .d,.pitem .sku{grid-column:3}}
+@media (max-width:760px){.pitem{grid-template-columns:32px 64px minmax(0,1fr);align-items:center;gap:10px 16px}.pitem .pthumb{width:64px}.pitem .d,.pitem .sku{grid-column:1/-1}.pitem .d{margin-top:4px}}
 
 /* product page */
 .pphoto{width:100%;height:auto;max-width:100%;background:#fff;border:1px solid var(--hairline)}
@@ -183,8 +184,15 @@ form{display:grid;gap:22px}
 .field input,.field select,.field textarea{width:100%;min-height:46px;border:0;border-bottom:1px solid var(--ink);background:transparent;color:var(--ink);font:400 15px/24px var(--font-mono);padding:8px 0;border-radius:0}
 .field textarea{min-height:120px;resize:vertical}
 fieldset.field{border:0;margin:0;padding:0}
-.checks{display:flex;flex-wrap:wrap;gap:10px 20px}
-.checks label{display:inline-flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font:400 14px/20px var(--font-mono)}
+.checks{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));gap:0 24px;border-top:1px solid var(--hairline)}
+.checks label{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--hairline);text-transform:none;letter-spacing:0;font:400 15px/22px var(--font-mono);cursor:pointer;min-width:0}
+.checks input[type=checkbox]{-webkit-appearance:none;appearance:none;flex:0 0 18px;width:18px;height:18px;min-height:0;margin:0;padding:0;border:1px solid var(--ink);border-radius:0;background:transparent;display:grid;place-content:center;cursor:pointer}
+.checks input[type=checkbox]::after{content:"";width:10px;height:10px;background:var(--ink);transform:scale(0);transition:transform .12s}
+.checks input[type=checkbox]:checked::after{transform:scale(1)}
+.checks input[type=checkbox]:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:560px){.checks{grid-template-columns:minmax(0,1fr)}}
+.field select{-webkit-appearance:none;appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--ink) 50%),linear-gradient(135deg,var(--ink) 50%,transparent 50%);background-position:calc(100% - 12px) 50%,calc(100% - 7px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:24px}
+.field input,.field select,.field textarea{font-size:16px}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:22px}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
