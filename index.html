@@ -296,6 +296,32 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .head-media video{display:block;width:100%;height:auto;aspect-ratio:21/9;max-height:52vh;object-fit:cover;background:var(--ink)}
 .head-media figcaption{margin-top:10px}
 @media (max-width:640px){.head-media video{aspect-ratio:4/3;max-height:none}}
+/* the three bolt dots next to the logo */
+.brand{position:relative}
+.head-row{position:relative}
+.head-row .brand{margin-right:auto}
+.bdots{height:22px;width:auto;aspect-ratio:30/27;flex:0 0 auto;overflow:visible;margin-left:clamp(12px,2vw,28px)}
+.bdots circle{fill:var(--ink);transform-box:view-box;transform-origin:15px 16.7px}
+@media (max-width:860px){.bdots{height:18px;position:absolute;right:clamp(16px,4vw,56px);top:12px;margin:0}}
+.bdots.swap .d0{animation:sw0 1s cubic-bezier(.45,0,.3,1)}
+.bdots.swap .d1{animation:sw1 1s cubic-bezier(.45,0,.3,1) .06s}
+.bdots.swap .d2{animation:sw2 1s cubic-bezier(.45,0,.3,1) .12s}
+@keyframes sw0{0%{transform:none}50%{transform:translate(8px,2px) translateY(-9px)}100%{transform:translate(10px,16px)}}
+@keyframes sw1{0%{transform:none}50%{transform:translate(-10px,-6px)}100%{transform:translate(-20px,0)}}
+@keyframes sw2{0%{transform:none}50%{transform:translate(2px,-14px) translateY(-4px)}100%{transform:translate(10px,-16px)}}
+.bdots.hop circle{animation:hop .55s cubic-bezier(.3,0,.3,1)}
+.bdots.hop .d1{animation-delay:.12s}.bdots.hop .d2{animation-delay:.24s}
+@keyframes hop{0%,100%{transform:none}45%{transform:translateY(-7px)}70%{transform:translateY(1px)}}
+.bdots.spin{animation:spin 1.1s cubic-bezier(.6,0,.3,1)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bdots.wave circle{transform-origin:center;transform-box:fill-box;animation:wave .9s ease}
+.bdots.wave .d1{animation-delay:.15s}.bdots.wave .d2{animation-delay:.3s}
+@keyframes wave{0%,100%{transform:scale(1)}40%{transform:scale(1.45)}70%{transform:scale(.8)}}
+.bdots.tumble .d0{animation:tb0 1.1s ease}.bdots.tumble .d1{animation:tb1 1.1s ease}.bdots.tumble .d2{animation:tb2 1.1s ease}
+@keyframes tb0{0%,100%{transform:none}50%{transform:translate(0,10px)}}
+@keyframes tb1{0%,100%{transform:none}50%{transform:translate(-9px,-5px)}}
+@keyframes tb2{0%,100%{transform:none}50%{transform:translate(9px,-5px)}}
+@media (prefers-reduced-motion:reduce){.bdots *{animation:none!important}.bdots{animation:none!important}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -402,6 +428,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <header class="site-head autohide" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
 <nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="mission.html">Mission</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="contact.html">Contact</a></nav>
+<svg class="bdots" id="bdots" viewBox="0 0 30 27" aria-hidden="true"><circle class="d0" cx="15" cy="6" r="4.2"/><circle class="d1" cx="25" cy="22" r="4.2"/><circle class="d2" cx="5" cy="22" r="4.2"/></svg>
 </div></header>
 <main id="main">
 
@@ -528,6 +555,20 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>
+<script>
+(function(){
+ var svg=document.getElementById('bdots'); if(!svg) return;
+ if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ var moves=['swap','swap','swap','hop','spin','wave','swap','tumble'], busy=false, last='';
+ function play(name){ if(busy) return; busy=true;
+  if(!name){ do{ name=moves[Math.floor(Math.random()*moves.length)]; }while(name===last&&name!=='swap'); }
+  last=name; svg.setAttribute('class','bdots '+name);
+  setTimeout(function(){ svg.setAttribute('class','bdots'); busy=false; },1500); }
+ function loop(){ setTimeout(function(){ if(!document.hidden) play(); loop(); }, 4500+Math.random()*7000); }
+ setTimeout(function(){ play('swap'); loop(); }, 1400);
+ svg.addEventListener('mouseenter',function(){ play(); }); document.querySelector('.site-head .brand').addEventListener('mouseenter',function(){ play(); });
+})();
+</script>
 <script>(function(){function d(s){try{return atob(s).split('').reverse().join('')}catch(e){return ''}}document.querySelectorAll('[data-obf]').forEach(function(el){var v=d(el.getAttribute('data-obf')),t=el.getAttribute('data-t');if(t==='mail'){el.innerHTML='<a href="mailto:'+v+'">'+v+'</a>';}else if(t==='text'){el.textContent=v;}else if(t==='wa'){el.setAttribute('href','https://wa.me/'+v);el.setAttribute('target','_blank');el.setAttribute('rel','noopener');}});})();</script>
 <script>
 (function(){
