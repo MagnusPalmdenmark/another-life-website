@@ -430,6 +430,13 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .bleed{overflow:hidden}
 .motion .px{will-change:transform;transform:scale(1.18)}
 .motion .hero-over,.motion .hero-logo{will-change:transform,opacity}
+/* window: a hole in the page with the picture moving behind it */
+.win{padding-block:clamp(24px,4vw,56px)}
+.win-hole{position:relative;height:clamp(360px,78vh,820px);overflow:hidden;background:var(--ink)}
+.win-img{position:absolute;left:0;top:-22%;width:100%;height:144%;object-fit:cover;max-width:none}
+.motion .win-img{will-change:transform}
+.win-text{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(20px,4vw,56px);background:linear-gradient(180deg,rgba(20,18,15,0) 35%,rgba(20,18,15,.6) 100%)}
+.win-text p{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -488,6 +495,7 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 {body}
 </main>
 {FOOTER}
+{MOTION_JS}
 <script>(function(){{var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){{h.classList.toggle('show',window.scrollY>40);}}t();window.addEventListener('scroll',t,{{passive:true}});}})();</script>
 <script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){{document.querySelectorAll('video[autoplay]').forEach(function(v){{v.pause();v.removeAttribute('autoplay');v.controls=true;}});}}</script>'''
   if path=="index.html" and not standalone:
@@ -516,6 +524,10 @@ import PIL.Image as _PI
 IMG = {f:_PI.open(os.path.join(ROOT,"site_assets",f)).size for f in os.listdir(os.path.join(ROOT,"site_assets")) if f.endswith((".jpg",".png"))}
 def _wh(src):
   w,h = IMG.get(src,(0,0)); return f' width="{w}" height="{h}"' if w else ''
+def window(src, alt, text=None, cap=None):
+  t = f'<div class="win-text"><p class="disp">{text}</p></div>' if text else ''
+  c = f'<p class="cap" style="margin-top:12px">{e(cap)}</p>' if cap else ''
+  return f'<section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy">{t}</div>{c}</div></section>'
 def bleed(src, alt, cap=None, lazy=True):
   c = f'<div class="wrap"><figcaption class="cap">{e(cap)}</figcaption></div>' if cap else ''
   return f'<figure class="bleed"><img src="assets/{src}" alt="{e(alt)}"{_wh(src)}{" loading=lazy" if lazy else ""}>{c}</figure>'
@@ -578,13 +590,14 @@ MOTION_JS = """<script>
  if(still||!('IntersectionObserver' in window)) return;
  document.documentElement.classList.add('motion');
  var main=document.getElementById('main');
- var targets=main.querySelectorAll('section:not(.hero):not(.build) .wrap > *, section:not(.hero):not(.build) .split > *, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win) .wrap > *, section:not(.hero):not(.build):not(.win) .split > *, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
  var seen=new Set();
  targets.forEach(function(el){ if(el.closest('.hero')) return; el.classList.add('rv'); });
  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
  main.querySelectorAll('.rv').forEach(function(el){
   var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
  var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var wins=[].slice.call(main.querySelectorAll('.win-img'));
  var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
  var tick=false;
  function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
@@ -593,6 +606,8 @@ MOTION_JS = """<script>
    if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
   par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
    var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+  wins.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/(vh+r.height); img.style.transform='translate3d(0,'+(d*-34)+'%,0)'; });
  }
  window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
  frame();
@@ -640,7 +655,7 @@ home = f'''
   <p><a class="tlink" href="mission.html">Our mission</a></p>
  </div>
 </div></section>
-{bleed("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden","Lounge Chairs on a garden terrace, styled for the shoot.")}
+{window("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden",cap="Lounge Chairs on a garden terrace, styled for the shoot.")}
 
 <section><div class="wrap">
  <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Second lives</span><h2 class="disp">Our wood has stories.</h2></div>
@@ -682,7 +697,7 @@ home = f'''
 {BUILD_JS}
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.</h2></div>
+ <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2></div>
  <div class="prose"><p>A bottle that gets refilled does more good than one that gets melted down. Furniture works the same way: the longer a piece stays in use, the less needs to be made again.</p>
  <p>That idea shapes everything we design, and where we want to go next.</p>
  <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
@@ -699,7 +714,6 @@ home = f'''
  <div class="prose"><p>We work with boutique hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them. Tell us about the space and we'll reply with what is possible.</p>
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
 </div></section>
-{MOTION_JS}
 '''
 pages["index.html"] = ("Another Life", "Another Life makes hospitality furniture from repurposed teak: Danish design, made in Indonesia, shipped flat and built to be repaired. First collection: SATU.", home,
   [breadcrumb([("index.html","Home")]),
@@ -856,6 +870,7 @@ mission = f'''
  {rows(LIFE, numbered=True)}
 </div></section>
 
+{window("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water",text="The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.")}
 <section id="heading"><div class="wrap split">
  <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
  <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p><div class="lead-img">{fig("chair-legs-sand.jpg","Close-up of two dark teak chair legs standing in sand at the water's edge, small waves behind","Feet in the sand, eyes on what comes next.")}</div></div>
@@ -871,7 +886,6 @@ mission = f'''
  <p class="prose" style="margin-top:24px">We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find. <a href="passport.html#label">Why we look beyond the label</a></p></div>
  {rows(CRITERIA)}
 </div></section>
-{bleed("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water")}
 
 <section id="voice"><div class="wrap split">
  <div><span class="label eyebrow muted">Voice</span><h2 class="disp">How we speak.</h2></div>
@@ -918,7 +932,7 @@ material = f'''
  <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
  <p>Our teak (<i>Tectona grandis</i>) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. We are also building a way to trace each piece's own story: the <a href="passport.html">Passport</a>.</p></div>
 </div></section>
-{bleed("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk","Old posts and beams, marked and sorted before they are cut.")}
+{window("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk",cap="Old posts and beams, marked and sorted before they are cut.")}
 
 <section id="ulin"><div class="wrap split">
  <div><span class="label eyebrow muted">Chapter 2 · In development</span><h2 class="disp">Meet ulin, Borneo's ironwood.</h2><div class="lead-img">{duo(fig("ulin-plank.jpg","A reclaimed ulin plank held in a hand, weathered grey on the outside and warm brown where it has been planed","Reclaimed ulin: weathered outside, warm and dense inside."),fig("ulin-beams.jpg","The ends of old ulin beams stacked under trees, with S-shaped irons hammered into them","Old ulin beams. The S-shaped irons keep the ends from splitting."))}</div></div>
@@ -1010,7 +1024,7 @@ passport = f'''
  <div class="prose"><p>One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.</p></div></div>
  {updated()}
 </div></section>
-{bleed("timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length",lazy=False)}
+{window("timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length")}
 
 <section id="label"><div class="wrap split">
  <div><span class="label eyebrow muted">Beyond the label</span><h2 class="disp">A label is not a mission.</h2>

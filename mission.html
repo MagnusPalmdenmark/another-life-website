@@ -268,6 +268,13 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .bleed{overflow:hidden}
 .motion .px{will-change:transform;transform:scale(1.18)}
 .motion .hero-over,.motion .hero-logo{will-change:transform,opacity}
+/* window: a hole in the page with the picture moving behind it */
+.win{padding-block:clamp(24px,4vw,56px)}
+.win-hole{position:relative;height:clamp(360px,78vh,820px);overflow:hidden;background:var(--ink)}
+.win-img{position:absolute;left:0;top:-22%;width:100%;height:144%;object-fit:cover;max-width:none}
+.motion .win-img{will-change:transform}
+.win-text{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(20px,4vw,56px);background:linear-gradient(180deg,rgba(20,18,15,0) 35%,rgba(20,18,15,.6) 100%)}
+.win-text p{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -491,6 +498,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <div class="rows"><div class="row num"><span class="n">01</span><p>Made by hand from wood that has already lived once.</p></div><div class="row num"><span class="n">02</span><p>Shipped flat and bolted together on site.</p></div><div class="row num"><span class="n">03</span><p>Used every day: a dining room, a terrace, a pool.</p></div><div class="row num"><span class="n">04</span><p>A part wears out: swap just that part.</p></div><div class="row num"><span class="n">05</span><p>The place renovates or closes: take it apart, store it flat.</p></div><div class="row num"><span class="n">06</span><p>Someone gives it a new place and a new purpose. Back to step 3.</p></div></div>
 </div></section>
 
+<section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/chair-salt-flat.jpg" alt="A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water" width="1152" height="896" loading="lazy"><div class="win-text"><p class="disp">The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.</p></div></div></div></section>
 <section id="heading"><div class="wrap split">
  <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
  <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p><div class="lead-img"><figure class="fig"><img src="assets/chair-legs-sand.jpg" alt="Close-up of two dark teak chair legs standing in sand at the water&#x27;s edge, small waves behind" width="768" height="1024" loading="lazy"><figcaption class="cap">Feet in the sand, eyes on what comes next.</figcaption></figure></div></div>
@@ -504,7 +512,6 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <p class="prose" style="margin-top:24px">We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find. <a href="passport.html#label">Why we look beyond the label</a></p></div>
  <div class="rows"><div class="row"><h3 class="disp">Origin</h3><p>Where the material came from, and what it was before.</p></div><div class="row"><h3 class="disp">Production</h3><p>Who made it, where, and how.</p></div><div class="row"><h3 class="disp">Longevity</h3><p>How long it will last in daily hospitality use.</p></div><div class="row"><h3 class="disp">Transport</h3><p>How it travels, and how much space it takes to move.</p></div><div class="row"><h3 class="disp">Repairability</h3><p>Whether it can be fixed, and whether parts can be replaced.</p></div><div class="row"><h3 class="disp">Documentation</h3><p>Whether the answers above are written down and can be checked.</p></div></div>
 </div></section>
-<figure class="bleed"><img src="assets/chair-salt-flat.jpg" alt="A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water" width="1152" height="896" loading=lazy></figure>
 
 <section id="voice"><div class="wrap split">
  <div><span class="label eyebrow muted">Voice</span><h2 class="disp">How we speak.</h2></div>
@@ -531,6 +538,35 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>
+<script>
+(function(){
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('motion');
+ var main=document.getElementById('main');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win) .wrap > *, section:not(.hero):not(.build):not(.win) .split > *, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var seen=new Set();
+ targets.forEach(function(el){ if(el.closest('.hero')) return; el.classList.add('rv'); });
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+ main.querySelectorAll('.rv').forEach(function(el){
+  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
+ var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var wins=[].slice.call(main.querySelectorAll('.win-img'));
+ var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
+ var tick=false;
+ function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
+  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
+   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
+   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
+  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+  wins.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/(vh+r.height); img.style.transform='translate3d(0,'+(d*-34)+'%,0)'; });
+ }
+ window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
+ frame();
+})();
+</script>
 <script>(function(){var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){h.classList.toggle('show',window.scrollY>40);}t();window.addEventListener('scroll',t,{passive:true});})();</script>
 <script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('video[autoplay]').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.controls=true;});}</script>
 </body>

@@ -268,6 +268,13 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .bleed{overflow:hidden}
 .motion .px{will-change:transform;transform:scale(1.18)}
 .motion .hero-over,.motion .hero-logo{will-change:transform,opacity}
+/* window: a hole in the page with the picture moving behind it */
+.win{padding-block:clamp(24px,4vw,56px)}
+.win-hole{position:relative;height:clamp(360px,78vh,820px);overflow:hidden;background:var(--ink)}
+.win-img{position:absolute;left:0;top:-22%;width:100%;height:144%;object-fit:cover;max-width:none}
+.motion .win-img{will-change:transform}
+.win-text{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(20px,4vw,56px);background:linear-gradient(180deg,rgba(20,18,15,0) 35%,rgba(20,18,15,.6) 100%)}
+.win-text p{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -415,7 +422,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
   <p><a class="tlink" href="mission.html">Our mission</a></p>
  </div>
 </div></section>
-<figure class="bleed"><img src="assets/lounge-terrace.jpg" alt="Three Lounge Chairs and a low table on a stone terrace in a garden" width="1502" height="1047" loading=lazy><div class="wrap"><figcaption class="cap">Lounge Chairs on a garden terrace, styled for the shoot.</figcaption></div></figure>
+<section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/lounge-terrace.jpg" alt="Three Lounge Chairs and a low table on a stone terrace in a garden" width="1502" height="1047" loading="lazy"></div><p class="cap" style="margin-top:12px">Lounge Chairs on a garden terrace, styled for the shoot.</p></div></section>
 
 <section><div class="wrap">
  <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Second lives</span><h2 class="disp">Our wood has stories.</h2></div>
@@ -474,7 +481,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </script>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.</h2></div>
+ <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2></div>
  <div class="prose"><p>A bottle that gets refilled does more good than one that gets melted down. Furniture works the same way: the longer a piece stays in use, the less needs to be made again.</p>
  <p>That idea shapes everything we design, and where we want to go next.</p>
  <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
@@ -491,32 +498,6 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <div class="prose"><p>We work with boutique hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them. Tell us about the space and we'll reply with what is possible.</p>
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
 </div></section>
-<script>
-(function(){
- var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
- if(still||!('IntersectionObserver' in window)) return;
- document.documentElement.classList.add('motion');
- var main=document.getElementById('main');
- var targets=main.querySelectorAll('section:not(.hero):not(.build) .wrap > *, section:not(.hero):not(.build) .split > *, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
- var seen=new Set();
- targets.forEach(function(el){ if(el.closest('.hero')) return; el.classList.add('rv'); });
- var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
- main.querySelectorAll('.rv').forEach(function(el){
-  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
- var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
- var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
- var tick=false;
- function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
-  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
-   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
-   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
-  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
-   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
- }
- window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
- frame();
-})();
-</script>
 
 </main>
 <footer><div class="wrap">
@@ -528,6 +509,35 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>
+<script>
+(function(){
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('motion');
+ var main=document.getElementById('main');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win) .wrap > *, section:not(.hero):not(.build):not(.win) .split > *, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var seen=new Set();
+ targets.forEach(function(el){ if(el.closest('.hero')) return; el.classList.add('rv'); });
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+ main.querySelectorAll('.rv').forEach(function(el){
+  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
+ var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var wins=[].slice.call(main.querySelectorAll('.win-img'));
+ var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
+ var tick=false;
+ function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
+  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
+   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
+   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
+  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+  wins.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/(vh+r.height); img.style.transform='translate3d(0,'+(d*-34)+'%,0)'; });
+ }
+ window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
+ frame();
+})();
+</script>
 <script>(function(){var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){h.classList.toggle('show',window.scrollY>40);}t();window.addEventListener('scroll',t,{passive:true});})();</script>
 <script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('video[autoplay]').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.controls=true;});}</script>
 </body>
