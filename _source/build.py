@@ -825,7 +825,7 @@ mission = f'''
 {window("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water",text="The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.",tag="h1",top=True)}
 <section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
- <div class="split" style="margin-top:8px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
+ <div class="split" style="margin-top:8px">
  <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a> · <a href="#glossary">Glossary</a></p></nav></div>
  {updated()}
 </div></section>
