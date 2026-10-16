@@ -508,7 +508,7 @@ Material and making
 Timber that already lived once.
 Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.
 On this page
-Where our wood comes from · Ironwood · Shou Sugi Ban, our way · Natural oil · Making · Built to be rebuilt
+Where our wood comes from · Ironwood · Shou Sugi Ban, our way · Natural oil · Making · Hardware · Built to be rebuilt
 Last updated 2026-10-16
 Chapter 1 · Where our wood comes from17,000 islands, built in wood.
 Old wood waiting outside the workshop.
@@ -536,6 +536,12 @@ MakingMade in Indonesia.
 Marking the bolt holes.Then drilling them by hand.
 Every piece is made by hand in Indonesia by makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.
 Producing close to the material keeps the supply chain short and visible.
+The hardwareBolts built to outlive the chair.
+Three holes, three bolts, at every main joint.
+Hardware is usually the last thing anyone thinks about. It is often the cheapest part of a piece of furniture, and the first to fail: screws rust, threads strip, and a good chair is thrown out because of a part that cost almost nothing.
+We turned that around. Every SATU joint is held by engineered stainless steel (SUS) bolts that screw into threaded inserts set into the wood. The bolt never cuts into the wood itself, so a joint can be opened and closed again and again without wearing out.
+The three-bolt clusters you see on every piece aren't decoration. They hold everything together, and they're designed to last longer than the furniture around them.
+The bolt.The insert it screws into.
 Built to be rebuiltFlat, bolted, and back again.
 Parts fit by hand, then bolt together.
 Assembled furniture is mostly air in a shipping container. Ours travels flat, so far more pieces fit in the same space, and it is bolted together on site.
@@ -676,6 +682,8 @@ Can the furniture be used outdoors?
 Yes. It is made for hospitality spaces indoors and out, from dining rooms and lobbies to pools, terraces and gardens.
 How is the furniture shipped?
 Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site.
+What holds the furniture together?
+Stainless steel bolts, three at every main joint, screwed into threaded inserts in the wood. Hardware is often the weakest, cheapest part of furniture. We made it one of the strongest, so the joints can be taken apart and tightened again for decades.
 Can the furniture be repaired?
 Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again.
 What is the Another Life Passport?

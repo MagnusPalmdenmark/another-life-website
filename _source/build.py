@@ -110,6 +110,7 @@ FAQ = [
   ("Do you plant trees?", "It is part of our mission. We want to plant new trees for the wood we use, give back to the communities and makers behind our furniture, and do it with partners who care about the same things. We have just started, so we say it as a goal, not as something we already do. If you run a planting or community project, we would love to hear from you."),
   ("Can the furniture be used outdoors?", "Yes. It is made for hospitality spaces indoors and out, from dining rooms and lobbies to pools, terraces and gardens."),
   ("How is the furniture shipped?", "Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site."),
+  ("What holds the furniture together?", "Stainless steel bolts, three at every main joint, screwed into threaded inserts in the wood. Hardware is often the weakest, cheapest part of furniture. We made it one of the strongest, so the joints can be taken apart and tightened again for decades."),
   ("Can the furniture be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
   ("What is the Another Life Passport?", "A digital story for every piece, opened with a QR code on the furniture. It shows where the material came from, who made it, how it travelled and how it can be cared for, repaired and passed on."),
   ("Who do you make furniture for?", "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for."),
@@ -369,6 +370,7 @@ fieldset.field{border:0;margin:0;padding:0}
 blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
 .forest blockquote.say{border-color:var(--on-forest)}
 
+.renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -792,7 +794,7 @@ material = f'''
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#rebuilt">Built to be rebuilt</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#rebuilt">Built to be rebuilt</a></p></nav></div>
  {updated()}
 </div></section>
 
@@ -830,6 +832,14 @@ material = f'''
  <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img">{duo(fig("marking-holes.jpg","A maker's hand holding a teak leg against the frame, with the bolt holes marked in pen","Marking the bolt holes."),fig("workshop-drill.jpg","A maker in the workshop drilling a teak part on a pillar drill","Then drilling them by hand."))}</div></div>
  <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.</p>
  <p>Producing close to the material keeps the supply chain short and visible.</p></div>
+</div></section>
+
+<section id="hardware"><div class="wrap split">
+ <div><span class="label eyebrow muted">The hardware</span><h2 class="disp">Bolts built to outlive the chair.</h2><div class="lead-img">{fig("joint-holes.jpg","The underside of a raw teak frame, showing a leg joint with three bolt holes and the threaded inserts set into the wood","Three holes, three bolts, at every main joint.")}</div></div>
+ <div class="prose"><p>Hardware is usually the last thing anyone thinks about. It is often the cheapest part of a piece of furniture, and the first to fail: screws rust, threads strip, and a good chair is thrown out because of a part that cost almost nothing.</p>
+ <p>We turned that around. Every SATU joint is held by engineered stainless steel (SUS) bolts that screw into threaded inserts set into the wood. The bolt never cuts into the wood itself, so a joint can be opened and closed again and again without wearing out.</p>
+ <p>The three-bolt clusters you see on every piece aren't decoration. They hold everything together, and they're designed to last longer than the furniture around them.</p>
+ <div class="renders" style="margin-top:28px">{duo(fig("bolt-render.png","Technical drawing of the stainless steel connector bolt, with a flat head and a long thread","The bolt."),fig("insert-render.png","Technical drawing of the threaded insert that sits in the wood and receives the bolt","The insert it screws into."))}</div></div>
 </div></section>
 
 <section id="rebuilt"><div class="wrap split">
@@ -1105,6 +1115,7 @@ brand_json = {
   "point_of_view":{"headline":"Use it again, before you make it again.","summary":"Long life beats recycling. Recycling ends a product's life and costs energy to make something new, so it is the last stop, not plan A. Order of preference: use, repair, take apart and store, rebuild, recycle.","analogy":"A refillable glass bottle is better than one melted down into a new bottle."},
   "lifecycle":LIFE,
   "mission_goals":{"status":"Goals, not yet achieved. Another Life has just launched.","goals":["Plant new trees for the wood we use, including native species like teak and ulin","Give back to the communities and makers behind the furniture","Collaborate with planting projects, NGOs, hotels, architects, makers and community initiatives"]},
+  "hardware":"Engineered stainless steel (SUS) bolts in threaded inserts, three-bolt clusters at each main joint, designed to outlast the furniture",
   "construction":["Modular","Knock-down: travels flat and is assembled on site","Comes apart without damage and goes back together as it was","If one part reaches its end, you replace the part, not the piece"],
   "use":"Indoor and outdoor hospitality spaces",
   "pricing":"On request, ex works Indonesia",
