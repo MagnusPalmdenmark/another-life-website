@@ -718,8 +718,7 @@ mission = f'''
  <div><span class="label eyebrow muted">Origin</span><h2 class="disp">A family company, born in Bali.</h2><div class="lead-img">{fig("family.jpg","Black-and-white photograph of the founders and their three children in Balinese ceremonial dress, smiling, with offerings and a garden behind them","The family behind Another Life.")}</div></div>
  <div class="prose"><p>We moved to Bali partly for Green School. Its ethos, to do better, stayed with us, and it is why this company exists.</p>
  <p>We wanted to build something that does good and still lets us live a healthy family life, rather than chase scale for its own sake. The idea came from looking around: hotels across Bali and the islands east of it, full of plastic furniture with short lives.</p>
- <p>Another Life was founded by Stine Palm and Magnus Palm, and it is a family company. We build it the way we want to live: for the long run.</p>
- <p>We have spent about a year in Indonesia learning its timber and working with local makers.</p></div>
+ <p>Another Life was founded by Stine Palm and Magnus Palm, and it is a family company. We build it the way we want to live: for the long run.</p></div>
 </div></section>
 
 <section id="beliefs"><div class="wrap split">
@@ -831,7 +830,7 @@ material = f'''
 
 <section id="making"><div class="wrap split">
  <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img">{duo(fig("marking-holes.jpg","A maker's hand holding a teak leg against the frame, with the bolt holes marked in pen","Marking the bolt holes."),fig("workshop-drill.jpg","A maker in the workshop drilling a teak part on a pillar drill","Then drilling them by hand."))}</div></div>
- <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.</p>
+ <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches.</p>
  <p>Producing close to the material keeps the supply chain short and visible.</p></div>
 </div></section>
 
