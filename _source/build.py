@@ -719,10 +719,7 @@ home = f'''
  <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
 </div></section>
 
-<section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">In use</span><h2 class="disp">Made for real places.</h2></div>
- <p class="prose" style="margin:0">Dining rooms, terraces and rooms that open onto the weather. <a class="tlink" href="in-use.html">See every space</a></p></div>
-</div></section>
+
 
 
 <section><div class="wrap split">
