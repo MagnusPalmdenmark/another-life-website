@@ -66,7 +66,7 @@ PRODUCTS = [
        pairs=["the-chair","the-coffee-table"]),
   dict(slug="the-lounge-chair", name="The Lounge Chair", category="Lounge chair", order=4, dims=(78,68,60), seat=32,
        img="assets/loungechair-studio.jpg", img_alt="The Lounge Chair from the side: a low, deep slatted seat and backrest in repurposed teak, with three-bolt clusters at the front and back legs",
-       gallery=[("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden. Cushions and textiles are styling for the photograph and are not part of the collection.")],
+       gallery=[("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace. The cushions and throws were added for the photograph.")],
        short="A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.",
        use="Lounges, lobbies and terraces",
        notes=["Same repurposed teak, same Shou Sugi Ban finish, same bolted system as The Chair.",
@@ -96,8 +96,8 @@ FAQ = [
   ("What is Another Life?", "Another Life is a hospitality furniture brand from Bali. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
   ("Where is Another Life based?", "The company is based in Bali. Every piece is made by hand in Indonesia."),
   ("Who founded Another Life?", "Stine Palm and Magnus Palm. The idea was born in Bali, where the family moved partly for Green School."),
-  ("What does the name mean?", "Another material. Another owner. Another place. Another life. The teak we use has already had one life, and every piece is made to carry on: repaired, moved and passed on."),
-  ("What is SATU?", "SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece."),
+  ("What does the name mean?", "The teak we use has already lived one life, in a house, a bridge or a boat. Every piece we make from it is meant to keep going: repaired, moved and handed on to its next owner."),
+  ("What is SATU?", "SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. The name is the Indonesian word for one, because every piece shares the same wood, finish and way of building."),
   ("What is the furniture made from?", "Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands."),
   ("What is Shou Sugi Ban?", "Shou Sugi Ban, or yakisugi in Japanese, is a centuries-old technique of charring wood with flame. In Japan it was made for cedar, a softwood. We use it on a hardwood, repurposed teak: we burn the surface, then finish it with natural oil. The result is a deep black colour and a texture you can feel."),
   ("Why do you burn a hardwood?", "Because we wanted to see what an old Japanese idea could do for teak in the tropics. Charring gives the surface a protective, characterful skin, and the idea is to help the wood handle strong sun. We finish it with natural oil, which soaks into the wood instead of sitting on top as a coating."),
@@ -111,7 +111,7 @@ FAQ = [
   ("Do you plant trees?", "It is part of our mission. We want to plant new trees for the wood we use, give back to the communities and makers behind our furniture, and do it with partners who care about the same things. We have just started, so we say it as a goal, not as something we already do. If you run a planting or community project, we would love to hear from you."),
   ("Can the furniture be used outdoors?", "Yes. It is made for hospitality spaces indoors and out, from dining rooms and lobbies to pools, terraces and gardens."),
   ("How is the furniture shipped?", "Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site."),
-  ("Can it be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
+  ("Can the furniture be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
   ("What is the Another Life Passport?", "A digital story for every piece, opened with a QR code on the furniture. It shows where the material came from, who made it, how it travelled and how it can be cared for, repaired and passed on."),
   ("Who do you make furniture for?", "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for."),
   ("Is Another Life Danish?", "The design follows a Danish and Scandinavian tradition: simple, functional and made to last. The furniture is made by hand in Indonesia, close to the material and the makers."),
@@ -503,7 +503,7 @@ ONCE = '<div class="once">' + "".join(f'<div><img class="once-img" src="assets/{
 ONCE_PLAIN = '<div class="once">' + "".join(f'<div><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b,src,alt in ONCE_ITEMS) + '</div>'
 
 LIFE = ["Made by hand from wood that has already lived once.","Shipped flat and bolted together on site.","Used every day: a dining room, a terrace, a pool.",
-        "A part wears out: replace the part, not the piece.","The place renovates or closes: take it apart, store it flat.","Someone gives it a new place and a new purpose. Back to step 3."]
+        "A part wears out: swap just that part.","The place renovates or closes: take it apart, store it flat.","Someone gives it a new place and a new purpose. Back to step 3."]
 
 # HOME
 home = f'''
@@ -516,7 +516,7 @@ home = f'''
  </div></div>
 </div>
 <div class="wrap hero-foot">
- <p>Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired for decades rather than replaced.</p>
+ <p>Hospitality furniture from teak that already lived once. Designed in a Danish tradition, made by hand in Indonesia, and built to stay in use for decades.</p>
  <div class="btns"><button class="btn" type="button" id="film-open">Watch the film · 0:34</button><a class="label tlink" href="collection.html">See the SATU collection</a></div>
 </div></section>
 <div class="film-ov" id="film-ov" hidden role="dialog" aria-modal="true" aria-label="Another Life brand film">
@@ -530,13 +530,12 @@ home = f'''
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Why we exist</span><h2 class="disp">Hotels want Danish design. Then they fill the room with plastic.</h2></div>
  <div class="prose">
-  <p class="pull" style="margin-bottom:24px">We exist to make furniture that lasts a long time.</p>
   <p>Most hospitality furniture is bought, used for a few years and thrown away. We think the places that care most about how they look should also care how long their furniture lives.</p>
   <p>So we start with teak that has already lived once, often in old joglo houses. We design every piece to ship flat, bolt together on site and be repaired part by part.</p>
   <p><a class="tlink" href="mission.html">Our mission</a></p>
  </div>
 </div></section>
-{bleed("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden","Lounge Chairs on a garden terrace. Cushions and textiles are styling for the photograph and are not part of the collection.")}
+{bleed("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden","Lounge Chairs on a garden terrace, styled for the shoot.")}
 
 <section><div class="wrap">
  <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Second lives</span><h2 class="disp">Our wood has stories.</h2></div>
@@ -549,30 +548,30 @@ home = f'''
  <h2 class="disp name-lines" style="margin-top:28px">Another material.<br>Another owner.<br>Another place.<br>Another life.</h2>
  <div class="hero-foot" style="border-top:1px solid rgba(242,237,228,.28);margin-top:36px">
   <p>Teak that already lived once, made into furniture that can outlast the room it was bought for.</p>
-  <p class="label">Luxury is longevity.</p>
+  <p class="label">Furniture worth keeping.</p>
  </div>
 </div></section>
 
 <section><div class="wrap">
  <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Six pieces, one system.</h2></div>
  <p class="prose" style="margin:0">Satu is Indonesian for one. Our first collection shares one material, one finish and one way of building: knock-down, bolted and repairable.</p></div>
-  <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["use"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+  <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["category"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
 </div></section>
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand and bolt together.")}</div></div>
- {rows([("Reclaimed","Teak that already lived once, often in old joglo houses. Throw it away? Not on our watch."),("Burned and oiled","An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil."),("Made to be rebuilt","Ships flat, bolts together on site, comes apart again. Replace the part, not the piece.")])}
+ {rows([("Reclaimed","Teak that already lived once, often in old joglo houses. Far too good to waste."),("Burned and oiled","An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil."),("Made to be rebuilt","Ships flat, bolts together on site and comes apart again whenever it needs to.")])}
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Use it again, before you make it again.</h2></div>
- <div class="prose"><p>Think of an old glass milk bottle. It goes back, gets washed and refilled, again and again. Melting it down works too, but it costs far more energy and ends the bottle's life.</p>
- <p>We think furniture should work like the refillable bottle. Keep it, fix it, move it, pass it on. The most sustainable chair is the one that never needs replacing.</p>
+ <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2></div>
+ <div class="prose"><p>A bottle that gets refilled does more good than one that gets melted down. Furniture works the same way: the longer a piece stays in use, the less needs to be made again.</p>
+ <p>That idea shapes everything we design, and where we want to go next.</p>
  <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
 </div></section>
 
 <section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">In use</span><h2 class="disp">Where it lives.</h2></div>
+ <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">In use</span><h2 class="disp">Made for real places.</h2></div>
  <p class="prose" style="margin:0">Dining rooms, terraces and rooms that open onto the weather. <a class="tlink" href="in-use.html">See every space</a></p></div>
 </div></section>
 
@@ -582,7 +581,7 @@ home = f'''
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Tell us what you're building.</h2></div>
+ <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Furnishing a place?</h2></div>
  <div class="prose"><p>We work with boutique hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them. Tell us about the space and we'll reply with what is possible.</p>
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
 </div></section>
@@ -599,12 +598,12 @@ coll = f'''
  <span class="label eyebrow">Collection</span>
  <h1 class="disp">SATU</h1>
  <div class="split page-head-body" style="margin-top:32px"><p class="pull">Our first collection. Six pieces in one material, one finish and one way of building.</p>
- <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, you replace the part, not the piece.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Materials from another life. Designed for another life.</strong></p></div></div>
+ <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Old wood, new purpose, long life.</strong></p></div></div>
  {updated()}
 </div></section>
 {bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up",lazy=False)}
 <section><div class="wrap">
- <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["short"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+ <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["use"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Shared by every piece</span><h2 class="disp">One design. Different lives.</h2></div>
@@ -649,8 +648,8 @@ for p in PRODUCTS:
 </div></section>
 {gallery_html}
 <section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">Another Life Passport</span><h2 class="disp">Six questions, answered for this piece.</h2></div>
- <div>{rows(PASSPORT_Q, numbered=True)}<p class="cap" style="margin-top:20px">Each piece will carry a QR code linking to its record. <a href="passport.html">About the Passport</a></p></div>
+ <div><span class="label eyebrow muted">Its own record</span><h2 class="disp">A story you can scan.</h2></div>
+ <div class="prose"><p>{p["name"]} will carry a QR code that opens its own Passport: where its wood lived before, who made it, and how to look after it.</p><p class="cap" style="margin-top:20px"><a href="passport.html">How the Passport works</a></p></div>
 </div></section>
 <section><div class="wrap">
  <span class="label eyebrow muted">Pairs with</span>
@@ -693,7 +692,7 @@ mission = f'''
  <div><span class="label eyebrow muted">The order we think in</span><p class="prose" style="margin:0">Every step down the list costs more energy and more material. We design to stay near the top for as long as possible.</p></div>
  <ol class="ladder">
   <li><span class="disp">Use</span><p>Every day, in a real place. Not stacked in a corner.</p></li>
-  <li><span class="disp">Repair</span><p>A part wears out? Replace the part, not the piece.</p></li>
+  <li><span class="disp">Repair</span><p>Fix what's worn and keep it going.</p></li>
   <li><span class="disp">Take apart and store</span><p>Undo the bolts, pack it flat, let it wait for its next job.</p></li>
   <li><span class="disp">Rebuild</span><p>Same piece, new place, new owner.</p></li>
   <li class="last"><span class="disp">Recycle</span><p>The very last stop. We hope our furniture never gets there.</p></li>
@@ -710,8 +709,8 @@ mission = f'''
 
 <section class="forest" id="name"><div class="wrap">
  <span class="label eyebrow muted">The name</span>
- <h2 class="disp name-lines">Another material.<br>Another owner.<br>Another place.<br>Another life.</h2>
- <div class="hero-foot" style="border-top:1px solid rgba(242,237,228,.28);margin-top:36px"><p>The name is a belief. Old material deserves another life, and so does the furniture we make from it. A piece should be able to move to a new owner or a new place and keep going.</p><p class="label">Always written ANOTHER — LIFE, with the dash.</p></div>
+ <h2 class="disp name-lines">ANOTHER — LIFE.</h2>
+ <div class="hero-foot" style="border-top:1px solid rgba(242,237,228,.28);margin-top:36px"><p>The name is a belief. Old material deserves a second chance, and so does the furniture we make from it. A piece should be able to change hands and places many times and keep going.</p><p class="label">Always written with the dash.</p></div>
 </div></section>
 
 <section id="origin"><div class="wrap split">
@@ -767,11 +766,6 @@ mission = f'''
         ("We, not I","We speak as a company, in the first person plural.")])}
 </div></section>
 
-<section id="lines"><div class="wrap split">
- <div><span class="label eyebrow muted">Our lines</span><h2 class="disp">Words we use, exactly as written.</h2></div>
- <div class="rows">{"".join(f'<div class="row num"><span class="n">{i+1:02d}</span><p class="pull" style="max-width:none">{e(s)}</p></div>' for i,s in enumerate(BRAND["slogans"]))}</div>
-</div></section>
-
 <section id="not"><div class="wrap split">
  <div><span class="label eyebrow muted">Positioning</span><h2 class="disp">What we are. What we are not.</h2></div>
  <div>{ledger([("We are","Design furniture for hospitality, built to last and to be repaired"),
@@ -803,17 +797,12 @@ material = f'''
  {updated()}
 </div></section>
 {bleed("beams-garden.jpg","Old timber beams stacked under trees, weathered and split from their first life",lazy=False)}
-<section><div class="wrap">
- <span class="label eyebrow muted">Second lives</span>
- {ONCE_PLAIN}
- <p class="cap" style="margin-top:16px">Our wood comes from many places. Each piece's own story will be in its <a href="passport.html">Passport</a>.</p>
-</div></section>
 
 <section id="source"><div class="wrap split">
  <div><span class="label eyebrow muted">Chapter 1 · Where our wood comes from</span><h2 class="disp">17,000 islands, built in wood.</h2><div class="lead-img">{fig("joglo-beams.jpg","Old house beams stacked on gravel, with the mortise holes from their first life still in them","Beams from old houses, with their joinery holes still in them.")}</div></div>
  <div class="prose"><p>Indonesia has more than 17,000 islands, and for centuries much of it was built in wood. On Java, families lived in joglos: big teak houses held up by four mighty pillars and put together without a single nail.</p>
  <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
- <p>Our teak (<i>Tectona grandis</i>) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures.</p></div>
+ <p>Our teak (<i>Tectona grandis</i>) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. Each piece's own story will be in its <a href="passport.html">Passport</a>.</p></div>
 </div></section>
 {bleed("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk","Old posts and beams, marked and sorted before they are cut.")}
 
@@ -847,8 +836,8 @@ material = f'''
 
 <section id="rebuilt"><div class="wrap split">
  <div><span class="label eyebrow muted">Built to be rebuilt</span><h2 class="disp">Flat, bolted, and back again.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand, then bolt together.")}</div></div>
- <div class="prose"><p>Our furniture has one job: to be used. Every day. On a terrace, at a long lunch, by the pool. It's not made to be stacked in a corner and forgotten.</p>
- <p>It ships flat and bolts together on site. If the place it lives in changes, undo a few bolts, it packs flat, takes a nap in storage and wakes up somewhere new. If one part wears out, you swap the part, not the piece. Landfill is not on the itinerary.</p>
+ <div class="prose"><p>Assembled furniture is mostly air in a shipping container. Ours travels flat, so far more pieces fit in the same space, and it is bolted together on site.</p>
+ <p>The same bolts let a piece come apart again without damage: to move it, to store it, or to change a single worn part while the rest carries on.</p>
  <p><a class="tlink" href="mission.html#life">The life of a piece</a> · Prices are ex works, Indonesia.</p></div>
 </div></section>
 '''
@@ -917,7 +906,7 @@ hosp = f'''
  {rows(["Tell us about the space, the pieces you need and your timeline.","We reply with options, pricing ex works Indonesia, and lead times.","Your pieces are made by hand in Indonesia in small batches.","They ship flat and are bolted together on site.","Each piece is documented for its Passport."], numbered=True)}
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Start</span><h2 class="disp">Tell us what you're building.</h2></div>
+ <div><span class="label eyebrow muted">Start</span><h2 class="disp">Ready when you are.</h2></div>
  <div class="prose"><p>Prices are on request. We reply to every enquiry.</p><div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="collection.html">See SATU</a></div></div>
 </div></section>
 '''
