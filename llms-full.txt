@@ -599,7 +599,6 @@ URL: https://another-life.dk/passport.html
 
 Another Life Passport
 A story you can scan.
-Scan me
 We're building a system that links every piece to its own story. A small QR code on the furniture opens a page that follows the piece through its whole life.
 Labels make claims. A record shows its working. Our wood already has a past, as a house, a bridge or a boat, and we think that past deserves to travel with the furniture.
 The Passport is how we want to make that happen: one code, one piece, one story that keeps growing.
