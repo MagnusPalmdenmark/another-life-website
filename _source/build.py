@@ -42,7 +42,7 @@ BRAND = {
 PRODUCTS = [
   dict(slug="the-chair", name="The Chair", category="Chair", order=1, dims=(80,45,45), seat=45,
        img="assets/chair-rear.jpg", img_alt="The Chair from behind, showing the open backrest, the slatted seat and the bolt clusters on the back legs",
-       gallery=[("chair-studio-bw.jpg","Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints"),("chair-detail-bw.jpg","Close-up of The Chair's backrest and seat frame, with the burned grain and the bolt cluster visible"),("chair-light.jpg","The Chair in a beam of window light, the grain of the seat lit up"),("chair-terrazzo.jpg","The Chair on a terrazzo floor in Bali, the burned grain visible on seat and backrest"),("chair-detail-sky.jpg","The Chair's backrest against an evening sky, with low sun on the teak and the bolt cluster on the rear leg")],
+       gallery=[("chair-studio-bw.jpg","Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints"),("chair-detail-bw.jpg","Close-up of The Chair's backrest and seat frame, with the burned grain and the bolt cluster visible")],
        short="A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.",
        use="Dining rooms, restaurants and terraces",
        notes=["The first piece we designed, and the one the rest of SATU grew from.",
@@ -66,7 +66,6 @@ PRODUCTS = [
        pairs=["the-chair","the-coffee-table"]),
   dict(slug="the-lounge-chair", name="The Lounge Chair", category="Lounge chair", order=4, dims=(78,68,60), seat=32,
        img="assets/loungechair-studio.jpg", img_alt="The Lounge Chair from the side: a low, deep slatted seat and backrest in repurposed teak, with three-bolt clusters at the front and back legs",
-       gallery=[("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace. The cushions and throws were added for the photograph.")],
        short="A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.",
        use="Lounges, lobbies and terraces",
        notes=["Same repurposed teak, same Shou Sugi Ban finish, same bolted system as The Chair.",
@@ -496,8 +495,8 @@ pages = {}
 
 ONCE_ITEMS = [
   ("Once a family home in Java","Teak pillars that held up a joglo for generations, now holding up your guests.","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them"),
-  ("Once a bridge over a river","Wood that carried people across the water for decades.","ulin-beams.jpg","The ends of heavy old beams stacked under trees, with S-shaped irons hammered into them"),
-  ("Once a fishing boat","Wood that rode the waves, now taking it easy by the pool.","ulin-plank.jpg","A weathered old plank held in a hand, grey outside and warm brown where it has been planed"),
+  ("Once a bridge over a river","Wood that carried people across the water for decades.","beams-garden.jpg","Old timber beams stacked under trees, weathered and split from their first life"),
+  ("Once a fishing boat","Wood that rode the waves, now taking it easy by the pool.","saw-blade.jpg","A saw blade rising through an old, weathered plank in the workshop"),
 ]
 ONCE = '<div class="once">' + "".join(f'<div><img class="once-img" src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy"><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b,src,alt in ONCE_ITEMS) + '</div>'
 ONCE_PLAIN = '<div class="once">' + "".join(f'<div><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b,src,alt in ONCE_ITEMS) + '</div>'
@@ -559,7 +558,7 @@ home = f'''
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand and bolt together.")}</div></div>
+ <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{fig("workshop-planer.jpg","A maker in the workshop planing a long, old beam","Planing an old beam in the workshop.")}</div></div>
  {rows([("Reclaimed","Teak that already lived once, often in old joglo houses. Far too good to waste."),("Burned and oiled","An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil."),("Made to be rebuilt","Ships flat, bolts together on site and comes apart again whenever it needs to.")])}
 </div></section>
 
@@ -642,7 +641,7 @@ for p in PRODUCTS:
  <div>{ledger(specs)}<div class="btns" style="margin-top:28px"><a class="btn" href="contact.html?piece={p['slug']}">Enquire about {p["name"]}</a></div></div>
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Details</span><h2 class="disp">About {p["name"]}.</h2>{('<div class="lead-img">'+vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Fitting the backrest by hand.")+'</div>') if p["slug"]=="the-chair" else ""}</div>
+ <div><span class="label eyebrow muted">Details</span><h2 class="disp">About {p["name"]}.</h2></div>
  <div class="prose">{"".join(f"<p>{e(n)}</p>" for n in p["notes"])}
  <p>Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.</p></div>
 </div></section>
@@ -796,10 +795,9 @@ material = f'''
  <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#rebuilt">Built to be rebuilt</a></p></nav></div>
  {updated()}
 </div></section>
-{bleed("beams-garden.jpg","Old timber beams stacked under trees, weathered and split from their first life",lazy=False)}
 
 <section id="source"><div class="wrap split">
- <div><span class="label eyebrow muted">Chapter 1 · Where our wood comes from</span><h2 class="disp">17,000 islands, built in wood.</h2><div class="lead-img">{fig("joglo-beams.jpg","Old house beams stacked on gravel, with the mortise holes from their first life still in them","Beams from old houses, with their joinery holes still in them.")}</div></div>
+ <div><span class="label eyebrow muted">Chapter 1 · Where our wood comes from</span><h2 class="disp">17,000 islands, built in wood.</h2><div class="lead-img">{fig("workshop-door.jpg","Looking out of a dark timber shed onto a pile of old wood offcuts in the sun","Old wood waiting outside the workshop.")}</div></div>
  <div class="prose"><p>Indonesia has more than 17,000 islands, and for centuries much of it was built in wood. On Java, families lived in joglos: big teak houses held up by four mighty pillars and put together without a single nail.</p>
  <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
  <p>Our teak (<i>Tectona grandis</i>) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. Each piece's own story will be in its <a href="passport.html">Passport</a>.</p></div>
@@ -886,7 +884,7 @@ hosp = f'''
  <p class="pull" style="margin-top:24px">We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.</p>
  {updated()}
 </div></section>
-{bleed("restaurant-mountain.jpg","The Chair at restaurant tables beside a long banquette, forested hills through floor-to-ceiling windows","The Chair in a restaurant dining room.",lazy=False)}
+{bleed("chair-terrazzo.jpg","The Chair on a terrazzo floor in Bali, the burned grain visible on seat and backrest","The Chair on a terrazzo floor in Bali.",lazy=False)}
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Who we work with</span><h2 class="disp">The people who shape a place.</h2></div>
  <div class="prose"><p>We like to work directly with owners and the people who define what a hospitality brand stands for, not only how it looks. If your place is built on values, your furniture should carry them.</p>
@@ -894,7 +892,7 @@ hosp = f'''
  <p>Choosing Another Life is a way to adopt better decisions without building the supply chain yourself. The story comes with the piece.</p></div>
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">What you get</span><h2 class="disp">Why it fits hospitality.</h2><div class="lead-img">{fig("terrace-jungle.jpg","The Chair on a rain-wet timber terrace above the jungle at sunset","Outdoors, on a terrace after rain.")}</div></div>
+ <div><span class="label eyebrow muted">What you get</span><h2 class="disp">Why it fits hospitality.</h2><div class="lead-img">{fig("chair-detail-sky.jpg","The Chair's backrest against an evening sky, with low sun on the teak and the bolt cluster on the rear leg","Made to live outdoors.")}</div></div>
  {rows([("Indoors and outdoors","Made for pools, terraces, gardens, dining rooms and lobbies."),
         ("Repair, not replace","When a part wears, you replace the part. The piece stays in service."),
         ("Flat to your door","Ships knocked down, assembles on site, comes apart again when you move or store it."),
@@ -917,7 +915,6 @@ pages["hospitality.html"] = ("For Hospitality", "Another Life supplies reclaimed
 # IN USE
 SPACES = [
   ("restaurant-mountain.jpg","Restaurant","The Chair at restaurant tables beside a long upholstered banquette, forested hills through floor-to-ceiling windows."),
-  ("lounge-terrace.jpg","Garden terrace","Lounge Chairs and a low table on a stone terrace under trees. Cushions and textiles are styling for the photograph and are not part of the collection."),
   ("terrace-jungle.jpg","Terrace","The Chair on a rain-wet timber terrace above the jungle at sunset, next to a round teak table."),
   ("sea-room.jpg","Living room","The Chair alone in a glass-walled room facing the sea, a leather daybed in the foreground."),
   ("sea-house.jpg","Kitchen table","Chairs around a round table in a house by the sea, evening light across a stone floor."),
@@ -998,7 +995,6 @@ contact = f'''
  <div>
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
-  <div class="lead-img">{fig("sea-room.jpg","The Chair alone in a glass-walled room facing the sea at sunset")}</div>
   <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Based in","Bali, Indonesia"),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
  <div>
