@@ -826,7 +826,7 @@ mission = f'''
 <section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
  <div class="split" style="margin-top:8px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a> · <a href="#glossary">Glossary</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
@@ -888,29 +888,8 @@ mission = f'''
  <div class="btns" style="margin-top:20px"><a class="btn" href="contact.html?type=collab">Work with us</a></div></div>
 </div></section>
 
-<section id="conscious"><div class="wrap split">
- <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Better questions, not one label.</h2>
- <p class="prose" style="margin-top:24px">We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find. <a href="passport.html#label">Why we look beyond the label</a></p></div>
- {rows(CRITERIA)}
-</div></section>
 
-<section id="voice"><div class="wrap split">
- <div><span class="label eyebrow muted">Voice</span><h2 class="disp">How we speak.</h2></div>
- {rows([("Light, but serious","Short sentences, everyday words, one good fact at a time. Never preachy."),
-        ("Quiet confidence","We let the material and the making carry the argument."),
-        ("Facts as facts","We state what we know and say what we don't. Goals are written as goals."),
-        ("We, not I","We speak as a company, in the first person plural.")])}
-</div></section>
 
-<section id="not"><div class="wrap split">
- <div><span class="label eyebrow muted">Positioning</span><h2 class="disp">What we are. What we are not.</h2></div>
- <div>{ledger([("We are","Design furniture for hospitality, built to last and to be repaired"),
-               ("We sit between","Design furniture, contract hospitality furniture and sustainable furniture"),
-               ("We are not","The cheapest option"),
-               ("We are not","A brand that uses sustainability as an excuse for weaker design"),
-               ("We never claim","That a piece is completely sustainable"),
-               ("Our standard","Sustainability is for everyone. Conscious style is not.")])}</div>
-</div></section>
 
 <section id="glossary"><div class="wrap split">
  <div><span class="label eyebrow muted">Glossary</span><h2 class="disp">Terms we use.</h2></div>
