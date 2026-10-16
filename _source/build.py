@@ -42,7 +42,7 @@ BRAND = {
 PRODUCTS = [
   dict(slug="the-chair", name="The Chair", category="Chair", order=1, dims=(80,45,45), seat=45,
        img="assets/chair-rear.jpg", img_alt="The Chair from behind, showing the open backrest, the slatted seat and the bolt clusters on the back legs",
-       gallery=[("chair-studio-bw.jpg","Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints"),("chair-detail-bw.jpg","Close-up of The Chair's backrest and seat frame, with the burned grain and the bolt cluster visible"),("chair-saltflat-legs.jpg","Black-and-white photograph of bare legs standing on The Chair at the edge of shallow water on a salt flat")],
+       gallery=[("chair-studio-bw.jpg","Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints"),("chair-detail-bw.jpg","Close-up of The Chair's backrest and seat frame, with the burned grain and the bolt cluster visible"),("chair-saltflat-legs.jpg","Black-and-white photograph of bare legs standing on The Chair at the edge of shallow water on a salt flat"),("chair-beach-rear.jpg","The Chair from behind on a dark sand beach at dusk, the sea and a cloudy sky beyond"),("chair-beach-side.jpg","The Chair in profile on the same beach, the three-bolt clusters catching the evening light")],
        short="A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.",
        use="Dining rooms, restaurants and terraces",
        notes=["The first piece we designed, and the one the rest of SATU grew from.",
@@ -742,7 +742,7 @@ mission = f'''
 
 <section id="heading"><div class="wrap split">
  <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
- <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p></div>
+ <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p><div class="lead-img">{fig("chair-legs-sand.jpg","Close-up of two dark teak chair legs standing in sand at the water's edge, small waves behind","Feet in the sand, eyes on what comes next.")}</div></div>
  <div>{rows([("Plant","For the wood we use, we want to plant new trees, including slow-growing native species like teak and ulin."),
         ("Give back","We want to share what we build with the communities behind our furniture: the makers we work with and the places the wood comes from."),
         ("Collaborate","We're looking for partners who share the idea: planting projects, NGOs, hotels, architects, makers and community initiatives.")])}
@@ -914,6 +914,7 @@ pages["hospitality.html"] = ("For Hospitality", "Another Life supplies reclaimed
 
 # IN USE
 SPACES = [
+  ("hotel-room-jungle.jpg","Hotel room","The Chair in an open hotel room above the jungle at sunset, a curtain lifting in the breeze and the sea in the distance."),
   ("restaurant-mountain.jpg","Restaurant","The Chair at restaurant tables beside a long upholstered banquette, forested hills through floor-to-ceiling windows."),
   ("terrace-jungle.jpg","Terrace","The Chair on a rain-wet timber terrace above the jungle at sunset, next to a round teak table."),
   ("sea-room.jpg","Living room","The Chair alone in a glass-walled room facing the sea, a leather daybed in the foreground."),

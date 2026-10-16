@@ -197,6 +197,10 @@
   },
   "images": [
     {
+      "url": "https://YOUR-DOMAIN.com/assets/hotel-room-jungle.jpg",
+      "caption": "The Chair in an open hotel room above the jungle at sunset, a curtain lifting in the breeze and the sea in the distance."
+    },
+    {
       "url": "https://YOUR-DOMAIN.com/assets/restaurant-mountain.jpg",
       "caption": "The Chair at restaurant tables beside a long upholstered banquette, forested hills through floor-to-ceiling windows."
     },
