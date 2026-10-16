@@ -404,7 +404,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 .qr{display:block;width:clamp(180px,24vw,280px);height:auto;margin:0 auto clamp(28px,4vw,48px);border:2px solid var(--ink);padding:8px;background:var(--paper)}
 /* scroll-driven build section */
-.build-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);grid-template-areas:"head steps" "stage steps";gap:0 clamp(24px,5vw,72px);align-items:start}
+.build-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);grid-template-areas:"head steps" "stage steps";grid-template-rows:auto 1fr;gap:0 clamp(24px,5vw,72px);align-items:start}
 .build-head{grid-area:head}
 .build-stage{grid-area:stage;position:sticky;top:max(90px,calc(50vh - 190px));margin-top:32px}
 .build-steps{grid-area:steps}
@@ -441,6 +441,9 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .motion .name-lines .nl{opacity:0;transform:translateY(48px);filter:blur(4px);transition:opacity 1.4s ease,transform 1.6s cubic-bezier(.2,.7,.2,1),filter 1.4s ease}
 .motion .name-lines .nl.in{opacity:1;transform:none;filter:none}
 .sign-img{width:min(100%,360px);height:auto;display:block}
+.dots3{width:clamp(56px,6vw,76px);height:auto;display:block;margin-bottom:24px;overflow:visible}
+.dots3 circle{fill:var(--ink);opacity:.22;transition:opacity .5s ease,transform .5s ease;transform-box:fill-box;transform-origin:center}
+.dots3 circle.on{opacity:1;transform:scale(1.12)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -582,6 +585,7 @@ BUILD_JS = """<script>
   vids.forEach(function(v,k){ var on=k===i; v.classList.toggle('on',on); if(on&&visible&&!still){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } else { v.pause(); } });
   steps.forEach(function(s,k){ s.classList.toggle('on',k===i); });
   if(n) n.textContent='0'+(i+1);
+  [].forEach.call(sec.querySelectorAll('.dots3 circle'),function(c,k){ c.classList.toggle('on',k===i); });
  }
  if('IntersectionObserver' in window){
   var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) set(+e.target.dataset.i); }); },{rootMargin:'-45% 0px -45% 0px'});
@@ -691,7 +695,7 @@ home = f'''
 </div></section>
 
 <section class="build" id="build"><div class="wrap build-grid">
- <div class="build-head"><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2></div>
+ <div class="build-head"><svg class="dots3" viewBox="0 0 100 86" aria-hidden="true"><circle data-i="0" cx="50" cy="16" r="12"/><circle data-i="1" cx="80" cy="66" r="12"/><circle data-i="2" cx="20" cy="66" r="12"/></svg><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2></div>
  <div class="build-stage">
   <div class="build-frame">
    <video class="on" data-i="0" src="assets/build-reclaimed.mp4" poster="assets/build-reclaimed.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="Old teak beams with joinery holes, stacked side by side"></video>
