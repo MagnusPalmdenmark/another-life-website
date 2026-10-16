@@ -461,9 +461,11 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 @media (max-width:640px){.head-media video{aspect-ratio:4/3;max-height:none}}
 /* the three bolt dots next to the logo */
 .brand{position:relative}
-.bdots{width:24px;height:auto;flex:0 0 auto;overflow:visible;margin-left:4px}
+.head-row{position:relative}
+.head-row .brand{margin-right:auto}
+.bdots{width:24px;height:auto;flex:0 0 auto;overflow:visible;margin-left:clamp(12px,2vw,28px)}
 .bdots circle{fill:var(--ink);transform-box:view-box;transform-origin:15px 16.7px}
-@media (max-width:860px){.bdots{width:20px}}
+@media (max-width:860px){.bdots{width:20px;position:absolute;right:clamp(16px,4vw,56px);top:16px;margin:0}}
 .bdots.swap .d0{animation:sw0 1s cubic-bezier(.45,0,.3,1)}
 .bdots.swap .d1{animation:sw1 1s cubic-bezier(.45,0,.3,1) .06s}
 .bdots.swap .d2{animation:sw2 1s cubic-bezier(.45,0,.3,1) .12s}
@@ -540,8 +542,9 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
   nav = "".join(f'<a class="label" href="{h}"{" aria-current=page" if h==path else ""}>{n}</a>' for h,n in NAV)
   shell = f'''<a class="skip" href="#main">Skip to content</a>
 <header class="site-head{' autohide' if path=='index.html' else ''}" id="site-head"><div class="wrap head-row">
-<a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"><svg class="bdots" id="bdots" viewBox="0 0 30 27" aria-hidden="true"><circle class="d0" cx="15" cy="6" r="4.2"/><circle class="d1" cx="25" cy="22" r="4.2"/><circle class="d2" cx="5" cy="22" r="4.2"/></svg></a>
+<a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
 <nav class="nav" aria-label="Main">{nav}</nav>
+<svg class="bdots" id="bdots" viewBox="0 0 30 27" aria-hidden="true"><circle class="d0" cx="15" cy="6" r="4.2"/><circle class="d1" cx="25" cy="22" r="4.2"/><circle class="d2" cx="5" cy="22" r="4.2"/></svg>
 </div></header>
 <main id="main">
 {body}
@@ -630,7 +633,7 @@ DOTS_JS = """<script>
   setTimeout(function(){ svg.setAttribute('class','bdots'); busy=false; },1500); }
  function loop(){ setTimeout(function(){ if(!document.hidden) play(); loop(); }, 4500+Math.random()*7000); }
  setTimeout(function(){ play('swap'); loop(); }, 1400);
- svg.parentNode.addEventListener('mouseenter',function(){ play(); });
+ svg.addEventListener('mouseenter',function(){ play(); }); document.querySelector('.site-head .brand').addEventListener('mouseenter',function(){ play(); });
 })();
 </script>"""
 
