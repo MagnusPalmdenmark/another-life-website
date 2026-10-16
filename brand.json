@@ -182,12 +182,24 @@
           "category": "Table",
           "url": "https://YOUR-DOMAIN.com/the-coffee-table.html",
           "description": "A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces."
+        },
+        {
+          "name": "The Table",
+          "dimensions_cm": {
+            "height": 75,
+            "width": 100,
+            "length": 220
+          },
+          "seat_height_cm": null,
+          "category": "Table",
+          "url": "https://YOUR-DOMAIN.com/the-table.html",
+          "description": "A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench."
         }
       ]
     }
   ],
   "glossary": {
-    "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table.",
+    "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table and The Table.",
     "Repurposed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
     "Joglo": "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.",
     "Shou Sugi Ban": "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil.",
