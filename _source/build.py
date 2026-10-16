@@ -8,6 +8,7 @@ SITE_URL = "https://YOUR-DOMAIN.com"   # replace once the domain is chosen
 UPDATED = "2026-10-16"
 WHATSAPP = "+45 30 53 04 05"
 WA_LINK = "https://wa.me/4530530405"
+EMAIL = "magnus@another-life.dk"
 
 e = html.escape
 
@@ -1006,7 +1007,7 @@ contact = f'''
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img">{fig("chair-seawall-step.jpg","A woman in a long dress stepping barefoot off The Chair on a sea wall, a beach and a sailboat behind","Come and say hello.")}</div>
-  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
+  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Email", f'<a href="mailto:{EMAIL}">{EMAIL}</a>'),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
  <div>
   <form id="enq" novalidate>
@@ -1026,8 +1027,8 @@ contact = f'''
   <div id="out" class="out" hidden style="margin-top:28px">
    <span class="label">Your enquiry</span>
    <pre id="out-text"></pre>
-   <div class="btns"><a class="btn" id="wa-send" href="{WA_LINK}" target="_blank" rel="noopener">Send on WhatsApp</a><button class="btn" type="button" id="copy">Copy text</button></div>
-   <p class="cap" id="copy-note">Or copy the text and send it to {WHATSAPP}.</p>
+   <div class="btns"><a class="btn" id="wa-send" href="{WA_LINK}" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="mail-send" href="mailto:{EMAIL}">Send by email</a><button class="btn" type="button" id="copy">Copy text</button></div>
+   <p class="cap" id="copy-note">Or copy the text and send it to {WHATSAPP} or {EMAIL}.</p>
   </div>
  </div>
 </div></section>
@@ -1045,6 +1046,7 @@ contact = f'''
   var t='Hello Another Life,\\n\\nName: '+g('f-name')+'\\nBusiness: '+g('f-biz')+'\\nType: '+g('f-type')+(g('f-where')?'\\nLocation: '+g('f-where'):'')+(pcs.length?'\\nPieces: '+pcs.join(', '):'')+(g('f-msg')?'\\n\\n'+g('f-msg'):'');
   document.getElementById('out-text').textContent=t;
   document.getElementById('wa-send').href='{WA_LINK}?text='+encodeURIComponent(t);
+  document.getElementById('mail-send').href='mailto:{EMAIL}?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
   document.getElementById('out').hidden=false;
  }});
  document.getElementById('copy').addEventListener('click',function(){{
@@ -1125,7 +1127,7 @@ brand_json = {
   "collections":[{"name":"SATU","meaning":"Indonesian for 'one'","products":[{"name":p["name"],"dimensions_cm":{"height":p["dims"][0],"width":p["dims"][1],"length":p["dims"][2]},"seat_height_cm":p["seat"],"category":p["category"],"url":url(p["slug"]+".html"),"description":p["short"]} for p in PRODUCTS]}],
   "glossary":{a:b for a,b in GLOSSARY},
   "images":[{"url":url("assets/"+src),"caption":cap} for src,lbl,cap in SPACES],
-  "contact":{"whatsapp":WHATSAPP,"enquiry":url("contact.html")},
+  "contact":{"whatsapp":WHATSAPP,"email":EMAIL,"enquiry":url("contact.html")},
   "logo":{"wordmark":"ANOTHER — LIFE","tagline":"Danish furniture. Designed for tomorrow.","file":url("assets/logo-lockup.png")},
   "naming_rules":["Always ANOTHER — LIFE with a dash in the wordmark","No founding date or Est. line anywhere"],
 }
