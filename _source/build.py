@@ -94,7 +94,7 @@ PBY = {p["slug"]: p for p in PRODUCTS}
 FAQ = [
   ("What is Another Life?", "Another Life is a hospitality furniture brand from Bali. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
   ("Where is Another Life based?", "The company is based in Bali. Every piece is made by hand in Indonesia."),
-  ("Who founded Another Life?", "Stine Palm and Magnus Palm. The idea was born in Bali, where the family moved partly for Green School."),
+  ("Who founded Another Life?", "Stine Palm and Magnus Palm. It is a family company, and the idea was born in Bali, where the family moved partly for Green School."),
   ("What does the name mean?", "The teak we use has already lived one life, in a house, a bridge or a boat. Every piece we make from it is meant to keep going: repaired, moved and handed on to its next owner."),
   ("What is SATU?", "SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. The name is the Indonesian word for one, because every piece shares the same wood, finish and way of building."),
   ("What is the furniture made from?", "Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands."),
@@ -487,7 +487,7 @@ KEY_FACTS = [
   ("Design", "Danish and Scandinavian design tradition"),
   ("Made in", "Indonesia"),
   ("Based in", "Bali, Indonesia"),
-  ("Founders", "Stine Palm and Magnus Palm"),
+  ("Founders", "Stine Palm and Magnus Palm. A family company"),
   ("Pricing", "On request. Ex works, Indonesia"),
 ]
 
@@ -715,10 +715,11 @@ mission = f'''
 </div></section>
 
 <section id="origin"><div class="wrap split">
- <div><span class="label eyebrow muted">Origin</span><h2 class="disp">An idea born in Bali.</h2><div class="lead-img">{fig("design-desk.jpg","A work table seen from above with chair drawings, a sketchbook, a burned teak sample, a hinge prototype and two coffee cups","Drawings, samples and hardware on the work table.")}</div></div>
+ <div><span class="label eyebrow muted">Origin</span><h2 class="disp">A family company, born in Bali.</h2><div class="lead-img">{fig("family.jpg","Black-and-white photograph of the founders and their three children in Balinese ceremonial dress, smiling, with offerings and a garden behind them","The family behind Another Life.")}</div></div>
  <div class="prose"><p>We moved to Bali partly for Green School. Its ethos, to do better, stayed with us, and it is why this company exists.</p>
  <p>We wanted to build something that does good and still lets us live a healthy family life, rather than chase scale for its own sake. The idea came from looking around: hotels across Bali and the islands east of it, full of plastic furniture with short lives.</p>
- <p>Another Life was founded by Stine Palm and Magnus Palm. We have spent about a year in Indonesia learning its timber and working with local makers.</p></div>
+ <p>Another Life was founded by Stine Palm and Magnus Palm, and it is a family company. We build it the way we want to live: for the long run.</p>
+ <p>We have spent about a year in Indonesia learning its timber and working with local makers.</p></div>
 </div></section>
 
 <section id="beliefs"><div class="wrap split">
@@ -1106,7 +1107,7 @@ Key facts:
 brand_json = {
   "name":"Another Life","wordmark":"ANOTHER — LIFE","url":SITE_URL,"updated":UPDATED,
   "description":BRAND["one_line"],"purpose":BRAND["mission"],"founders":BRAND["founders"],
-  "based_in":BRAND["based"],"made_in":BRAND["made_in"],"origin":"An idea born in Bali",
+  "based_in":BRAND["based"],"company_type":"Family company","made_in":BRAND["made_in"],"origin":"An idea born in Bali",
   "category":"Hospitality furniture (B2B)","customers":BRAND["customers"],
   "design_tradition":"Danish / Scandinavian",
   "material":{"name":"Repurposed teak","botanical_name":"Tectona grandis","source":"Often old joglo houses in Indonesia, also bridges, boats and other structures"},
