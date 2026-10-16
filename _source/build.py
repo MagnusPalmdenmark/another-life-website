@@ -5,7 +5,7 @@ import json, os, shutil, html, re, urllib.parse
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = "https://YOUR-DOMAIN.com"   # replace once the domain is chosen
-UPDATED = "2026-10-08"
+UPDATED = "2026-10-16"
 WHATSAPP = "+45 30 53 04 05"
 WA_LINK = "https://wa.me/4530530405"
 
@@ -22,6 +22,7 @@ BRAND = {
   "made_in": "Indonesia",
   "collection": "SATU",
   "material": "Repurposed teak, often from old joglo houses",
+  "second_material": "Reclaimed ulin (Borneo ironwood, Eusideroxylon zwageri), in development",
   "finish": "Shou Sugi Ban: flame-darkened teak, finished with natural oil to preserve the character of the wood.",
   "construction": "Knock-down: ships flat, bolts together on site, can be taken apart again and has replaceable parts",
   "customers": "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them",
@@ -98,10 +99,16 @@ FAQ = [
   ("What does the name mean?", "Another material. Another owner. Another place. Another life. The teak we use has already had one life, and every piece is made to carry on: repaired, moved and passed on."),
   ("What is SATU?", "SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece."),
   ("What is the furniture made from?", "Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands."),
-  ("What is Shou Sugi Ban?", "Shou Sugi Ban is a Japanese technique of darkening wood with flame. We burn the surface of the teak, then finish it with natural oil to preserve the character of the wood. The result is a deep black colour and a texture you can feel, made to age beautifully."),
+  ("What is Shou Sugi Ban?", "Shou Sugi Ban, or yakisugi in Japanese, is a centuries-old technique of charring wood with flame. In Japan it was made for cedar, a softwood. We use it on a hardwood, repurposed teak: we burn the surface, then finish it with natural oil. The result is a deep black colour and a texture you can feel."),
+  ("Why do you burn a hardwood?", "Because we wanted to see what an old Japanese idea could do for teak in the tropics. Charring gives the surface a protective, characterful skin, and the idea is to help the wood handle strong sun. We finish it with natural oil, which soaks into the wood instead of sitting on top as a coating."),
+  ("What is a joglo?", "A joglo is a traditional Javanese house: a tall roof carried by four big teak pillars, put together with joinery so it can be taken apart and moved. Many old joglos are making way for concrete houses. Much of the teak we use comes from houses like these."),
+  ("What is ulin?", "Ulin, or Borneo ironwood (Eusideroxylon zwageri), is one of the hardest woods in the world. It is so dense it sinks in water, and it built boats, bridges and piers for generations. It grows very slowly and is protected, so new ulin can no longer be exported from Indonesia. We work only with reclaimed ulin, traced and documented. Our first ironwood samples are made, and it is in development as our second material."),
   ("Why does every piece look a little different?", "Because the teak has a history. Marks and nail holes from the wood's first life are part of its character, and we keep them visible as a quiet record of where it has been. Strength always comes first, so each piece is built to last."),
   ("Is Another Life furniture sustainable?", "Sustainability guides every decision we make: repurposed teak, a flame-darkened finish with natural oil, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make."),
   ("How do you show where the wood comes from?", "Every piece will have its own record: where the material came from, who made it and how it travelled. We are building this as the Another Life Passport, so the story of each piece can be read with a QR code."),
+  ("What happens when a hotel no longer needs the furniture?", "It comes apart. Undo the bolts and every piece packs flat, can be stored, and goes back together for its next place or owner. If a part is worn, you replace that part, not the piece. Our furniture is made to be used, never stacked in a corner, and never sent to landfill."),
+  ("Is the furniture recyclable?", "It is solid wood finished with natural oil, so at the very end of its life it can be. But we hope it never gets there. Recycling ends a product's life and takes energy to make something new. We would rather a piece is kept, repaired, moved and passed on, like a glass bottle that is refilled instead of melted down."),
+  ("Do you plant trees?", "It is part of our mission. We want to plant new trees for the wood we use, give back to the communities and makers behind our furniture, and do it with partners who care about the same things. We have just started, so we say it as a goal, not as something we already do. If you run a planting or community project, we would love to hear from you."),
   ("Can the furniture be used outdoors?", "Yes. It is made for hospitality spaces indoors and out, from dining rooms and lobbies to pools, terraces and gardens."),
   ("How is the furniture shipped?", "Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site."),
   ("Can it be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
@@ -116,7 +123,8 @@ GLOSSARY = [
   ("SATU", "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table."),
   ("Repurposed teak", "Teak that has already been cut and used. Much of ours comes from old joglo houses."),
   ("Joglo", "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses."),
-  ("Shou Sugi Ban", "A Japanese technique of darkening wood with flame. On SATU it is finished with natural oil."),
+  ("Shou Sugi Ban", "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil."),
+  ("Ulin", "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material."),
   ("Knock-down", "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once."),
   ("Conscious Sustainability", "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation."),
   ("Another Life Passport", "The digital record attached to each piece by QR code. It starts at the workshop and is meant to grow with the piece through installation, repairs, refinishing and return."),
@@ -125,6 +133,7 @@ GLOSSARY = [
 
 PRINCIPLES_BELIEF = [
   ("Luxury is longevity", "The most valuable piece of furniture is the one you never need to replace."),
+  ("Use it again first", "Reuse before recycling. Recycling is the last stop, not plan A."),
   ("Reclaim first", "We use timber that already exists before we look for anything new."),
   ("Design for repair", "Joints are bolted. Parts can be replaced. Pieces are made to be passed on."),
   ("Say what we know", "We tell you what is and isn't sustainable about a piece. A label alone doesn't settle it."),
@@ -151,8 +160,7 @@ PASSPORT_Q = [
 ]
 
 # ------------------------------------------------------------------ pages registry
-NAV = [("collection.html","Collection"),("in-use.html","In use"),("brand.html","Brand DNA"),("material.html","Material"),
-       ("passport.html","Passport"),("hospitality.html","Hospitality"),("faq.html","FAQ"),("contact.html","Contact")]
+NAV = [("collection.html","Collection"),("material.html","Material"),("mission.html","Mission"),("contact.html","Contact")]
 
 def url(path):  # canonical absolute url for JSON-LD
   return SITE_URL + "/" + ("" if path=="index.html" else path)
@@ -341,6 +349,26 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.once>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--hairline);min-width:0}
+.once>div+div{padding-left:24px;border-left:1px solid var(--hairline)}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div,.once>div+div{padding:20px 0;border-left:0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -409,8 +437,8 @@ FOOTER = f'''<footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul>{"".join(f'<li><a href="{p["slug"]}.html">{p["name"]}</a></li>' for p in PRODUCTS)}</ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp {WHATSAPP}</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="material.html">Material and making</a></li><li><a href="in-use.html">In use</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">Questions</a></li><li><a href="facts.html">Brand facts</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp {WHATSAPP}</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>'''
@@ -451,6 +479,8 @@ KEY_FACTS = [
   ("First collection", 'SATU: six pieces. <a href="collection.html">See the collection</a>'),
   ("Material", "Repurposed teak, often from old joglo houses"),
   ("Finish", "Shou Sugi Ban. Flame-darkened, finished with natural oil."),
+  ("In development", "Reclaimed ulin (Borneo ironwood). First samples made"),
+  ("Point of view", "Use it again, before you make it again"),
   ("Construction", "Modular and knock-down. Travels flat, comes apart without damage, parts replaceable"),
   ("Design", "Danish and Scandinavian design tradition"),
   ("Made in", "Indonesia"),
@@ -462,6 +492,16 @@ KEY_FACTS = [
 # ------------------------------------------------------------------ pages
 FILM_JS = "<script>\n(function(){\n var ov=document.getElementById('film-ov'),v=document.getElementById('film-full'),o=document.getElementById('film-open'),c=document.getElementById('film-close');\n function open(){ov.hidden=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});c.focus();}\n function close(){v.pause();ov.hidden=true;o.focus();}\n o.addEventListener('click',open);c.addEventListener('click',close);\n ov.addEventListener('click',function(e){if(e.target===ov)close();});\n document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});\n v.addEventListener('ended',close);\n})();\n</script>"
 pages = {}
+
+ONCE_ITEMS = [
+  ("Once a family home in Java","Teak pillars that held up a joglo for generations, now holding up your guests."),
+  ("Once a bridge over a river","Wood that carried people across the water for decades."),
+  ("Once a fishing boat","Wood that rode the waves, now taking it easy by the pool."),
+]
+ONCE = '<div class="once">' + "".join(f'<div><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b in ONCE_ITEMS) + '</div>'
+
+LIFE = ["Made by hand from wood that has already lived once.","Shipped flat and bolted together on site.","Used every day: a dining room, a terrace, a pool.",
+        "A part wears out: replace the part, not the piece.","The place renovates or closes: take it apart, store it flat.","Someone gives it a new place and a new purpose. Back to step 3."]
 
 # HOME
 home = f'''
@@ -491,10 +531,16 @@ home = f'''
   <p class="pull" style="margin-bottom:24px">We exist to make furniture that lasts a long time.</p>
   <p>Most hospitality furniture is bought, used for a few years and thrown away. We think the places that care most about how they look should also care how long their furniture lives.</p>
   <p>So we start with teak that has already lived once, often in old joglo houses. We design every piece to ship flat, bolt together on site and be repaired part by part.</p>
-  <p><a class="tlink" href="brand.html">Our beliefs, in full</a></p>
+  <p><a class="tlink" href="mission.html">Our mission</a></p>
  </div>
 </div></section>
 {bleed("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden","Lounge Chairs on a garden terrace. Cushions and textiles are styling for the photograph and are not part of the collection.")}
+
+<section><div class="wrap">
+ <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Second lives</span><h2 class="disp">Our wood has stories.</h2></div>
+ <p class="prose" style="margin:0">Before it was furniture, our wood held up houses, carried people across rivers and rode the waves. <a class="tlink" href="material.html">Where our wood comes from</a></p></div>
+ {ONCE}
+</div></section>
 
 <section class="forest"><div class="wrap">
  <img class="glyph-forest" src="assets/chair-glyph-light.png" alt="">
@@ -513,7 +559,14 @@ home = f'''
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand and bolt together.")}</div></div>
- {rows([("Reclaimed","Teak from old joglo houses. Timber that already spent decades as part of a home."),("Flat-packed","Ships knocked down, so more furniture fits in each container. Bolted together on site."),("Built to be repaired","Parts can be replaced, so a broken piece is not a discarded one.")])}
+ {rows([("Reclaimed","Teak that already lived once, often in old joglo houses. Throw it away? Not on our watch."),("Burned and oiled","An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil."),("Made to be rebuilt","Ships flat, bolts together on site, comes apart again. Replace the part, not the piece.")])}
+</div></section>
+
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Use it again, before you make it again.</h2></div>
+ <div class="prose"><p>Think of an old glass milk bottle. It goes back, gets washed and refilled, again and again. Melting it down works too, but it costs far more energy and ends the bottle's life.</p>
+ <p>We think furniture should work like the refillable bottle. Keep it, fix it, move it, pass it on. The most sustainable chair is the one that never needs replacing.</p>
+ <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
 </div></section>
 
 <section><div class="wrap">
@@ -590,7 +643,7 @@ for p in PRODUCTS:
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Details</span><h2 class="disp">About {p["name"]}.</h2>{('<div class="lead-img">'+vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Fitting the backrest by hand.")+'</div>') if p["slug"]=="the-chair" else ""}</div>
  <div class="prose">{"".join(f"<p>{e(n)}</p>" for n in p["notes"])}
- <p>Like every Another Life piece, it is made from timber that already had a first life. Holes and marks from that life are left natural and never filled with glue, and only where they don't reduce strength.</p></div>
+ <p>Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.</p></div>
 </div></section>
 {gallery_html}
 <section class="forest"><div class="wrap split">
@@ -614,16 +667,36 @@ for p in PRODUCTS:
          "isPartOf":{"@type":"CollectionPage","name":"SATU","url":url("collection.html")}}]
   pages[p["slug"]+".html"] = (f'{p["name"]} — SATU', f'{p["name"]} by Another Life: {p["short"]}', body, ld, (p["img"][7:] if p["img"] else "chair-studio-wide.jpg"))
 
-# BRAND DNA
-brand = f'''
+# MISSION (Brand DNA and mission, one page)
+mission = f'''
 <section class="page-head"><div class="wrap">
- <span class="label eyebrow">Brand DNA</span>
- <h1 class="disp">Luxury is longevity.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">Everything Another Life believes, how we decide, and how we speak. Written down so nobody has to guess.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#purpose">Purpose</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#conscious">Conscious Sustainability</a> · <a href="#design">Design principles</a> · <a href="#voice">Voice</a> · <a href="#lines">Our lines</a> · <a href="#not">What we are not</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <span class="label eyebrow">Mission</span>
+ <h1 class="disp">Use it again, before you make it again.</h1>
+ <div class="split" style="margin-top:32px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Long life first</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Conscious Sustainability</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
+
+<section id="reuse"><div class="wrap split">
+ <div><span class="label eyebrow muted">Our point of view</span><h2 class="disp">Long life beats recycling.</h2></div>
+ <div class="prose">
+  <p class="pull" style="margin-bottom:24px">Think of an old glass milk bottle.</p>
+  <p>It goes back, gets washed and refilled, again and again. Melting it down to make a new one works too, but it costs far more energy and ends the bottle's life.</p>
+  <p>We think furniture should work like the refillable bottle. Keep it, fix it, move it, pass it on. A product with a short life is still short-lived, even if it gets recycled. A long-lived one doesn't need to be remade at all.</p>
+  <p>Recycling is great, just not as plan A. The most sustainable chair is the one that never needs replacing.</p>
+ </div>
+</div></section>
+<section style="padding-top:0;border-top:0"><div class="wrap split">
+ <div><span class="label eyebrow muted">The order we think in</span><p class="prose" style="margin:0">Every step down the list costs more energy and more material. We design to stay near the top for as long as possible.</p></div>
+ <ol class="ladder">
+  <li><span class="disp">Use</span><p>Every day, in a real place. Not stacked in a corner.</p></li>
+  <li><span class="disp">Repair</span><p>A part wears out? Replace the part, not the piece.</p></li>
+  <li><span class="disp">Take apart and store</span><p>Undo the bolts, pack it flat, let it wait for its next job.</p></li>
+  <li><span class="disp">Rebuild</span><p>Same piece, new place, new owner.</p></li>
+  <li class="last"><span class="disp">Recycle</span><p>The very last stop. We hope our furniture never gets there.</p></li>
+ </ol>
+</div></section>
 
 <section id="purpose"><div class="wrap split">
  <div><span class="label eyebrow muted">Purpose</span><h2 class="disp">Why we exist.</h2></div>
@@ -650,18 +723,6 @@ brand = f'''
  <div><span class="label eyebrow muted">Beliefs</span><h2 class="disp">What we hold to.</h2></div>
  {rows(PRINCIPLES_BELIEF)}
 </div></section>
-
-<section id="conscious"><div class="wrap split">
- <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Sustainability isn't one feature. It's every decision.</h2>
- <p class="prose" style="margin-top:24px">No single material or label is sustainable everywhere. Recycling has a purpose, but one label can't fit every case. So we judge each material and method on six things, and we tell you what we find.</p></div>
- {rows(CRITERIA)}
-</div></section>
-
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">The real goal</span><h2 class="disp">Furniture designed never to become trash.</h2></div>
- <div class="prose"><p>Recycling alone doesn't make something sustainable. The better aim is to design furniture that never becomes waste in the first place: built to last decades, to be repaired, reimagined and passed on.</p>
- <p class="pull" style="margin-top:24px">Sustainability isn't only about how furniture is made. It's about how long we can avoid making it again.</p></div>
-</div></section>
 {bleed("chair-beach-sail.jpg","Black-and-white photograph of The Chair on a sea wall at low tide, a sailboat on the water behind and a figure passing out of focus")}
 
 <section id="design"><div class="wrap split">
@@ -673,13 +734,34 @@ brand = f'''
         ("Honest material","Grain, age, marks and imperfections stay visible. We want each piece to look like it has a story.")])}
 </div></section>
 
+<section class="forest" id="life"><div class="wrap split">
+ <div><span class="label eyebrow muted">The life of a piece</span><h2 class="disp">Built to be used, then rebuilt.</h2>
+ <p class="prose" style="margin-top:24px">Our furniture has one job: to be used. Every day. And if the place it lives in changes? Undo a few bolts, it packs flat, takes a nap in storage and wakes up somewhere new. Landfill is not on the itinerary.</p></div>
+ {rows(LIFE, numbered=True)}
+</div></section>
+
+<section id="heading"><div class="wrap split">
+ <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
+ <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p></div>
+ <div>{rows([("Plant","For the wood we use, we want to plant new trees, including slow-growing native species like teak and ulin."),
+        ("Give back","We want to share what we build with the communities behind our furniture: the makers we work with and the places the wood comes from."),
+        ("Collaborate","We're looking for partners who share the idea: planting projects, NGOs, hotels, architects, makers and community initiatives.")])}
+ <p style="margin-top:24px">Running a planting project, a community initiative or a hotel that wants to do better? Say hello. We love a good collaboration.</p>
+ <div class="btns" style="margin-top:20px"><a class="btn" href="contact.html?type=collab">Work with us</a></div></div>
+</div></section>
+
+<section id="conscious"><div class="wrap split">
+ <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Sustainability isn't one feature. It's every decision.</h2>
+ <p class="prose" style="margin-top:24px">No single material or label is sustainable everywhere. So we judge each material and method on six things, and we tell you what we find.</p></div>
+ {rows(CRITERIA)}
+</div></section>
 {bleed("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water")}
+
 <section id="voice"><div class="wrap split">
  <div><span class="label eyebrow muted">Voice</span><h2 class="disp">How we speak.</h2></div>
- {rows([("Plain","Short, declarative sentences. No superlatives, no hype."),
+ {rows([("Light, but serious","Short sentences, everyday words, one good fact at a time. Never preachy."),
         ("Quiet confidence","We let the material and the making carry the argument."),
-        ("Facts as facts","We state what we know and say what we don't. We never invent carbon figures or savings percentages."),
-        ("Approachable","Sustainability should feel inviting, even a little seductive, never heavy or preachy."),
+        ("Facts as facts","We state what we know and say what we don't. Goals are written as goals."),
         ("We, not I","We speak as a company, in the first person plural.")])}
 </div></section>
 
@@ -695,7 +777,6 @@ brand = f'''
                ("We are not","The cheapest option"),
                ("We are not","A brand that uses sustainability as an excuse for weaker design"),
                ("We never claim","That a piece is completely sustainable"),
-               ("We never print","A founding date or an Est. line"),
                ("Our standard","Sustainability is for everyone. Conscious style is not.")])}</div>
 </div></section>
 
@@ -704,10 +785,10 @@ brand = f'''
  {rows(GLOSSARY)}
 </div></section>
 '''
-pages["brand.html"] = ("Another Life Brand DNA", "The brand DNA of Another Life: purpose, origin in Bali, beliefs, Conscious Sustainability, design principles, voice, brand lines and glossary.", brand,
-  [breadcrumb([("index.html","Home"),("brand.html","Brand DNA")]),
-   {"@type":"AboutPage","name":"Another Life Brand DNA","url":url("brand.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED},
-   {"@type":"DefinedTermSet","name":"Another Life glossary","url":url("brand.html")+"#glossary",
+pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: long life over recycling, why we exist, our beliefs and design principles, the life of a piece, and our goals to plant, give back and collaborate.", mission,
+  [breadcrumb([("index.html","Home"),("mission.html","Mission")]),
+   {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED},
+   {"@type":"DefinedTermSet","name":"Another Life glossary","url":url("mission.html")+"#glossary",
     "hasDefinedTerm":[{"@type":"DefinedTerm","name":a,"description":b} for a,b in GLOSSARY]}])
 
 # MATERIAL
@@ -715,42 +796,67 @@ material = f'''
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
- <p class="pull" style="margin-top:24px">Where our wood comes from, how we finish it, and how each piece is built and shipped.</p>
+ <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.</p>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#rebuilt">Built to be rebuilt</a></p></nav></div>
  {updated()}
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Source</span><h2 class="disp">Old joglo houses.</h2><div class="lead-img">{fig("joglo-beams.jpg","Old house beams stacked on gravel, with the mortise holes from their first life still in them","Beams from old houses, with their joinery holes still in them.")}</div></div>
- <div class="prose"><p>Our teak is repurposed teak: timber that has already lived a life, often in old joglo houses. It has spent years as part of a home before it reaches us.</p>
- <p>We prefer to show where the wood came from rather than lean on a label. Each piece's origin is recorded in its <a href="passport.html">Passport</a>.</p></div>
+{bleed("beams-garden.jpg","Old timber beams stacked under trees, weathered and split from their first life",lazy=False)}
+<section><div class="wrap">
+ <span class="label eyebrow muted">Second lives</span>
+ {ONCE}
+ <p class="cap" style="margin-top:16px">Our wood comes from many places. Each piece's own story will be in its <a href="passport.html">Passport</a>.</p>
+</div></section>
+
+<section id="source"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 1 · Where our wood comes from</span><h2 class="disp">17,000 islands, built in wood.</h2><div class="lead-img">{fig("joglo-beams.jpg","Old house beams stacked on gravel, with the mortise holes from their first life still in them","Beams from old houses, with their joinery holes still in them.")}</div></div>
+ <div class="prose"><p>Indonesia has more than 17,000 islands, and for centuries much of it was built in wood. On Java, families lived in joglos: big teak houses held up by four mighty pillars and put together without a single nail.</p>
+ <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
+ <p>Our teak (<i>Tectona grandis</i>) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures.</p></div>
 </div></section>
 {bleed("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk","Old posts and beams, marked and sorted before they are cut.")}
-<section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">Finish</span><h2 class="disp">Shou Sugi Ban.</h2><div class="lead-img">{vid("burning.mp4","burning-poster.jpg","Flames running along the surface of a teak board as it is burned","Burning the surface of the timber.")}</div></div>
- <div>{rows(["We burn the surface of the teak to darken it.","We finish it with natural oil to preserve the character of the wood.","What is left is the material itself: honest, tactile, and made to age well."], numbered=True)}
- <p class="cap" style="margin-top:20px">Shou Sugi Ban is a Japanese technique of darkening wood with flame.</p></div>
+
+<section id="ulin"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 2 · In development</span><h2 class="disp">Meet ulin, Borneo's ironwood.</h2><div class="lead-img">{fig("saw-blade.jpg","A saw blade rising through an old, weathered plank in the workshop","Old timber meets the saw.")}</div></div>
+ <div class="prose"><p>Ulin (<i>Eusideroxylon zwageri</i>) is so dense it sinks in water, so tough that termites give up, and so slow-growing that a tree can live for more than a thousand years. For generations it carried fishing boats, held up bridges and kept river villages above the water.</p>
+ <p>A wood like that should never be cut new. So when an old boat or bridge retires, we give its ironwood a second career. Our first ironwood samples have just left the workshop.</p>
+ <p class="pull" style="margin-block:28px 16px">Why can't you just buy new ulin?</p>
+ <p>Because a tree that takes centuries to grow was cut much faster than it could grow back. Indonesia stepped in: new ulin can no longer be exported, and the species is protected. Old ulin is another story. When a bridge, a house or a dock has done its job, its wood can start again, traced and documented. That's the only ulin we'll ever use.</p></div>
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Our standard</span><h2 class="disp">Defects stay. Strength comes first.</h2><div class="lead-img">{fig("timber-boards.jpg","Close-up of stacked repurposed teak boards, with old nail holes, cracks and saw marks along their edges","Old nail holes and marks stay part of the board.")}</div></div>
- <div class="prose"><p>Reclaimed wood carries holes and marks from its first life. We leave them natural and never fill them with glue.</p><p>We use them only where they don't weaken the piece. Character is welcome. A weaker chair is not.</p></div>
+
+<section class="forest" id="finish"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 3 · Shou Sugi Ban, our way</span><h2 class="disp">Fire, borrowed from Japan.</h2><div class="lead-img">{vid("burning.mp4","burning-poster.jpg","Flames running along the surface of a teak board as it is burned","Burning the surface of the timber.")}</div></div>
+ <div class="prose"><p>In Japan, carpenters have protected cedar by setting it on fire for centuries. Really. It's called yakisugi, and a charred surface helps wood stand up to weather and bugs.</p>
+ <p>We borrowed the idea and tried it on something harder: repurposed teak. We burn the surface, then rub in natural oil. The idea is to help the wood handle the tropical sun.</p>
+ <p>An old Japanese technique, moved to a new wood and a new climate. Just the wood, a little braver.</p></div>
 </div></section>
-<section><div class="wrap split">
+
+<section id="oil"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 4 · Natural oil</span><h2 class="disp">Into the wood, not on top of it.</h2><div class="lead-img">{fig("timber-boards.jpg","Close-up of stacked repurposed teak boards, with old nail holes, cracks and saw marks along their edges","Old nail holes and marks stay part of the board.")}</div></div>
+ <div class="prose"><p>Many outdoor finishes are coatings: a layer that sits on top of the wood. Over time they weather, flake off and end up in the soil and the sea.</p>
+ <p>We finish with natural oil instead. It soaks into the wood rather than forming a skin, and when a piece needs care, you oil it again.</p>
+ <p>Reclaimed wood also carries marks from its first life. They stay visible, wherever they don't weaken the piece. Character is welcome. A weaker chair is not.</p></div>
+</div></section>
+
+<section id="making"><div class="wrap split">
  <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img">{fig("workshop-drill.jpg","A maker in the workshop drilling a teak part on a pillar drill","Drilling the bolt holes by hand.")}</div></div>
  <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.</p>
  <p>Producing close to the material keeps the supply chain short and visible.</p></div>
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Shipping</span><h2 class="disp">Flat, then bolted.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand, then bolt together.")}</div></div>
- <div class="prose"><p>Assembled furniture is mostly air in a container. Ours ships knocked down, so far more pieces fit in the same space, and it is bolted together on site.</p>
- <p>The same bolts let a piece be taken apart again to move it, store it, or replace a part. Prices are ex works, Indonesia.</p></div>
-</div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Over time</span><h2 class="disp">One design. Different lives.</h2><div class="lead-img">{fig("chair-detail-bw.jpg","Close-up of The Chair's frame and the three-bolt cluster that holds the seat to the leg")}</div></div>
- <div class="prose"><p>Our pieces are built as a system. The design stays; the material and components can change. Today SATU is made in repurposed teak with a Shou Sugi Ban finish. Future versions may use other timbers or materials, chosen by the same six questions we ask of everything.</p></div>
+
+<section id="rebuilt"><div class="wrap split">
+ <div><span class="label eyebrow muted">Built to be rebuilt</span><h2 class="disp">Flat, bolted, and back again.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand, then bolt together.")}</div></div>
+ <div class="prose"><p>Our furniture has one job: to be used. Every day. On a terrace, at a long lunch, by the pool. It's not made to be stacked in a corner and forgotten.</p>
+ <p>It ships flat and bolts together on site. If the place it lives in changes, undo a few bolts, it packs flat, takes a nap in storage and wakes up somewhere new. If one part wears out, you swap the part, not the piece. Landfill is not on the itinerary.</p>
+ <p><a class="tlink" href="mission.html#life">The life of a piece</a> · Prices are ex works, Indonesia.</p></div>
 </div></section>
 '''
-pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak, often from old joglo houses, finished with Shou Sugi Ban and natural oil. Made in Indonesia, shipped flat.", material,
+pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak from old joglo houses, bridges and boats, and is developing reclaimed ulin (Borneo ironwood). Burned with Shou Sugi Ban, finished with natural oil, made in Indonesia and built to be rebuilt.", material,
   [breadcrumb([("index.html","Home"),("material.html","Material and making")]),
-   {"@type":"WebPage","name":"Material and making","url":url("material.html"),"about":[{"@type":"Thing","name":"Reclaimed teak"},{"@type":"Thing","name":"Joglo"},{"@type":"Thing","name":"Shou Sugi Ban"}],"dateModified":UPDATED}])
+   {"@type":"WebPage","name":"Material and making","url":url("material.html"),"dateModified":UPDATED,
+    "about":[{"@type":"Thing","name":"Reclaimed teak","alternateName":"Tectona grandis"},
+             {"@type":"Thing","name":"Reclaimed ulin","alternateName":["Borneo ironwood","Eusideroxylon zwageri"]},
+             {"@type":"Thing","name":"Joglo","description":"Traditional Javanese teak house"},
+             {"@type":"Thing","name":"Shou Sugi Ban","alternateName":"Yakisugi"}]}])
 
 # PASSPORT
 passport = f'''
@@ -883,7 +989,7 @@ facts_body = f'''
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><h2 class="disp">How to write about us</h2></div>
- {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table."),("Please don't say","That our furniture is completely sustainable, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak. Danish design, made in Indonesia.")])}
+ {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table."),("Please don't say","That our furniture is completely sustainable, that we already plant trees, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak. Danish design, made in Indonesia.")])}
 </div></section>
 '''
 pages["facts.html"] = ("Another Life Brand Facts", "Canonical facts about Another Life: what it makes, where, from what material, the SATU products and sizes, founders, customers and how to describe the brand.", facts_body,
@@ -900,6 +1006,7 @@ contact = f'''
 <section style="padding-top:0;border-top:0"><div class="wrap split">
  <div>
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
+  <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img">{fig("sea-room.jpg","The Chair alone in a glass-walled room facing the sea at sunset")}</div>
   <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Based in","Bali, Indonesia"),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
@@ -910,7 +1017,7 @@ contact = f'''
     <div class="field"><label for="f-biz">Business</label><input id="f-biz" name="business" required autocomplete="organization"></div>
    </div>
    <div class="two">
-    <div class="field"><label for="f-type">Type of place</label><select id="f-type" name="type"><option>Boutique hotel</option><option>Resort</option><option>Restaurant</option><option>Café</option><option>Architect or interior designer</option><option>Other</option></select></div>
+    <div class="field"><label for="f-type">Type of place</label><select id="f-type" name="type"><option>Boutique hotel</option><option>Resort</option><option>Restaurant</option><option>Café</option><option>Architect or interior designer</option><option value="Collaboration">Collaboration: planting, community or partner project</option><option>Other</option></select></div>
     <div class="field"><label for="f-where">Location</label><input id="f-where" name="location" placeholder="City, country"></div>
    </div>
    <fieldset class="field"><legend>Pieces you are interested in</legend><div class="checks">{opts}</div></fieldset>
@@ -929,6 +1036,7 @@ contact = f'''
 <script>
 (function(){{
  var q=(location.search.match(/piece=([a-z-]+)/)||[])[1]; if(q){{var c=document.getElementById('pc-'+q); if(c)c.checked=true;}}
+ if(/type=collab/.test(location.search)){{document.getElementById('f-type').value='Collaboration';}}
  var f=document.getElementById('enq');
  f.addEventListener('submit',function(ev){{
   ev.preventDefault();
@@ -971,14 +1079,18 @@ Key facts:
 - Main tagline: "Made for this life. And another." Other lines: "Luxury is longevity.", "Furniture worth keeping.", "Make it once. Let it live."
 - Philosophy: Conscious Sustainability. No single material or label is sustainable everywhere; materials are judged on origin, production, longevity, transport, repairability and documentation. Another Life does not claim any piece is completely sustainable.
 - Traceability: the Another Life Passport, a QR-linked record per piece (in development).
+- Point of view: "Use it again, before you make it again." Long life beats recycling; recycling is the last stop, not plan A. Order: use, repair, take apart and store, rebuild, recycle.
+- Second material: reclaimed ulin (Borneo ironwood, Eusideroxylon zwageri), in development, first samples made. Reclaimed only; new ulin is protected and cannot be exported from Indonesia.
+- Wood sources: teak (Tectona grandis) from old joglo houses, bridges, boats and other structures.
+- Mission goals (not yet achieved, the company has just launched): plant trees for the wood used, give back to communities and makers, collaborate with partners.
 - Do not print a founding date. Always write the wordmark with a dash: ANOTHER — LIFE.
 
 ## Pages
 - [Home]({url('index.html')}): overview of the brand and collection, with the 34-second brand film ({url('assets/film.mp4')})
 - [Brand facts]({url('facts.html')}): canonical facts, products, sizes and how to describe the brand
-- [Brand DNA]({url('brand.html')}): purpose, origin, beliefs, Conscious Sustainability, design principles, voice, lines, glossary
+- [Mission]({url('mission.html')}): long life over recycling, purpose, origin, beliefs, design principles, the life of a piece, goals (plant, give back, collaborate), voice, glossary
 - [In use]({url('in-use.html')}): photographs of the furniture in restaurants, terraces and homes
-- [Material and making]({url('material.html')}): repurposed teak, Shou Sugi Ban finish, making in Indonesia, flat-pack shipping
+- [Material and making]({url('material.html')}): repurposed teak from joglo houses, bridges and boats; reclaimed ulin (in development); Shou Sugi Ban on hardwood; natural oil; making in Indonesia; built to be rebuilt
 - [Another Life Passport]({url('passport.html')}): traceability record and circular services in development
 - [For hospitality]({url('hospitality.html')}): who we work with and how an order works
 - [Questions]({url('faq.html')}): {len(FAQ)} answered questions
@@ -998,8 +1110,12 @@ brand_json = {
   "based_in":BRAND["based"],"made_in":BRAND["made_in"],"origin":"An idea born in Bali",
   "category":"Hospitality furniture (B2B)","customers":BRAND["customers"],
   "design_tradition":"Danish / Scandinavian",
-  "material":{"name":"Repurposed teak","source":"Often old joglo houses, Indonesia"},
-  "finish":{"name":"Shou Sugi Ban","process":"Flame-darkened teak, finished with natural oil to preserve the character of the wood.","standard":"Holes and marks from reclaimed timber left natural, never filled with glue, never at the cost of strength."},
+  "material":{"name":"Repurposed teak","botanical_name":"Tectona grandis","source":"Often old joglo houses in Indonesia, also bridges, boats and other structures"},
+  "finish":{"name":"Shou Sugi Ban","process":"Flame-darkened teak, finished with natural oil to preserve the character of the wood.","standard":"Marks from the wood's first life stay visible, never at the cost of strength.","note":"Japanese yakisugi was made for softwood (cedar); Another Life applies it to hardwood teak. The aim is to help the wood handle strong sun; this has not been formally tested."},
+  "second_material":{"name":"Reclaimed ulin","also_called":"Borneo ironwood","botanical_name":"Eusideroxylon zwageri","status":"In development; first samples made","rule":"Reclaimed only. New ulin is protected and its export from Indonesia is banned; reclaimed ulin is traced and documented."},
+  "point_of_view":{"headline":"Use it again, before you make it again.","summary":"Long life beats recycling. Recycling ends a product's life and costs energy to make something new, so it is the last stop, not plan A. Order of preference: use, repair, take apart and store, rebuild, recycle.","analogy":"A refillable glass bottle is better than one melted down into a new bottle."},
+  "lifecycle":LIFE,
+  "mission_goals":{"status":"Goals, not yet achieved. Another Life has just launched.","goals":["Plant new trees for the wood we use, including native species like teak and ulin","Give back to the communities and makers behind the furniture","Collaborate with planting projects, NGOs, hotels, architects, makers and community initiatives"]},
   "construction":["Modular","Knock-down: travels flat and is assembled on site","Comes apart without damage and goes back together as it was","If one part reaches its end, you replace the part, not the piece"],
   "use":"Indoor and outdoor hospitality spaces",
   "pricing":"On request, ex works Indonesia",

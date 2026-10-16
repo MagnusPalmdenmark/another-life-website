@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Another Life Brand DNA</title>
-<meta name="description" content="The brand DNA of Another Life: purpose, origin in Bali, beliefs, Conscious Sustainability, design principles, voice, brand lines and glossary.">
-<link rel="canonical" href="https://YOUR-DOMAIN.com/brand.html">
+<title>Another Life Mission</title>
+<meta name="description" content="The mission of Another Life: long life over recycling, why we exist, our beliefs and design principles, the life of a piece, and our goals to plant, give back and collaborate.">
+<link rel="canonical" href="https://YOUR-DOMAIN.com/mission.html">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Another Life">
-<meta property="og:title" content="Another Life Brand DNA"><meta property="og:description" content="The brand DNA of Another Life: purpose, origin in Bali, beliefs, Conscious Sustainability, design principles, voice, brand lines and glossary.">
-<meta property="og:url" content="https://YOUR-DOMAIN.com/brand.html"><meta property="og:image" content="https://YOUR-DOMAIN.com/assets/chair-studio-wide.jpg">
+<meta property="og:title" content="Another Life Mission"><meta property="og:description" content="The mission of Another Life: long life over recycling, why we exist, our beliefs and design principles, the life of a piece, and our goals to plant, give back and collaborate.">
+<meta property="og:url" content="https://YOUR-DOMAIN.com/mission.html"><meta property="og:image" content="https://YOUR-DOMAIN.com/assets/chair-studio-wide.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="alternate" type="text/plain" title="LLM summary" href="llms.txt">
@@ -197,6 +197,26 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.once>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--hairline);min-width:0}
+.once>div+div{padding-left:24px;border-left:1px solid var(--hairline)}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div,.once>div+div{padding:20px 0;border-left:0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -280,24 +300,24 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
     {
      "@type": "ListItem",
      "position": 2,
-     "name": "Brand DNA",
-     "item": "https://YOUR-DOMAIN.com/brand.html"
+     "name": "Mission",
+     "item": "https://YOUR-DOMAIN.com/mission.html"
     }
    ]
   },
   {
    "@type": "AboutPage",
-   "name": "Another Life Brand DNA",
-   "url": "https://YOUR-DOMAIN.com/brand.html",
+   "name": "Another Life Mission",
+   "url": "https://YOUR-DOMAIN.com/mission.html",
    "about": {
     "@id": "https://YOUR-DOMAIN.com/#org"
    },
-   "dateModified": "2026-10-08"
+   "dateModified": "2026-10-16"
   },
   {
    "@type": "DefinedTermSet",
    "name": "Another Life glossary",
-   "url": "https://YOUR-DOMAIN.com/brand.html#glossary",
+   "url": "https://YOUR-DOMAIN.com/mission.html#glossary",
    "hasDefinedTerm": [
     {
      "@type": "DefinedTerm",
@@ -317,7 +337,12 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
     {
      "@type": "DefinedTerm",
      "name": "Shou Sugi Ban",
-     "description": "A Japanese technique of darkening wood with flame. On SATU it is finished with natural oil."
+     "description": "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil."
+    },
+    {
+     "@type": "DefinedTerm",
+     "name": "Ulin",
+     "description": "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material."
     },
     {
      "@type": "DefinedTerm",
@@ -348,18 +373,38 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html" aria-current=page>Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="material.html">Material</a><a class="label" href="mission.html" aria-current=page>Mission</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
 <section class="page-head"><div class="wrap">
- <span class="label eyebrow">Brand DNA</span>
- <h1 class="disp">Luxury is longevity.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">Everything Another Life believes, how we decide, and how we speak. Written down so nobody has to guess.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#purpose">Purpose</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#conscious">Conscious Sustainability</a> · <a href="#design">Design principles</a> · <a href="#voice">Voice</a> · <a href="#lines">Our lines</a> · <a href="#not">What we are not</a> · <a href="#glossary">Glossary</a></p></nav></div>
- <p class="cap updated">Last updated 2026-10-08</p>
+ <span class="label eyebrow">Mission</span>
+ <h1 class="disp">Use it again, before you make it again.</h1>
+ <div class="split" style="margin-top:32px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Long life first</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Conscious Sustainability</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
 <figure class="bleed"><img src="assets/chair-beach-hands.jpg" alt="Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind" width="1800" height="1434"></figure>
+
+<section id="reuse"><div class="wrap split">
+ <div><span class="label eyebrow muted">Our point of view</span><h2 class="disp">Long life beats recycling.</h2></div>
+ <div class="prose">
+  <p class="pull" style="margin-bottom:24px">Think of an old glass milk bottle.</p>
+  <p>It goes back, gets washed and refilled, again and again. Melting it down to make a new one works too, but it costs far more energy and ends the bottle's life.</p>
+  <p>We think furniture should work like the refillable bottle. Keep it, fix it, move it, pass it on. A product with a short life is still short-lived, even if it gets recycled. A long-lived one doesn't need to be remade at all.</p>
+  <p>Recycling is great, just not as plan A. The most sustainable chair is the one that never needs replacing.</p>
+ </div>
+</div></section>
+<section style="padding-top:0;border-top:0"><div class="wrap split">
+ <div><span class="label eyebrow muted">The order we think in</span><p class="prose" style="margin:0">Every step down the list costs more energy and more material. We design to stay near the top for as long as possible.</p></div>
+ <ol class="ladder">
+  <li><span class="disp">Use</span><p>Every day, in a real place. Not stacked in a corner.</p></li>
+  <li><span class="disp">Repair</span><p>A part wears out? Replace the part, not the piece.</p></li>
+  <li><span class="disp">Take apart and store</span><p>Undo the bolts, pack it flat, let it wait for its next job.</p></li>
+  <li><span class="disp">Rebuild</span><p>Same piece, new place, new owner.</p></li>
+  <li class="last"><span class="disp">Recycle</span><p>The very last stop. We hope our furniture never gets there.</p></li>
+ </ol>
+</div></section>
 
 <section id="purpose"><div class="wrap split">
  <div><span class="label eyebrow muted">Purpose</span><h2 class="disp">Why we exist.</h2></div>
@@ -384,19 +429,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 
 <section id="beliefs"><div class="wrap split">
  <div><span class="label eyebrow muted">Beliefs</span><h2 class="disp">What we hold to.</h2></div>
- <div class="rows"><div class="row"><h3 class="disp">Luxury is longevity</h3><p>The most valuable piece of furniture is the one you never need to replace.</p></div><div class="row"><h3 class="disp">Reclaim first</h3><p>We use timber that already exists before we look for anything new.</p></div><div class="row"><h3 class="disp">Design for repair</h3><p>Joints are bolted. Parts can be replaced. Pieces are made to be passed on.</p></div><div class="row"><h3 class="disp">Say what we know</h3><p>We tell you what is and isn&#x27;t sustainable about a piece. A label alone doesn&#x27;t settle it.</p></div><div class="row"><h3 class="disp">Every decision matters</h3><p>There is no perfectly sustainable piece of furniture. There are better decisions, and we try to make them.</p></div><div class="row"><h3 class="disp">A conversation in a chair</h3><p>Furniture should give the person sitting in it something to ask about, not only give the owner something to point at.</p></div></div>
-</div></section>
-
-<section id="conscious"><div class="wrap split">
- <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Sustainability isn't one feature. It's every decision.</h2>
- <p class="prose" style="margin-top:24px">No single material or label is sustainable everywhere. Recycling has a purpose, but one label can't fit every case. So we judge each material and method on six things, and we tell you what we find.</p></div>
- <div class="rows"><div class="row"><h3 class="disp">Origin</h3><p>Where the material came from, and what it was before.</p></div><div class="row"><h3 class="disp">Production</h3><p>Who made it, where, and how.</p></div><div class="row"><h3 class="disp">Longevity</h3><p>How long it will last in daily hospitality use.</p></div><div class="row"><h3 class="disp">Transport</h3><p>How it travels, and how much space it takes to move.</p></div><div class="row"><h3 class="disp">Repairability</h3><p>Whether it can be fixed, and whether parts can be replaced.</p></div><div class="row"><h3 class="disp">Documentation</h3><p>Whether the answers above are written down and can be checked.</p></div></div>
-</div></section>
-
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">The real goal</span><h2 class="disp">Furniture designed never to become trash.</h2></div>
- <div class="prose"><p>Recycling alone doesn't make something sustainable. The better aim is to design furniture that never becomes waste in the first place: built to last decades, to be repaired, reimagined and passed on.</p>
- <p class="pull" style="margin-top:24px">Sustainability isn't only about how furniture is made. It's about how long we can avoid making it again.</p></div>
+ <div class="rows"><div class="row"><h3 class="disp">Luxury is longevity</h3><p>The most valuable piece of furniture is the one you never need to replace.</p></div><div class="row"><h3 class="disp">Use it again first</h3><p>Reuse before recycling. Recycling is the last stop, not plan A.</p></div><div class="row"><h3 class="disp">Reclaim first</h3><p>We use timber that already exists before we look for anything new.</p></div><div class="row"><h3 class="disp">Design for repair</h3><p>Joints are bolted. Parts can be replaced. Pieces are made to be passed on.</p></div><div class="row"><h3 class="disp">Say what we know</h3><p>We tell you what is and isn&#x27;t sustainable about a piece. A label alone doesn&#x27;t settle it.</p></div><div class="row"><h3 class="disp">Every decision matters</h3><p>There is no perfectly sustainable piece of furniture. There are better decisions, and we try to make them.</p></div><div class="row"><h3 class="disp">A conversation in a chair</h3><p>Furniture should give the person sitting in it something to ask about, not only give the owner something to point at.</p></div></div>
 </div></section>
 <figure class="bleed"><img src="assets/chair-beach-sail.jpg" alt="Black-and-white photograph of The Chair on a sea wall at low tide, a sailboat on the water behind and a figure passing out of focus" width="1800" height="1434" loading=lazy></figure>
 
@@ -406,10 +439,30 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <div class="rows"><div class="row"><h3 class="disp">Knock-down</h3><p>Every piece ships disassembled and bolts together on site. Flat furniture takes far less space to move than assembled furniture.</p></div><div class="row"><h3 class="disp">Reassemblable</h3><p>Joints must survive being taken apart and put back together many times, not once. A hotel can move, store or reconfigure its furniture.</p></div><div class="row"><h3 class="disp">Modular</h3><p>Each component can be replaced on its own. One design can take different materials and parts over time, like a system rather than a single object.</p></div><div class="row"><h3 class="disp">Honest material</h3><p>Grain, age, marks and imperfections stay visible. We want each piece to look like it has a story.</p></div></div>
 </div></section>
 
+<section class="forest" id="life"><div class="wrap split">
+ <div><span class="label eyebrow muted">The life of a piece</span><h2 class="disp">Built to be used, then rebuilt.</h2>
+ <p class="prose" style="margin-top:24px">Our furniture has one job: to be used. Every day. And if the place it lives in changes? Undo a few bolts, it packs flat, takes a nap in storage and wakes up somewhere new. Landfill is not on the itinerary.</p></div>
+ <div class="rows"><div class="row num"><span class="n">01</span><p>Made by hand from wood that has already lived once.</p></div><div class="row num"><span class="n">02</span><p>Shipped flat and bolted together on site.</p></div><div class="row num"><span class="n">03</span><p>Used every day: a dining room, a terrace, a pool.</p></div><div class="row num"><span class="n">04</span><p>A part wears out: replace the part, not the piece.</p></div><div class="row num"><span class="n">05</span><p>The place renovates or closes: take it apart, store it flat.</p></div><div class="row num"><span class="n">06</span><p>Someone gives it a new place and a new purpose. Back to step 3.</p></div></div>
+</div></section>
+
+<section id="heading"><div class="wrap split">
+ <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
+ <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p></div>
+ <div><div class="rows"><div class="row"><h3 class="disp">Plant</h3><p>For the wood we use, we want to plant new trees, including slow-growing native species like teak and ulin.</p></div><div class="row"><h3 class="disp">Give back</h3><p>We want to share what we build with the communities behind our furniture: the makers we work with and the places the wood comes from.</p></div><div class="row"><h3 class="disp">Collaborate</h3><p>We&#x27;re looking for partners who share the idea: planting projects, NGOs, hotels, architects, makers and community initiatives.</p></div></div>
+ <p style="margin-top:24px">Running a planting project, a community initiative or a hotel that wants to do better? Say hello. We love a good collaboration.</p>
+ <div class="btns" style="margin-top:20px"><a class="btn" href="contact.html?type=collab">Work with us</a></div></div>
+</div></section>
+
+<section id="conscious"><div class="wrap split">
+ <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Sustainability isn't one feature. It's every decision.</h2>
+ <p class="prose" style="margin-top:24px">No single material or label is sustainable everywhere. So we judge each material and method on six things, and we tell you what we find.</p></div>
+ <div class="rows"><div class="row"><h3 class="disp">Origin</h3><p>Where the material came from, and what it was before.</p></div><div class="row"><h3 class="disp">Production</h3><p>Who made it, where, and how.</p></div><div class="row"><h3 class="disp">Longevity</h3><p>How long it will last in daily hospitality use.</p></div><div class="row"><h3 class="disp">Transport</h3><p>How it travels, and how much space it takes to move.</p></div><div class="row"><h3 class="disp">Repairability</h3><p>Whether it can be fixed, and whether parts can be replaced.</p></div><div class="row"><h3 class="disp">Documentation</h3><p>Whether the answers above are written down and can be checked.</p></div></div>
+</div></section>
 <figure class="bleed"><img src="assets/chair-salt-flat.jpg" alt="A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water" width="1152" height="896" loading=lazy></figure>
+
 <section id="voice"><div class="wrap split">
  <div><span class="label eyebrow muted">Voice</span><h2 class="disp">How we speak.</h2></div>
- <div class="rows"><div class="row"><h3 class="disp">Plain</h3><p>Short, declarative sentences. No superlatives, no hype.</p></div><div class="row"><h3 class="disp">Quiet confidence</h3><p>We let the material and the making carry the argument.</p></div><div class="row"><h3 class="disp">Facts as facts</h3><p>We state what we know and say what we don&#x27;t. We never invent carbon figures or savings percentages.</p></div><div class="row"><h3 class="disp">Approachable</h3><p>Sustainability should feel inviting, even a little seductive, never heavy or preachy.</p></div><div class="row"><h3 class="disp">We, not I</h3><p>We speak as a company, in the first person plural.</p></div></div>
+ <div class="rows"><div class="row"><h3 class="disp">Light, but serious</h3><p>Short sentences, everyday words, one good fact at a time. Never preachy.</p></div><div class="row"><h3 class="disp">Quiet confidence</h3><p>We let the material and the making carry the argument.</p></div><div class="row"><h3 class="disp">Facts as facts</h3><p>We state what we know and say what we don&#x27;t. Goals are written as goals.</p></div><div class="row"><h3 class="disp">We, not I</h3><p>We speak as a company, in the first person plural.</p></div></div>
 </div></section>
 
 <section id="lines"><div class="wrap split">
@@ -419,12 +472,12 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 
 <section id="not"><div class="wrap split">
  <div><span class="label eyebrow muted">Positioning</span><h2 class="disp">What we are. What we are not.</h2></div>
- <div><dl class="ledger"><div><dt>We are</dt><dd>Design furniture for hospitality, built to last and to be repaired</dd></div><div><dt>We sit between</dt><dd>Design furniture, contract hospitality furniture and sustainable furniture</dd></div><div><dt>We are not</dt><dd>The cheapest option</dd></div><div><dt>We are not</dt><dd>A brand that uses sustainability as an excuse for weaker design</dd></div><div><dt>We never claim</dt><dd>That a piece is completely sustainable</dd></div><div><dt>We never print</dt><dd>A founding date or an Est. line</dd></div><div><dt>Our standard</dt><dd>Sustainability is for everyone. Conscious style is not.</dd></div></dl></div>
+ <div><dl class="ledger"><div><dt>We are</dt><dd>Design furniture for hospitality, built to last and to be repaired</dd></div><div><dt>We sit between</dt><dd>Design furniture, contract hospitality furniture and sustainable furniture</dd></div><div><dt>We are not</dt><dd>The cheapest option</dd></div><div><dt>We are not</dt><dd>A brand that uses sustainability as an excuse for weaker design</dd></div><div><dt>We never claim</dt><dd>That a piece is completely sustainable</dd></div><div><dt>Our standard</dt><dd>Sustainability is for everyone. Conscious style is not.</dd></div></dl></div>
 </div></section>
 
 <section id="glossary"><div class="wrap split">
  <div><span class="label eyebrow muted">Glossary</span><h2 class="disp">Terms we use.</h2></div>
- <div class="rows"><div class="row"><h3 class="disp">SATU</h3><p>The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table.</p></div><div class="row"><h3 class="disp">Repurposed teak</h3><p>Teak that has already been cut and used. Much of ours comes from old joglo houses.</p></div><div class="row"><h3 class="disp">Joglo</h3><p>A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.</p></div><div class="row"><h3 class="disp">Shou Sugi Ban</h3><p>A Japanese technique of darkening wood with flame. On SATU it is finished with natural oil.</p></div><div class="row"><h3 class="disp">Knock-down</h3><p>Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once.</p></div><div class="row"><h3 class="disp">Conscious Sustainability</h3><p>Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation.</p></div><div class="row"><h3 class="disp">Another Life Passport</h3><p>The digital record attached to each piece by QR code. It starts at the workshop and is meant to grow with the piece through installation, repairs, refinishing and return.</p></div><div class="row"><h3 class="disp">Proof of Reclaim</h3><p>The part of the Passport that documents where a piece&#x27;s timber came from and its earlier life.</p></div></div>
+ <div class="rows"><div class="row"><h3 class="disp">SATU</h3><p>The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table.</p></div><div class="row"><h3 class="disp">Repurposed teak</h3><p>Teak that has already been cut and used. Much of ours comes from old joglo houses.</p></div><div class="row"><h3 class="disp">Joglo</h3><p>A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.</p></div><div class="row"><h3 class="disp">Shou Sugi Ban</h3><p>A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil.</p></div><div class="row"><h3 class="disp">Ulin</h3><p>Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material.</p></div><div class="row"><h3 class="disp">Knock-down</h3><p>Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once.</p></div><div class="row"><h3 class="disp">Conscious Sustainability</h3><p>Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation.</p></div><div class="row"><h3 class="disp">Another Life Passport</h3><p>The digital record attached to each piece by QR code. It starts at the workshop and is meant to grow with the piece through installation, repairs, refinishing and return.</p></div><div class="row"><h3 class="disp">Proof of Reclaim</h3><p>The part of the Passport that documents where a piece&#x27;s timber came from and its earlier life.</p></div></div>
 </div></section>
 
 </main>
@@ -432,8 +485,8 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="material.html">Material and making</a></li><li><a href="in-use.html">In use</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">Questions</a></li><li><a href="facts.html">Brand facts</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>

@@ -197,6 +197,26 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.once>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--hairline);min-width:0}
+.once>div+div{padding-left:24px;border-left:1px solid var(--hairline)}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div,.once>div+div{padding:20px 0;border-left:0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -407,7 +427,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="material.html">Material</a><a class="label" href="mission.html">Mission</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
@@ -423,7 +443,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Details</span><h2 class="disp">About The Chair.</h2><div class="lead-img"><figure class="fig"><video src="assets/assembly.mp4" poster="assets/assembly-poster.jpg" width="616" height="800" autoplay muted loop playsinline preload="metadata" aria-label="A hand fitting the backrest of The Chair onto its frame"></video><figcaption class="cap">Fitting the backrest by hand.</figcaption></figure></div></div>
  <div class="prose"><p>The first piece we designed, and the one the rest of SATU grew from.</p><p>The bolts are part of the look. Three-bolt clusters at the seat and leg joints hold the frame and let it be taken apart again.</p><p>Every component can be replaced on its own. A broken leg is a new leg, not a new chair.</p>
- <p>Like every Another Life piece, it is made from timber that already had a first life. Holes and marks from that life are left natural and never filled with glue, and only where they don't reduce strength.</p></div>
+ <p>Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.</p></div>
 </div></section>
 <section><div class="wrap stack"><span class="label muted">In detail</span><div class="duo"><figure class="fig"><img src="assets/chair-studio-bw.jpg" alt="Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints" width="1800" height="1434" loading="lazy"><figcaption class="cap">Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints</figcaption></figure><figure class="fig"><img src="assets/chair-detail-bw.jpg" alt="Close-up of The Chair&#x27;s backrest and seat frame, with the burned grain and the bolt cluster visible" width="1800" height="1434" loading="lazy"><figcaption class="cap">Close-up of The Chair&#x27;s backrest and seat frame, with the burned grain and the bolt cluster visible</figcaption></figure></div><div class="duo"><figure class="fig"><img src="assets/chair-light.jpg" alt="The Chair in a beam of window light, the grain of the seat lit up" width="1800" height="1434" loading="lazy"><figcaption class="cap">The Chair in a beam of window light, the grain of the seat lit up</figcaption></figure><figure class="fig"><img src="assets/chair-terrazzo.jpg" alt="The Chair on a terrazzo floor in Bali, the burned grain visible on seat and backrest" width="1086" height="1448" loading="lazy"><figcaption class="cap">The Chair on a terrazzo floor in Bali, the burned grain visible on seat and backrest</figcaption></figure></div><div class="duo"><figure class="fig"><img src="assets/chair-detail-sky.jpg" alt="The Chair&#x27;s backrest against an evening sky, with low sun on the teak and the bolt cluster on the rear leg" width="1385" height="1800" loading="lazy"><figcaption class="cap">The Chair&#x27;s backrest against an evening sky, with low sun on the teak and the bolt cluster on the rear leg</figcaption></figure></div></div></section>
 <section class="forest"><div class="wrap split">
@@ -433,15 +453,15 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section><div class="wrap">
  <span class="label eyebrow muted">Pairs with</span>
  <div class="pairs"><a href="the-bench.html"><span class="label muted">SATU · 03</span><span class="disp" style="font-size:26px">The Bench</span><span class="cap">Dining tables, terraces and halls</span></a><a href="the-side-table.html"><span class="label muted">SATU · 05</span><span class="disp" style="font-size:26px">The Side Table</span><span class="cap">Poolside, terraces and lounges</span></a></div>
- <p class="cap updated">Last updated 2026-10-08</p>
+ <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
 </main>
 <footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="material.html">Material and making</a></li><li><a href="in-use.html">In use</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">Questions</a></li><li><a href="facts.html">Brand facts</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>

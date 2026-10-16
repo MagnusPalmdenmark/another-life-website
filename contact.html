@@ -197,6 +197,26 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.once>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--hairline);min-width:0}
+.once>div+div{padding-left:24px;border-left:1px solid var(--hairline)}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div,.once>div+div{padding:20px 0;border-left:0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -299,7 +319,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html" aria-current=page>Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="material.html">Material</a><a class="label" href="mission.html">Mission</a><a class="label" href="contact.html" aria-current=page>Contact</a></nav>
 </div></header>
 <main id="main">
 
@@ -310,6 +330,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section style="padding-top:0;border-top:0"><div class="wrap split">
  <div>
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
+  <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img"><figure class="fig"><img src="assets/sea-room.jpg" alt="The Chair alone in a glass-walled room facing the sea at sunset" width="1448" height="1086" loading="lazy"></figure></div>
   <div style="margin-top:32px"><dl class="ledger"><div><dt>WhatsApp</dt><dd>Magnus Palm · <span id="wa-num">+45 30 53 04 05</span></dd></div><div><dt>Based in</dt><dd>Bali, Indonesia</dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div><div><dt>Pricing</dt><dd>On request. Ex works, Indonesia</dd></div></dl></div>
  </div>
@@ -320,7 +341,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
     <div class="field"><label for="f-biz">Business</label><input id="f-biz" name="business" required autocomplete="organization"></div>
    </div>
    <div class="two">
-    <div class="field"><label for="f-type">Type of place</label><select id="f-type" name="type"><option>Boutique hotel</option><option>Resort</option><option>Restaurant</option><option>Café</option><option>Architect or interior designer</option><option>Other</option></select></div>
+    <div class="field"><label for="f-type">Type of place</label><select id="f-type" name="type"><option>Boutique hotel</option><option>Resort</option><option>Restaurant</option><option>Café</option><option>Architect or interior designer</option><option value="Collaboration">Collaboration: planting, community or partner project</option><option>Other</option></select></div>
     <div class="field"><label for="f-where">Location</label><input id="f-where" name="location" placeholder="City, country"></div>
    </div>
    <fieldset class="field"><legend>Pieces you are interested in</legend><div class="checks"><label><input type="checkbox" name="pieces" value="The Chair" id="pc-the-chair"> The Chair</label><label><input type="checkbox" name="pieces" value="The Sun Lounger" id="pc-the-sun-lounger"> The Sun Lounger</label><label><input type="checkbox" name="pieces" value="The Bench" id="pc-the-bench"> The Bench</label><label><input type="checkbox" name="pieces" value="The Lounge Chair" id="pc-the-lounge-chair"> The Lounge Chair</label><label><input type="checkbox" name="pieces" value="The Side Table" id="pc-the-side-table"> The Side Table</label><label><input type="checkbox" name="pieces" value="The Coffee Table" id="pc-the-coffee-table"> The Coffee Table</label></div></fieldset>
@@ -339,6 +360,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <script>
 (function(){
  var q=(location.search.match(/piece=([a-z-]+)/)||[])[1]; if(q){var c=document.getElementById('pc-'+q); if(c)c.checked=true;}
+ if(/type=collab/.test(location.search)){document.getElementById('f-type').value='Collaboration';}
  var f=document.getElementById('enq');
  f.addEventListener('submit',function(ev){
   ev.preventDefault();
@@ -364,8 +386,8 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="material.html">Material and making</a></li><li><a href="in-use.html">In use</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">Questions</a></li><li><a href="facts.html">Brand facts</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>

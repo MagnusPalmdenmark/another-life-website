@@ -2,7 +2,7 @@
   "name": "Another Life",
   "wordmark": "ANOTHER — LIFE",
   "url": "https://YOUR-DOMAIN.com",
-  "updated": "2026-10-08",
+  "updated": "2026-10-16",
   "description": "Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired.",
   "purpose": "We exist to make furniture that lasts a long time.",
   "founders": [
@@ -17,12 +17,42 @@
   "design_tradition": "Danish / Scandinavian",
   "material": {
     "name": "Repurposed teak",
-    "source": "Often old joglo houses, Indonesia"
+    "botanical_name": "Tectona grandis",
+    "source": "Often old joglo houses in Indonesia, also bridges, boats and other structures"
   },
   "finish": {
     "name": "Shou Sugi Ban",
     "process": "Flame-darkened teak, finished with natural oil to preserve the character of the wood.",
-    "standard": "Holes and marks from reclaimed timber left natural, never filled with glue, never at the cost of strength."
+    "standard": "Marks from the wood's first life stay visible, never at the cost of strength.",
+    "note": "Japanese yakisugi was made for softwood (cedar); Another Life applies it to hardwood teak. The aim is to help the wood handle strong sun; this has not been formally tested."
+  },
+  "second_material": {
+    "name": "Reclaimed ulin",
+    "also_called": "Borneo ironwood",
+    "botanical_name": "Eusideroxylon zwageri",
+    "status": "In development; first samples made",
+    "rule": "Reclaimed only. New ulin is protected and its export from Indonesia is banned; reclaimed ulin is traced and documented."
+  },
+  "point_of_view": {
+    "headline": "Use it again, before you make it again.",
+    "summary": "Long life beats recycling. Recycling ends a product's life and costs energy to make something new, so it is the last stop, not plan A. Order of preference: use, repair, take apart and store, rebuild, recycle.",
+    "analogy": "A refillable glass bottle is better than one melted down into a new bottle."
+  },
+  "lifecycle": [
+    "Made by hand from wood that has already lived once.",
+    "Shipped flat and bolted together on site.",
+    "Used every day: a dining room, a terrace, a pool.",
+    "A part wears out: replace the part, not the piece.",
+    "The place renovates or closes: take it apart, store it flat.",
+    "Someone gives it a new place and a new purpose. Back to step 3."
+  ],
+  "mission_goals": {
+    "status": "Goals, not yet achieved. Another Life has just launched.",
+    "goals": [
+      "Plant new trees for the wood we use, including native species like teak and ulin",
+      "Give back to the communities and makers behind the furniture",
+      "Collaborate with planting projects, NGOs, hotels, architects, makers and community initiatives"
+    ]
   },
   "construction": [
     "Modular",
@@ -158,7 +188,8 @@
     "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table.",
     "Repurposed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
     "Joglo": "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.",
-    "Shou Sugi Ban": "A Japanese technique of darkening wood with flame. On SATU it is finished with natural oil.",
+    "Shou Sugi Ban": "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil.",
+    "Ulin": "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material.",
     "Knock-down": "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once.",
     "Conscious Sustainability": "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation.",
     "Another Life Passport": "The digital record attached to each piece by QR code. It starts at the workshop and is meant to grow with the piece through installation, repairs, refinishing and return.",

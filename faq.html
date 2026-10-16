@@ -197,6 +197,26 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.once>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--hairline);min-width:0}
+.once>div+div{padding-left:24px;border-left:1px solid var(--hairline)}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div,.once>div+div{padding:20px 0;border-left:0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -342,7 +362,31 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
      "name": "What is Shou Sugi Ban?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Shou Sugi Ban is a Japanese technique of darkening wood with flame. We burn the surface of the teak, then finish it with natural oil to preserve the character of the wood. The result is a deep black colour and a texture you can feel, made to age beautifully."
+      "text": "Shou Sugi Ban, or yakisugi in Japanese, is a centuries-old technique of charring wood with flame. In Japan it was made for cedar, a softwood. We use it on a hardwood, repurposed teak: we burn the surface, then finish it with natural oil. The result is a deep black colour and a texture you can feel."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why do you burn a hardwood?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Because we wanted to see what an old Japanese idea could do for teak in the tropics. Charring gives the surface a protective, characterful skin, and the idea is to help the wood handle strong sun. We finish it with natural oil, which soaks into the wood instead of sitting on top as a coating."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is a joglo?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A joglo is a traditional Javanese house: a tall roof carried by four big teak pillars, put together with joinery so it can be taken apart and moved. Many old joglos are making way for concrete houses. Much of the teak we use comes from houses like these."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is ulin?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Ulin, or Borneo ironwood (Eusideroxylon zwageri), is one of the hardest woods in the world. It is so dense it sinks in water, and it built boats, bridges and piers for generations. It grows very slowly and is protected, so new ulin can no longer be exported from Indonesia. We work only with reclaimed ulin, traced and documented. Our first ironwood samples are made, and it is in development as our second material."
      }
     },
     {
@@ -367,6 +411,30 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
      "acceptedAnswer": {
       "@type": "Answer",
       "text": "Every piece will have its own record: where the material came from, who made it and how it travelled. We are building this as the Another Life Passport, so the story of each piece can be read with a QR code."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What happens when a hotel no longer needs the furniture?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It comes apart. Undo the bolts and every piece packs flat, can be stored, and goes back together for its next place or owner. If a part is worn, you replace that part, not the piece. Our furniture is made to be used, never stacked in a corner, and never sent to landfill."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is the furniture recyclable?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It is solid wood finished with natural oil, so at the very end of its life it can be. But we hope it never gets there. Recycling ends a product's life and takes energy to make something new. We would rather a piece is kept, repaired, moved and passed on, like a glass bottle that is refilled instead of melted down."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Do you plant trees?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "It is part of our mission. We want to plant new trees for the wood we use, give back to the communities and makers behind our furniture, and do it with partners who care about the same things. We have just started, so we say it as a goal, not as something we already do. If you run a planting or community project, we would love to hear from you."
      }
     },
     {
@@ -442,17 +510,17 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html" aria-current=page>FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="material.html">Material</a><a class="label" href="mission.html">Mission</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Questions</span>
  <h1 class="disp">Questions, answered plainly.</h1>
- <p class="cap updated">Last updated 2026-10-08</p>
+ <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
 <section style="padding-top:0;border-top:0"><div class="wrap"><div style="max-width:860px">
- <details><summary>What is Another Life?</summary><div class="ans">Another Life is a hospitality furniture brand from Bali. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time.</div></details><details><summary>Where is Another Life based?</summary><div class="ans">The company is based in Bali. Every piece is made by hand in Indonesia.</div></details><details><summary>Who founded Another Life?</summary><div class="ans">Stine Palm and Magnus Palm. The idea was born in Bali, where the family moved partly for Green School.</div></details><details><summary>What does the name mean?</summary><div class="ans">Another material. Another owner. Another place. Another life. The teak we use has already had one life, and every piece is made to carry on: repaired, moved and passed on.</div></details><details><summary>What is SATU?</summary><div class="ans">SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece.</div></details><details><summary>What is the furniture made from?</summary><div class="ans">Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands.</div></details><details><summary>What is Shou Sugi Ban?</summary><div class="ans">Shou Sugi Ban is a Japanese technique of darkening wood with flame. We burn the surface of the teak, then finish it with natural oil to preserve the character of the wood. The result is a deep black colour and a texture you can feel, made to age beautifully.</div></details><details><summary>Why does every piece look a little different?</summary><div class="ans">Because the teak has a history. Marks and nail holes from the wood&#x27;s first life are part of its character, and we keep them visible as a quiet record of where it has been. Strength always comes first, so each piece is built to last.</div></details><details><summary>Is Another Life furniture sustainable?</summary><div class="ans">Sustainability guides every decision we make: repurposed teak, a flame-darkened finish with natural oil, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make.</div></details><details><summary>How do you show where the wood comes from?</summary><div class="ans">Every piece will have its own record: where the material came from, who made it and how it travelled. We are building this as the Another Life Passport, so the story of each piece can be read with a QR code.</div></details><details><summary>Can the furniture be used outdoors?</summary><div class="ans">Yes. It is made for hospitality spaces indoors and out, from dining rooms and lobbies to pools, terraces and gardens.</div></details><details><summary>How is the furniture shipped?</summary><div class="ans">Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site.</div></details><details><summary>Can it be repaired?</summary><div class="ans">Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again.</div></details><details><summary>What is the Another Life Passport?</summary><div class="ans">A digital story for every piece, opened with a QR code on the furniture. It shows where the material came from, who made it, how it travelled and how it can be cared for, repaired and passed on.</div></details><details><summary>Who do you make furniture for?</summary><div class="ans">Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for.</div></details><details><summary>Is Another Life Danish?</summary><div class="ans">The design follows a Danish and Scandinavian tradition: simple, functional and made to last. The furniture is made by hand in Indonesia, close to the material and the makers.</div></details><details><summary>How much does it cost?</summary><div class="ans">We price every project individually, ex works Indonesia. Tell us about your space and we will come back with a proposal.</div></details><details><summary>How do I order?</summary><div class="ans">Send us a message with your space, the pieces you like and your timeline. We will reply with options, pricing and lead times.</div></details>
+ <details><summary>What is Another Life?</summary><div class="ans">Another Life is a hospitality furniture brand from Bali. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time.</div></details><details><summary>Where is Another Life based?</summary><div class="ans">The company is based in Bali. Every piece is made by hand in Indonesia.</div></details><details><summary>Who founded Another Life?</summary><div class="ans">Stine Palm and Magnus Palm. The idea was born in Bali, where the family moved partly for Green School.</div></details><details><summary>What does the name mean?</summary><div class="ans">Another material. Another owner. Another place. Another life. The teak we use has already had one life, and every piece is made to carry on: repaired, moved and passed on.</div></details><details><summary>What is SATU?</summary><div class="ans">SATU is our first collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table. Satu means one in Indonesian. One material, one system and one idea carried through every piece.</div></details><details><summary>What is the furniture made from?</summary><div class="ans">Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands.</div></details><details><summary>What is Shou Sugi Ban?</summary><div class="ans">Shou Sugi Ban, or yakisugi in Japanese, is a centuries-old technique of charring wood with flame. In Japan it was made for cedar, a softwood. We use it on a hardwood, repurposed teak: we burn the surface, then finish it with natural oil. The result is a deep black colour and a texture you can feel.</div></details><details><summary>Why do you burn a hardwood?</summary><div class="ans">Because we wanted to see what an old Japanese idea could do for teak in the tropics. Charring gives the surface a protective, characterful skin, and the idea is to help the wood handle strong sun. We finish it with natural oil, which soaks into the wood instead of sitting on top as a coating.</div></details><details><summary>What is a joglo?</summary><div class="ans">A joglo is a traditional Javanese house: a tall roof carried by four big teak pillars, put together with joinery so it can be taken apart and moved. Many old joglos are making way for concrete houses. Much of the teak we use comes from houses like these.</div></details><details><summary>What is ulin?</summary><div class="ans">Ulin, or Borneo ironwood (Eusideroxylon zwageri), is one of the hardest woods in the world. It is so dense it sinks in water, and it built boats, bridges and piers for generations. It grows very slowly and is protected, so new ulin can no longer be exported from Indonesia. We work only with reclaimed ulin, traced and documented. Our first ironwood samples are made, and it is in development as our second material.</div></details><details><summary>Why does every piece look a little different?</summary><div class="ans">Because the teak has a history. Marks and nail holes from the wood&#x27;s first life are part of its character, and we keep them visible as a quiet record of where it has been. Strength always comes first, so each piece is built to last.</div></details><details><summary>Is Another Life furniture sustainable?</summary><div class="ans">Sustainability guides every decision we make: repurposed teak, a flame-darkened finish with natural oil, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make.</div></details><details><summary>How do you show where the wood comes from?</summary><div class="ans">Every piece will have its own record: where the material came from, who made it and how it travelled. We are building this as the Another Life Passport, so the story of each piece can be read with a QR code.</div></details><details><summary>What happens when a hotel no longer needs the furniture?</summary><div class="ans">It comes apart. Undo the bolts and every piece packs flat, can be stored, and goes back together for its next place or owner. If a part is worn, you replace that part, not the piece. Our furniture is made to be used, never stacked in a corner, and never sent to landfill.</div></details><details><summary>Is the furniture recyclable?</summary><div class="ans">It is solid wood finished with natural oil, so at the very end of its life it can be. But we hope it never gets there. Recycling ends a product&#x27;s life and takes energy to make something new. We would rather a piece is kept, repaired, moved and passed on, like a glass bottle that is refilled instead of melted down.</div></details><details><summary>Do you plant trees?</summary><div class="ans">It is part of our mission. We want to plant new trees for the wood we use, give back to the communities and makers behind our furniture, and do it with partners who care about the same things. We have just started, so we say it as a goal, not as something we already do. If you run a planting or community project, we would love to hear from you.</div></details><details><summary>Can the furniture be used outdoors?</summary><div class="ans">Yes. It is made for hospitality spaces indoors and out, from dining rooms and lobbies to pools, terraces and gardens.</div></details><details><summary>How is the furniture shipped?</summary><div class="ans">Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site.</div></details><details><summary>Can it be repaired?</summary><div class="ans">Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again.</div></details><details><summary>What is the Another Life Passport?</summary><div class="ans">A digital story for every piece, opened with a QR code on the furniture. It shows where the material came from, who made it, how it travelled and how it can be cared for, repaired and passed on.</div></details><details><summary>Who do you make furniture for?</summary><div class="ans">Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for.</div></details><details><summary>Is Another Life Danish?</summary><div class="ans">The design follows a Danish and Scandinavian tradition: simple, functional and made to last. The furniture is made by hand in Indonesia, close to the material and the makers.</div></details><details><summary>How much does it cost?</summary><div class="ans">We price every project individually, ex works Indonesia. Tell us about your space and we will come back with a proposal.</div></details><details><summary>How do I order?</summary><div class="ans">Send us a message with your space, the pieces you like and your timeline. We will reply with options, pricing and lead times.</div></details>
 </div></div></section>
 
 </main>
@@ -460,8 +528,8 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="material.html">Material and making</a></li><li><a href="in-use.html">In use</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">Questions</a></li><li><a href="facts.html">Brand facts</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>
