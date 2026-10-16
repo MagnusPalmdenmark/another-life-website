@@ -400,9 +400,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
 .seg button+button{border-left:1px solid var(--ink)}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
-.title-qr{display:flex;align-items:flex-end;justify-content:flex-start;gap:clamp(12px,2.2vw,28px)}
-.title-qr h1{flex:0 1 auto;min-width:0}
-.qr{flex:0 0 auto;display:block;width:calc(clamp(44px,9vw,112px)*1.62);height:auto;margin-bottom:.08em;border:2px solid var(--ink);padding:5px;background:var(--paper)}
+.qr{display:block;width:clamp(88px,11vw,136px);height:auto;margin-bottom:clamp(20px,3vw,32px);border:2px solid var(--ink);padding:5px;background:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -920,8 +918,9 @@ PASS_STEPS = [
 ]
 passport = f'''
 <section class="page-head"><div class="wrap">
+ <img class="qr" src="assets/passport-qr.svg" alt="QR code that opens this Passport page" width="120" height="120">
  <span class="label eyebrow">Another Life Passport</span>
- <div class="title-qr"><h1 class="disp">A story you<br>can scan.</h1><img class="qr" src="assets/passport-qr.svg" alt="QR code that opens this Passport page" width="120" height="120"></div>
+ <h1 class="disp">A story you<br>can scan.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">We're building a system that links every piece to its own story. A small QR code on the furniture opens a page that follows the piece through its whole life.</p>
  <div class="prose"><p>Labels make claims. A record shows its working. Our wood already has a past, as a house, a bridge or a boat, and we think that past deserves to travel with the furniture.</p><p>The Passport is how we want to make that happen: one code, one piece, one story that keeps growing.</p></div></div>
  {updated()}
