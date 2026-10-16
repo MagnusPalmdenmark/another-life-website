@@ -440,6 +440,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .name-lines .nl{display:block}
 .motion .name-lines .nl{opacity:0;transform:translateY(48px);filter:blur(4px);transition:opacity 1.4s ease,transform 1.6s cubic-bezier(.2,.7,.2,1),filter 1.4s ease}
 .motion .name-lines .nl.in{opacity:1;transform:none;filter:none}
+.sign-img{width:min(100%,360px);height:auto;display:block}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -933,7 +934,7 @@ material = f'''
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#rebuilt">Built to be rebuilt</a> · <a href="#air">Shipping</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#sign">The sign</a> · <a href="#rebuilt">Built to be rebuilt</a> · <a href="#air">Shipping</a></p></nav></div>
  {updated()}
 </div></section>
 
@@ -979,6 +980,14 @@ material = f'''
  <p>We turned that around. Every SATU joint is held by engineered stainless steel (SUS) bolts that screw into threaded inserts set into the wood. The bolt never cuts into the wood itself, so a joint can be opened and closed again and again without wearing out.</p>
  <p>The three-bolt clusters you see on every piece aren't decoration. They hold everything together, and they're designed to last longer than the furniture around them.</p>
  <div class="renders" style="margin-top:28px">{duo(fig("bolt-render.png","Technical drawing of the stainless steel connector bolt, with a flat head and a long thread","The bolt."),fig("insert-render.png","Technical drawing of the threaded insert that sits in the wood and receives the bolt","The insert it screws into."))}</div></div>
+</div></section>
+
+<section id="sign"><div class="wrap split">
+ <div><span class="label eyebrow muted">The sign in the bolts</span><h2 class="disp">Three dots. One circle.</h2>
+  <div class="lead-img"><img class="sign-img" src="assets/three-bolts-cycle.png" alt="Drawing of three dots joined in a circle by three arrows, the same layout as the three-bolt cluster on every piece" width="900" height="900" loading="lazy"></div></div>
+ <div><p class="prose" style="margin:0 0 24px">Look closely at any SATU joint and you'll find three bolts. They hold the piece together, and they also carry the idea behind the name. Each bolt stands for a life the piece can have, and together they turn in a circle:</p>
+ {rows([("Material","The wood already lived once, before it reached our workshop."),("Owner","The piece can move on to someone new and keep working."),("Place","Undo the bolts and it can be rebuilt somewhere else.")])}
+ <p class="pull" style="margin-top:28px">Round and round, never ending. That's another life.</p></div>
 </div></section>
 
 <section id="rebuilt"><div class="wrap split">
