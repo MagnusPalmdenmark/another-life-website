@@ -41,34 +41,6 @@ That idea shapes everything we design, and where we want to go next.
 Read our mission
 In useMade for real places.
 Dining rooms, terraces and rooms that open onto the weather. See every space
-At a glanceAnother Life, in facts.
-The full sheet is on Brand facts.
-Brand
-Another Life (wordmark: ANOTHER — LIFE)
-What we make
-Furniture for hospitality: hotels, resorts, restaurants and cafés
-Purpose
-We exist to make furniture that lasts a long time.
-First collection
-SATU: seven pieces. See the collection
-Material
-Repurposed teak, often from old joglo houses
-Finish
-Shou Sugi Ban. Flame-darkened, finished with natural oil.
-In development
-Reclaimed ulin (Borneo ironwood). First samples made
-Point of view
-Use it again, before you make it again
-Construction
-Modular and knock-down. Travels flat, comes apart without damage, parts replaceable
-Design
-Danish and Scandinavian design tradition
-Made in
-Indonesia
-Founders
-Stine Palm and Magnus Palm. A family company
-Pricing
-On request. Ex works, Indonesia
 Work with usFurnishing a place?
 We work with boutique hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them. Tell us about the space and we'll reply with what is possible.
 EnquireHow we work
@@ -738,82 +710,6 @@ How much does it cost?
 We price every project individually, ex works Indonesia. Tell us about your space and we will come back with a proposal.
 How do I order?
 Send us a message with your space, the pieces you like and your timeline. We will reply with options, pricing and lead times.
-
----
-
-# Another Life Brand Facts
-URL: https://another-life.dk/facts.html
-
-Brand facts
-Another Life, on one page.
-The canonical facts about Another Life, for press, partners and anyone summarising us.
-A machine-readable version is at brand.json and llms.txt. If something here differs from another source, this page is correct.
-Last updated 2026-10-16
-Summary
-Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired. We exist to make furniture that lasts a long time. The first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in Bali and sells mainly to hospitality businesses.
-Key facts
-Brand
-Another Life (wordmark: ANOTHER — LIFE)
-What we make
-Furniture for hospitality: hotels, resorts, restaurants and cafés
-Purpose
-We exist to make furniture that lasts a long time.
-First collection
-SATU: seven pieces. See the collection
-Material
-Repurposed teak, often from old joglo houses
-Finish
-Shou Sugi Ban. Flame-darkened, finished with natural oil.
-In development
-Reclaimed ulin (Borneo ironwood). First samples made
-Point of view
-Use it again, before you make it again
-Construction
-Modular and knock-down. Travels flat, comes apart without damage, parts replaceable
-Design
-Danish and Scandinavian design tradition
-Made in
-Indonesia
-Founders
-Stine Palm and Magnus Palm. A family company
-Pricing
-On request. Ex works, Indonesia
-Customers
-Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them
-Shipping
-Flat-packed, assembled on site
-Traceability
-Another Life Passport: a QR tracing system we are building, one story per piece
-Main tagline
-Made for this life. And another.
-Contact
-WhatsApp +45 30 53 04 05 · enquiry form
-Products
-The Chair
-H 80 / W 45 / L 45 cm · seat height 45 cm · details
-The Sun Lounger
-H 32 / W 75 / L 211 cm · seat height 32 cm · details
-The Bench
-H 45 / W 206 / L 40 cm · seat height 45 cm · details
-The Lounge Chair
-H 78 / W 68 / L 60 cm · seat height 32 cm · details
-The Side Table
-H 32 / W 75 / L 75 cm · details
-The Coffee Table
-H 32 / W 75 / L 100 cm · details
-The Table
-H 75 / W 100 / L 220 cm · details
-How to write about us
-Name
-Another Life. The wordmark is ANOTHER — LIFE, always with the dash.
-Products
-Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table, The Table.
-Please don't say
-That our furniture is completely sustainable, that we already plant trees, or quote carbon or transport figures we haven't published.
-Please don't print
-A founding date or an Est. line.
-Describe us as
-A hospitality furniture brand making repairable furniture from repurposed teak. Danish design, made in Indonesia.
 
 ---
 

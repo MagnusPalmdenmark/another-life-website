@@ -471,7 +471,7 @@ FOOTER = f'''<footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul>{"".join(f'<li><a href="{p["slug"]}.html">{p["name"]}</a></li>' for p in PRODUCTS)}</ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">Questions</a></li></ul></div>
  <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp {WHATSAPP}</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
@@ -607,10 +607,6 @@ home = f'''
  <p class="prose" style="margin:0">Dining rooms, terraces and rooms that open onto the weather. <a class="tlink" href="in-use.html">See every space</a></p></div>
 </div></section>
 
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">At a glance</span><h2 class="disp">Another Life, in facts.</h2><p class="cap" style="margin-top:20px">The full sheet is on <a href="facts.html">Brand facts</a>.</p></div>
- {ledger(KEY_FACTS)}
-</div></section>
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Furnishing a place?</h2></div>
@@ -1045,36 +1041,6 @@ pages["faq.html"] = ("Another Life Questions", "Answers about Another Life: what
   [breadcrumb([("index.html","Home"),("faq.html","Questions")]),
    {"@type":"FAQPage","url":url("faq.html"),"mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in FAQ]}])
 
-# FACTS
-facts_body = f'''
-<section class="page-head"><div class="wrap">
- <span class="label eyebrow">Brand facts</span>
- <h1 class="disp">Another Life, on one page.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">The canonical facts about Another Life, for press, partners and anyone summarising us.</p>
- <p class="prose cap" style="margin:0">A machine-readable version is at <a href="brand.json">brand.json</a> and <a href="llms.txt">llms.txt</a>. If something here differs from another source, this page is correct.</p></div>
- {updated()}
-</div></section>
-<section style="padding-top:0;border-top:0"><div class="wrap split">
- <div><h2 class="disp">Summary</h2></div>
- <div class="prose"><p>{e(BRAND["one_line"])} {e(BRAND["mission"])} The first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in Bali and sells mainly to hospitality businesses.</p></div>
-</div></section>
-<section><div class="wrap split">
- <div><h2 class="disp">Key facts</h2></div>
- {ledger(KEY_FACTS + [("Customers", e(BRAND["customers"])),("Shipping","Flat-packed, assembled on site"),("Traceability","Another Life Passport: a QR tracing system we are building, one story per piece"),("Main tagline","Made for this life. And another."),("Contact", f"WhatsApp {WHATSAPP} · <a href='contact.html'>enquiry form</a>")])}
-</div></section>
-<section><div class="wrap split">
- <div><h2 class="disp">Products</h2></div>
- {ledger([(p["name"], f'{dims(p)}' + (f' · seat height {p["seat"]} cm' if p["seat"] else '') + f' · <a href="{p["slug"]}.html">details</a>') for p in PRODUCTS])}
-</div></section>
-<section class="forest"><div class="wrap split">
- <div><h2 class="disp">How to write about us</h2></div>
- {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table, The Table."),("Please don't say","That our furniture is completely sustainable, that we already plant trees, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak. Danish design, made in Indonesia.")])}
-</div></section>
-'''
-pages["facts.html"] = ("Another Life Brand Facts", "Canonical facts about Another Life: what it makes, where, from what material, the SATU products and sizes, founders, customers and how to describe the brand.", facts_body,
-  [breadcrumb([("index.html","Home"),("facts.html","Brand facts")]),
-   {"@type":"WebPage","name":"Another Life brand facts","url":url("facts.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED}])
-
 # CONTACT
 opts = "".join(f'<label><input type="checkbox" name="pieces" value="{p["name"]}" id="pc-{p["slug"]}"> {p["name"]}</label>' for p in PRODUCTS)
 contact = f'''
@@ -1168,7 +1134,6 @@ Key facts:
 
 ## Pages
 - [Home]({url('index.html')}): overview of the brand and collection, with the 34-second brand film ({url('assets/film.mp4')})
-- [Brand facts]({url('facts.html')}): canonical facts, products, sizes and how to describe the brand
 - [Mission]({url('mission.html')}): long life over recycling, purpose, origin, beliefs, design principles, the life of a piece, goals (plant, give back, collaborate), voice, glossary
 - [In use]({url('in-use.html')}): photographs of the furniture in restaurants, terraces and homes
 - [Material and making]({url('material.html')}): repurposed teak from joglo houses, bridges and boats; reclaimed ulin (in development); Shou Sugi Ban on hardwood; natural oil; making in Indonesia; built to be rebuilt
