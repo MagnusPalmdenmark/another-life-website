@@ -397,6 +397,10 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
 .compare-tag.l{left:12px}.compare-tag.r{right:12px}
 @media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
+.seg{display:inline-flex;border:1px solid var(--ink);margin-bottom:16px}
+.seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -877,18 +881,23 @@ material = f'''
 <section id="air"><div class="wrap">
  <div class="split" style="margin-bottom:36px"><div><span class="label eyebrow muted">Shipping</span><h2 class="disp">Stop shipping air.</h2></div>
  <div class="prose"><p>An assembled chair is mostly empty space: between the legs, under the seat, behind the backrest. Ship it like that and you pay to move air across the ocean.</p>
- <p>Flat-packed, the same container holds around 1,300 of our chairs, against roughly 350 assembled. Almost four times as many chairs per trip, so fewer containers, less fuel and a lower cost for every chair.</p>
- <p class="cap">Our estimate for a 40 ft high-cube container. The final figure depends on packaging and loading.</p></div></div>
+ <p>Flat-packed, a <span data-k="name">40 ft high-cube</span> container holds around <span data-k="flat">1,300</span> of our chairs, against roughly <span data-k="asm">350</span> assembled. Almost four times as many chairs per trip, so fewer containers, less fuel and a lower cost for every chair.</p>
+ <p class="cap">Our estimates. The final figures depend on packaging and loading.</p></div></div>
+ <div class="seg" role="group" aria-label="Container size"><button type="button" data-c="20">20 ft</button><button type="button" data-c="40" aria-pressed="true">40 ft high-cube</button></div>
  <div class="compare" id="cmp">
   <img src="assets/container-assembled.jpg" alt="Illustration of a shipping container filled with sixteen large boxes of assembled chairs"{_wh("container-assembled.jpg")} loading="lazy">
   <div class="compare-top"><img src="assets/container-flat.jpg" alt="Illustration of the same container filled with dozens of thin boxes of flat-packed chairs"{_wh("container-flat.jpg")} loading="lazy"></div>
-  <span class="compare-tag l label">Flat-packed · ~1,300</span><span class="compare-tag r label">Assembled · ~350</span>
+  <span class="compare-tag l label">Flat-packed · ~<span data-k="flat">1,300</span></span><span class="compare-tag r label">Assembled · ~<span data-k="asm">350</span></span>
   <div class="compare-line" aria-hidden="true"><span></span></div>
   <input type="range" min="0" max="100" value="50" aria-label="Slide to compare flat-packed and assembled shipping">
  </div>
  <p class="cap" style="margin-top:12px">Drag the slider to compare. Illustration.</p>
 </div></section>
-<script>(function(){{var c=document.getElementById('cmp');if(!c)return;var r=c.querySelector('input');function u(){{c.style.setProperty('--p',r.value+'%');}}r.addEventListener('input',u);u();}})();</script>
+<script>(function(){{var c=document.getElementById('cmp');if(!c)return;var r=c.querySelector('input');function u(){{c.style.setProperty('--p',r.value+'%');}}r.addEventListener('input',u);u();
+ var D={{"20":{{name:"20 ft",flat:"550",asm:"150"}},"40":{{name:"40 ft high-cube",flat:"1,300",asm:"350"}}}},sec=document.getElementById('air');
+ sec.querySelectorAll('.seg button').forEach(function(b){{b.addEventListener('click',function(){{var d=D[b.dataset.c];
+  sec.querySelectorAll('.seg button').forEach(function(x){{x.setAttribute('aria-pressed',x===b?'true':'false');}});
+  sec.querySelectorAll('[data-k]').forEach(function(el){{el.textContent=d[el.dataset.k];}});}});}});}})();</script>
 '''
 pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak from old joglo houses, bridges and boats, and is developing reclaimed ulin (Borneo ironwood). Burned with Shou Sugi Ban, finished with natural oil, made in Indonesia and built to be rebuilt.", material,
   [breadcrumb([("index.html","Home"),("material.html","Material and making")]),
