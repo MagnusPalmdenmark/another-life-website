@@ -486,7 +486,6 @@ KEY_FACTS = [
   ("Construction", "Modular and knock-down. Travels flat, comes apart without damage, parts replaceable"),
   ("Design", "Danish and Scandinavian design tradition"),
   ("Made in", "Indonesia"),
-  ("Based in", "Bali, Indonesia"),
   ("Founders", "Stine Palm and Magnus Palm. A family company"),
   ("Pricing", "On request. Ex works, Indonesia"),
 ]
@@ -1007,7 +1006,7 @@ contact = f'''
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img">{fig("chair-seawall-step.jpg","A woman in a long dress stepping barefoot off The Chair on a sea wall, a beach and a sailboat behind","Come and say hello.")}</div>
-  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Based in","Bali, Indonesia"),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
+  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
  <div>
   <form id="enq" novalidate>
