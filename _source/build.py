@@ -825,13 +825,9 @@ mission = f'''
  <div><span class="label eyebrow muted">Our point of view</span><h2 class="disp">The best kind of recycling is not needing to.</h2></div>
  <div class="prose">
   <p class="pull" style="margin-bottom:24px">Think of an old glass milk bottle.</p>
-  <p>It wasn't designed to be used once. It was made to be returned, washed, refilled and used again. For years.</p>
-  <p>You could melt it down and make a new bottle. But why use energy to remake something that still works?</p>
-  <p>We believe furniture should follow the same thinking. Made to be kept. Made to be repaired. Made to move from one home to another, from one generation to the next.</p>
-  <p>Recycling matters. But it shouldn't be the first solution to a product that was never designed to last. Because even a product made from recycled materials can become waste tomorrow.</p>
-  <p>We believe the real measure of sustainability isn't just what something is made from, but how long it stays useful. Recycling should be the last chapter, not the first.</p>
-  <p class="pull" style="margin-top:28px">The most sustainable chair is the one you never need to replace.</p>
-  <p class="label" style="margin-top:20px">Another Life · Luxury is longevity.</p>
+  <p>It gets returned, washed and refilled. Again and again. But take it out of that cycle, melt it down and make something new, and you've used energy to replace something that was already working.</p>
+  <p>We believe furniture should follow the same thinking. Keep materials and products in use for as long as possible.</p>
+  <p class="pull" style="margin-top:28px">Downcycling something that could continue to be reused isn't a step forward. It's a step backward.</p>
  </div>
 </div></section>
 <section style="padding-top:0;border-top:0"><div class="wrap split">
