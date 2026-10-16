@@ -37,6 +37,8 @@ BRAND = {
     "Sustainability is for everyone. Conscious style is not.",
     "Another material. Another owner. Another place. Another life.",
     "Materials from another life. Designed for another life.",
+    "Made from what came before. Made for what comes next.",
+    "A label is not a mission.",
   ],
 }
 
@@ -704,7 +706,7 @@ mission = f'''
  <span class="label eyebrow">Mission</span>
  <h1 class="disp">Use it again, before you make it again.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Long life first</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#label">Beyond the label</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Long life first</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
@@ -781,20 +783,9 @@ mission = f'''
  <div class="btns" style="margin-top:20px"><a class="btn" href="contact.html?type=collab">Work with us</a></div></div>
 </div></section>
 
-<section class="forest" id="label"><div class="wrap split">
- <div><span class="label eyebrow muted">Beyond the label</span><h2 class="disp">A label is not a mission.</h2></div>
- <div class="prose">
-  <p class="pull" style="margin-bottom:24px">We believe sustainability is a responsibility, not a certification.</p>
-  <p>Certifications have their place, and some give valuable, independent proof of where a material comes from. But no single label can tell the whole story: how long a product will last, how it was made, whether it can be repaired, or what happens when its life comes to an end.</p>
-  <p>We don't want to buy our way into being called sustainable. We want to earn it through what we make: by questioning materials, understanding where they come from, designing for long life, repair and reuse, and taking responsibility long after a piece leaves our hands.</p>
-  <p>We don't claim to have all the answers. We're learning, asking questions and challenging the way things have always been done.</p>
-  <p class="pull" style="margin-top:28px">Sustainability isn't a label you put on a product. It's a responsibility you build into it.</p>
- </div>
-</div></section>
-
 <section id="conscious"><div class="wrap split">
  <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Better questions, not one label.</h2>
- <p class="prose" style="margin-top:24px">We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find.</p></div>
+ <p class="prose" style="margin-top:24px">We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find. <a href="passport.html#label">Why we look beyond the label</a></p></div>
  {rows(CRITERIA)}
 </div></section>
 {bleed("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water")}
@@ -947,6 +938,19 @@ passport = f'''
  <div class="prose"><p>Hotels and restaurants are asked more and more what their operations are made of, and furniture is often left out. The Passport is designed to give every piece a traceable origin, with something real behind it.</p>
  <p>It's also a great conversation starter: a guest scans a chair and reads that its wood once held up a family home in Java.</p>
  <p>We'll share more as the system takes shape. <a class="tlink" href="contact.html?type=collab">Want to help shape it? Get in touch.</a></p></div>
+</div></section>
+<section class="forest" id="label"><div class="wrap split">
+ <div><span class="label eyebrow muted">Beyond the label</span><h2 class="disp">A label is not a mission.</h2></div>
+ <div class="prose">
+  <p class="pull" style="margin-bottom:24px">We believe sustainability is a responsibility, not a certification.</p>
+  <p>We don't believe one label can tell the whole story. A certification can tell you where a material comes from, but not necessarily how long a product will last, how it was made, whether it can be repaired, or what happens when its life comes to an end.</p>
+  <p>Certifications have their place. But we've learned that a stamp of approval doesn't always mean a product is truly sustainable, and we believe sustainability should go much further than meeting a set of requirements.</p>
+  <p>We don't want to buy our way into being called sustainable. We want to earn it through the things we make. By questioning materials. By understanding their origins. By designing for longevity, repair and reuse. By taking responsibility for what happens long after a piece leaves our hands.</p>
+  <p>That is what the Passport is for: showing the evidence, piece by piece, instead of asking you to trust a stamp.</p>
+  <p>We don't claim to have all the answers. We're learning, questioning and challenging the way things have always been done.</p>
+  <p class="pull" style="margin-top:28px">Sustainability isn't a label you put on a product. It's a responsibility you build into it.</p>
+  <p class="label" style="margin-top:28px">Made from what came before. Made for what comes next.</p>
+ </div>
 </div></section>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">After the first life</span><h2 class="disp">Services we are developing.</h2>

@@ -410,7 +410,7 @@ Mission
 Use it again, before you make it again.
 What we believe, how we design, and where we're heading. All on one page.
 On this page
-Long life first · Why we exist · Origin · Beliefs · Design · Life of a piece · Where we're heading · Beyond the label · Better questions · Voice · Glossary
+Long life first · Why we exist · Origin · Beliefs · Design · Life of a piece · Where we're heading · Better questions · Voice · Glossary
 Last updated 2026-10-16
 Our point of viewLong life beats recycling.
 Think of an old glass milk bottle.
@@ -482,14 +482,8 @@ Collaborate
 We're looking for partners who share the idea: planting projects, NGOs, hotels, architects, makers and community initiatives.
 Running a planting project, a community initiative or a hotel that wants to do better? Say hello. We love a good collaboration.
 Work with us
-Beyond the labelA label is not a mission.
-We believe sustainability is a responsibility, not a certification.
-Certifications have their place, and some give valuable, independent proof of where a material comes from. But no single label can tell the whole story: how long a product will last, how it was made, whether it can be repaired, or what happens when its life comes to an end.
-We don't want to buy our way into being called sustainable. We want to earn it through what we make: by questioning materials, understanding where they come from, designing for long life, repair and reuse, and taking responsibility long after a piece leaves our hands.
-We don't claim to have all the answers. We're learning, asking questions and challenging the way things have always been done.
-Sustainability isn't a label you put on a product. It's a responsibility you build into it.
 Conscious SustainabilityBetter questions, not one label.
-We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find.
+We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find. Why we look beyond the label
 Origin
 Where the material came from, and what it was before.
 Production
@@ -628,6 +622,15 @@ A chair on the workshop floor, before it is burned.
 Hotels and restaurants are asked more and more what their operations are made of, and furniture is often left out. The Passport is designed to give every piece a traceable origin, with something real behind it.
 It's also a great conversation starter: a guest scans a chair and reads that its wood once held up a family home in Java.
 We'll share more as the system takes shape. Want to help shape it? Get in touch.
+Beyond the labelA label is not a mission.
+We believe sustainability is a responsibility, not a certification.
+We don't believe one label can tell the whole story. A certification can tell you where a material comes from, but not necessarily how long a product will last, how it was made, whether it can be repaired, or what happens when its life comes to an end.
+Certifications have their place. But we've learned that a stamp of approval doesn't always mean a product is truly sustainable, and we believe sustainability should go much further than meeting a set of requirements.
+We don't want to buy our way into being called sustainable. We want to earn it through the things we make. By questioning materials. By understanding their origins. By designing for longevity, repair and reuse. By taking responsibility for what happens long after a piece leaves our hands.
+That is what the Passport is for: showing the evidence, piece by piece, instead of asking you to trust a stamp.
+We don't claim to have all the answers. We're learning, questioning and challenging the way things have always been done.
+Sustainability isn't a label you put on a product. It's a responsibility you build into it.
+Made from what came before. Made for what comes next.
 After the first lifeServices we are developing.
 The Passport is built to support these, as we develop them.
 Replacement parts
