@@ -826,7 +826,7 @@ mission = f'''
 <section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
  <div class="split" style="margin-top:8px">
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
@@ -891,16 +891,10 @@ mission = f'''
 
 
 
-<section id="glossary"><div class="wrap split">
- <div><span class="label eyebrow muted">Glossary</span><h2 class="disp">Terms we use.</h2></div>
- {rows(GLOSSARY)}
-</div></section>
 '''
 pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: long life over recycling, why we exist, our beliefs and design principles, the life of a piece, and our goals to plant, give back and collaborate.", mission,
   [breadcrumb([("index.html","Home"),("mission.html","Mission")]),
-   {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED},
-   {"@type":"DefinedTermSet","name":"Another Life glossary","url":url("mission.html")+"#glossary",
-    "hasDefinedTerm":[{"@type":"DefinedTerm","name":a,"description":b} for a,b in GLOSSARY]}])
+   {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED}])
 
 # MATERIAL
 material = f'''
