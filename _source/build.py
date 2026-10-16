@@ -122,7 +122,7 @@ FAQ = [
   ("Can the furniture be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
   ("What is the Another Life Passport?", "A digital story for every piece, opened with a QR code on the furniture. It shows where the material came from, who made it, how it travelled and how it can be cared for, repaired and passed on."),
   ("Who do you make furniture for?", "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for."),
-  ("Is Another Life Danish?", "The design follows a Danish and Scandinavian tradition: simple, functional and made to last. The furniture is made by hand in Indonesia, close to the material and the makers."),
+  ("Is Another Life Danish?", "Yes. Another Life is a Danish family company. Design runs in the family: we come from a line of architects and furniture makers, and that heritage shapes everything we draw. We are Danish at heart and inspired by the world. Every piece is made by hand in Indonesia, close to the material and the makers."),
   ("How much does it cost?", "We price every project individually, ex works Indonesia. Tell us about your space and we will come back with a proposal."),
   ("How do I order?", "Send us a message with your space, the pieces you like and your timeline. We will reply with options, pricing and lead times."),
 ]
