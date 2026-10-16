@@ -1088,6 +1088,7 @@ pages["hospitality.html"] = ("For Hospitality", "Another Life supplies reclaimed
 # IN USE
 SPACES = [
   ("hotel-room-jungle.jpg","Hotel room","The Chair in an open hotel room above the jungle at sunset, a curtain lifting in the breeze and the sea in the distance."),
+  ("beach-loungers.jpg","Beach club","Sun Loungers and Side Tables on a sandy beach in a cove. Cushions, towels and parasols are styling, not part of the collection."),
   ("restaurant-mountain.jpg","Restaurant","The Chair at restaurant tables beside a long upholstered banquette, forested hills through floor-to-ceiling windows."),
   ("terrace-jungle.jpg","Terrace","The Chair on a rain-wet timber terrace above the jungle at sunset, next to a round teak table."),
   ("sea-room.jpg","Living room","The Chair alone in a glass-walled room facing the sea, a leather daybed in the foreground."),
