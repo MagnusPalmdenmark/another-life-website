@@ -51,7 +51,7 @@ PRODUCTS = [
               "Every component can be replaced on its own. A broken leg is a new leg, not a new chair."],
        pairs=["the-table","the-bench"]),
   dict(slug="the-sun-lounger", name="The Sun Lounger", category="Lounger", order=2, dims=(32,75,211), seat=32,
-       img="assets/sunlounger-studio2.jpg", img_alt="The Sun Lounger in repurposed teak with a Shou Sugi Ban finish, its slatted backrest raised",
+       img="assets/sunlounger-render.jpg", img_alt="The Sun Lounger in profile: repurposed teak with a Shou Sugi Ban finish, the slatted backrest raised on its strut and a three-bolt cluster at each end",
        gallery=[("sunlounger-side.jpg","The Sun Lounger from the side, the backrest raised on its support strut and bolt clusters at each end"),("sunlounger-drawing.png","Line drawing of The Sun Lounger in profile, showing the backrest, its support strut and the bolted legs")],
        short="A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.",
        use="Poolside and outdoors",
