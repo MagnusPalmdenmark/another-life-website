@@ -403,6 +403,33 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .seg button+button{border-left:1px solid var(--ink)}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 .qr{display:block;width:clamp(180px,24vw,280px);height:auto;margin:0 auto clamp(28px,4vw,48px);border:2px solid var(--ink);padding:8px;background:var(--paper)}
+/* scroll-driven build section */
+.build-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);grid-template-areas:"head steps" "stage steps";gap:0 clamp(24px,5vw,72px);align-items:start}
+.build-head{grid-area:head}
+.build-stage{grid-area:stage;position:sticky;top:max(90px,calc(50vh - 190px));margin-top:32px}
+.build-steps{grid-area:steps}
+.build-frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--ink)}
+.build-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .7s ease,transform 1.2s ease}
+.build-frame video.on{opacity:1;transform:none}
+.build-count{position:absolute;left:12px;bottom:12px;background:var(--paper);color:var(--ink);padding:6px 10px}
+.bstep{min-height:62vh;display:grid;grid-template-columns:56px minmax(0,1fr);grid-template-rows:auto 1fr;gap:8px 16px;align-content:center;border-top:1px solid var(--hairline);opacity:.28;transition:opacity .5s ease}
+.bstep:last-child{border-bottom:1px solid var(--hairline)}
+.bstep.on{opacity:1}
+.bstep .n{font-family:var(--font-display);font-size:24px;line-height:1.2}
+.bstep h3{font-size:clamp(30px,4vw,52px);line-height:.95;margin:0}
+.bstep p{grid-column:2;margin:0;max-width:44ch}
+@media (max-width:820px){
+ .build-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "stage" "steps"}
+ .build-stage{top:68px;z-index:2;margin-top:24px;background:var(--paper);padding:14px 0 12px}
+ .bstep{min-height:48vh}
+}
+@media (prefers-reduced-motion:reduce){.build-frame video{transition:none}.bstep{opacity:1}}
+/* reveal + parallax (home) */
+.motion .rv{opacity:0;transform:translateY(36px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+.motion .rv.in{opacity:1;transform:none}
+.bleed{overflow:hidden}
+.motion .px{will-change:transform;transform:scale(1.18)}
+.motion .hero-over,.motion .hero-logo{will-change:transform,opacity}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -526,6 +553,52 @@ KEY_FACTS = [
 FILM_JS = "<script>\n(function(){\n var ov=document.getElementById('film-ov'),v=document.getElementById('film-full'),o=document.getElementById('film-open'),c=document.getElementById('film-close');\n function open(){ov.hidden=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});c.focus();}\n function close(){v.pause();ov.hidden=true;o.focus();}\n o.addEventListener('click',open);c.addEventListener('click',close);\n ov.addEventListener('click',function(e){if(e.target===ov)close();});\n document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});\n v.addEventListener('ended',close);\n})();\n</script>"
 pages = {}
 
+BUILD_JS = """<script>
+(function(){
+ var sec=document.getElementById('build'); if(!sec) return;
+ var vids=[].slice.call(sec.querySelectorAll('video')), steps=[].slice.call(sec.querySelectorAll('.bstep')), n=document.getElementById('build-n');
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches, cur=-1, visible=false;
+ function set(i){ if(i===cur) return; cur=i;
+  vids.forEach(function(v,k){ var on=k===i; v.classList.toggle('on',on); if(on&&visible&&!still){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } else { v.pause(); } });
+  steps.forEach(function(s,k){ s.classList.toggle('on',k===i); });
+  if(n) n.textContent='0'+(i+1);
+ }
+ if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) set(+e.target.dataset.i); }); },{rootMargin:'-45% 0px -45% 0px'});
+  steps.forEach(function(s){ io.observe(s); });
+  new IntersectionObserver(function(es){ visible=es[0].isIntersecting; var v=vids[cur<0?0:cur]; if(visible&&!still){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } else v.pause(); },{threshold:0.05}).observe(sec);
+ }
+ set(0);
+})();
+</script>"""
+
+MOTION_JS = """<script>
+(function(){
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('motion');
+ var main=document.getElementById('main');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build) .wrap > *, section:not(.hero):not(.build) .split > *, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var seen=new Set();
+ targets.forEach(function(el){ if(el.closest('.hero')) return; el.classList.add('rv'); });
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+ main.querySelectorAll('.rv').forEach(function(el){
+  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
+ var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
+ var tick=false;
+ function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
+  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
+   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
+   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
+  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+ }
+ window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
+ frame();
+})();
+</script>"""
+
 ONCE_ITEMS = [
   ("Once a family home in Java","Teak pillars that held up a joglo for generations, now holding up your guests.","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them"),
   ("Once a bridge over a river","Wood that carried people across the water for decades.","bridge-beams.jpg","Black-and-white photograph of heavy old bridge beams stacked in a timber shed, their sizes written in chalk on the cut ends"),
@@ -590,10 +663,23 @@ home = f'''
   <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["category"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
 </div></section>
 
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{fig("burning-board.jpg","Flames running across a teak board as its surface is burned in the workshop","Burning the surface, before the oil.")}</div></div>
- {rows([("Reclaimed","Teak that already lived once, often in old joglo houses. Far too good to waste."),("Burned and oiled","An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil."),("Made to be rebuilt","Ships flat, bolts together on site and comes apart again whenever it needs to.")])}
+<section class="build" id="build"><div class="wrap build-grid">
+ <div class="build-head"><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2></div>
+ <div class="build-stage">
+  <div class="build-frame">
+   <video class="on" data-i="0" src="assets/build-reclaimed.mp4" poster="assets/build-reclaimed.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="Old teak beams with joinery holes, stacked side by side"></video>
+   <video data-i="1" src="assets/build-burn.mp4" poster="assets/build-burn.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="A maker burning the surface of a teak board with a torch, flames running along the wood"></video>
+   <video data-i="2" src="assets/build-make.mp4" poster="assets/build-make.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="Hands working a piece of teak on the workshop floor"></video>
+   <span class="build-count label"><span id="build-n">01</span> / 03</span>
+  </div>
+ </div>
+ <div class="build-steps">
+  <div class="bstep on" data-i="0"><span class="n">01</span><h3 class="disp">Reclaimed</h3><p>Teak that already lived once, often in old joglo houses. Far too good to waste.</p></div>
+  <div class="bstep" data-i="1"><span class="n">02</span><h3 class="disp">Burned and oiled</h3><p>An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil.</p></div>
+  <div class="bstep" data-i="2"><span class="n">03</span><h3 class="disp">Made to be rebuilt</h3><p>Ships flat, bolts together on site and comes apart again whenever it needs to.</p></div>
+ </div>
 </div></section>
+{BUILD_JS}
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2></div>
@@ -613,6 +699,7 @@ home = f'''
  <div class="prose"><p>We work with boutique hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them. Tell us about the space and we'll reply with what is possible.</p>
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
 </div></section>
+{MOTION_JS}
 '''
 pages["index.html"] = ("Another Life", "Another Life makes hospitality furniture from repurposed teak: Danish design, made in Indonesia, shipped flat and built to be repaired. First collection: SATU.", home,
   [breadcrumb([("index.html","Home")]),
