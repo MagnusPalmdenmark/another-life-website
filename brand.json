@@ -79,8 +79,9 @@
   },
   "traceability": {
     "name": "Another Life Passport",
-    "status": "In development",
-    "questions": [
+    "status": "Work in progress, not yet available. No commitments on features or timing.",
+    "description": "A QR tracing platform being built to tell the story of each piece",
+    "intended_questions": [
       "Where did the material come from?",
       "Who made it?",
       "How was it transported?",
@@ -206,8 +207,7 @@
     "Ulin": "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material.",
     "Knock-down": "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once.",
     "Conscious Sustainability": "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation.",
-    "Another Life Passport": "The digital record attached to each piece by QR code. It starts at the workshop and is meant to grow with the piece through installation, repairs, refinishing and return.",
-    "Proof of Reclaim": "The part of the Passport that documents where a piece's timber came from and its earlier life."
+    "Another Life Passport": "A QR tracing platform we are building, meant to tell the story of each piece. A work in progress, not yet available."
   },
   "images": [
     {

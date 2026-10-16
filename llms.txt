@@ -8,7 +8,7 @@ Key facts:
 - Purpose: to make furniture that lasts a long time.
 - Main tagline: "Made for this life. And another." Other lines: "Luxury is longevity.", "Furniture worth keeping.", "Make it once. Let it live."
 - Philosophy: Conscious Sustainability. No single material or label is sustainable everywhere; materials are judged on origin, production, longevity, transport, repairability and documentation. Another Life does not claim any piece is completely sustainable.
-- Traceability: the Another Life Passport, a QR-linked record per piece (in development).
+- Traceability: the Another Life Passport, a QR tracing platform Another Life is building. Work in progress, not yet available; nothing about it should be described as offered today.
 - Point of view: "Use it again, before you make it again." Long life beats recycling; recycling is the last stop, not plan A. Order: use, repair, take apart and store, rebuild, recycle.
 - Second material: reclaimed ulin (Borneo ironwood, Eusideroxylon zwageri), in development, first samples made. Reclaimed only; new ulin is protected and cannot be exported from Indonesia.
 - Wood sources: teak (Tectona grandis) from old joglo houses, bridges, boats and other structures.
@@ -21,7 +21,7 @@ Key facts:
 - [Mission](https://another-life.dk/mission.html): long life over recycling, purpose, origin, beliefs, design principles, the life of a piece, goals (plant, give back, collaborate), voice, glossary
 - [In use](https://another-life.dk/in-use.html): photographs of the furniture in restaurants, terraces and homes
 - [Material and making](https://another-life.dk/material.html): repurposed teak from joglo houses, bridges and boats; reclaimed ulin (in development); Shou Sugi Ban on hardwood; natural oil; making in Indonesia; built to be rebuilt
-- [Another Life Passport](https://another-life.dk/passport.html): traceability record and circular services in development
+- [Another Life Passport](https://another-life.dk/passport.html): the QR tracing platform being built (work in progress) and circular services in development
 - [For hospitality](https://another-life.dk/hospitality.html): who we work with and how an order works
 - [Questions](https://another-life.dk/faq.html): 25 answered questions
 - [Contact](https://another-life.dk/contact.html): enquiries, WhatsApp +45 30 53 04 05
