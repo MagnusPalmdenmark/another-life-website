@@ -288,6 +288,10 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .dots3 circle.on{opacity:1;transform:scale(1.12)}
 .win-top{padding-top:clamp(12px,2vw,24px)}
 .win-top .win-hole{height:clamp(420px,82vh,900px)}
+.head-media{margin:clamp(24px,4vw,40px) 0 0}
+.head-media video{display:block;width:100%;height:auto;aspect-ratio:21/9;max-height:52vh;object-fit:cover;background:var(--ink)}
+.head-media figcaption{margin-top:10px}
+@media (max-width:640px){.head-media video{aspect-ratio:4/3;max-height:none}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}

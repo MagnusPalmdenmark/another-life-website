@@ -288,6 +288,10 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .dots3 circle.on{opacity:1;transform:scale(1.12)}
 .win-top{padding-top:clamp(12px,2vw,24px)}
 .win-top .win-hole{height:clamp(420px,82vh,900px)}
+.head-media{margin:clamp(24px,4vw,40px) 0 0}
+.head-media video{display:block;width:100%;height:auto;aspect-ratio:21/9;max-height:52vh;object-fit:cover;background:var(--ink)}
+.head-media figcaption{margin-top:10px}
+@media (max-width:640px){.head-media video{aspect-ratio:4/3;max-height:none}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -403,10 +407,10 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">For hospitality</span>
  <h1 class="disp">Furniture that outlasts the fit-out.</h1>
- <p class="pull" style="margin-top:24px">We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.</p>
+ <figure class="head-media"><video src="assets/hosp-restaurant.mp4" poster="assets/hosp-restaurant.jpg" width="1280" height="720" autoplay muted loop playsinline preload="auto" aria-label="A slow pan across a restaurant dining room, The Chair at the tables and forested hills through tall windows"></video><figcaption class="cap">The Chair in a restaurant above the forest.</figcaption></figure>
+ <p class="pull" style="margin-top:28px">We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.</p>
  <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
-<figure class="bleed"><video src="assets/hosp-restaurant.mp4" poster="assets/hosp-restaurant.jpg" width="1280" height="720" autoplay muted loop playsinline preload="auto" aria-label="A slow pan across a restaurant dining room, The Chair at the tables and forested hills through tall windows"></video><div class="wrap"><figcaption class="cap">The Chair in a restaurant above the forest.</figcaption></div></figure>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Who we work with</span><h2 class="disp">The people who shape a place.</h2></div>
  <div class="prose"><p>We like to work directly with owners and the people who define what a hospitality brand stands for, not only how it looks. If your place is built on values, your furniture should carry them.</p>
