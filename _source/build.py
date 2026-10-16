@@ -372,6 +372,12 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .forest blockquote.say{border-color:var(--on-forest)}
 
 .renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
+/* in-use grid */
+.spaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(16px,2vw,28px)}
+.spaces img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--hairline)}
+.spaces figcaption{display:grid;gap:4px;margin-top:12px}
+@media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -938,7 +944,7 @@ inuse = f'''
  <p class="prose" style="margin:0">Every piece here is the same repurposed teak with a Shou Sugi Ban finish. The rooms change; the furniture is built to outlast them.</p></div>
  {updated()}
 </div></section>
-{"".join(bleed(src, cap, f"{lbl}. {cap}", lazy=(i>0)) + ('<div style="height:clamp(32px,5vw,64px)"></div>' if i<len(SPACES)-1 else "") for i,(src,lbl,cap) in enumerate(SPACES))}
+<section style="padding-top:0;border-top:0"><div class="wrap"><div class="spaces">{"".join(f'<figure><img src="assets/{src}" alt="{e(cap)}"{_wh(src)}{"" if i==0 else " loading=lazy"}><figcaption><span class="label">{e(lbl)}</span><span class="cap">{e(cap)}</span></figcaption></figure>' for i,(src,lbl,cap) in enumerate(SPACES))}</div></div></section>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Your space</span><h2 class="disp">Tell us where yours will live.</h2></div>
  <div class="prose"><p>We work with hotels, resorts, restaurants and cafés. Send us the space and we'll reply with what fits.</p><div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="collection.html">See SATU</a></div></div>
