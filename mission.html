@@ -278,7 +278,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .win-img{position:absolute;left:0;top:-22%;width:100%;height:144%;object-fit:cover;max-width:none}
 .motion .win-img{will-change:transform}
 .win-text{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(20px,4vw,56px);background:linear-gradient(180deg,rgba(20,18,15,0) 35%,rgba(20,18,15,.6) 100%)}
-.win-text p{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
+.win-text .disp{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
 .name-lines .nl{display:block}
 .motion .name-lines .nl{opacity:0;transform:translateY(48px);filter:blur(4px);transition:opacity 1.4s ease,transform 1.6s cubic-bezier(.2,.7,.2,1),filter 1.4s ease}
 .motion .name-lines .nl.in{opacity:1;transform:none;filter:none}
@@ -286,6 +286,8 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .dots3{width:clamp(56px,6vw,76px);height:auto;display:block;margin-bottom:24px;overflow:visible}
 .dots3 circle{fill:var(--ink);opacity:.22;transition:opacity .5s ease,transform .5s ease;transform-box:fill-box;transform-origin:center}
 .dots3 circle.on{opacity:1;transform:scale(1.12)}
+.win-top{padding-top:clamp(12px,2vw,24px)}
+.win-top .win-hole{height:clamp(420px,82vh,900px)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -441,10 +443,10 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </div></header>
 <main id="main">
 
-<section class="page-head"><div class="wrap">
+<section class="win win-top"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/chair-salt-flat.jpg" alt="A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water" width="1152" height="896"><div class="win-text"><h1 class="disp">The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.</h1></div></div></div></section>
+<section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
- <h1 class="disp">Use it again, before you make it again.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
+ <div class="split" style="margin-top:8px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
  <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
  <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
@@ -509,7 +511,6 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <div class="rows"><div class="row num"><span class="n">01</span><p>Made by hand from wood that has already lived once.</p></div><div class="row num"><span class="n">02</span><p>Shipped flat and bolted together on site.</p></div><div class="row num"><span class="n">03</span><p>Used every day: a dining room, a terrace, a pool.</p></div><div class="row num"><span class="n">04</span><p>A part wears out: swap just that part.</p></div><div class="row num"><span class="n">05</span><p>The place renovates or closes: take it apart, store it flat.</p></div><div class="row num"><span class="n">06</span><p>Someone gives it a new place and a new purpose. Back to step 3.</p></div></div>
 </div></section>
 
-<section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/chair-salt-flat.jpg" alt="A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water" width="1152" height="896" loading="lazy"><div class="win-text"><p class="disp">The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.</p></div></div></div></section>
 <section id="heading"><div class="wrap split">
  <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
  <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p><div class="lead-img"><figure class="fig"><img src="assets/chair-legs-sand.jpg" alt="Close-up of two dark teak chair legs standing in sand at the water&#x27;s edge, small waves behind" width="768" height="1024" loading="lazy"><figcaption class="cap">Feet in the sand, eyes on what comes next.</figcaption></figure></div></div>

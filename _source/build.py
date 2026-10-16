@@ -436,7 +436,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .win-img{position:absolute;left:0;top:-22%;width:100%;height:144%;object-fit:cover;max-width:none}
 .motion .win-img{will-change:transform}
 .win-text{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(20px,4vw,56px);background:linear-gradient(180deg,rgba(20,18,15,0) 35%,rgba(20,18,15,.6) 100%)}
-.win-text p{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
+.win-text .disp{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
 .name-lines .nl{display:block}
 .motion .name-lines .nl{opacity:0;transform:translateY(48px);filter:blur(4px);transition:opacity 1.4s ease,transform 1.6s cubic-bezier(.2,.7,.2,1),filter 1.4s ease}
 .motion .name-lines .nl.in{opacity:1;transform:none;filter:none}
@@ -444,6 +444,8 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .dots3{width:clamp(56px,6vw,76px);height:auto;display:block;margin-bottom:24px;overflow:visible}
 .dots3 circle{fill:var(--ink);opacity:.22;transition:opacity .5s ease,transform .5s ease;transform-box:fill-box;transform-origin:center}
 .dots3 circle.on{opacity:1;transform:scale(1.12)}
+.win-top{padding-top:clamp(12px,2vw,24px)}
+.win-top .win-hole{height:clamp(420px,82vh,900px)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -535,10 +537,10 @@ import PIL.Image as _PI
 IMG = {f:_PI.open(os.path.join(ROOT,"site_assets",f)).size for f in os.listdir(os.path.join(ROOT,"site_assets")) if f.endswith((".jpg",".png"))}
 def _wh(src):
   w,h = IMG.get(src,(0,0)); return f' width="{w}" height="{h}"' if w else ''
-def window(src, alt, text=None, cap=None):
-  t = f'<div class="win-text"><p class="disp">{text}</p></div>' if text else ''
+def window(src, alt, text=None, cap=None, tag="p", top=False):
+  t = f'<div class="win-text"><{tag} class="disp">{text}</{tag}></div>' if text else ''
   c = f'<p class="cap" style="margin-top:12px">{e(cap)}</p>' if cap else ''
-  return f'<section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy">{t}</div>{c}</div></section>'
+  return f'<section class="win{" win-top" if top else ""}"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/{src}" alt="{e(alt)}"{_wh(src)}{"" if top else " loading=lazy"}>{t}</div>{c}</div></section>'
 def bleed(src, alt, cap=None, lazy=True):
   c = f'<div class="wrap"><figcaption class="cap">{e(cap)}</figcaption></div>' if cap else ''
   return f'<figure class="bleed"><img src="assets/{src}" alt="{e(alt)}"{_wh(src)}{" loading=lazy" if lazy else ""}>{c}</figure>'
@@ -812,10 +814,10 @@ for p in PRODUCTS:
 
 # MISSION (Brand DNA and mission, one page)
 mission = f'''
-<section class="page-head"><div class="wrap">
+{window("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water",text="The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.",tag="h1",top=True)}
+<section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
- <h1 class="disp">Use it again, before you make it again.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
+ <div class="split" style="margin-top:8px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
  <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
  {updated()}
 </div></section>
@@ -883,7 +885,6 @@ mission = f'''
  {rows(LIFE, numbered=True)}
 </div></section>
 
-{window("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water",text="The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.")}
 <section id="heading"><div class="wrap split">
  <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
  <p class="prose" style="margin-top:24px">We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.</p><div class="lead-img">{fig("chair-legs-sand.jpg","Close-up of two dark teak chair legs standing in sand at the water's edge, small waves behind","Feet in the sand, eyes on what comes next.")}</div></div>
