@@ -929,18 +929,6 @@ passport = f'''
 </div></section>
 {bleed("timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length",lazy=False)}
 
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Why we're building it</span><h2 class="disp">Most furniture has no past. And no plan for the future.</h2></div>
- <div class="prose"><p>Ask where a chair came from and you'll usually get a country, a code or a sticker. Ask what happens when a leg breaks, or when the hotel renovates, and the answer goes quiet.</p>
- <p>Our wood has already lived once, in a house, a bridge or a boat. We think that past deserves to travel with the furniture, and that its future should be written down too.</p></div>
-</div></section>
-
-<section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">The idea</span><h2 class="disp">One code. One piece. Its whole story.</h2>
- <p class="prose" style="margin-top:24px">Each piece gets its own code, and each code opens its own page. This is what we're designing that page to show.</p></div>
- {rows(PASS_STEPS)}
-</div></section>
-
 <section id="label"><div class="wrap split">
  <div><span class="label eyebrow muted">Beyond the label</span><h2 class="disp">A label is not a mission.</h2>
   <div class="lead-img">{fig("label-workshop.jpg","Black-and-white photograph of certification signs leaning against a workshop wall, next to an old speaker and a pair of work gloves","A stamp on the wall. Only part of the story.")}</div></div>
