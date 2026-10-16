@@ -42,7 +42,7 @@ BRAND = {
 PRODUCTS = [
   dict(slug="the-chair", name="The Chair", category="Chair", order=1, dims=(80,45,45), seat=45,
        img="assets/chair-rear.jpg", img_alt="The Chair from behind, showing the open backrest, the slatted seat and the bolt clusters on the back legs",
-       gallery=[("chair-studio-bw.jpg","Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints"),("chair-detail-bw.jpg","Close-up of The Chair's backrest and seat frame, with the burned grain and the bolt cluster visible")],
+       gallery=[("chair-studio-bw.jpg","Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints"),("chair-detail-bw.jpg","Close-up of The Chair's backrest and seat frame, with the burned grain and the bolt cluster visible"),("chair-saltflat-legs.jpg","Black-and-white photograph of bare legs standing on The Chair at the edge of shallow water on a salt flat")],
        short="A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.",
        use="Dining rooms, restaurants and terraces",
        notes=["The first piece we designed, and the one the rest of SATU grew from.",
@@ -558,7 +558,7 @@ home = f'''
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{fig("workshop-planer.jpg","A maker in the workshop planing a long, old beam","Planing an old beam in the workshop.")}</div></div>
+ <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{fig("burning-board.jpg","Flames running across a teak board as its surface is burned in the workshop","Burning the surface, before the oil.")}</div></div>
  {rows([("Reclaimed","Teak that already lived once, often in old joglo houses. Far too good to waste."),("Burned and oiled","An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil."),("Made to be rebuilt","Ships flat, bolts together on site and comes apart again whenever it needs to.")])}
 </div></section>
 
@@ -827,7 +827,7 @@ material = f'''
 </div></section>
 
 <section id="making"><div class="wrap split">
- <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img">{fig("workshop-drill.jpg","A maker in the workshop drilling a teak part on a pillar drill","Drilling the bolt holes by hand.")}</div></div>
+ <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img">{duo(fig("marking-holes.jpg","A maker's hand holding a teak leg against the frame, with the bolt holes marked in pen","Marking the bolt holes."),fig("workshop-drill.jpg","A maker in the workshop drilling a teak part on a pillar drill","Then drilling them by hand."))}</div></div>
  <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.</p>
  <p>Producing close to the material keeps the supply chain short and visible.</p></div>
 </div></section>
@@ -862,7 +862,7 @@ passport = f'''
  {rows(PASSPORT_Q, numbered=True)}
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Why it matters for hospitality</span><h2 class="disp">Furniture you can report on.</h2></div>
+ <div><span class="label eyebrow muted">Why it matters for hospitality</span><h2 class="disp">Furniture you can report on.</h2><div class="lead-img">{fig("chair-raw-workshop.jpg","An unfinished teak chair standing on a sawdust-covered workshop floor, before burning","A chair on the workshop floor, before it is burned. Its record starts here.")}</div></div>
  <div class="prose"><p>Hotels and restaurants are increasingly asked what their operations are made of, and furniture is often left out. The Passport gives you a documented origin for each piece, so you can talk about it to guests, owners and auditors with something real behind it.</p>
  <p>It is also a conversation starter. A guest can scan a chair and read where its wood was before.</p></div>
 </div></section>
@@ -995,6 +995,7 @@ contact = f'''
  <div>
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
+  <div class="lead-img">{fig("chair-seawall-step.jpg","A woman in a long dress stepping barefoot off The Chair on a sea wall, a beach and a sailboat behind","Come and say hello.")}</div>
   <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Based in","Bali, Indonesia"),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
  <div>
