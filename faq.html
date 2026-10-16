@@ -224,6 +224,18 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .spaces figcaption{display:grid;gap:4px;margin-top:12px}
 @media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
+/* compare slider */
+.compare{position:relative;overflow:hidden;max-width:960px;--p:50%;background:var(--hairline);touch-action:pan-y}
+.compare img{display:block;width:100%;height:auto}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.compare-top img{width:100%;height:100%;object-fit:cover}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--paper);pointer-events:none}
+.compare-line span{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.compare-line span::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:500 15px/1 var(--font-mono);color:var(--ink)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
+.compare-tag.l{left:12px}.compare-tag.r{right:12px}
+@media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}

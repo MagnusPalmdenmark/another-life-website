@@ -385,6 +385,18 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .spaces figcaption{display:grid;gap:4px;margin-top:12px}
 @media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
+/* compare slider */
+.compare{position:relative;overflow:hidden;max-width:960px;--p:50%;background:var(--hairline);touch-action:pan-y}
+.compare img{display:block;width:100%;height:auto}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.compare-top img{width:100%;height:100%;object-fit:cover}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--paper);pointer-events:none}
+.compare-line span{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.compare-line span::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:500 15px/1 var(--font-mono);color:var(--ink)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
+.compare-tag.l{left:12px}.compare-tag.r{right:12px}
+@media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -807,7 +819,7 @@ material = f'''
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#rebuilt">Built to be rebuilt</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#rebuilt">Built to be rebuilt</a> · <a href="#air">Shipping</a></p></nav></div>
  {updated()}
 </div></section>
 
@@ -857,10 +869,26 @@ material = f'''
 
 <section id="rebuilt"><div class="wrap split">
  <div><span class="label eyebrow muted">Built to be rebuilt</span><h2 class="disp">Flat, bolted, and back again.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand, then bolt together.")}</div></div>
- <div class="prose"><p>Assembled furniture is mostly air in a shipping container. Ours travels flat, so far more pieces fit in the same space, and it is bolted together on site.</p>
+ <div class="prose"><p>Every piece travels flat and is bolted together on site.</p>
  <p>The same bolts let a piece come apart again without damage: to move it, to store it, or to change a single worn part while the rest carries on.</p>
  <p><a class="tlink" href="mission.html#life">The life of a piece</a> · Prices are ex works, Indonesia.</p></div>
 </div></section>
+
+<section id="air"><div class="wrap">
+ <div class="split" style="margin-bottom:36px"><div><span class="label eyebrow muted">Shipping</span><h2 class="disp">Stop shipping air.</h2></div>
+ <div class="prose"><p>An assembled chair is mostly empty space: between the legs, under the seat, behind the backrest. Ship it like that and you pay to move air across the ocean.</p>
+ <p>Flat-packed, the same container holds around 1,300 of our chairs, against roughly 350 assembled. Almost four times as many chairs per trip, so fewer containers, less fuel and a lower cost for every chair.</p>
+ <p class="cap">Our estimate for a 40 ft high-cube container. The final figure depends on packaging and loading.</p></div></div>
+ <div class="compare" id="cmp">
+  <img src="assets/container-assembled.jpg" alt="Illustration of a shipping container filled with sixteen large boxes of assembled chairs"{_wh("container-assembled.jpg")} loading="lazy">
+  <div class="compare-top"><img src="assets/container-flat.jpg" alt="Illustration of the same container filled with dozens of thin boxes of flat-packed chairs"{_wh("container-flat.jpg")} loading="lazy"></div>
+  <span class="compare-tag l label">Flat-packed · ~1,300</span><span class="compare-tag r label">Assembled · ~350</span>
+  <div class="compare-line" aria-hidden="true"><span></span></div>
+  <input type="range" min="0" max="100" value="50" aria-label="Slide to compare flat-packed and assembled shipping">
+ </div>
+ <p class="cap" style="margin-top:12px">Drag the slider to compare. Illustration.</p>
+</div></section>
+<script>(function(){{var c=document.getElementById('cmp');if(!c)return;var r=c.querySelector('input');function u(){{c.style.setProperty('--p',r.value+'%');}}r.addEventListener('input',u);u();}})();</script>
 '''
 pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak from old joglo houses, bridges and boats, and is developing reclaimed ulin (Borneo ironwood). Burned with Shou Sugi Ban, finished with natural oil, made in Indonesia and built to be rebuilt.", material,
   [breadcrumb([("index.html","Home"),("material.html","Material and making")]),
