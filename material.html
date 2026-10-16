@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Material and Making</title>
-<meta name="description" content="Another Life uses repurposed teak, often from old joglo houses, finished with Shou Sugi Ban and natural oil. Made in Indonesia, shipped flat.">
+<meta name="description" content="Another Life uses repurposed teak from old joglo houses, bridges and boats, and is developing reclaimed ulin (Borneo ironwood). Burned with Shou Sugi Ban, finished with natural oil, made in Indonesia and built to be rebuilt.">
 <link rel="canonical" href="https://YOUR-DOMAIN.com/material.html">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Another Life">
-<meta property="og:title" content="Material and Making"><meta property="og:description" content="Another Life uses repurposed teak, often from old joglo houses, finished with Shou Sugi Ban and natural oil. Made in Indonesia, shipped flat.">
+<meta property="og:title" content="Material and Making"><meta property="og:description" content="Another Life uses repurposed teak from old joglo houses, bridges and boats, and is developing reclaimed ulin (Borneo ironwood). Burned with Shou Sugi Ban, finished with natural oil, made in Indonesia and built to be rebuilt.">
 <meta property="og:url" content="https://YOUR-DOMAIN.com/material.html"><meta property="og:image" content="https://YOUR-DOMAIN.com/assets/chair-studio-wide.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -197,6 +197,49 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px,3vw,40px);border-top:1px solid var(--ink)}
+.once>div{padding:24px 0 28px;border-bottom:1px solid var(--hairline);min-width:0}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+.once-img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:var(--hairline);margin-bottom:20px}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div{padding:20px 0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
+.renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
+/* in-use grid */
+.spaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(16px,2vw,28px)}
+.spaces img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--hairline)}
+.spaces figcaption{display:grid;gap:4px;margin-top:12px}
+@media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
+/* compare slider */
+.compare{position:relative;overflow:hidden;max-width:960px;--p:50%;background:var(--hairline);touch-action:pan-y}
+.compare img{display:block;width:100%;height:auto}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.compare-top img{width:100%;height:100%;object-fit:cover}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--paper);pointer-events:none}
+.compare-line span{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.compare-line span::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:500 15px/1 var(--font-mono);color:var(--ink)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
+.compare-tag.l{left:12px}.compare-tag.r{right:12px}
+@media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
+.seg{display:inline-flex;border:1px solid var(--ink);margin-bottom:16px}
+.seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -289,21 +332,32 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
    "@type": "WebPage",
    "name": "Material and making",
    "url": "https://YOUR-DOMAIN.com/material.html",
+   "dateModified": "2026-10-16",
    "about": [
     {
      "@type": "Thing",
-     "name": "Reclaimed teak"
+     "name": "Reclaimed teak",
+     "alternateName": "Tectona grandis"
     },
     {
      "@type": "Thing",
-     "name": "Joglo"
+     "name": "Reclaimed ulin",
+     "alternateName": [
+      "Borneo ironwood",
+      "Eusideroxylon zwageri"
+     ]
     },
     {
      "@type": "Thing",
-     "name": "Shou Sugi Ban"
+     "name": "Joglo",
+     "description": "Traditional Javanese teak house"
+    },
+    {
+     "@type": "Thing",
+     "name": "Shou Sugi Ban",
+     "alternateName": "Yakisugi"
     }
-   ],
-   "dateModified": "2026-10-08"
+   ]
   }
  ]
 }</script>
@@ -312,53 +366,97 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html" aria-current=page>Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="mission.html">Mission</a><a class="label" href="material.html" aria-current=page>Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
- <p class="pull" style="margin-top:24px">Where our wood comes from, how we finish it, and how each piece is built and shipped.</p>
- <p class="cap updated">Last updated 2026-10-08</p>
+ <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.</p>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#rebuilt">Built to be rebuilt</a> · <a href="#air">Shipping</a></p></nav></div>
+ <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Source</span><h2 class="disp">Old joglo houses.</h2><div class="lead-img"><figure class="fig"><img src="assets/joglo-beams.jpg" alt="Old house beams stacked on gravel, with the mortise holes from their first life still in them" width="1800" height="1200" loading="lazy"><figcaption class="cap">Beams from old houses, with their joinery holes still in them.</figcaption></figure></div></div>
- <div class="prose"><p>Our teak is repurposed teak: timber that has already lived a life, often in old joglo houses. It has spent years as part of a home before it reaches us.</p>
- <p>We prefer to show where the wood came from rather than lean on a label. Each piece's origin is recorded in its <a href="passport.html">Passport</a>.</p></div>
+
+<section id="source"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 1 · Where our wood comes from</span><h2 class="disp">17,000 islands, built in wood.</h2><div class="lead-img"><figure class="fig"><img src="assets/workshop-door.jpg" alt="Looking out of a dark timber shed onto a pile of old wood offcuts in the sun" width="1200" height="1800" loading="lazy"><figcaption class="cap">Old wood waiting outside the workshop.</figcaption></figure></div></div>
+ <div class="prose"><p>Indonesia has more than 17,000 islands, and for centuries much of it was built in wood. On Java, families lived in joglos: big teak houses held up by four mighty pillars and put together without a single nail.</p>
+ <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
+ <p>Our teak (<i>Tectona grandis</i>) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. Each piece's own story will be in its <a href="passport.html">Passport</a>.</p></div>
 </div></section>
 <figure class="bleed"><img src="assets/timber-yard.jpg" alt="A yard stacked with old teak posts and beams, their cut ends marked in chalk" width="1800" height="1200" loading=lazy><div class="wrap"><figcaption class="cap">Old posts and beams, marked and sorted before they are cut.</figcaption></div></figure>
-<section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">Finish</span><h2 class="disp">Shou Sugi Ban.</h2><div class="lead-img"><figure class="fig"><video src="assets/burning.mp4" poster="assets/burning-poster.jpg" width="1280" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Flames running along the surface of a teak board as it is burned"></video><figcaption class="cap">Burning the surface of the timber.</figcaption></figure></div></div>
- <div><div class="rows"><div class="row num"><span class="n">01</span><p>We burn the surface of the teak to darken it.</p></div><div class="row num"><span class="n">02</span><p>We finish it with natural oil to preserve the character of the wood.</p></div><div class="row num"><span class="n">03</span><p>What is left is the material itself: honest, tactile, and made to age well.</p></div></div>
- <p class="cap" style="margin-top:20px">Shou Sugi Ban is a Japanese technique of darkening wood with flame.</p></div>
+
+<section id="ulin"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 2 · In development</span><h2 class="disp">Meet ulin, Borneo's ironwood.</h2><div class="lead-img"><div class="duo"><figure class="fig"><img src="assets/ulin-plank.jpg" alt="A reclaimed ulin plank held in a hand, weathered grey on the outside and warm brown where it has been planed" width="768" height="1024" loading="lazy"><figcaption class="cap">Reclaimed ulin: weathered outside, warm and dense inside.</figcaption></figure><figure class="fig"><img src="assets/ulin-beams.jpg" alt="The ends of old ulin beams stacked under trees, with S-shaped irons hammered into them" width="768" height="1024" loading="lazy"><figcaption class="cap">Old ulin beams. The S-shaped irons keep the ends from splitting.</figcaption></figure></div></div></div>
+ <div class="prose"><p>Ulin (<i>Eusideroxylon zwageri</i>) is so dense it sinks in water, so tough that termites give up, and so slow-growing that a tree can live for more than a thousand years. For generations it carried fishing boats, held up bridges and kept river villages above the water.</p>
+ <p>A wood like that should never be cut new. So when an old boat or bridge retires, we give its ironwood a second career. Our first ironwood samples have just left the workshop.</p>
+ <p class="pull" style="margin-block:28px 16px">Why can't you just buy new ulin?</p>
+ <p>Because a tree that takes centuries to grow was cut much faster than it could grow back. Indonesia stepped in: new ulin can no longer be exported, and the species is protected. Old ulin is another story. When a bridge, a house or a dock has done its job, its wood can start again, traced and documented. That's the only ulin we'll ever use.</p></div>
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Our standard</span><h2 class="disp">Defects stay. Strength comes first.</h2><div class="lead-img"><figure class="fig"><img src="assets/timber-boards.jpg" alt="Close-up of stacked repurposed teak boards, with old nail holes, cracks and saw marks along their edges" width="1200" height="1800" loading="lazy"><figcaption class="cap">Old nail holes and marks stay part of the board.</figcaption></figure></div></div>
- <div class="prose"><p>Reclaimed wood carries holes and marks from its first life. We leave them natural and never fill them with glue.</p><p>We use them only where they don't weaken the piece. Character is welcome. A weaker chair is not.</p></div>
+
+<section class="forest" id="finish"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 3 · Shou Sugi Ban, our way</span><h2 class="disp">Fire, borrowed from Japan.</h2><div class="lead-img"><figure class="fig"><video src="assets/burning.mp4" poster="assets/burning-poster.jpg" width="1280" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Flames running along the surface of a teak board as it is burned"></video><figcaption class="cap">Burning the surface of the timber.</figcaption></figure></div></div>
+ <div class="prose"><p>In Japan, carpenters have protected cedar by setting it on fire for centuries. Really. It's called yakisugi, and a charred surface helps wood stand up to weather and bugs.</p>
+ <p>We borrowed the idea and tried it on something harder: repurposed teak. We burn the surface, then rub in natural oil. The idea is to help the wood handle the tropical sun.</p>
+ <p>An old Japanese technique, moved to a new wood and a new climate. Just the wood, a little braver.</p></div>
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img"><figure class="fig"><img src="assets/workshop-drill.jpg" alt="A maker in the workshop drilling a teak part on a pillar drill" width="1200" height="1800" loading="lazy"><figcaption class="cap">Drilling the bolt holes by hand.</figcaption></figure></div></div>
- <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches. We spent a year learning Indonesian timber before releasing our first collection.</p>
+
+<section id="oil"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 4 · Natural oil</span><h2 class="disp">Into the wood, not on top of it.</h2><div class="lead-img"><figure class="fig"><img src="assets/timber-boards.jpg" alt="Close-up of stacked repurposed teak boards, with old nail holes, cracks and saw marks along their edges" width="1200" height="1800" loading="lazy"><figcaption class="cap">Old nail holes and marks stay part of the board.</figcaption></figure></div></div>
+ <div class="prose"><p>Many outdoor finishes are coatings: a layer that sits on top of the wood. Over time they weather, flake off and end up in the soil and the sea.</p>
+ <p>We finish with natural oil instead. It soaks into the wood rather than forming a skin, and when a piece needs care, you oil it again.</p>
+ <p>Reclaimed wood also carries marks from its first life. They stay visible, wherever they don't weaken the piece. Character is welcome. A weaker chair is not.</p></div>
+</div></section>
+
+<section id="making"><div class="wrap split">
+ <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2><div class="lead-img"><div class="duo"><figure class="fig"><img src="assets/marking-holes.jpg" alt="A maker&#x27;s hand holding a teak leg against the frame, with the bolt holes marked in pen" width="768" height="1024" loading="lazy"><figcaption class="cap">Marking the bolt holes.</figcaption></figure><figure class="fig"><img src="assets/workshop-drill.jpg" alt="A maker in the workshop drilling a teak part on a pillar drill" width="1200" height="1800" loading="lazy"><figcaption class="cap">Then drilling them by hand.</figcaption></figure></div></div></div>
+ <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches.</p>
  <p>Producing close to the material keeps the supply chain short and visible.</p></div>
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Shipping</span><h2 class="disp">Flat, then bolted.</h2><div class="lead-img"><figure class="fig"><video src="assets/assembly.mp4" poster="assets/assembly-poster.jpg" width="616" height="800" autoplay muted loop playsinline preload="metadata" aria-label="A hand fitting the backrest of The Chair onto its frame"></video><figcaption class="cap">Parts fit by hand, then bolt together.</figcaption></figure></div></div>
- <div class="prose"><p>Assembled furniture is mostly air in a container. Ours ships knocked down, so far more pieces fit in the same space, and it is bolted together on site.</p>
- <p>The same bolts let a piece be taken apart again to move it, store it, or replace a part. Prices are ex works, Indonesia.</p></div>
+
+<section id="hardware"><div class="wrap split">
+ <div><span class="label eyebrow muted">The hardware</span><h2 class="disp">Bolts built to outlive the chair.</h2><div class="lead-img"><figure class="fig"><img src="assets/joint-holes.jpg" alt="The underside of a raw teak frame, showing a leg joint with three bolt holes and the threaded inserts set into the wood" width="768" height="1024" loading="lazy"><figcaption class="cap">Three holes, three bolts, at every main joint.</figcaption></figure></div></div>
+ <div class="prose"><p>Hardware is usually the last thing anyone thinks about. It is often the cheapest part of a piece of furniture, and the first to fail: screws rust, threads strip, and a good chair is thrown out because of a part that cost almost nothing.</p>
+ <p>We turned that around. Every SATU joint is held by engineered stainless steel (SUS) bolts that screw into threaded inserts set into the wood. The bolt never cuts into the wood itself, so a joint can be opened and closed again and again without wearing out.</p>
+ <p>The three-bolt clusters you see on every piece aren't decoration. They hold everything together, and they're designed to last longer than the furniture around them.</p>
+ <div class="renders" style="margin-top:28px"><div class="duo"><figure class="fig"><img src="assets/bolt-render.png" alt="Technical drawing of the stainless steel connector bolt, with a flat head and a long thread" width="721" height="384" loading="lazy"><figcaption class="cap">The bolt.</figcaption></figure><figure class="fig"><img src="assets/insert-render.png" alt="Technical drawing of the threaded insert that sits in the wood and receives the bolt" width="490" height="537" loading="lazy"><figcaption class="cap">The insert it screws into.</figcaption></figure></div></div></div>
 </div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Over time</span><h2 class="disp">One design. Different lives.</h2><div class="lead-img"><figure class="fig"><img src="assets/chair-detail-bw.jpg" alt="Close-up of The Chair&#x27;s frame and the three-bolt cluster that holds the seat to the leg" width="1800" height="1434" loading="lazy"></figure></div></div>
- <div class="prose"><p>Our pieces are built as a system. The design stays; the material and components can change. Today SATU is made in repurposed teak with a Shou Sugi Ban finish. Future versions may use other timbers or materials, chosen by the same six questions we ask of everything.</p></div>
+
+<section id="rebuilt"><div class="wrap split">
+ <div><span class="label eyebrow muted">Built to be rebuilt</span><h2 class="disp">Flat, bolted, and back again.</h2><div class="lead-img"><figure class="fig"><video src="assets/assembly.mp4" poster="assets/assembly-poster.jpg" width="616" height="800" autoplay muted loop playsinline preload="metadata" aria-label="A hand fitting the backrest of The Chair onto its frame"></video><figcaption class="cap">Parts fit by hand, then bolt together.</figcaption></figure></div></div>
+ <div class="prose"><p>Every piece travels flat and is bolted together on site.</p>
+ <p>The same bolts let a piece come apart again without damage: to move it, to store it, or to change a single worn part while the rest carries on.</p>
+ <p><a class="tlink" href="mission.html#life">The life of a piece</a> · Prices are ex works, Indonesia.</p></div>
 </div></section>
+
+<section id="air"><div class="wrap">
+ <div class="split" style="margin-bottom:36px"><div><span class="label eyebrow muted">Shipping</span><h2 class="disp">Stop shipping air.</h2></div>
+ <div class="prose"><p>An assembled chair is mostly empty space: between the legs, under the seat, behind the backrest. Ship it like that and you pay to move air across the ocean.</p>
+ <p>Flat-packed, a <span data-k="name">40 ft high-cube</span> container holds around <span data-k="flat">1,300</span> of our chairs, against roughly <span data-k="asm">350</span> assembled. Almost four times as many chairs per trip, so fewer containers, less fuel and a lower cost for every chair.</p>
+ <p class="cap">Our estimates. The final figures depend on packaging and loading.</p></div></div>
+ <div class="seg" role="group" aria-label="Container size"><button type="button" data-c="20">20 ft</button><button type="button" data-c="40" aria-pressed="true">40 ft high-cube</button></div>
+ <div class="compare" id="cmp">
+  <img src="assets/container-assembled.jpg" alt="Illustration of a shipping container filled with sixteen large boxes of assembled chairs" width="1536" height="1024" loading="lazy">
+  <div class="compare-top"><img src="assets/container-flat.jpg" alt="Illustration of the same container filled with dozens of thin boxes of flat-packed chairs" width="1536" height="1024" loading="lazy"></div>
+  <span class="compare-tag l label">Flat-packed · ~<span data-k="flat">1,300</span></span><span class="compare-tag r label">Assembled · ~<span data-k="asm">350</span></span>
+  <div class="compare-line" aria-hidden="true"><span></span></div>
+  <input type="range" min="0" max="100" value="50" aria-label="Slide to compare flat-packed and assembled shipping">
+ </div>
+ <p class="cap" style="margin-top:12px">Drag the slider to compare. Illustration.</p>
+</div></section>
+<script>(function(){var c=document.getElementById('cmp');if(!c)return;var r=c.querySelector('input');function u(){c.style.setProperty('--p',r.value+'%');}r.addEventListener('input',u);u();
+ var D={"20":{name:"20 ft",flat:"550",asm:"150"},"40":{name:"40 ft high-cube",flat:"1,300",asm:"350"}},sec=document.getElementById('air');
+ sec.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){var d=D[b.dataset.c];
+  sec.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+  sec.querySelectorAll('[data-k]').forEach(function(el){el.textContent=d[el.dataset.k];});});});})();</script>
 
 </main>
 <footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
- <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li><li><a href="the-table.html">The Table</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>

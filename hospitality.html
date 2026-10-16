@@ -197,6 +197,49 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px,3vw,40px);border-top:1px solid var(--ink)}
+.once>div{padding:24px 0 28px;border-bottom:1px solid var(--hairline);min-width:0}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+.once-img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:var(--hairline);margin-bottom:20px}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div{padding:20px 0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
+.renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
+/* in-use grid */
+.spaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(16px,2vw,28px)}
+.spaces img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--hairline)}
+.spaces figcaption{display:grid;gap:4px;margin-top:12px}
+@media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
+/* compare slider */
+.compare{position:relative;overflow:hidden;max-width:960px;--p:50%;background:var(--hairline);touch-action:pan-y}
+.compare img{display:block;width:100%;height:auto}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.compare-top img{width:100%;height:100%;object-fit:cover}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--paper);pointer-events:none}
+.compare-line span{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.compare-line span::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:500 15px/1 var(--font-mono);color:var(--ink)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
+.compare-tag.l{left:12px}.compare-tag.r{right:12px}
+@media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
+.seg{display:inline-flex;border:1px solid var(--ink);margin-bottom:16px}
+.seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -305,7 +348,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html" aria-current=page>Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="mission.html">Mission</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html" aria-current=page>Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
@@ -313,9 +356,9 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <span class="label eyebrow">For hospitality</span>
  <h1 class="disp">Furniture that outlasts the fit-out.</h1>
  <p class="pull" style="margin-top:24px">We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.</p>
- <p class="cap updated">Last updated 2026-10-08</p>
+ <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
-<figure class="bleed"><img src="assets/restaurant-mountain.jpg" alt="The Chair at restaurant tables beside a long banquette, forested hills through floor-to-ceiling windows" width="1536" height="1024"><div class="wrap"><figcaption class="cap">The Chair in a restaurant dining room.</figcaption></div></figure>
+<figure class="bleed"><img src="assets/chair-terrazzo.jpg" alt="The Chair on a terrazzo floor in Bali, the burned grain visible on seat and backrest" width="1086" height="1448"><div class="wrap"><figcaption class="cap">The Chair on a terrazzo floor in Bali.</figcaption></div></figure>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Who we work with</span><h2 class="disp">The people who shape a place.</h2></div>
  <div class="prose"><p>We like to work directly with owners and the people who define what a hospitality brand stands for, not only how it looks. If your place is built on values, your furniture should carry them.</p>
@@ -323,7 +366,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <p>Choosing Another Life is a way to adopt better decisions without building the supply chain yourself. The story comes with the piece.</p></div>
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">What you get</span><h2 class="disp">Why it fits hospitality.</h2><div class="lead-img"><figure class="fig"><img src="assets/terrace-jungle.jpg" alt="The Chair on a rain-wet timber terrace above the jungle at sunset" width="1086" height="1448" loading="lazy"><figcaption class="cap">Outdoors, on a terrace after rain.</figcaption></figure></div></div>
+ <div><span class="label eyebrow muted">What you get</span><h2 class="disp">Why it fits hospitality.</h2><div class="lead-img"><figure class="fig"><img src="assets/chair-detail-sky.jpg" alt="The Chair&#x27;s backrest against an evening sky, with low sun on the teak and the bolt cluster on the rear leg" width="1385" height="1800" loading="lazy"><figcaption class="cap">Made to live outdoors.</figcaption></figure></div></div>
  <div class="rows"><div class="row"><h3 class="disp">Indoors and outdoors</h3><p>Made for pools, terraces, gardens, dining rooms and lobbies.</p></div><div class="row"><h3 class="disp">Repair, not replace</h3><p>When a part wears, you replace the part. The piece stays in service.</p></div><div class="row"><h3 class="disp">Flat to your door</h3><p>Ships knocked down, assembles on site, comes apart again when you move or store it.</p></div><div class="row"><h3 class="disp">A record per piece</h3><p>Each piece&#x27;s origin is documented in its Passport.</p></div><div class="row"><h3 class="disp">Something to talk about</h3><p>Guests ask about furniture with a history. Yours has one.</p></div></div>
 </div></section>
 <section class="forest"><div class="wrap split">
@@ -331,7 +374,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <div class="rows"><div class="row num"><span class="n">01</span><p>Tell us about the space, the pieces you need and your timeline.</p></div><div class="row num"><span class="n">02</span><p>We reply with options, pricing ex works Indonesia, and lead times.</p></div><div class="row num"><span class="n">03</span><p>Your pieces are made by hand in Indonesia in small batches.</p></div><div class="row num"><span class="n">04</span><p>They ship flat and are bolted together on site.</p></div><div class="row num"><span class="n">05</span><p>Each piece is documented for its Passport.</p></div></div>
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Start</span><h2 class="disp">Tell us what you're building.</h2></div>
+ <div><span class="label eyebrow muted">Start</span><h2 class="disp">Ready when you are.</h2></div>
  <div class="prose"><p>Prices are on request. We reply to every enquiry.</p><div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="collection.html">See SATU</a></div></div>
 </div></section>
 
@@ -339,9 +382,9 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
- <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li><li><a href="the-table.html">The Table</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>

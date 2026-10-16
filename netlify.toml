@@ -7,3 +7,15 @@
   to = "/index.html"
   status = 404
   force = true
+
+# Brand DNA is now part of Mission
+[[redirects]]
+  from = "/brand.html"
+  to = "/mission.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/brand"
+  to = "/mission.html"
+  status = 301
+  force = true

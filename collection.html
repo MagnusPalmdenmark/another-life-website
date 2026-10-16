@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SATU Collection</title>
-<meta name="description" content="SATU is Another Life&#x27;s first collection of six pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table, in repurposed teak with a Shou Sugi Ban finish.">
+<meta name="description" content="SATU is Another Life&#x27;s first collection of seven pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table and The Table, in repurposed teak with a Shou Sugi Ban finish.">
 <link rel="canonical" href="https://YOUR-DOMAIN.com/collection.html">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Another Life">
-<meta property="og:title" content="SATU Collection"><meta property="og:description" content="SATU is Another Life&#x27;s first collection of six pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table and The Coffee Table, in repurposed teak with a Shou Sugi Ban finish.">
+<meta property="og:title" content="SATU Collection"><meta property="og:description" content="SATU is Another Life&#x27;s first collection of seven pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table and The Table, in repurposed teak with a Shou Sugi Ban finish.">
 <meta property="og:url" content="https://YOUR-DOMAIN.com/collection.html"><meta property="og:image" content="https://YOUR-DOMAIN.com/assets/chair-studio-wide.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -197,6 +197,49 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px,3vw,40px);border-top:1px solid var(--ink)}
+.once>div{padding:24px 0 28px;border-bottom:1px solid var(--hairline);min-width:0}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+.once-img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:var(--hairline);margin-bottom:20px}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div{padding:20px 0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
+.renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
+/* in-use grid */
+.spaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(16px,2vw,28px)}
+.spaces img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--hairline)}
+.spaces figcaption{display:grid;gap:4px;margin-top:12px}
+@media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
+/* compare slider */
+.compare{position:relative;overflow:hidden;max-width:960px;--p:50%;background:var(--hairline);touch-action:pan-y}
+.compare img{display:block;width:100%;height:auto}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.compare-top img{width:100%;height:100%;object-fit:cover}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--paper);pointer-events:none}
+.compare-line span{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.compare-line span::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:500 15px/1 var(--font-mono);color:var(--ink)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
+.compare-tag.l{left:12px}.compare-tag.r{right:12px}
+@media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
+.seg{display:inline-flex;border:1px solid var(--ink);margin-bottom:16px}
+.seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -294,7 +337,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
    },
    "mainEntity": {
     "@type": "ItemList",
-    "numberOfItems": 6,
+    "numberOfItems": 7,
     "itemListElement": [
      {
       "@type": "ListItem",
@@ -331,6 +374,12 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
       "position": 6,
       "url": "https://YOUR-DOMAIN.com/the-coffee-table.html",
       "name": "The Coffee Table"
+     },
+     {
+      "@type": "ListItem",
+      "position": 7,
+      "url": "https://YOUR-DOMAIN.com/the-table.html",
+      "name": "The Table"
      }
     ]
    }
@@ -342,20 +391,20 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html" aria-current=page>Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html" aria-current=page>Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="mission.html">Mission</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Collection</span>
  <h1 class="disp">SATU</h1>
- <div class="split page-head-body" style="margin-top:32px"><p class="pull">Our first collection. Six pieces in one material, one finish and one way of building.</p>
- <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, you replace the part, not the piece.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Materials from another life. Designed for another life.</strong></p></div></div>
- <p class="cap updated">Last updated 2026-10-08</p>
+ <div class="split page-head-body" style="margin-top:32px"><p class="pull">Our first collection. Seven pieces in one material, one finish and one way of building.</p>
+ <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Old wood, new purpose, long life.</strong></p></div></div>
+ <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
 <figure class="bleed"><img src="assets/chair-light.jpg" alt="The Chair in a beam of window light, dust in the air and the grain of the seat lit up" width="1800" height="1434"></figure>
 <section><div class="wrap">
- <div class="pindex"><a class="pitem" href="the-chair.html"><span class="n">01</span><img class="pthumb" src="assets/chair-rear.jpg" alt="" loading="lazy"><span class="disp">The Chair</span><span class="d muted">A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.</span><span class="sku cap">H 80 / W 45 / L 45 cm</span></a><a class="pitem" href="the-sun-lounger.html"><span class="n">02</span><img class="pthumb" src="assets/sunlounger-studio2.jpg" alt="" loading="lazy"><span class="disp">The Sun Lounger</span><span class="d muted">A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.</span><span class="sku cap">H 32 / W 75 / L 211 cm</span></a><a class="pitem" href="the-bench.html"><span class="n">03</span><img class="pthumb" src="assets/bench.jpg" alt="" loading="lazy"><span class="disp">The Bench</span><span class="d muted">A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.</span><span class="sku cap">H 45 / W 206 / L 40 cm</span></a><a class="pitem" href="the-lounge-chair.html"><span class="n">04</span><img class="pthumb" src="assets/loungechair-studio.jpg" alt="" loading="lazy"><span class="disp">The Lounge Chair</span><span class="d muted">A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.</span><span class="sku cap">H 78 / W 68 / L 60 cm</span></a><a class="pitem" href="the-side-table.html"><span class="n">05</span><img class="pthumb" src="assets/sidetable.jpg" alt="" loading="lazy"><span class="disp">The Side Table</span><span class="d muted">A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.</span><span class="sku cap">H 32 / W 75 / L 75 cm</span></a><a class="pitem" href="the-coffee-table.html"><span class="n">06</span><img class="pthumb" src="assets/table-studio.jpg" alt="" loading="lazy"><span class="disp">The Coffee Table</span><span class="d muted">A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.</span><span class="sku cap">H 32 / W 75 / L 100 cm</span></a></div>
+ <div class="pindex"><a class="pitem" href="the-chair.html"><span class="n">01</span><img class="pthumb" src="assets/chair-rear.jpg" alt="" loading="lazy"><span class="disp">The Chair</span><span class="d muted">Dining rooms, restaurants and terraces</span><span class="sku cap">H 80 / W 45 / L 45 cm</span></a><a class="pitem" href="the-sun-lounger.html"><span class="n">02</span><img class="pthumb" src="assets/sunlounger-render.jpg" alt="" loading="lazy"><span class="disp">The Sun Lounger</span><span class="d muted">Poolside and outdoors</span><span class="sku cap">H 32 / W 75 / L 211 cm</span></a><a class="pitem" href="the-bench.html"><span class="n">03</span><img class="pthumb" src="assets/bench.jpg" alt="" loading="lazy"><span class="disp">The Bench</span><span class="d muted">Dining tables, terraces and halls</span><span class="sku cap">H 45 / W 206 / L 40 cm</span></a><a class="pitem" href="the-lounge-chair.html"><span class="n">04</span><img class="pthumb" src="assets/loungechair-studio.jpg" alt="" loading="lazy"><span class="disp">The Lounge Chair</span><span class="d muted">Lounges, lobbies and terraces</span><span class="sku cap">H 78 / W 68 / L 60 cm</span></a><a class="pitem" href="the-side-table.html"><span class="n">05</span><img class="pthumb" src="assets/sidetable.jpg" alt="" loading="lazy"><span class="disp">The Side Table</span><span class="d muted">Poolside, terraces and lounges</span><span class="sku cap">H 32 / W 75 / L 75 cm</span></a><a class="pitem" href="the-coffee-table.html"><span class="n">06</span><img class="pthumb" src="assets/table-studio.jpg" alt="" loading="lazy"><span class="disp">The Coffee Table</span><span class="d muted">Lounges, lobbies and terraces</span><span class="sku cap">H 32 / W 75 / L 100 cm</span></a><a class="pitem" href="the-table.html"><span class="n">07</span><img class="pthumb" src="assets/table.jpg" alt="" loading="lazy"><span class="disp">The Table</span><span class="d muted">Dining rooms and restaurants</span><span class="sku cap">H 75 / W 100 / L 220 cm</span></a></div>
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Shared by every piece</span><h2 class="disp">One design. Different lives.</h2></div>
@@ -366,9 +415,9 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
- <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li><li><a href="the-table.html">The Table</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>

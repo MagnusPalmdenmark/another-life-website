@@ -197,6 +197,49 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px,3vw,40px);border-top:1px solid var(--ink)}
+.once>div{padding:24px 0 28px;border-bottom:1px solid var(--hairline);min-width:0}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+.once-img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:var(--hairline);margin-bottom:20px}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div{padding:20px 0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
+.renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
+/* in-use grid */
+.spaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(16px,2vw,28px)}
+.spaces img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--hairline)}
+.spaces figcaption{display:grid;gap:4px;margin-top:12px}
+@media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
+/* compare slider */
+.compare{position:relative;overflow:hidden;max-width:960px;--p:50%;background:var(--hairline);touch-action:pan-y}
+.compare img{display:block;width:100%;height:auto}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.compare-top img{width:100%;height:100%;object-fit:cover}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--paper);pointer-events:none}
+.compare-line span{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.compare-line span::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:500 15px/1 var(--font-mono);color:var(--ink)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
+.compare-tag.l{left:12px}.compare-tag.r{right:12px}
+@media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
+.seg{display:inline-flex;border:1px solid var(--ink);margin-bottom:16px}
+.seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -335,8 +378,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
     }
    ],
    "image": [
-    "https://YOUR-DOMAIN.com/assets/loungechair-studio.jpg",
-    "https://YOUR-DOMAIN.com/assets/lounge-terrace.jpg"
+    "https://YOUR-DOMAIN.com/assets/loungechair-studio.jpg"
    ],
    "additionalProperty": [
     {
@@ -403,12 +445,12 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="mission.html">Mission</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
 <section class="page-head"><div class="wrap">
- <span class="label eyebrow"><a href="collection.html" class="tlink">SATU</a> · 04 / 06</span>
+ <span class="label eyebrow"><a href="collection.html" class="tlink">SATU</a> · 04 / 07</span>
  <h1 class="disp">The Lounge Chair</h1>
  <p class="pull" style="margin-top:24px">A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.</p>
 </div></section>
@@ -419,25 +461,25 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Details</span><h2 class="disp">About The Lounge Chair.</h2></div>
  <div class="prose"><p>Same repurposed teak, same Shou Sugi Ban finish, same bolted system as The Chair.</p><p>Seat and backrest are made of separate slats held in a bolted frame, so parts can be replaced.</p>
- <p>Like every Another Life piece, it is made from timber that already had a first life. Holes and marks from that life are left natural and never filled with glue, and only where they don't reduce strength.</p></div>
+ <p>Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.</p></div>
 </div></section>
-<section><div class="wrap stack"><span class="label muted">In detail</span><div class="duo"><figure class="fig"><img src="assets/lounge-terrace.jpg" alt="Three Lounge Chairs and a low table on a stone terrace in a garden. Cushions and textiles are styling for the photograph and are not part of the collection." width="1502" height="1047" loading="lazy"><figcaption class="cap">Three Lounge Chairs and a low table on a stone terrace in a garden. Cushions and textiles are styling for the photograph and are not part of the collection.</figcaption></figure></div></div></section>
+
 <section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">Another Life Passport</span><h2 class="disp">Six questions, answered for this piece.</h2></div>
- <div><div class="rows"><div class="row num"><span class="n">01</span><p>Where did the material come from?</p></div><div class="row num"><span class="n">02</span><p>Who made it?</p></div><div class="row num"><span class="n">03</span><p>How was it transported?</p></div><div class="row num"><span class="n">04</span><p>Can it be repaired?</p></div><div class="row num"><span class="n">05</span><p>Can parts be replaced?</p></div><div class="row num"><span class="n">06</span><p>What happens at the end of its first life?</p></div></div><p class="cap" style="margin-top:20px">Each piece will carry a QR code linking to its record. <a href="passport.html">About the Passport</a></p></div>
+ <div><span class="label eyebrow muted">Its own record</span><h2 class="disp">A story you can scan.</h2></div>
+ <div class="prose"><p>The Lounge Chair will carry a QR code that opens its own Passport: where its wood lived before, who made it, and how to look after it.</p><p class="cap" style="margin-top:20px"><a href="passport.html">How the Passport works</a></p></div>
 </div></section>
 <section><div class="wrap">
  <span class="label eyebrow muted">Pairs with</span>
  <div class="pairs"><a href="the-coffee-table.html"><span class="label muted">SATU · 06</span><span class="disp" style="font-size:26px">The Coffee Table</span><span class="cap">Lounges, lobbies and terraces</span></a><a href="the-side-table.html"><span class="label muted">SATU · 05</span><span class="disp" style="font-size:26px">The Side Table</span><span class="cap">Poolside, terraces and lounges</span></a></div>
- <p class="cap updated">Last updated 2026-10-08</p>
+ <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
 </main>
 <footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
- <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li><li><a href="the-table.html">The Table</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>

@@ -197,6 +197,49 @@ fieldset.field{border:0;margin:0;padding:0}
 .out{border:1px solid var(--ink);padding:20px;display:grid;gap:14px}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
+/* once-a strip */
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px,3vw,40px);border-top:1px solid var(--ink)}
+.once>div{padding:24px 0 28px;border-bottom:1px solid var(--hairline);min-width:0}
+.once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
+.once p{margin:0}
+.once-img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:var(--hairline);margin-bottom:20px}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div{padding:20px 0}}
+.forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
+/* reuse ladder */
+.ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
+.ladder li{display:grid;grid-template-columns:56px minmax(0,4fr) minmax(0,7fr);gap:6px 24px;padding-block:18px;border-bottom:1px solid var(--hairline);align-items:baseline;counter-increment:l}
+.ladder li::before{content:counter(l,decimal-leading-zero);font-family:var(--font-display);font-size:24px}
+.ladder li>*{min-width:0}
+.ladder .disp{font-size:clamp(22px,2.6vw,28px);line-height:1}
+.ladder p{margin:0}
+.ladder li.last{color:var(--ink-muted)}
+@media (max-width:560px){.ladder li{grid-template-columns:44px minmax(0,1fr)}.ladder li p{grid-column:2}}
+blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
+.forest blockquote.say{border-color:var(--on-forest)}
+
+.renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
+/* in-use grid */
+.spaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(16px,2vw,28px)}
+.spaces img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--hairline)}
+.spaces figcaption{display:grid;gap:4px;margin-top:12px}
+@media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.spaces{grid-template-columns:minmax(0,1fr)}}
+/* compare slider */
+.compare{position:relative;overflow:hidden;max-width:960px;--p:50%;background:var(--hairline);touch-action:pan-y}
+.compare img{display:block;width:100%;height:auto}
+.compare-top{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--p)) 0 0)}
+.compare-top img{width:100%;height:100%;object-fit:cover}
+.compare-line{position:absolute;top:0;bottom:0;left:var(--p);width:2px;margin-left:-1px;background:var(--paper);pointer-events:none}
+.compare-line span{position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--paper);box-shadow:0 1px 6px rgba(0,0,0,.3)}
+.compare-line span::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:500 15px/1 var(--font-mono);color:var(--ink)}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare-tag{position:absolute;top:12px;background:var(--ink);color:var(--paper);padding:6px 10px;pointer-events:none}
+.compare-tag.l{left:12px}.compare-tag.r{right:12px}
+@media (max-width:560px){.compare-tag{font-size:9px;padding:4px 7px;top:8px}.compare-tag.l{left:8px}.compare-tag.r{right:8px}}
+.seg{display:inline-flex;border:1px solid var(--ink);margin-bottom:16px}
+.seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -302,7 +345,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head autohide" id="site-head"><div class="wrap head-row">
 <a class="brand" href="index.html" aria-label="Another Life, home"><img class="wordmark" src="assets/logo-wordmark.png" alt="ANOTHER — LIFE" width="1200" height="149"></a>
-<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="brand.html">Brand DNA</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
+<nav class="nav" aria-label="Main"><a class="label" href="collection.html">Collection</a><a class="label" href="in-use.html">In use</a><a class="label" href="mission.html">Mission</a><a class="label" href="material.html">Material</a><a class="label" href="passport.html">Passport</a><a class="label" href="hospitality.html">Hospitality</a><a class="label" href="faq.html">FAQ</a><a class="label" href="contact.html">Contact</a></nav>
 </div></header>
 <main id="main">
 
@@ -315,7 +358,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  </div></div>
 </div>
 <div class="wrap hero-foot">
- <p>Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired for decades rather than replaced.</p>
+ <p>Hospitality furniture from teak that already lived once. Designed in a Danish tradition, made by hand in Indonesia, and built to stay in use for decades.</p>
  <div class="btns"><button class="btn" type="button" id="film-open">Watch the film · 0:34</button><a class="label tlink" href="collection.html">See the SATU collection</a></div>
 </div></section>
 <div class="film-ov" id="film-ov" hidden role="dialog" aria-modal="true" aria-label="Another Life brand film">
@@ -339,46 +382,58 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Why we exist</span><h2 class="disp">Hotels want Danish design. Then they fill the room with plastic.</h2></div>
  <div class="prose">
-  <p class="pull" style="margin-bottom:24px">We exist to make furniture that lasts a long time.</p>
   <p>Most hospitality furniture is bought, used for a few years and thrown away. We think the places that care most about how they look should also care how long their furniture lives.</p>
   <p>So we start with teak that has already lived once, often in old joglo houses. We design every piece to ship flat, bolt together on site and be repaired part by part.</p>
-  <p><a class="tlink" href="brand.html">Our beliefs, in full</a></p>
+  <p><a class="tlink" href="mission.html">Our mission</a></p>
  </div>
 </div></section>
-<figure class="bleed"><img src="assets/lounge-terrace.jpg" alt="Three Lounge Chairs and a low table on a stone terrace in a garden" width="1502" height="1047" loading=lazy><div class="wrap"><figcaption class="cap">Lounge Chairs on a garden terrace. Cushions and textiles are styling for the photograph and are not part of the collection.</figcaption></div></figure>
+<figure class="bleed"><img src="assets/lounge-terrace.jpg" alt="Three Lounge Chairs and a low table on a stone terrace in a garden" width="1502" height="1047" loading=lazy><div class="wrap"><figcaption class="cap">Lounge Chairs on a garden terrace, styled for the shoot.</figcaption></div></figure>
+
+<section><div class="wrap">
+ <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Second lives</span><h2 class="disp">Our wood has stories.</h2></div>
+ <p class="prose" style="margin:0">Before it was furniture, our wood held up houses, carried people across rivers and rode the waves. <a class="tlink" href="material.html">Where our wood comes from</a></p></div>
+ <div class="once"><div><img class="once-img" src="assets/joglo-beams.jpg" alt="Old house beams stacked on gravel, with the joinery holes from their first life still in them" width="1800" height="1200" loading="lazy"><h3 class="disp">Once a family home in Java</h3><p>Teak pillars that held up a joglo for generations, now holding up your guests.</p></div><div><img class="once-img" src="assets/bridge-beams.jpg" alt="Black-and-white photograph of heavy old bridge beams stacked in a timber shed, their sizes written in chalk on the cut ends" width="1000" height="1500" loading="lazy"><h3 class="disp">Once a bridge over a river</h3><p>Wood that carried people across the water for decades.</p></div><div><img class="once-img" src="assets/boat-timber.jpg" alt="Black-and-white photograph of old boat planks and beams piled in a timber yard, houses and power lines behind" width="1000" height="1500" loading="lazy"><h3 class="disp">Once a fishing boat</h3><p>Wood that rode the waves, now taking it easy by the pool.</p></div></div>
+</div></section>
 
 <section class="forest"><div class="wrap">
  <img class="glyph-forest" src="assets/chair-glyph-light.png" alt="">
  <h2 class="disp name-lines" style="margin-top:28px">Another material.<br>Another owner.<br>Another place.<br>Another life.</h2>
  <div class="hero-foot" style="border-top:1px solid rgba(242,237,228,.28);margin-top:36px">
   <p>Teak that already lived once, made into furniture that can outlast the room it was bought for.</p>
-  <p class="label">Luxury is longevity.</p>
+  <p class="label">Furniture worth keeping.</p>
  </div>
 </div></section>
 
 <section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Six pieces, one system.</h2></div>
+ <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Seven pieces, one system.</h2></div>
  <p class="prose" style="margin:0">Satu is Indonesian for one. Our first collection shares one material, one finish and one way of building: knock-down, bolted and repairable.</p></div>
-  <div class="pindex"><a class="pitem" href="the-chair.html"><span class="n">01</span><img class="pthumb" src="assets/chair-rear.jpg" alt="" loading="lazy"><span class="disp">The Chair</span><span class="d muted">Dining rooms, restaurants and terraces</span><span class="sku cap">H 80 / W 45 / L 45 cm</span></a><a class="pitem" href="the-sun-lounger.html"><span class="n">02</span><img class="pthumb" src="assets/sunlounger-studio2.jpg" alt="" loading="lazy"><span class="disp">The Sun Lounger</span><span class="d muted">Poolside and outdoors</span><span class="sku cap">H 32 / W 75 / L 211 cm</span></a><a class="pitem" href="the-bench.html"><span class="n">03</span><img class="pthumb" src="assets/bench.jpg" alt="" loading="lazy"><span class="disp">The Bench</span><span class="d muted">Dining tables, terraces and halls</span><span class="sku cap">H 45 / W 206 / L 40 cm</span></a><a class="pitem" href="the-lounge-chair.html"><span class="n">04</span><img class="pthumb" src="assets/loungechair-studio.jpg" alt="" loading="lazy"><span class="disp">The Lounge Chair</span><span class="d muted">Lounges, lobbies and terraces</span><span class="sku cap">H 78 / W 68 / L 60 cm</span></a><a class="pitem" href="the-side-table.html"><span class="n">05</span><img class="pthumb" src="assets/sidetable.jpg" alt="" loading="lazy"><span class="disp">The Side Table</span><span class="d muted">Poolside, terraces and lounges</span><span class="sku cap">H 32 / W 75 / L 75 cm</span></a><a class="pitem" href="the-coffee-table.html"><span class="n">06</span><img class="pthumb" src="assets/table-studio.jpg" alt="" loading="lazy"><span class="disp">The Coffee Table</span><span class="d muted">Lounges, lobbies and terraces</span><span class="sku cap">H 32 / W 75 / L 100 cm</span></a></div>
+  <div class="pindex"><a class="pitem" href="the-chair.html"><span class="n">01</span><img class="pthumb" src="assets/chair-rear.jpg" alt="" loading="lazy"><span class="disp">The Chair</span><span class="d muted">Chair</span><span class="sku cap">H 80 / W 45 / L 45 cm</span></a><a class="pitem" href="the-sun-lounger.html"><span class="n">02</span><img class="pthumb" src="assets/sunlounger-render.jpg" alt="" loading="lazy"><span class="disp">The Sun Lounger</span><span class="d muted">Lounger</span><span class="sku cap">H 32 / W 75 / L 211 cm</span></a><a class="pitem" href="the-bench.html"><span class="n">03</span><img class="pthumb" src="assets/bench.jpg" alt="" loading="lazy"><span class="disp">The Bench</span><span class="d muted">Bench</span><span class="sku cap">H 45 / W 206 / L 40 cm</span></a><a class="pitem" href="the-lounge-chair.html"><span class="n">04</span><img class="pthumb" src="assets/loungechair-studio.jpg" alt="" loading="lazy"><span class="disp">The Lounge Chair</span><span class="d muted">Lounge chair</span><span class="sku cap">H 78 / W 68 / L 60 cm</span></a><a class="pitem" href="the-side-table.html"><span class="n">05</span><img class="pthumb" src="assets/sidetable.jpg" alt="" loading="lazy"><span class="disp">The Side Table</span><span class="d muted">Table</span><span class="sku cap">H 32 / W 75 / L 75 cm</span></a><a class="pitem" href="the-coffee-table.html"><span class="n">06</span><img class="pthumb" src="assets/table-studio.jpg" alt="" loading="lazy"><span class="disp">The Coffee Table</span><span class="d muted">Table</span><span class="sku cap">H 32 / W 75 / L 100 cm</span></a><a class="pitem" href="the-table.html"><span class="n">07</span><img class="pthumb" src="assets/table.jpg" alt="" loading="lazy"><span class="disp">The Table</span><span class="d muted">Table</span><span class="sku cap">H 75 / W 100 / L 220 cm</span></a></div>
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img"><figure class="fig"><video src="assets/assembly.mp4" poster="assets/assembly-poster.jpg" width="616" height="800" autoplay muted loop playsinline preload="metadata" aria-label="A hand fitting the backrest of The Chair onto its frame"></video><figcaption class="cap">Parts fit by hand and bolt together.</figcaption></figure></div></div>
- <div class="rows"><div class="row"><h3 class="disp">Reclaimed</h3><p>Teak from old joglo houses. Timber that already spent decades as part of a home.</p></div><div class="row"><h3 class="disp">Flat-packed</h3><p>Ships knocked down, so more furniture fits in each container. Bolted together on site.</p></div><div class="row"><h3 class="disp">Built to be repaired</h3><p>Parts can be replaced, so a broken piece is not a discarded one.</p></div></div>
+ <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img"><figure class="fig"><img src="assets/burning-board.jpg" alt="Flames running across a teak board as its surface is burned in the workshop" width="1024" height="768" loading="lazy"><figcaption class="cap">Burning the surface, before the oil.</figcaption></figure></div></div>
+ <div class="rows"><div class="row"><h3 class="disp">Reclaimed</h3><p>Teak that already lived once, often in old joglo houses. Far too good to waste.</p></div><div class="row"><h3 class="disp">Burned and oiled</h3><p>An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil.</p></div><div class="row"><h3 class="disp">Made to be rebuilt</h3><p>Ships flat, bolts together on site and comes apart again whenever it needs to.</p></div></div>
+</div></section>
+
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2></div>
+ <div class="prose"><p>A bottle that gets refilled does more good than one that gets melted down. Furniture works the same way: the longer a piece stays in use, the less needs to be made again.</p>
+ <p>That idea shapes everything we design, and where we want to go next.</p>
+ <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
 </div></section>
 
 <section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">In use</span><h2 class="disp">Where it lives.</h2></div>
+ <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">In use</span><h2 class="disp">Made for real places.</h2></div>
  <p class="prose" style="margin:0">Dining rooms, terraces and rooms that open onto the weather. <a class="tlink" href="in-use.html">See every space</a></p></div>
 </div></section>
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">At a glance</span><h2 class="disp">Another Life, in facts.</h2><p class="cap" style="margin-top:20px">The full sheet is on <a href="facts.html">Brand facts</a>.</p></div>
- <dl class="ledger"><div><dt>Brand</dt><dd>Another Life (wordmark: ANOTHER — LIFE)</dd></div><div><dt>What we make</dt><dd>Furniture for hospitality: hotels, resorts, restaurants and cafés</dd></div><div><dt>Purpose</dt><dd>We exist to make furniture that lasts a long time.</dd></div><div><dt>First collection</dt><dd>SATU: six pieces. <a href="collection.html">See the collection</a></dd></div><div><dt>Material</dt><dd>Repurposed teak, often from old joglo houses</dd></div><div><dt>Finish</dt><dd>Shou Sugi Ban. Flame-darkened, finished with natural oil.</dd></div><div><dt>Construction</dt><dd>Modular and knock-down. Travels flat, comes apart without damage, parts replaceable</dd></div><div><dt>Design</dt><dd>Danish and Scandinavian design tradition</dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div><div><dt>Based in</dt><dd>Bali, Indonesia</dd></div><div><dt>Founders</dt><dd>Stine Palm and Magnus Palm</dd></div><div><dt>Pricing</dt><dd>On request. Ex works, Indonesia</dd></div></dl>
+ <dl class="ledger"><div><dt>Brand</dt><dd>Another Life (wordmark: ANOTHER — LIFE)</dd></div><div><dt>What we make</dt><dd>Furniture for hospitality: hotels, resorts, restaurants and cafés</dd></div><div><dt>Purpose</dt><dd>We exist to make furniture that lasts a long time.</dd></div><div><dt>First collection</dt><dd>SATU: seven pieces. <a href="collection.html">See the collection</a></dd></div><div><dt>Material</dt><dd>Repurposed teak, often from old joglo houses</dd></div><div><dt>Finish</dt><dd>Shou Sugi Ban. Flame-darkened, finished with natural oil.</dd></div><div><dt>In development</dt><dd>Reclaimed ulin (Borneo ironwood). First samples made</dd></div><div><dt>Point of view</dt><dd>Use it again, before you make it again</dd></div><div><dt>Construction</dt><dd>Modular and knock-down. Travels flat, comes apart without damage, parts replaceable</dd></div><div><dt>Design</dt><dd>Danish and Scandinavian design tradition</dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div><div><dt>Founders</dt><dd>Stine Palm and Magnus Palm. A family company</dd></div><div><dt>Pricing</dt><dd>On request. Ex works, Indonesia</dd></div></dl>
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Tell us what you're building.</h2></div>
+ <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Furnishing a place?</h2></div>
  <div class="prose"><p>We work with boutique hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them. Tell us about the space and we'll reply with what is possible.</p>
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
 </div></section>
@@ -387,9 +442,9 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
- <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="brand.html">Brand DNA</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li><li><a href="the-table.html">The Table</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>
