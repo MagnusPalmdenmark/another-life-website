@@ -502,9 +502,11 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="alternate" type="text/plain" title="LLM summary" href="llms.txt">
 <link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="mask-icon" href="assets/icon.svg" color="#182120">
 <meta name="theme-color" content="#182120">
 {FONTS}
 <style>{CSS}</style>
