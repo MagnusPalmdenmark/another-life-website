@@ -826,7 +826,7 @@ mission = f'''
 <section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
  <div class="split" style="margin-top:8px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
@@ -877,11 +877,6 @@ mission = f'''
         ("Honest material","Grain, age, marks and imperfections stay visible. We want each piece to look like it has a story.")])}
 </div></section>
 
-<section class="forest" id="life"><div class="wrap split">
- <div><span class="label eyebrow muted">The life of a piece</span><h2 class="disp">Built to be used, then rebuilt.</h2>
- <p class="prose" style="margin-top:24px">Our furniture has one job: to be used. Every day. And if the place it lives in changes? Undo a few bolts, it packs flat, takes a nap in storage and wakes up somewhere new. Landfill is not on the itinerary.</p></div>
- {rows(LIFE, numbered=True)}
-</div></section>
 
 <section id="heading"><div class="wrap split">
  <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
@@ -994,7 +989,7 @@ material = f'''
  <div><span class="label eyebrow muted">Built to be rebuilt</span><h2 class="disp">Flat, bolted, and back again.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand, then bolt together.")}</div></div>
  <div class="prose"><p>Every piece travels flat and is bolted together on site.</p>
  <p>The same bolts let a piece come apart again without damage: to move it, to store it, or to change a single worn part while the rest carries on.</p>
- <p><a class="tlink" href="mission.html#life">The life of a piece</a> · Prices are ex works, Indonesia.</p></div>
+ <p>Prices are ex works, Indonesia.</p></div>
 </div></section>
 
 <section id="air"><div class="wrap">

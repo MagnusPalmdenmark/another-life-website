@@ -380,7 +380,7 @@ The best day was yesterday. Let's make sure there's a tomorrow.
 Mission
 What we believe, how we design, and where we're heading. All on one page.
 On this page
-Not needing to recycle · Why we exist · Origin · Beliefs · Design · Life of a piece · Where we're heading · Better questions · Voice · Glossary
+Not needing to recycle · Why we exist · Origin · Beliefs · Design · Where we're heading · Better questions · Voice · Glossary
 Last updated 2026-10-16
 Our point of viewThe best kind of recycling is not needing to.
 Think of an old glass milk bottle.
@@ -427,14 +427,6 @@ Modular
 Each component can be replaced on its own. One design can take different materials and parts over time, like a system rather than a single object.
 Honest material
 Grain, age, marks and imperfections stay visible. We want each piece to look like it has a story.
-The life of a pieceBuilt to be used, then rebuilt.
-Our furniture has one job: to be used. Every day. And if the place it lives in changes? Undo a few bolts, it packs flat, takes a nap in storage and wakes up somewhere new. Landfill is not on the itinerary.
-01Made by hand from wood that has already lived once.
-02Shipped flat and bolted together on site.
-03Used every day: a dining room, a terrace, a pool.
-04A part wears out: swap just that part.
-05The place renovates or closes: take it apart, store it flat.
-06Someone gives it a new place and a new purpose. Back to step 3.
 Where we're headingPlant. Give back. Collaborate.
 We're just getting started, and we have big plans. We haven't planted a forest yet, and we won't pretend we have. But here's where we're heading.
 Feet in the sand, eyes on what comes next.
@@ -556,7 +548,7 @@ Built to be rebuiltFlat, bolted, and back again.
 Parts fit by hand, then bolt together.
 Every piece travels flat and is bolted together on site.
 The same bolts let a piece come apart again without damage: to move it, to store it, or to change a single worn part while the rest carries on.
-The life of a piece · Prices are ex works, Indonesia.
+Prices are ex works, Indonesia.
 ShippingStop shipping air.
 An assembled chair is mostly empty space: between the legs, under the seat, behind the backrest. Ship it like that and you pay to move air across the ocean.
 Flat-packed, a 40 ft high-cube container holds around 1,300 of our chairs, against roughly 350 assembled. Almost four times as many chairs per trip, so fewer containers, less fuel and a lower cost for every chair.
