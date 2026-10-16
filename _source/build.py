@@ -279,6 +279,8 @@ figure{margin:0}
 .fig img,.fig video{width:100%;height:auto;display:block;background:var(--hairline)}
 .fig figcaption{margin-top:10px}
 .duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(12px,2vw,24px);align-items:start}
+.duo>figure:only-child{grid-column:1/-1}
+.duo>figure:only-child img{max-height:80vh;object-fit:cover}
 @media (max-width:640px){.duo{grid-template-columns:minmax(0,1fr)}}
 .stack{display:grid;gap:clamp(40px,6vw,72px)}
 .lead-img{margin-top:32px}
@@ -313,7 +315,7 @@ dl.ledger dd{margin:0;min-width:0}
 .pitem .n{font-family:var(--font-display);font-size:24px}
 .pitem .disp{font-size:clamp(26px,3.6vw,40px);line-height:1}
 .pitem .sku{font-variant-numeric:tabular-nums}
-@media (max-width:760px){.pitem{grid-template-columns:32px 64px minmax(0,1fr);align-items:center;gap:10px 16px}.pitem .pthumb{width:64px}.pitem .d,.pitem .sku{grid-column:1/-1}.pitem .d{margin-top:4px}}
+@media (max-width:960px){.pitem{grid-template-columns:32px 64px minmax(0,1fr);align-items:center;gap:10px 16px}.pitem .pthumb{width:64px}.pitem .d,.pitem .sku{grid-column:1/-1}.pitem .d{margin-top:4px}}
 
 /* product page */
 .pphoto{width:100%;height:auto;max-width:100%;background:#fff;border:1px solid var(--hairline)}
@@ -420,7 +422,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .build-frame video.on{opacity:1;transform:none}
 .build-count{position:absolute;left:12px;bottom:12px;background:var(--paper);color:var(--ink);padding:6px 10px}
 .bstep{min-height:62vh;display:grid;grid-template-columns:56px minmax(0,1fr);grid-template-rows:auto 1fr;gap:8px 16px;align-content:center;border-top:1px solid var(--hairline);opacity:.28;transition:opacity .5s ease}
-.bstep:last-child{border-bottom:1px solid var(--hairline)}
+.bstep:last-child{border-bottom:1px solid var(--hairline);min-height:40vh}
 .bstep.on{opacity:1}
 .bstep .n{font-family:var(--font-display);font-size:24px;line-height:1.2}
 .bstep h3{font-size:clamp(30px,4vw,52px);line-height:.95;margin:0}
@@ -829,10 +831,10 @@ for p in PRODUCTS:
 # MISSION (Brand DNA and mission, one page)
 mission = f'''
 {window("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water",text="The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.",tag="h1",top=True)}
-<section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
+<section class="page-head" style="padding-block:clamp(24px,4vw,40px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
- <div class="split" style="margin-top:8px">
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a></p></nav></div>
+ <div style="margin-top:8px">
+ <nav class="prose" style="max-width:none" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
