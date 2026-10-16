@@ -351,12 +351,12 @@ fieldset.field{border:0;margin:0;padding:0}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
 /* once-a strip */
-.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
-.once>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--hairline);min-width:0}
-.once>div+div{padding-left:24px;border-left:1px solid var(--hairline)}
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px,3vw,40px);border-top:1px solid var(--ink)}
+.once>div{padding:24px 0 28px;border-bottom:1px solid var(--hairline);min-width:0}
 .once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
 .once p{margin:0}
-@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div,.once>div+div{padding:20px 0;border-left:0}}
+.once-img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:var(--hairline);margin-bottom:20px}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div{padding:20px 0}}
 .forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
 /* reuse ladder */
 .ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
@@ -495,11 +495,12 @@ FILM_JS = "<script>\n(function(){\n var ov=document.getElementById('film-ov'),v=
 pages = {}
 
 ONCE_ITEMS = [
-  ("Once a family home in Java","Teak pillars that held up a joglo for generations, now holding up your guests."),
-  ("Once a bridge over a river","Wood that carried people across the water for decades."),
-  ("Once a fishing boat","Wood that rode the waves, now taking it easy by the pool."),
+  ("Once a family home in Java","Teak pillars that held up a joglo for generations, now holding up your guests.","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them"),
+  ("Once a bridge over a river","Wood that carried people across the water for decades.","ulin-beams.jpg","The ends of heavy old beams stacked under trees, with S-shaped irons hammered into them"),
+  ("Once a fishing boat","Wood that rode the waves, now taking it easy by the pool.","ulin-plank.jpg","A weathered old plank held in a hand, grey outside and warm brown where it has been planed"),
 ]
-ONCE = '<div class="once">' + "".join(f'<div><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b in ONCE_ITEMS) + '</div>'
+ONCE = '<div class="once">' + "".join(f'<div><img class="once-img" src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy"><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b,src,alt in ONCE_ITEMS) + '</div>'
+ONCE_PLAIN = '<div class="once">' + "".join(f'<div><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b,src,alt in ONCE_ITEMS) + '</div>'
 
 LIFE = ["Made by hand from wood that has already lived once.","Shipped flat and bolted together on site.","Used every day: a dining room, a terrace, a pool.",
         "A part wears out: replace the part, not the piece.","The place renovates or closes: take it apart, store it flat.","Someone gives it a new place and a new purpose. Back to step 3."]
@@ -804,7 +805,7 @@ material = f'''
 {bleed("beams-garden.jpg","Old timber beams stacked under trees, weathered and split from their first life",lazy=False)}
 <section><div class="wrap">
  <span class="label eyebrow muted">Second lives</span>
- {ONCE}
+ {ONCE_PLAIN}
  <p class="cap" style="margin-top:16px">Our wood comes from many places. Each piece's own story will be in its <a href="passport.html">Passport</a>.</p>
 </div></section>
 

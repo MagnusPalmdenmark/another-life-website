@@ -198,12 +198,12 @@ fieldset.field{border:0;margin:0;padding:0}
 .out pre{margin:0;white-space:pre-wrap;font:400 13px/20px var(--font-mono);overflow-wrap:anywhere}
 
 /* once-a strip */
-.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
-.once>div{padding:24px 24px 28px 0;border-bottom:1px solid var(--hairline);min-width:0}
-.once>div+div{padding-left:24px;border-left:1px solid var(--hairline)}
+.once{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(16px,3vw,40px);border-top:1px solid var(--ink)}
+.once>div{padding:24px 0 28px;border-bottom:1px solid var(--hairline);min-width:0}
 .once .disp{font-size:clamp(24px,3vw,34px);line-height:.95;display:block;margin-bottom:12px}
 .once p{margin:0}
-@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div,.once>div+div{padding:20px 0;border-left:0}}
+.once-img{width:100%;aspect-ratio:4/5;height:auto;object-fit:cover;background:var(--hairline);margin-bottom:20px}
+@media (max-width:760px){.once{grid-template-columns:minmax(0,1fr)}.once>div{padding:20px 0}}
 .forest .once{border-color:var(--on-forest)}.forest .once>div{border-color:rgba(242,237,228,.28)}
 /* reuse ladder */
 .ladder{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink);counter-reset:l}
