@@ -4,7 +4,7 @@
 import json, os, shutil, html, re, urllib.parse
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE_URL = "https://YOUR-DOMAIN.com"   # replace once the domain is chosen
+SITE_URL = "https://another-life.dk"
 UPDATED = "2026-10-16"
 WHATSAPP = "+45 30 53 04 05"
 WA_LINK = "https://wa.me/4530530405"

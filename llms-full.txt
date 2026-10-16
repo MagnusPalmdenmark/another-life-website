@@ -2,7 +2,7 @@
 Updated 2026-10-16
 
 # Another Life
-URL: https://YOUR-DOMAIN.com/
+URL: https://another-life.dk/
 
 Made for this life. And another.
 Hospitality furniture from teak that already lived once. Designed in a Danish tradition, made by hand in Indonesia, and built to stay in use for decades.
@@ -76,7 +76,7 @@ EnquireHow we work
 ---
 
 # SATU Collection
-URL: https://YOUR-DOMAIN.com/collection.html
+URL: https://another-life.dk/collection.html
 
 Collection
 SATU
@@ -104,7 +104,7 @@ On request. Ex works, Indonesia
 ---
 
 # The Chair — SATU
-URL: https://YOUR-DOMAIN.com/the-chair.html
+URL: https://another-life.dk/the-chair.html
 
 SATU · 01 / 07
 The Chair
@@ -151,7 +151,7 @@ Last updated 2026-10-16
 ---
 
 # The Sun Lounger — SATU
-URL: https://YOUR-DOMAIN.com/the-sun-lounger.html
+URL: https://another-life.dk/the-sun-lounger.html
 
 SATU · 02 / 07
 The Sun Lounger
@@ -195,7 +195,7 @@ Last updated 2026-10-16
 ---
 
 # The Bench — SATU
-URL: https://YOUR-DOMAIN.com/the-bench.html
+URL: https://another-life.dk/the-bench.html
 
 SATU · 03 / 07
 The Bench
@@ -238,7 +238,7 @@ Last updated 2026-10-16
 ---
 
 # The Lounge Chair — SATU
-URL: https://YOUR-DOMAIN.com/the-lounge-chair.html
+URL: https://another-life.dk/the-lounge-chair.html
 
 SATU · 04 / 07
 The Lounge Chair
@@ -281,7 +281,7 @@ Last updated 2026-10-16
 ---
 
 # The Side Table — SATU
-URL: https://YOUR-DOMAIN.com/the-side-table.html
+URL: https://another-life.dk/the-side-table.html
 
 SATU · 05 / 07
 The Side Table
@@ -322,7 +322,7 @@ Last updated 2026-10-16
 ---
 
 # The Coffee Table — SATU
-URL: https://YOUR-DOMAIN.com/the-coffee-table.html
+URL: https://another-life.dk/the-coffee-table.html
 
 SATU · 06 / 07
 The Coffee Table
@@ -363,7 +363,7 @@ Last updated 2026-10-16
 ---
 
 # The Table — SATU
-URL: https://YOUR-DOMAIN.com/the-table.html
+URL: https://another-life.dk/the-table.html
 
 SATU · 07 / 07
 The Table
@@ -404,7 +404,7 @@ Last updated 2026-10-16
 ---
 
 # Another Life Mission
-URL: https://YOUR-DOMAIN.com/mission.html
+URL: https://another-life.dk/mission.html
 
 Mission
 Use it again, before you make it again.
@@ -541,7 +541,7 @@ The part of the Passport that documents where a piece's timber came from and its
 ---
 
 # Material and Making
-URL: https://YOUR-DOMAIN.com/material.html
+URL: https://another-life.dk/material.html
 
 Material and making
 Timber that already lived once.
@@ -597,7 +597,7 @@ Drag the slider to compare. Illustration.
 ---
 
 # Another Life Passport
-URL: https://YOUR-DOMAIN.com/passport.html
+URL: https://another-life.dk/passport.html
 
 Another Life Passport
 Every piece keeps a record.
@@ -632,7 +632,7 @@ Pieces returned to us and given another life, rather than discarded.
 ---
 
 # For Hospitality
-URL: https://YOUR-DOMAIN.com/hospitality.html
+URL: https://another-life.dk/hospitality.html
 
 For hospitality
 Furniture that outlasts the fit-out.
@@ -668,7 +668,7 @@ EnquireSee SATU
 ---
 
 # Another Life In Use
-URL: https://YOUR-DOMAIN.com/in-use.html
+URL: https://another-life.dk/in-use.html
 
 In use
 Where it lives.
@@ -683,7 +683,7 @@ EnquireSee SATU
 ---
 
 # Another Life Questions
-URL: https://YOUR-DOMAIN.com/faq.html
+URL: https://another-life.dk/faq.html
 
 Questions
 Questions, answered plainly.
@@ -742,7 +742,7 @@ Send us a message with your space, the pieces you like and your timeline. We wil
 ---
 
 # Another Life Brand Facts
-URL: https://YOUR-DOMAIN.com/facts.html
+URL: https://another-life.dk/facts.html
 
 Brand facts
 Another Life, on one page.
@@ -818,7 +818,7 @@ A hospitality furniture brand making repairable furniture from repurposed teak. 
 ---
 
 # Contact Another Life
-URL: https://YOUR-DOMAIN.com/contact.html
+URL: https://another-life.dk/contact.html
 
 Contact
 Tell us what you're building.

@@ -1,7 +1,7 @@
 {
   "name": "Another Life",
   "wordmark": "ANOTHER — LIFE",
-  "url": "https://YOUR-DOMAIN.com",
+  "url": "https://another-life.dk",
   "updated": "2026-10-16",
   "description": "Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired.",
   "purpose": "We exist to make furniture that lasts a long time.",
@@ -120,7 +120,7 @@
           },
           "seat_height_cm": 45,
           "category": "Chair",
-          "url": "https://YOUR-DOMAIN.com/the-chair.html",
+          "url": "https://another-life.dk/the-chair.html",
           "description": "A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced."
         },
         {
@@ -132,7 +132,7 @@
           },
           "seat_height_cm": 32,
           "category": "Lounger",
-          "url": "https://YOUR-DOMAIN.com/the-sun-lounger.html",
+          "url": "https://another-life.dk/the-sun-lounger.html",
           "description": "A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site."
         },
         {
@@ -144,7 +144,7 @@
           },
           "seat_height_cm": 45,
           "category": "Bench",
-          "url": "https://YOUR-DOMAIN.com/the-bench.html",
+          "url": "https://another-life.dk/the-bench.html",
           "description": "A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair."
         },
         {
@@ -156,7 +156,7 @@
           },
           "seat_height_cm": 32,
           "category": "Lounge chair",
-          "url": "https://YOUR-DOMAIN.com/the-lounge-chair.html",
+          "url": "https://another-life.dk/the-lounge-chair.html",
           "description": "A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces."
         },
         {
@@ -168,7 +168,7 @@
           },
           "seat_height_cm": null,
           "category": "Table",
-          "url": "https://YOUR-DOMAIN.com/the-side-table.html",
+          "url": "https://another-life.dk/the-side-table.html",
           "description": "A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair."
         },
         {
@@ -180,7 +180,7 @@
           },
           "seat_height_cm": null,
           "category": "Table",
-          "url": "https://YOUR-DOMAIN.com/the-coffee-table.html",
+          "url": "https://another-life.dk/the-coffee-table.html",
           "description": "A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces."
         },
         {
@@ -192,7 +192,7 @@
           },
           "seat_height_cm": null,
           "category": "Table",
-          "url": "https://YOUR-DOMAIN.com/the-table.html",
+          "url": "https://another-life.dk/the-table.html",
           "description": "A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench."
         }
       ]
@@ -211,35 +211,35 @@
   },
   "images": [
     {
-      "url": "https://YOUR-DOMAIN.com/assets/hotel-room-jungle.jpg",
+      "url": "https://another-life.dk/assets/hotel-room-jungle.jpg",
       "caption": "The Chair in an open hotel room above the jungle at sunset, a curtain lifting in the breeze and the sea in the distance."
     },
     {
-      "url": "https://YOUR-DOMAIN.com/assets/restaurant-mountain.jpg",
+      "url": "https://another-life.dk/assets/restaurant-mountain.jpg",
       "caption": "The Chair at restaurant tables beside a long upholstered banquette, forested hills through floor-to-ceiling windows."
     },
     {
-      "url": "https://YOUR-DOMAIN.com/assets/terrace-jungle.jpg",
+      "url": "https://another-life.dk/assets/terrace-jungle.jpg",
       "caption": "The Chair on a rain-wet timber terrace above the jungle at sunset, next to a round teak table."
     },
     {
-      "url": "https://YOUR-DOMAIN.com/assets/sea-room.jpg",
+      "url": "https://another-life.dk/assets/sea-room.jpg",
       "caption": "The Chair alone in a glass-walled room facing the sea, a leather daybed in the foreground."
     },
     {
-      "url": "https://YOUR-DOMAIN.com/assets/sea-house.jpg",
+      "url": "https://another-life.dk/assets/sea-house.jpg",
       "caption": "Chairs around a round table in a house by the sea, evening light across a stone floor."
     }
   ],
   "contact": {
     "whatsapp": "+45 30 53 04 05",
     "email": "magnus@another-life.dk",
-    "enquiry": "https://YOUR-DOMAIN.com/contact.html"
+    "enquiry": "https://another-life.dk/contact.html"
   },
   "logo": {
     "wordmark": "ANOTHER — LIFE",
     "tagline": "Danish furniture. Designed for tomorrow.",
-    "file": "https://YOUR-DOMAIN.com/assets/logo-lockup.png"
+    "file": "https://another-life.dk/assets/logo-lockup.png"
   },
   "naming_rules": [
     "Always ANOTHER — LIFE with a dash in the wordmark",
