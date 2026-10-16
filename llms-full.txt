@@ -410,7 +410,7 @@ Mission
 Use it again, before you make it again.
 What we believe, how we design, and where we're heading. All on one page.
 On this page
-Long life first · Why we exist · Origin · Beliefs · Design · Life of a piece · Where we're heading · Conscious Sustainability · Voice · Glossary
+Long life first · Why we exist · Origin · Beliefs · Design · Life of a piece · Where we're heading · Beyond the label · Better questions · Voice · Glossary
 Last updated 2026-10-16
 Our point of viewLong life beats recycling.
 Think of an old glass milk bottle.
@@ -482,8 +482,14 @@ Collaborate
 We're looking for partners who share the idea: planting projects, NGOs, hotels, architects, makers and community initiatives.
 Running a planting project, a community initiative or a hotel that wants to do better? Say hello. We love a good collaboration.
 Work with us
-Conscious SustainabilitySustainability isn't one feature. It's every decision.
-No single material or label is sustainable everywhere. So we judge each material and method on six things, and we tell you what we find.
+Beyond the labelA label is not a mission.
+We believe sustainability is a responsibility, not a certification.
+Certifications have their place, and some give valuable, independent proof of where a material comes from. But no single label can tell the whole story: how long a product will last, how it was made, whether it can be repaired, or what happens when its life comes to an end.
+We don't want to buy our way into being called sustainable. We want to earn it through what we make: by questioning materials, understanding where they come from, designing for long life, repair and reuse, and taking responsibility long after a piece leaves our hands.
+We don't claim to have all the answers. We're learning, asking questions and challenging the way things have always been done.
+Sustainability isn't a label you put on a product. It's a responsibility you build into it.
+Conscious SustainabilityBetter questions, not one label.
+We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find.
 Origin
 Where the material came from, and what it was before.
 Production
@@ -603,20 +609,20 @@ We're building a system that links every piece to its own story. A small QR code
 Labels make claims. A record shows its working. Our wood already has a past, as a house, a bridge or a boat, and we think that past deserves to travel with the furniture.
 The Passport is how we want to make that happen: one code, one piece, one story that keeps growing.
 Last updated 2026-10-16
-How the system worksFrom first life to next life.
-Scan the code and the piece tells you, step by step:
-Origin
-When the wood arrives, we log where it came from and what it was before: a house, a bridge, a boat.
-Making
-The workshop and the makers who turned it into furniture.
-Journey
-How it travelled, flat-packed, to the place it now lives.
-Care
-How to oil it, look after it and keep the bolts tight.
-Repair
-Which part to replace when one wears out, and a record of every repair.
-Next life
-When the piece moves on, its story moves with it to the next owner.
+The ideaOne code. One piece. Its whole story.
+Each piece gets its own code, and each code opens its own page. This is what we are designing that page to show.
+Where the wood comes from
+What it was before it became furniture: a house, a bridge, a boat.
+Who made it
+The workshop and the hands that built it.
+How it got here
+Its journey, flat-packed, to the place it now lives.
+How to care for it
+Oiling, cleaning and keeping the bolts tight.
+How to repair it
+Which part to replace, and the repairs it has already had.
+Where it goes next
+When the piece changes hands, its story goes with it.
 Why it mattersFurniture with a story you can check.
 A chair on the workshop floor, before it is burned.
 Hotels and restaurants are asked more and more what their operations are made of, and furniture is often left out. The Passport is designed to give every piece a traceable origin, with something real behind it.
