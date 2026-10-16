@@ -240,6 +240,10 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
 .seg button+button{border-left:1px solid var(--ink)}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.title-qr{display:flex;align-items:center;gap:16px clamp(16px,4vw,48px)}
+.title-qr h1{flex:0 1 auto;min-width:0}
+.qr{margin:0;display:grid;gap:8px;justify-items:center;flex:0 0 auto}
+.qr img{width:clamp(72px,11vw,140px);height:auto;border:1px solid var(--ink);padding:6px;background:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
