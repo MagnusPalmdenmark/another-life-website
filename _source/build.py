@@ -816,7 +816,7 @@ material = f'''
 {bleed("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk","Old posts and beams, marked and sorted before they are cut.")}
 
 <section id="ulin"><div class="wrap split">
- <div><span class="label eyebrow muted">Chapter 2 · In development</span><h2 class="disp">Meet ulin, Borneo's ironwood.</h2><div class="lead-img">{fig("saw-blade.jpg","A saw blade rising through an old, weathered plank in the workshop","Old timber meets the saw.")}</div></div>
+ <div><span class="label eyebrow muted">Chapter 2 · In development</span><h2 class="disp">Meet ulin, Borneo's ironwood.</h2><div class="lead-img">{duo(fig("ulin-plank.jpg","A reclaimed ulin plank held in a hand, weathered grey on the outside and warm brown where it has been planed","Reclaimed ulin: weathered outside, warm and dense inside."),fig("ulin-beams.jpg","The ends of old ulin beams stacked under trees, with S-shaped irons hammered into them","Old ulin beams. The S-shaped irons keep the ends from splitting."))}</div></div>
  <div class="prose"><p>Ulin (<i>Eusideroxylon zwageri</i>) is so dense it sinks in water, so tough that termites give up, and so slow-growing that a tree can live for more than a thousand years. For generations it carried fishing boats, held up bridges and kept river villages above the water.</p>
  <p>A wood like that should never be cut new. So when an old boat or bridge retires, we give its ironwood a second career. Our first ironwood samples have just left the workshop.</p>
  <p class="pull" style="margin-block:28px 16px">Why can't you just buy new ulin?</p>
