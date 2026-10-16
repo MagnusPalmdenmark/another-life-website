@@ -112,7 +112,7 @@ FAQ = [
   ("What is ulin?", "Ulin, or Borneo ironwood (Eusideroxylon zwageri), is one of the hardest woods in the world. It is so dense it sinks in water, and it built boats, bridges and piers for generations. It grows very slowly and is protected, so new ulin can no longer be exported from Indonesia. We work only with reclaimed ulin, traced and documented. Our first ironwood samples are made, and it is in development as our second material."),
   ("Why does every piece look a little different?", "Because the teak has a history. Marks and nail holes from the wood's first life are part of its character, and we keep them visible as a quiet record of where it has been. Strength always comes first, so each piece is built to last."),
   ("Is Another Life furniture sustainable?", "Sustainability guides every decision we make: repurposed teak, a flame-darkened finish with natural oil, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make."),
-  ("How do you show where the wood comes from?", "Today we tell it as the story of our wood: old houses, bridges and boats across Indonesia. We are also building a QR tracing platform, the Another Life Passport, so that one day each piece can show its own story. It is a work in progress, and we will share more when it is ready."),
+  ("How do you show where the wood comes from?", "Today we tell it as the story of our wood: old houses, bridges and boats across Indonesia. We are also building the Another Life Passport, a QR tracing system that gives every piece its own story, from its first life to its next."),
   ("What happens when a hotel no longer needs the furniture?", "It comes apart. Undo the bolts and every piece packs flat, can be stored, and goes back together for its next place or owner. If a part is worn, you replace that part, not the piece. Our furniture is made to be used, never stacked in a corner, and never sent to landfill."),
   ("Is the furniture recyclable?", "It is solid wood finished with natural oil, so at the very end of its life it can be. But we hope it never gets there. Recycling ends a product's life and takes energy to make something new. We would rather a piece is kept, repaired, moved and passed on, like a glass bottle that is refilled instead of melted down."),
   ("Do you plant trees?", "It is part of our mission. We want to plant new trees for the wood we use, give back to the communities and makers behind our furniture, and do it with partners who care about the same things. We have just started, so we say it as a goal, not as something we already do. If you run a planting or community project, we would love to hear from you."),
@@ -120,7 +120,7 @@ FAQ = [
   ("How is the furniture shipped?", "Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site."),
   ("What holds the furniture together?", "Stainless steel bolts, three at every main joint, screwed into threaded inserts in the wood. Hardware is often the weakest, cheapest part of furniture. We made it one of the strongest, so the joints can be taken apart and tightened again for decades."),
   ("Can the furniture be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
-  ("What is the Another Life Passport?", "A platform we are building around QR tracing. The idea is simple: a code on the furniture opens the story of that piece, from where its wood came from to how to care for it and repair it. It is a work in progress and not available yet."),
+  ("What is the Another Life Passport?", "The tracing system we are building. A small QR code on the furniture opens the story of that piece: where its wood came from and what it was before, who made it, how it travelled, and how to care for it and repair it. When a piece moves to a new owner, its story moves with it. We will share more as the system takes shape."),
   ("Who do you make furniture for?", "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for."),
   ("Is Another Life Danish?", "Yes. Another Life is a Danish family company. Design runs in the family: we come from a line of architects and furniture makers, and that heritage shapes everything we draw. We are Danish at heart and inspired by the world. Every piece is made by hand in Indonesia, close to the material and the makers."),
   ("How much does it cost?", "We price every project individually, ex works Indonesia. Tell us about your space and we will come back with a proposal."),
@@ -135,7 +135,7 @@ GLOSSARY = [
   ("Ulin", "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material."),
   ("Knock-down", "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once."),
   ("Conscious Sustainability", "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation."),
-  ("Another Life Passport", "A QR tracing platform we are building, meant to tell the story of each piece. A work in progress, not yet available."),
+  ("Another Life Passport", "The QR tracing system we are building: a code on each piece that opens its own story, from its first life to its next."),
 ]
 
 PRINCIPLES_BELIEF = [
@@ -677,8 +677,8 @@ for p in PRODUCTS:
 </div></section>
 {gallery_html}
 <section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">Coming soon</span><h2 class="disp">A story you can scan.</h2></div>
- <div class="prose"><p>We are building a QR tracing platform, the Another Life Passport, so that one day a piece like {p["name"]} can tell its own story. It is a work in progress.</p><p class="cap" style="margin-top:20px"><a href="passport.html">About the Passport</a></p></div>
+ <div><span class="label eyebrow muted">Another Life Passport</span><h2 class="disp">Its own story, one scan away.</h2></div>
+ <div class="prose"><p>We are building a tracing system that gives each piece its own QR code and its own story: where the wood of {p["name"]} lived before, who made it, and how to care for it and repair it.</p><p class="cap" style="margin-top:20px"><a href="passport.html">About the Passport</a></p></div>
 </div></section>
 <section><div class="wrap">
  <span class="label eyebrow muted">Pairs with</span>
@@ -907,32 +907,41 @@ pages["material.html"] = ("Material and Making", "Another Life uses repurposed t
              {"@type":"Thing","name":"Shou Sugi Ban","alternateName":"Yakisugi"}]}])
 
 # PASSPORT
+PASS_STEPS = [
+  ("Origin","When the wood arrives, we log where it came from and what it was before: a house, a bridge, a boat."),
+  ("Making","The workshop and the makers who turned it into furniture."),
+  ("Journey","How it travelled, flat-packed, to the place it now lives."),
+  ("Care","How to oil it, look after it and keep the bolts tight."),
+  ("Repair","Which part to replace when one wears out, and a record of every repair."),
+  ("Next life","When the piece moves on, its story moves with it to the next owner."),
+]
 passport = f'''
 <section class="page-head"><div class="wrap">
- <span class="label eyebrow">Another Life Passport · Work in progress</span>
- <h1 class="disp">A story you can scan. We're building it.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">We are building a platform around QR tracing, so that one day a piece of furniture can tell you where its wood lived before. It isn't live yet.</p>
- <div class="prose"><p>Labels make claims. A record shows its working. That's the idea behind the Passport.</p><p>We're working on it now, step by step, and we'll share more when it's ready. Until then, this page describes what we're aiming for, not something we offer today.</p></div></div>
+ <span class="label eyebrow">Another Life Passport</span>
+ <h1 class="disp">A story you can scan.</h1>
+ <div class="split" style="margin-top:32px"><p class="pull">We're building a system that links every piece to its own story. A small QR code on the furniture opens a page that follows the piece through its whole life.</p>
+ <div class="prose"><p>Labels make claims. A record shows its working. Our wood already has a past, as a house, a bridge or a boat, and we think that past deserves to travel with the furniture.</p><p>The Passport is how we want to make that happen: one code, one piece, one story that keeps growing.</p></div></div>
  {updated()}
 </div></section>
 {bleed("timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length",lazy=False)}
 <section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">The idea</span><h2 class="disp">Six questions we want every piece to answer.</h2></div>
- {rows(PASSPORT_Q, numbered=True)}
+ <div><span class="label eyebrow muted">How the system works</span><h2 class="disp">From first life to next life.</h2>
+ <p class="prose" style="margin-top:24px">Scan the code and the piece tells you, step by step:</p></div>
+ {rows(PASS_STEPS)}
 </div></section>
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Why we think it matters</span><h2 class="disp">Furniture with a story you can check.</h2><div class="lead-img">{fig("chair-raw-workshop.jpg","An unfinished teak chair standing on a sawdust-covered workshop floor, before burning","A chair on the workshop floor, before it is burned.")}</div></div>
- <div class="prose"><p>Hotels and restaurants are asked more and more what their operations are made of, and furniture is often left out. A traceable record per piece could help answer that, with something real behind it.</p>
- <p>And it's a good conversation starter: imagine a guest scanning a chair and reading where its wood was before. That's what we're working towards.</p>
- <p><a class="tlink" href="contact.html?type=collab">Want to follow along or help shape it? Get in touch.</a></p></div>
+ <div><span class="label eyebrow muted">Why it matters</span><h2 class="disp">Furniture with a story you can check.</h2><div class="lead-img">{fig("chair-raw-workshop.jpg","An unfinished teak chair standing on a sawdust-covered workshop floor, before burning","A chair on the workshop floor, before it is burned.")}</div></div>
+ <div class="prose"><p>Hotels and restaurants are asked more and more what their operations are made of, and furniture is often left out. The Passport is designed to give every piece a traceable origin, with something real behind it.</p>
+ <p>It's also a great conversation starter: a guest scans a chair and reads that its wood once held up a family home in Java.</p>
+ <p>We'll share more as the system takes shape. <a class="tlink" href="contact.html?type=collab">Want to help shape it? Get in touch.</a></p></div>
 </div></section>
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">After the first life</span><h2 class="disp">Services we are developing.</h2>
- <p class="prose" style="margin-top:24px">These are in development and not yet offered. We list them so you know where we are heading.</p></div>
+ <p class="prose" style="margin-top:24px">The Passport is built to support these, as we develop them.</p></div>
  {rows([("Replacement parts","A single component, replaced on its own."),("Refinishing","A worn surface brought back."),("Reconfiguration","Parts rearranged for a new space or use."),("Refurbishment","A full restoration of a used piece."),("Take-back","Pieces returned to us and given another life, rather than discarded.")])}
 </div></section>
 '''
-pages["passport.html"] = ("Another Life Passport", "The Another Life Passport is a QR tracing platform Another Life is building, meant to tell the story of each piece of furniture. Work in progress, not yet available.", passport,
+pages["passport.html"] = ("Another Life Passport", "The Another Life Passport is the QR tracing system Another Life is building: one code per piece, opening its story from origin and making to care, repair and its next owner.", passport,
   [breadcrumb([("index.html","Home"),("passport.html","Passport")]),
    {"@type":"WebPage","name":"Another Life Passport","url":url("passport.html"),"about":{"@type":"DefinedTerm","name":"Another Life Passport","description":dict(GLOSSARY)["Another Life Passport"]},"dateModified":UPDATED}])
 
@@ -1029,7 +1038,7 @@ facts_body = f'''
 </div></section>
 <section><div class="wrap split">
  <div><h2 class="disp">Key facts</h2></div>
- {ledger(KEY_FACTS + [("Customers", e(BRAND["customers"])),("Shipping","Flat-packed, assembled on site"),("Traceability","Another Life Passport: a QR tracing platform in development, not yet available"),("Main tagline","Made for this life. And another."),("Contact", f"WhatsApp {WHATSAPP} · <a href='contact.html'>enquiry form</a>")])}
+ {ledger(KEY_FACTS + [("Customers", e(BRAND["customers"])),("Shipping","Flat-packed, assembled on site"),("Traceability","Another Life Passport: a QR tracing system we are building, one story per piece"),("Main tagline","Made for this life. And another."),("Contact", f"WhatsApp {WHATSAPP} · <a href='contact.html'>enquiry form</a>")])}
 </div></section>
 <section><div class="wrap split">
  <div><h2 class="disp">Products</h2></div>
