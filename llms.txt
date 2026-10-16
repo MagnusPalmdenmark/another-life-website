@@ -18,14 +18,13 @@ Key facts:
 
 ## Pages
 - [Home](https://another-life.dk/): overview of the brand and collection, with the 34-second brand film (https://another-life.dk/assets/film.mp4)
-- [Brand facts](https://another-life.dk/facts.html): canonical facts, products, sizes and how to describe the brand
 - [Mission](https://another-life.dk/mission.html): long life over recycling, purpose, origin, beliefs, design principles, the life of a piece, goals (plant, give back, collaborate), voice, glossary
 - [In use](https://another-life.dk/in-use.html): photographs of the furniture in restaurants, terraces and homes
 - [Material and making](https://another-life.dk/material.html): repurposed teak from joglo houses, bridges and boats; reclaimed ulin (in development); Shou Sugi Ban on hardwood; natural oil; making in Indonesia; built to be rebuilt
 - [Another Life Passport](https://another-life.dk/passport.html): the QR tracing platform being built (work in progress) and circular services in development
 - [For hospitality](https://another-life.dk/hospitality.html): who we work with and how an order works
 - [Questions](https://another-life.dk/faq.html): 25 answered questions
-- [Contact](https://another-life.dk/contact.html): enquiries, WhatsApp +45 30 53 04 05
+- [Contact](https://another-life.dk/contact.html): enquiries by WhatsApp or email
 
 ## SATU collection
 - [The Chair](https://another-life.dk/the-chair.html): H 80 / W 45 / L 45 cm, seat height 45 cm. A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.

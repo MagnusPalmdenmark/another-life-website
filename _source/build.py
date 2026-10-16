@@ -9,6 +9,13 @@ UPDATED = "2026-10-16"
 WHATSAPP = "+45 30 53 04 05"
 WA_LINK = "https://wa.me/4530530405"
 EMAIL = "magnus@another-life.dk"
+import base64 as _b64
+def enc(v): return _b64.b64encode(v[::-1].encode()).decode()
+E_MAIL, E_WA, E_WAD = enc(EMAIL), enc(WHATSAPP), enc(WA_LINK.rsplit("/",1)[1])
+OBF_JS = ("<script>(function(){function d(s){try{return atob(s).split('').reverse().join('')}catch(e){return ''}}"
+  "document.querySelectorAll('[data-obf]').forEach(function(el){var v=d(el.getAttribute('data-obf')),t=el.getAttribute('data-t');"
+  "if(t==='mail'){el.innerHTML='<a href=\"mailto:'+v+'\">'+v+'</a>';}else if(t==='text'){el.textContent=v;}"
+  "else if(t==='wa'){el.setAttribute('href','https://wa.me/'+v);el.setAttribute('target','_blank');el.setAttribute('rel','noopener');}});})();</script>")
 
 e = html.escape
 
@@ -170,7 +177,7 @@ PASSPORT_Q = [
 
 # ------------------------------------------------------------------ pages registry
 NAV = [("collection.html","Collection"),("in-use.html","In use"),("mission.html","Mission"),("material.html","Material"),
-       ("passport.html","Passport"),("hospitality.html","Hospitality"),("faq.html","FAQ"),("contact.html","Contact")]
+       ("passport.html","Passport"),("hospitality.html","Hospitality"),("contact.html","Contact")]
 
 def url(path):  # canonical absolute url for JSON-LD
   return SITE_URL + "/" + ("" if path=="index.html" else path)
@@ -403,6 +410,53 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .seg button+button{border-left:1px solid var(--ink)}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
 .qr{display:block;width:clamp(180px,24vw,280px);height:auto;margin:0 auto clamp(28px,4vw,48px);border:2px solid var(--ink);padding:8px;background:var(--paper)}
+/* scroll-driven build section */
+.build-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);grid-template-areas:"head steps" "stage steps";grid-template-rows:auto 1fr;gap:0 clamp(24px,5vw,72px);align-items:start}
+.build-head{grid-area:head}
+.build-stage{grid-area:stage;position:sticky;top:max(90px,calc(50vh - 190px));margin-top:32px}
+.build-steps{grid-area:steps}
+.build-frame{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--ink)}
+.build-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);transition:opacity .7s ease,transform 1.2s ease}
+.build-frame video.on{opacity:1;transform:none}
+.build-count{position:absolute;left:12px;bottom:12px;background:var(--paper);color:var(--ink);padding:6px 10px}
+.bstep{min-height:62vh;display:grid;grid-template-columns:56px minmax(0,1fr);grid-template-rows:auto 1fr;gap:8px 16px;align-content:center;border-top:1px solid var(--hairline);opacity:.28;transition:opacity .5s ease}
+.bstep:last-child{border-bottom:1px solid var(--hairline)}
+.bstep.on{opacity:1}
+.bstep .n{font-family:var(--font-display);font-size:24px;line-height:1.2}
+.bstep h3{font-size:clamp(30px,4vw,52px);line-height:.95;margin:0}
+.bstep p{grid-column:2;margin:0;max-width:44ch}
+@media (max-width:820px){
+ .build-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "stage" "steps"}
+ .build-stage{top:68px;z-index:2;margin-top:24px;background:var(--paper);padding:14px 0 12px}
+ .bstep{min-height:48vh}
+}
+@media (prefers-reduced-motion:reduce){.build-frame video{transition:none}.bstep{opacity:1}}
+/* reveal + parallax (home) */
+.motion .rv{opacity:0;transform:translateY(36px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+.motion .rv.in{opacity:1;transform:none}
+.bleed{overflow:hidden}
+.motion .px{will-change:transform;transform:scale(1.18)}
+.motion .hero-over,.motion .hero-logo{will-change:transform,opacity}
+/* window: a hole in the page with the picture moving behind it */
+.win{padding-block:clamp(24px,4vw,56px)}
+.win-hole{position:relative;height:clamp(360px,78vh,820px);overflow:hidden;background:var(--ink)}
+.win-img{position:absolute;left:0;top:-22%;width:100%;height:144%;object-fit:cover;max-width:none}
+.motion .win-img{will-change:transform}
+.win-text{position:absolute;inset:0;display:flex;align-items:flex-end;padding:clamp(20px,4vw,56px);background:linear-gradient(180deg,rgba(20,18,15,0) 35%,rgba(20,18,15,.6) 100%)}
+.win-text .disp{margin:0;color:var(--paper);font-size:clamp(36px,7vw,96px);line-height:.9}
+.name-lines .nl{display:block}
+.motion .name-lines .nl{opacity:0;transform:translateY(48px);filter:blur(4px);transition:opacity 1.4s ease,transform 1.6s cubic-bezier(.2,.7,.2,1),filter 1.4s ease}
+.motion .name-lines .nl.in{opacity:1;transform:none;filter:none}
+.sign-img{width:min(100%,360px);height:auto;display:block}
+.dots3{width:clamp(56px,6vw,76px);height:auto;display:block;margin-bottom:24px;overflow:visible}
+.dots3 circle{fill:var(--ink);opacity:.22;transition:opacity .5s ease,transform .5s ease;transform-box:fill-box;transform-origin:center}
+.dots3 circle.on{opacity:1;transform:scale(1.12)}
+.win-top{padding-top:clamp(12px,2vw,24px)}
+.win-top .win-hole{height:clamp(420px,82vh,900px)}
+.head-media{margin:clamp(24px,4vw,40px) 0 0}
+.head-media video{display:block;width:100%;height:auto;aspect-ratio:21/9;max-height:52vh;object-fit:cover;background:var(--ink)}
+.head-media figcaption{margin-top:10px}
+@media (max-width:640px){.head-media video{aspect-ratio:4/3;max-height:none}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -427,7 +481,7 @@ ORG = {
   "address": {"@type":"PostalAddress","addressRegion":"Bali","addressCountry":"ID"},
   "areaServed": "Worldwide",
   "knowsAbout": ["Reclaimed teak furniture","Hospitality furniture","Contract furniture","Knock-down furniture","Repairable furniture","Circular design","Danish design","Material traceability"],
-  "contactPoint": {"@type":"ContactPoint","contactType":"sales","telephone":"+4530530405","availableLanguage":["English","Danish"]},
+  "contactPoint": {"@type":"ContactPoint","contactType":"sales","url":SITE_URL+"/contact.html","availableLanguage":["English","Danish"]},
   "brand": {"@type":"Brand","name":"Another Life","slogan":"Luxury is longevity."},
 }
 
@@ -447,7 +501,13 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="alternate" type="text/plain" title="LLM summary" href="llms.txt">
-<link rel="icon" href="assets/chair-glyph.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="mask-icon" href="assets/icon.svg" color="#182120">
+<meta name="theme-color" content="#182120">
 {FONTS}
 <style>{CSS}</style>
 {jsonld(graph)}'''
@@ -461,6 +521,8 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 {body}
 </main>
 {FOOTER}
+{OBF_JS}
+{MOTION_JS}
 <script>(function(){{var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){{h.classList.toggle('show',window.scrollY>40);}}t();window.addEventListener('scroll',t,{{passive:true}});}})();</script>
 <script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){{document.querySelectorAll('video[autoplay]').forEach(function(v){{v.pause();v.removeAttribute('autoplay');v.controls=true;}});}}</script>'''
   if path=="index.html" and not standalone:
@@ -471,8 +533,8 @@ FOOTER = f'''<footer><div class="wrap">
 <div class="foot">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul>{"".join(f'<li><a href="{p["slug"]}.html">{p["name"]}</a></li>' for p in PRODUCTS)}</ul></div>
- <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="facts.html">Brand facts</a></li><li><a href="faq.html">Questions</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp {WHATSAPP}</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li><a href="contact.html" data-obf="{E_WAD}" data-t="wa">WhatsApp</a></li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>'''
@@ -489,6 +551,10 @@ import PIL.Image as _PI
 IMG = {f:_PI.open(os.path.join(ROOT,"site_assets",f)).size for f in os.listdir(os.path.join(ROOT,"site_assets")) if f.endswith((".jpg",".png"))}
 def _wh(src):
   w,h = IMG.get(src,(0,0)); return f' width="{w}" height="{h}"' if w else ''
+def window(src, alt, text=None, cap=None, tag="p", top=False):
+  t = f'<div class="win-text"><{tag} class="disp">{text}</{tag}></div>' if text else ''
+  c = f'<p class="cap" style="margin-top:12px">{e(cap)}</p>' if cap else ''
+  return f'<section class="win{" win-top" if top else ""}"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/{src}" alt="{e(alt)}"{_wh(src)}{"" if top else " loading=lazy"}>{t}</div>{c}</div></section>'
 def bleed(src, alt, cap=None, lazy=True):
   c = f'<div class="wrap"><figcaption class="cap">{e(cap)}</figcaption></div>' if cap else ''
   return f'<figure class="bleed"><img src="assets/{src}" alt="{e(alt)}"{_wh(src)}{" loading=lazy" if lazy else ""}>{c}</figure>'
@@ -525,6 +591,60 @@ KEY_FACTS = [
 # ------------------------------------------------------------------ pages
 FILM_JS = "<script>\n(function(){\n var ov=document.getElementById('film-ov'),v=document.getElementById('film-full'),o=document.getElementById('film-open'),c=document.getElementById('film-close');\n function open(){ov.hidden=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});c.focus();}\n function close(){v.pause();ov.hidden=true;o.focus();}\n o.addEventListener('click',open);c.addEventListener('click',close);\n ov.addEventListener('click',function(e){if(e.target===ov)close();});\n document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});\n v.addEventListener('ended',close);\n})();\n</script>"
 pages = {}
+
+BUILD_JS = """<script>
+(function(){
+ var sec=document.getElementById('build'); if(!sec) return;
+ var vids=[].slice.call(sec.querySelectorAll('video')), steps=[].slice.call(sec.querySelectorAll('.bstep')), n=document.getElementById('build-n');
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches, cur=-1, visible=false;
+ function set(i){ if(i===cur) return; cur=i;
+  vids.forEach(function(v,k){ var on=k===i; v.classList.toggle('on',on); if(on&&visible&&!still){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } else { v.pause(); } });
+  steps.forEach(function(s,k){ s.classList.toggle('on',k===i); });
+  if(n) n.textContent='0'+(i+1);
+  [].forEach.call(sec.querySelectorAll('.dots3 circle'),function(c,k){ c.classList.toggle('on',k===i); });
+ }
+ if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) set(+e.target.dataset.i); }); },{rootMargin:'-45% 0px -45% 0px'});
+  steps.forEach(function(s){ io.observe(s); });
+  new IntersectionObserver(function(es){ visible=es[0].isIntersecting; var v=vids[cur<0?0:cur]; if(visible&&!still){ var p=v.play(); if(p&&p.catch)p.catch(function(){}); } else v.pause(); },{threshold:0.05}).observe(sec);
+ }
+ set(0);
+})();
+</script>"""
+
+MOTION_JS = """<script>
+(function(){
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('motion');
+ var main=document.getElementById('main');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win) .wrap > *, section:not(.hero):not(.build):not(.win) .split > *, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var seen=new Set();
+ targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
+ var nls=[];
+ main.querySelectorAll('.name-lines').forEach(function(h){ h.innerHTML=h.innerHTML.split(/<br\\s*\\/?>/i).map(function(t){return '<span class="nl">'+t+'</span>';}).join(''); nls.push(h); });
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+ main.querySelectorAll('.rv').forEach(function(el){
+  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
+ var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var wins=[].slice.call(main.querySelectorAll('.win-img'));
+ var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
+ var tick=false;
+ function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
+  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
+   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
+   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
+  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+  nls.forEach(function(h){ var r=h.getBoundingClientRect(), pr=(vh-r.top)/(vh*0.95);
+   [].forEach.call(h.children,function(sp,i){ sp.classList.toggle('in', pr>0.15+i*0.13); }); });
+  wins.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/(vh+r.height); img.style.transform='translate3d(0,'+(d*-34)+'%,0)'; });
+ }
+ window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
+ frame();
+})();
+</script>"""
 
 ONCE_ITEMS = [
   ("Once a family home in Java","Teak pillars that held up a joglo for generations, now holding up your guests.","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them"),
@@ -567,7 +687,7 @@ home = f'''
   <p><a class="tlink" href="mission.html">Our mission</a></p>
  </div>
 </div></section>
-{bleed("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden","Lounge Chairs on a garden terrace, styled for the shoot.")}
+{window("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden",cap="Lounge Chairs on a garden terrace, styled for the shoot.")}
 
 <section><div class="wrap">
  <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">Second lives</span><h2 class="disp">Our wood has stories.</h2></div>
@@ -590,10 +710,23 @@ home = f'''
   <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["category"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
 </div></section>
 
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2><div class="lead-img">{fig("burning-board.jpg","Flames running across a teak board as its surface is burned in the workshop","Burning the surface, before the oil.")}</div></div>
- {rows([("Reclaimed","Teak that already lived once, often in old joglo houses. Far too good to waste."),("Burned and oiled","An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil."),("Made to be rebuilt","Ships flat, bolts together on site and comes apart again whenever it needs to.")])}
+<section class="build" id="build"><div class="wrap build-grid">
+ <div class="build-head"><svg class="dots3" viewBox="0 0 100 86" aria-hidden="true"><circle data-i="0" cx="50" cy="16" r="12"/><circle data-i="1" cx="80" cy="66" r="12"/><circle data-i="2" cx="20" cy="66" r="12"/></svg><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2></div>
+ <div class="build-stage">
+  <div class="build-frame">
+   <video class="on" data-i="0" src="assets/build-reclaimed.mp4" poster="assets/build-reclaimed.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="Old teak beams with joinery holes, stacked side by side"></video>
+   <video data-i="1" src="assets/build-burn.mp4" poster="assets/build-burn.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="A maker burning the surface of a teak board with a torch, flames running along the wood"></video>
+   <video data-i="2" src="assets/build-make.mp4" poster="assets/build-make.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="Hands working a piece of teak on the workshop floor"></video>
+   <span class="build-count label"><span id="build-n">01</span> / 03</span>
+  </div>
+ </div>
+ <div class="build-steps">
+  <div class="bstep on" data-i="0"><span class="n">01</span><h3 class="disp">Reclaimed</h3><p>Teak that already lived once, often in old joglo houses. Far too good to waste.</p></div>
+  <div class="bstep" data-i="1"><span class="n">02</span><h3 class="disp">Burned and oiled</h3><p>An old Japanese technique, moved to a harder wood and a hotter climate. Finished with natural oil.</p></div>
+  <div class="bstep" data-i="2"><span class="n">03</span><h3 class="disp">Made to be rebuilt</h3><p>Ships flat, bolts together on site and comes apart again whenever it needs to.</p></div>
+ </div>
 </div></section>
+{BUILD_JS}
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2></div>
@@ -602,15 +735,8 @@ home = f'''
  <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
 </div></section>
 
-<section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><span class="label eyebrow muted">In use</span><h2 class="disp">Made for real places.</h2></div>
- <p class="prose" style="margin:0">Dining rooms, terraces and rooms that open onto the weather. <a class="tlink" href="in-use.html">See every space</a></p></div>
-</div></section>
 
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">At a glance</span><h2 class="disp">Another Life, in facts.</h2><p class="cap" style="margin-top:20px">The full sheet is on <a href="facts.html">Brand facts</a>.</p></div>
- {ledger(KEY_FACTS)}
-</div></section>
+
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Furnishing a place?</h2></div>
@@ -702,33 +828,23 @@ for p in PRODUCTS:
 
 # MISSION (Brand DNA and mission, one page)
 mission = f'''
-<section class="page-head"><div class="wrap">
+{window("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water",text="The best day<br>was yesterday.<br>Let's make sure<br>there's a tomorrow.",tag="h1",top=True)}
+<section class="page-head" style="padding-top:clamp(24px,4vw,48px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
- <h1 class="disp">Use it again, before you make it again.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Long life first</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <div class="split" style="margin-top:8px">
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Not needing to recycle</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
 
 <section id="reuse"><div class="wrap split">
- <div><span class="label eyebrow muted">Our point of view</span><h2 class="disp">Long life beats recycling.</h2></div>
+ <div><span class="label eyebrow muted">Our point of view</span><h2 class="disp">The best kind of recycling is not needing to.</h2></div>
  <div class="prose">
   <p class="pull" style="margin-bottom:24px">Think of an old glass milk bottle.</p>
-  <p>It goes back, gets washed and refilled, again and again. Melting it down to make a new one works too, but it costs far more energy and ends the bottle's life.</p>
-  <p>We think furniture should work like the refillable bottle. Keep it, fix it, move it, pass it on. A product with a short life is still short-lived, even if it gets recycled. A long-lived one doesn't need to be remade at all.</p>
-  <p>Recycling is great, just not as plan A. The most sustainable chair is the one that never needs replacing.</p>
+  <p>It gets returned, washed and refilled. Again and again. But take it out of that cycle, melt it down and make something new, and you've used energy to replace something that was already working.</p>
+  <p>We believe furniture should follow the same thinking. Keep materials and products in use for as long as possible.</p>
+  <p class="pull" style="margin-top:28px">Downcycling something that could continue to be reused isn't a step forward. It's a step backward.</p>
  </div>
-</div></section>
-<section style="padding-top:0;border-top:0"><div class="wrap split">
- <div><span class="label eyebrow muted">The order we think in</span><p class="prose" style="margin:0">Every step down the list costs more energy and more material. We design to stay near the top for as long as possible.</p></div>
- <ol class="ladder">
-  <li><span class="disp">Use</span><p>Every day, in a real place. Not stacked in a corner.</p></li>
-  <li><span class="disp">Repair</span><p>Fix what's worn and keep it going.</p></li>
-  <li><span class="disp">Take apart and store</span><p>Undo the bolts, pack it flat, let it wait for its next job.</p></li>
-  <li><span class="disp">Rebuild</span><p>Same piece, new place, new owner.</p></li>
-  <li class="last"><span class="disp">Recycle</span><p>The very last stop. We hope our furniture never gets there.</p></li>
- </ol>
 </div></section>
 
 <section id="purpose"><div class="wrap split">
@@ -767,11 +883,6 @@ mission = f'''
         ("Honest material","Grain, age, marks and imperfections stay visible. We want each piece to look like it has a story.")])}
 </div></section>
 
-<section class="forest" id="life"><div class="wrap split">
- <div><span class="label eyebrow muted">The life of a piece</span><h2 class="disp">Built to be used, then rebuilt.</h2>
- <p class="prose" style="margin-top:24px">Our furniture has one job: to be used. Every day. And if the place it lives in changes? Undo a few bolts, it packs flat, takes a nap in storage and wakes up somewhere new. Landfill is not on the itinerary.</p></div>
- {rows(LIFE, numbered=True)}
-</div></section>
 
 <section id="heading"><div class="wrap split">
  <div><span class="label eyebrow muted">Where we're heading</span><h2 class="disp">Plant. Give back. Collaborate.</h2>
@@ -783,41 +894,13 @@ mission = f'''
  <div class="btns" style="margin-top:20px"><a class="btn" href="contact.html?type=collab">Work with us</a></div></div>
 </div></section>
 
-<section id="conscious"><div class="wrap split">
- <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Better questions, not one label.</h2>
- <p class="prose" style="margin-top:24px">We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find. <a href="passport.html#label">Why we look beyond the label</a></p></div>
- {rows(CRITERIA)}
-</div></section>
-{bleed("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water")}
 
-<section id="voice"><div class="wrap split">
- <div><span class="label eyebrow muted">Voice</span><h2 class="disp">How we speak.</h2></div>
- {rows([("Light, but serious","Short sentences, everyday words, one good fact at a time. Never preachy."),
-        ("Quiet confidence","We let the material and the making carry the argument."),
-        ("Facts as facts","We state what we know and say what we don't. Goals are written as goals."),
-        ("We, not I","We speak as a company, in the first person plural.")])}
-</div></section>
 
-<section id="not"><div class="wrap split">
- <div><span class="label eyebrow muted">Positioning</span><h2 class="disp">What we are. What we are not.</h2></div>
- <div>{ledger([("We are","Design furniture for hospitality, built to last and to be repaired"),
-               ("We sit between","Design furniture, contract hospitality furniture and sustainable furniture"),
-               ("We are not","The cheapest option"),
-               ("We are not","A brand that uses sustainability as an excuse for weaker design"),
-               ("We never claim","That a piece is completely sustainable"),
-               ("Our standard","Sustainability is for everyone. Conscious style is not.")])}</div>
-</div></section>
 
-<section id="glossary"><div class="wrap split">
- <div><span class="label eyebrow muted">Glossary</span><h2 class="disp">Terms we use.</h2></div>
- {rows(GLOSSARY)}
-</div></section>
 '''
 pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: long life over recycling, why we exist, our beliefs and design principles, the life of a piece, and our goals to plant, give back and collaborate.", mission,
   [breadcrumb([("index.html","Home"),("mission.html","Mission")]),
-   {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED},
-   {"@type":"DefinedTermSet","name":"Another Life glossary","url":url("mission.html")+"#glossary",
-    "hasDefinedTerm":[{"@type":"DefinedTerm","name":a,"description":b} for a,b in GLOSSARY]}])
+   {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED}])
 
 # MATERIAL
 material = f'''
@@ -825,7 +908,7 @@ material = f'''
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#rebuilt">Built to be rebuilt</a> · <a href="#air">Shipping</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#ulin">Ironwood</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#oil">Natural oil</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#sign">The sign</a> · <a href="#rebuilt">Built to be rebuilt</a> · <a href="#air">Shipping</a></p></nav></div>
  {updated()}
 </div></section>
 
@@ -835,7 +918,7 @@ material = f'''
  <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
  <p>Our teak (<i>Tectona grandis</i>) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. We are also building a way to trace each piece's own story: the <a href="passport.html">Passport</a>.</p></div>
 </div></section>
-{bleed("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk","Old posts and beams, marked and sorted before they are cut.")}
+{window("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk",cap="Old posts and beams, marked and sorted before they are cut.")}
 
 <section id="ulin"><div class="wrap split">
  <div><span class="label eyebrow muted">Chapter 2 · In development</span><h2 class="disp">Meet ulin, Borneo's ironwood.</h2><div class="lead-img">{duo(fig("ulin-plank.jpg","A reclaimed ulin plank held in a hand, weathered grey on the outside and warm brown where it has been planed","Reclaimed ulin: weathered outside, warm and dense inside."),fig("ulin-beams.jpg","The ends of old ulin beams stacked under trees, with S-shaped irons hammered into them","Old ulin beams. The S-shaped irons keep the ends from splitting."))}</div></div>
@@ -873,11 +956,19 @@ material = f'''
  <div class="renders" style="margin-top:28px">{duo(fig("bolt-render.png","Technical drawing of the stainless steel connector bolt, with a flat head and a long thread","The bolt."),fig("insert-render.png","Technical drawing of the threaded insert that sits in the wood and receives the bolt","The insert it screws into."))}</div></div>
 </div></section>
 
+<section id="sign"><div class="wrap split">
+ <div><span class="label eyebrow muted">The sign in the bolts</span><h2 class="disp">Three dots. One circle.</h2>
+  <div class="lead-img"><img class="sign-img" src="assets/three-bolts-cycle.png" alt="Drawing of three dots joined in a circle by three arrows, the same layout as the three-bolt cluster on every piece" width="900" height="900" loading="lazy"></div></div>
+ <div><p class="prose" style="margin:0 0 24px">Look closely at any SATU joint and you'll find three bolts. They hold the piece together, and they also carry the idea behind the name. Each bolt stands for a life the piece can have, and together they turn in a circle:</p>
+ {rows([("Material","The wood already lived once, before it reached our workshop."),("Owner","The piece can move on to someone new and keep working."),("Place","Undo the bolts and it can be rebuilt somewhere else.")])}
+ <p class="pull" style="margin-top:28px">Round and round, never ending. That's another life.</p></div>
+</div></section>
+
 <section id="rebuilt"><div class="wrap split">
  <div><span class="label eyebrow muted">Built to be rebuilt</span><h2 class="disp">Flat, bolted, and back again.</h2><div class="lead-img">{vid("assembly.mp4","assembly-poster.jpg","A hand fitting the backrest of The Chair onto its frame","Parts fit by hand, then bolt together.")}</div></div>
  <div class="prose"><p>Every piece travels flat and is bolted together on site.</p>
  <p>The same bolts let a piece come apart again without damage: to move it, to store it, or to change a single worn part while the rest carries on.</p>
- <p><a class="tlink" href="mission.html#life">The life of a piece</a> · Prices are ex works, Indonesia.</p></div>
+ <p>Prices are ex works, Indonesia.</p></div>
 </div></section>
 
 <section id="air"><div class="wrap">
@@ -927,7 +1018,7 @@ passport = f'''
  <div class="prose"><p>One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.</p></div></div>
  {updated()}
 </div></section>
-{bleed("timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length",lazy=False)}
+{window("timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length")}
 
 <section id="label"><div class="wrap split">
  <div><span class="label eyebrow muted">Beyond the label</span><h2 class="disp">A label is not a mission.</h2>
@@ -972,10 +1063,10 @@ hosp = f'''
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">For hospitality</span>
  <h1 class="disp">Furniture that outlasts the fit-out.</h1>
- <p class="pull" style="margin-top:24px">We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.</p>
+ <figure class="head-media"><video src="assets/hosp-restaurant.mp4" poster="assets/hosp-restaurant.jpg" width="1280" height="720" autoplay muted loop playsinline preload="auto" aria-label="A slow pan across a restaurant dining room, The Chair at the tables and forested hills through tall windows"></video><figcaption class="cap">The Chair in a restaurant above the forest.</figcaption></figure>
+ <p class="pull" style="margin-top:28px">We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.</p>
  {updated()}
 </div></section>
-{bleed("chair-terrazzo.jpg","The Chair on a terrazzo floor in Bali, the burned grain visible on seat and backrest","The Chair on a terrazzo floor in Bali.",lazy=False)}
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Who we work with</span><h2 class="disp">The people who shape a place.</h2></div>
  <div class="prose"><p>We like to work directly with owners and the people who define what a hospitality brand stands for, not only how it looks. If your place is built on values, your furniture should carry them.</p>
@@ -1005,6 +1096,7 @@ pages["hospitality.html"] = ("For Hospitality", "Another Life supplies reclaimed
 # IN USE
 SPACES = [
   ("hotel-room-jungle.jpg","Hotel room","The Chair in an open hotel room above the jungle at sunset, a curtain lifting in the breeze and the sea in the distance."),
+  ("beach-loungers.jpg","Beach club","Sun Loungers and Side Tables on a sandy beach in a cove. Cushions, towels and parasols are styling, not part of the collection."),
   ("restaurant-mountain.jpg","Restaurant","The Chair at restaurant tables beside a long upholstered banquette, forested hills through floor-to-ceiling windows."),
   ("terrace-jungle.jpg","Terrace","The Chair on a rain-wet timber terrace above the jungle at sunset, next to a round teak table."),
   ("sea-room.jpg","Living room","The Chair alone in a glass-walled room facing the sea, a leather daybed in the foreground."),
@@ -1045,36 +1137,6 @@ pages["faq.html"] = ("Another Life Questions", "Answers about Another Life: what
   [breadcrumb([("index.html","Home"),("faq.html","Questions")]),
    {"@type":"FAQPage","url":url("faq.html"),"mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in FAQ]}])
 
-# FACTS
-facts_body = f'''
-<section class="page-head"><div class="wrap">
- <span class="label eyebrow">Brand facts</span>
- <h1 class="disp">Another Life, on one page.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">The canonical facts about Another Life, for press, partners and anyone summarising us.</p>
- <p class="prose cap" style="margin:0">A machine-readable version is at <a href="brand.json">brand.json</a> and <a href="llms.txt">llms.txt</a>. If something here differs from another source, this page is correct.</p></div>
- {updated()}
-</div></section>
-<section style="padding-top:0;border-top:0"><div class="wrap split">
- <div><h2 class="disp">Summary</h2></div>
- <div class="prose"><p>{e(BRAND["one_line"])} {e(BRAND["mission"])} The first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban. The company was founded by Stine Palm and Magnus Palm in Bali and sells mainly to hospitality businesses.</p></div>
-</div></section>
-<section><div class="wrap split">
- <div><h2 class="disp">Key facts</h2></div>
- {ledger(KEY_FACTS + [("Customers", e(BRAND["customers"])),("Shipping","Flat-packed, assembled on site"),("Traceability","Another Life Passport: a QR tracing system we are building, one story per piece"),("Main tagline","Made for this life. And another."),("Contact", f"WhatsApp {WHATSAPP} · <a href='contact.html'>enquiry form</a>")])}
-</div></section>
-<section><div class="wrap split">
- <div><h2 class="disp">Products</h2></div>
- {ledger([(p["name"], f'{dims(p)}' + (f' · seat height {p["seat"]} cm' if p["seat"] else '') + f' · <a href="{p["slug"]}.html">details</a>') for p in PRODUCTS])}
-</div></section>
-<section class="forest"><div class="wrap split">
- <div><h2 class="disp">How to write about us</h2></div>
- {ledger([("Name","Another Life. The wordmark is ANOTHER — LIFE, always with the dash."),("Products","Use the SATU names: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table, The Table."),("Please don't say","That our furniture is completely sustainable, that we already plant trees, or quote carbon or transport figures we haven't published."),("Please don't print","A founding date or an Est. line."),("Describe us as","A hospitality furniture brand making repairable furniture from repurposed teak. Danish design, made in Indonesia.")])}
-</div></section>
-'''
-pages["facts.html"] = ("Another Life Brand Facts", "Canonical facts about Another Life: what it makes, where, from what material, the SATU products and sizes, founders, customers and how to describe the brand.", facts_body,
-  [breadcrumb([("index.html","Home"),("facts.html","Brand facts")]),
-   {"@type":"WebPage","name":"Another Life brand facts","url":url("facts.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED}])
-
 # CONTACT
 opts = "".join(f'<label><input type="checkbox" name="pieces" value="{p["name"]}" id="pc-{p["slug"]}"> {p["name"]}</label>' for p in PRODUCTS)
 contact = f'''
@@ -1087,7 +1149,7 @@ contact = f'''
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img">{fig("chair-seawall-step.jpg","A woman in a long dress stepping barefoot off The Chair on a sea wall, a beach and a sailboat behind","Come and say hello.")}</div>
-  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Email", f'<a href="mailto:{EMAIL}">{EMAIL}</a>'),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
+  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span data-obf="{E_WA}" data-t="text">via the button below</span>'),("Email", f'<span data-obf="{E_MAIL}" data-t="mail">via the button below</span>'),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
  <div>
   <form id="enq" novalidate>
@@ -1107,8 +1169,8 @@ contact = f'''
   <div id="out" class="out" hidden style="margin-top:28px">
    <span class="label">Your enquiry</span>
    <pre id="out-text"></pre>
-   <div class="btns"><a class="btn" id="wa-send" href="{WA_LINK}" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="mail-send" href="mailto:{EMAIL}">Send by email</a><button class="btn" type="button" id="copy">Copy text</button></div>
-   <p class="cap" id="copy-note">Or copy the text and send it to {WHATSAPP} or {EMAIL}.</p>
+   <div class="btns"><a class="btn" id="wa-send" href="#" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="mail-send" href="#">Send by email</a><button class="btn" type="button" id="copy">Copy text</button></div>
+   <p class="cap" id="copy-note">Or copy the text and send it to us on WhatsApp or by email.</p>
   </div>
  </div>
 </div></section>
@@ -1125,8 +1187,9 @@ contact = f'''
   var pcs=[].slice.call(f.querySelectorAll('input[name=pieces]:checked')).map(function(x){{return x.value;}});
   var t='Hello Another Life,\\n\\nName: '+g('f-name')+'\\nBusiness: '+g('f-biz')+'\\nType: '+g('f-type')+(g('f-where')?'\\nLocation: '+g('f-where'):'')+(pcs.length?'\\nPieces: '+pcs.join(', '):'')+(g('f-msg')?'\\n\\n'+g('f-msg'):'');
   document.getElementById('out-text').textContent=t;
-  document.getElementById('wa-send').href='{WA_LINK}?text='+encodeURIComponent(t);
-  document.getElementById('mail-send').href='mailto:{EMAIL}?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
+  var dd=function(s){{return atob(s).split('').reverse().join('');}};
+  document.getElementById('wa-send').href='https://wa.me/'+dd('{E_WAD}')+'?text='+encodeURIComponent(t);
+  document.getElementById('mail-send').href='mailto:'+dd('{E_MAIL}')+'?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
   document.getElementById('out').hidden=false;
  }});
  document.getElementById('copy').addEventListener('click',function(){{
@@ -1137,7 +1200,7 @@ contact = f'''
 }})();
 </script>
 '''
-pages["contact.html"] = ("Contact Another Life", "Enquire about Another Life furniture for your hotel, resort, restaurant or café. WhatsApp " + WHATSAPP + ". Based in Bali, Indonesia.", contact,
+pages["contact.html"] = ("Contact Another Life", "Enquire about Another Life furniture for your hotel, resort, restaurant or café. Send us your project on WhatsApp or by email.", contact,
   [breadcrumb([("index.html","Home"),("contact.html","Contact")]),
    {"@type":"ContactPage","url":url("contact.html"),"about":{"@id":url("index.html")+"#org"}}])
 
@@ -1168,14 +1231,13 @@ Key facts:
 
 ## Pages
 - [Home]({url('index.html')}): overview of the brand and collection, with the 34-second brand film ({url('assets/film.mp4')})
-- [Brand facts]({url('facts.html')}): canonical facts, products, sizes and how to describe the brand
 - [Mission]({url('mission.html')}): long life over recycling, purpose, origin, beliefs, design principles, the life of a piece, goals (plant, give back, collaborate), voice, glossary
 - [In use]({url('in-use.html')}): photographs of the furniture in restaurants, terraces and homes
 - [Material and making]({url('material.html')}): repurposed teak from joglo houses, bridges and boats; reclaimed ulin (in development); Shou Sugi Ban on hardwood; natural oil; making in Indonesia; built to be rebuilt
 - [Another Life Passport]({url('passport.html')}): the QR tracing platform being built (work in progress) and circular services in development
 - [For hospitality]({url('hospitality.html')}): who we work with and how an order works
 - [Questions]({url('faq.html')}): {len(FAQ)} answered questions
-- [Contact]({url('contact.html')}): enquiries, WhatsApp {WHATSAPP}
+- [Contact]({url('contact.html')}): enquiries by WhatsApp or email
 
 ## SATU collection
 """ + "\n".join(f"- [{p['name']}]({url(p['slug']+'.html')}): {dims(p)}" + (f", seat height {p['seat']} cm" if p['seat'] else "") + f". {p['short']}" for p in PRODUCTS) + f"""
@@ -1208,7 +1270,7 @@ brand_json = {
   "collections":[{"name":"SATU","meaning":"Indonesian for 'one'","products":[{"name":p["name"],"dimensions_cm":{"height":p["dims"][0],"width":p["dims"][1],"length":p["dims"][2]},"seat_height_cm":p["seat"],"category":p["category"],"url":url(p["slug"]+".html"),"description":p["short"]} for p in PRODUCTS]}],
   "glossary":{a:b for a,b in GLOSSARY},
   "images":[{"url":url("assets/"+src),"caption":cap} for src,lbl,cap in SPACES],
-  "contact":{"whatsapp":WHATSAPP,"email":EMAIL,"enquiry":url("contact.html")},
+  "contact":{"enquiry":url("contact.html"),"channels":["WhatsApp","Email"]},
   "logo":{"wordmark":"ANOTHER — LIFE","tagline":"Danish furniture. Designed for tomorrow.","file":url("assets/logo-lockup.png")},
   "naming_rules":["Always ANOTHER — LIFE with a dash in the wordmark","No founding date or Est. line anywhere"],
 }
@@ -1243,6 +1305,7 @@ def build(outdir, standalone):
   if os.path.exists(outdir): shutil.rmtree(outdir)
   os.makedirs(outdir)
   shutil.copytree(os.path.join(ROOT,"site_assets"), os.path.join(outdir,"assets"))
+  shutil.copy(os.path.join(ROOT,"site_assets","favicon.ico"), os.path.join(outdir,"favicon.ico"))
   full=[]
   for path,v in pages.items():
     title,desc,body,ld = v[:4]; og = v[4] if len(v)>4 else "chair-studio-wide.jpg"
