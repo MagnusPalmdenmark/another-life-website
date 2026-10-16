@@ -37,6 +37,8 @@ BRAND = {
     "Sustainability is for everyone. Conscious style is not.",
     "Another material. Another owner. Another place. Another life.",
     "Materials from another life. Designed for another life.",
+    "Made from what came before. Made for what comes next.",
+    "A label is not a mission.",
   ],
 }
 
@@ -400,6 +402,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .seg button{font:500 11px/16px var(--font-mono);letter-spacing:.08em;text-transform:uppercase;padding:11px 16px;min-height:44px;background:transparent;color:var(--ink);border:0;cursor:pointer}
 .seg button+button{border-left:1px solid var(--ink)}
 .seg button[aria-pressed=true]{background:var(--ink);color:var(--paper)}
+.qr{display:block;width:clamp(180px,24vw,280px);height:auto;margin:0 auto clamp(28px,4vw,48px);border:2px solid var(--ink);padding:8px;background:var(--paper)}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -703,7 +706,7 @@ mission = f'''
  <span class="label eyebrow">Mission</span>
  <h1 class="disp">Use it again, before you make it again.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">What we believe, how we design, and where we're heading. All on one page.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Long life first</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Conscious Sustainability</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#reuse">Long life first</a> · <a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#beliefs">Beliefs</a> · <a href="#design">Design</a> · <a href="#life">Life of a piece</a> · <a href="#heading">Where we're heading</a> · <a href="#conscious">Better questions</a> · <a href="#voice">Voice</a> · <a href="#glossary">Glossary</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
@@ -781,8 +784,8 @@ mission = f'''
 </div></section>
 
 <section id="conscious"><div class="wrap split">
- <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Sustainability isn't one feature. It's every decision.</h2>
- <p class="prose" style="margin-top:24px">No single material or label is sustainable everywhere. So we judge each material and method on six things, and we tell you what we find.</p></div>
+ <div><span class="label eyebrow muted">Conscious Sustainability</span><h2 class="disp">Better questions, not one label.</h2>
+ <p class="prose" style="margin-top:24px">We don't believe in one label that fits all. These are the six questions we ask of every material and every method, and we tell you what we find. <a href="passport.html#label">Why we look beyond the label</a></p></div>
  {rows(CRITERIA)}
 </div></section>
 {bleed("chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk, both reflected in the water")}
@@ -908,37 +911,56 @@ pages["material.html"] = ("Material and Making", "Another Life uses repurposed t
 
 # PASSPORT
 PASS_STEPS = [
-  ("Origin","When the wood arrives, we log where it came from and what it was before: a house, a bridge, a boat."),
-  ("Making","The workshop and the makers who turned it into furniture."),
-  ("Journey","How it travelled, flat-packed, to the place it now lives."),
-  ("Care","How to oil it, look after it and keep the bolts tight."),
-  ("Repair","Which part to replace when one wears out, and a record of every repair."),
-  ("Next life","When the piece moves on, its story moves with it to the next owner."),
+  ("Where the wood comes from","What it was before it became furniture: a house, a bridge, a boat."),
+  ("Who made it","The workshop and the hands that built it."),
+  ("How it got here","Its journey, flat-packed, to the place it now lives."),
+  ("How to care for it","Oiling, cleaning and keeping the bolts tight."),
+  ("How to repair it","Which part to replace, and the repairs it has already had."),
+  ("Where it goes next","When the piece changes hands, its story goes with it."),
 ]
 passport = f'''
 <section class="page-head"><div class="wrap">
+ <img class="qr" src="assets/passport-qr.svg" alt="QR code that opens this Passport page" width="120" height="120">
  <span class="label eyebrow">Another Life Passport</span>
- <h1 class="disp">A story you can scan.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">We're building a system that links every piece to its own story. A small QR code on the furniture opens a page that follows the piece through its whole life.</p>
- <div class="prose"><p>Labels make claims. A record shows its working. Our wood already has a past, as a house, a bridge or a boat, and we think that past deserves to travel with the furniture.</p><p>The Passport is how we want to make that happen: one code, one piece, one story that keeps growing.</p></div></div>
+ <h1 class="disp">A story you<br>can scan.</h1>
+ <div class="split" style="margin-top:32px"><p class="pull">We're building a system that gives every piece its own story: from the life its wood lived before, to every life it lives next.</p>
+ <div class="prose"><p>One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.</p></div></div>
  {updated()}
 </div></section>
 {bleed("timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length",lazy=False)}
+
+<section id="label"><div class="wrap split">
+ <div><span class="label eyebrow muted">Beyond the label</span><h2 class="disp">A label is not a mission.</h2>
+  <div class="lead-img">{fig("label-workshop.jpg","Black-and-white photograph of certification signs leaning against a workshop wall, next to an old speaker and a pair of work gloves","A stamp on the wall. Only part of the story.")}</div></div>
+ <div class="prose">
+  <p class="pull" style="margin-bottom:24px">We believe sustainability is a responsibility, not a certification.</p>
+  <p>We don't believe one label can tell the whole story. A certification can tell you where a material comes from, but not necessarily how long a product will last, how it was made, whether it can be repaired, or what happens when its life comes to an end.</p>
+  <p>Certifications have their place. But we've learned that a stamp of approval doesn't always mean a product is truly sustainable, and we believe sustainability should go much further than meeting a set of requirements.</p>
+  <p>We don't want to buy our way into being called sustainable. We want to earn it through the things we make. By questioning materials. By understanding their origins. By designing for longevity, repair and reuse. By taking responsibility for what happens long after a piece leaves our hands.</p>
+  <p>That's what the Passport is for: showing the evidence, piece by piece, instead of asking you to trust a stamp.</p>
+  <p>We don't claim to have all the answers. We're learning, questioning and challenging the way things have always been done.</p>
+  <p class="pull" style="margin-top:28px">Sustainability isn't a label you put on a product. It's a responsibility you build into it.</p>
+ </div>
+</div></section>
+
 <section class="forest"><div class="wrap split">
- <div><span class="label eyebrow muted">How the system works</span><h2 class="disp">From first life to next life.</h2>
- <p class="prose" style="margin-top:24px">Scan the code and the piece tells you, step by step:</p></div>
- {rows(PASS_STEPS)}
+ <div><span class="label eyebrow muted">For hospitality</span><h2 class="disp">A story guests can read for themselves.</h2></div>
+ <div class="prose"><p>Hotels and restaurants are asked more and more what their spaces are made of, and furniture is often left out. The Passport is designed to give every piece a traceable origin, with something real behind it.</p>
+ <p>And it starts conversations. A guest scans a chair and reads that its wood once held up a family home in Java.</p></div>
 </div></section>
+
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Why it matters</span><h2 class="disp">Furniture with a story you can check.</h2><div class="lead-img">{fig("chair-raw-workshop.jpg","An unfinished teak chair standing on a sawdust-covered workshop floor, before burning","A chair on the workshop floor, before it is burned.")}</div></div>
- <div class="prose"><p>Hotels and restaurants are asked more and more what their operations are made of, and furniture is often left out. The Passport is designed to give every piece a traceable origin, with something real behind it.</p>
- <p>It's also a great conversation starter: a guest scans a chair and reads that its wood once held up a family home in Java.</p>
- <p>We'll share more as the system takes shape. <a class="tlink" href="contact.html?type=collab">Want to help shape it? Get in touch.</a></p></div>
-</div></section>
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">After the first life</span><h2 class="disp">Services we are developing.</h2>
- <p class="prose" style="margin-top:24px">The Passport is built to support these, as we develop them.</p></div>
+ <div><span class="label eyebrow muted">After the first life</span><h2 class="disp">Built to support what comes next.</h2>
+ <p class="prose" style="margin-top:24px">These are the services we're developing, and the Passport is designed around them.</p>
+ <div class="lead-img">{fig("chair-raw-workshop.jpg","An unfinished teak chair standing on a sawdust-covered workshop floor, before burning","A chair on the workshop floor, before it is burned.")}</div></div>
  {rows([("Replacement parts","A single component, replaced on its own."),("Refinishing","A worn surface brought back."),("Reconfiguration","Parts rearranged for a new space or use."),("Refurbishment","A full restoration of a used piece."),("Take-back","Pieces returned to us and given another life, rather than discarded.")])}
+</div></section>
+
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">Build it with us</span><h2 class="disp">Want to help shape it?</h2></div>
+ <div class="prose"><p>We're looking for hotels, designers and partners who care about where things come from and where they go next. We'll share more as the system takes shape.</p>
+ <p class="label" style="margin-top:20px">Made from what came before. Made for what comes next.</p>
+ <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html?type=collab">Get in touch</a></div></div>
 </div></section>
 '''
 pages["passport.html"] = ("Another Life Passport", "The Another Life Passport is the QR tracing system Another Life is building: one code per piece, opening its story from origin and making to care, repair and its next owner.", passport,
@@ -1135,6 +1157,7 @@ Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based
 Key facts:
 - Purpose: to make furniture that lasts a long time.
 - Main tagline: "Made for this life. And another." Other lines: "Luxury is longevity.", "Furniture worth keeping.", "Make it once. Let it live."
+- Position on labels: "A label is not a mission." Certifications have their place, but no single label tells the whole story; Another Life aims to earn the word sustainable through what it makes.
 - Philosophy: Conscious Sustainability. No single material or label is sustainable everywhere; materials are judged on origin, production, longevity, transport, repairability and documentation. Another Life does not claim any piece is completely sustainable.
 - Traceability: the Another Life Passport, a QR tracing platform Another Life is building. Work in progress, not yet available; nothing about it should be described as offered today.
 - Point of view: "Use it again, before you make it again." Long life beats recycling; recycling is the last stop, not plan A. Order: use, repair, take apart and store, rebuild, recycle.
@@ -1178,7 +1201,7 @@ brand_json = {
   "construction":["Modular","Knock-down: travels flat and is assembled on site","Comes apart without damage and goes back together as it was","If one part reaches its end, you replace the part, not the piece"],
   "use":"Indoor and outdoor hospitality spaces",
   "pricing":"On request, ex works Indonesia",
-  "philosophy":{"name":"Conscious Sustainability","criteria":[c for c,_ in CRITERIA],"core_line":"Sustainability isn't one feature. It's every decision.","claims_policy":"Never claim a piece is completely sustainable; never publish unverified carbon or transport figures."},
+  "philosophy":{"name":"Conscious Sustainability","criteria":[c for c,_ in CRITERIA],"core_line":"A label is not a mission. Sustainability isn't a label you put on a product; it's a responsibility you build into it.","position_on_certification":"Certifications have their place, but no single label tells the whole story (lifespan, making, repairability, end of life). Another Life aims to show sustainability through what it makes rather than rely on a label alone.","claims_policy":"Never claim a piece is completely sustainable; never publish unverified carbon or transport figures."},
   "traceability":{"name":"Another Life Passport","status":"Work in progress, not yet available. No commitments on features or timing.","description":"A QR tracing platform being built to tell the story of each piece","intended_questions":PASSPORT_Q},
   "circular_services_in_development":["Replacement parts","Refinishing","Reconfiguration","Refurbishment","Take-back"],
   "taglines":BRAND["slogans"],
