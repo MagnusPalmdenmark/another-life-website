@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Contact Another Life</title>
-<meta name="description" content="Enquire about Another Life furniture for your hotel, resort, restaurant or café. WhatsApp +45 30 53 04 05. Based in Bali, Indonesia.">
+<meta name="description" content="Enquire about Another Life furniture for your hotel, resort, restaurant or café. Send us your project on WhatsApp or by email.">
 <link rel="canonical" href="https://another-life.dk/contact.html">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Another Life">
-<meta property="og:title" content="Contact Another Life"><meta property="og:description" content="Enquire about Another Life furniture for your hotel, resort, restaurant or café. WhatsApp +45 30 53 04 05. Based in Bali, Indonesia.">
+<meta property="og:title" content="Contact Another Life"><meta property="og:description" content="Enquire about Another Life furniture for your hotel, resort, restaurant or café. Send us your project on WhatsApp or by email.">
 <meta property="og:url" content="https://another-life.dk/contact.html"><meta property="og:image" content="https://another-life.dk/assets/chair-studio-wide.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -337,7 +337,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
    "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "sales",
-    "telephone": "+4530530405",
+    "url": "https://another-life.dk/contact.html",
     "availableLanguage": [
      "English",
      "Danish"
@@ -403,7 +403,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img"><figure class="fig"><img src="assets/chair-seawall-step.jpg" alt="A woman in a long dress stepping barefoot off The Chair on a sea wall, a beach and a sailboat behind" width="1004" height="781" loading="lazy"><figcaption class="cap">Come and say hello.</figcaption></figure></div>
-  <div style="margin-top:32px"><dl class="ledger"><div><dt>WhatsApp</dt><dd>Magnus Palm · <span id="wa-num">+45 30 53 04 05</span></dd></div><div><dt>Email</dt><dd><a href="mailto:magnus@another-life.dk">magnus@another-life.dk</a></dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div><div><dt>Pricing</dt><dd>On request. Ex works, Indonesia</dd></div></dl></div>
+  <div style="margin-top:32px"><dl class="ledger"><div><dt>WhatsApp</dt><dd>Magnus Palm · <span data-obf="NTAgNDAgMzUgMDMgNTQr" data-t="text">via the button below</span></dd></div><div><dt>Email</dt><dd><span data-obf="a2QuZWZpbC1yZWh0b25hQHN1bmdhbQ==" data-t="mail">via the button below</span></dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div><div><dt>Pricing</dt><dd>On request. Ex works, Indonesia</dd></div></dl></div>
  </div>
  <div>
   <form id="enq" novalidate>
@@ -423,8 +423,8 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
   <div id="out" class="out" hidden style="margin-top:28px">
    <span class="label">Your enquiry</span>
    <pre id="out-text"></pre>
-   <div class="btns"><a class="btn" id="wa-send" href="https://wa.me/4530530405" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="mail-send" href="mailto:magnus@another-life.dk">Send by email</a><button class="btn" type="button" id="copy">Copy text</button></div>
-   <p class="cap" id="copy-note">Or copy the text and send it to +45 30 53 04 05 or magnus@another-life.dk.</p>
+   <div class="btns"><a class="btn" id="wa-send" href="#" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="mail-send" href="#">Send by email</a><button class="btn" type="button" id="copy">Copy text</button></div>
+   <p class="cap" id="copy-note">Or copy the text and send it to us on WhatsApp or by email.</p>
   </div>
  </div>
 </div></section>
@@ -441,8 +441,9 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
   var pcs=[].slice.call(f.querySelectorAll('input[name=pieces]:checked')).map(function(x){return x.value;});
   var t='Hello Another Life,\n\nName: '+g('f-name')+'\nBusiness: '+g('f-biz')+'\nType: '+g('f-type')+(g('f-where')?'\nLocation: '+g('f-where'):'')+(pcs.length?'\nPieces: '+pcs.join(', '):'')+(g('f-msg')?'\n\n'+g('f-msg'):'');
   document.getElementById('out-text').textContent=t;
-  document.getElementById('wa-send').href='https://wa.me/4530530405?text='+encodeURIComponent(t);
-  document.getElementById('mail-send').href='mailto:magnus@another-life.dk?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
+  var dd=function(s){return atob(s).split('').reverse().join('');};
+  document.getElementById('wa-send').href='https://wa.me/'+dd('NTA0MDM1MDM1NA==')+'?text='+encodeURIComponent(t);
+  document.getElementById('mail-send').href='mailto:'+dd('a2QuZWZpbC1yZWh0b25hQHN1bmdhbQ==')+'?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
   document.getElementById('out').hidden=false;
  });
  document.getElementById('copy').addEventListener('click',function(){
@@ -459,10 +460,11 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul><li><a href="the-chair.html">The Chair</a></li><li><a href="the-sun-lounger.html">The Sun Lounger</a></li><li><a href="the-bench.html">The Bench</a></li><li><a href="the-lounge-chair.html">The Lounge Chair</a></li><li><a href="the-side-table.html">The Side Table</a></li><li><a href="the-coffee-table.html">The Coffee Table</a></li><li><a href="the-table.html">The Table</a></li></ul></div>
  <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp +45 30 53 04 05</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li><a href="contact.html" data-obf="NTA0MDM1MDM1NA==" data-t="wa">WhatsApp</a></li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>
+<script>(function(){function d(s){try{return atob(s).split('').reverse().join('')}catch(e){return ''}}document.querySelectorAll('[data-obf]').forEach(function(el){var v=d(el.getAttribute('data-obf')),t=el.getAttribute('data-t');if(t==='mail'){el.innerHTML='<a href="mailto:'+v+'">'+v+'</a>';}else if(t==='text'){el.textContent=v;}else if(t==='wa'){el.setAttribute('href','https://wa.me/'+v);el.setAttribute('target','_blank');el.setAttribute('rel','noopener');}});})();</script>
 <script>
 (function(){
  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;

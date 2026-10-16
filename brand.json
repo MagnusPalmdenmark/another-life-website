@@ -239,9 +239,11 @@
     }
   ],
   "contact": {
-    "whatsapp": "+45 30 53 04 05",
-    "email": "magnus@another-life.dk",
-    "enquiry": "https://another-life.dk/contact.html"
+    "enquiry": "https://another-life.dk/contact.html",
+    "channels": [
+      "WhatsApp",
+      "Email"
+    ]
   },
   "logo": {
     "wordmark": "ANOTHER — LIFE",

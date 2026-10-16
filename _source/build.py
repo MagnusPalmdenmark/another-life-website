@@ -9,6 +9,13 @@ UPDATED = "2026-10-16"
 WHATSAPP = "+45 30 53 04 05"
 WA_LINK = "https://wa.me/4530530405"
 EMAIL = "magnus@another-life.dk"
+import base64 as _b64
+def enc(v): return _b64.b64encode(v[::-1].encode()).decode()
+E_MAIL, E_WA, E_WAD = enc(EMAIL), enc(WHATSAPP), enc(WA_LINK.rsplit("/",1)[1])
+OBF_JS = ("<script>(function(){function d(s){try{return atob(s).split('').reverse().join('')}catch(e){return ''}}"
+  "document.querySelectorAll('[data-obf]').forEach(function(el){var v=d(el.getAttribute('data-obf')),t=el.getAttribute('data-t');"
+  "if(t==='mail'){el.innerHTML='<a href=\"mailto:'+v+'\">'+v+'</a>';}else if(t==='text'){el.textContent=v;}"
+  "else if(t==='wa'){el.setAttribute('href','https://wa.me/'+v);el.setAttribute('target','_blank');el.setAttribute('rel','noopener');}});})();</script>")
 
 e = html.escape
 
@@ -470,7 +477,7 @@ ORG = {
   "address": {"@type":"PostalAddress","addressRegion":"Bali","addressCountry":"ID"},
   "areaServed": "Worldwide",
   "knowsAbout": ["Reclaimed teak furniture","Hospitality furniture","Contract furniture","Knock-down furniture","Repairable furniture","Circular design","Danish design","Material traceability"],
-  "contactPoint": {"@type":"ContactPoint","contactType":"sales","telephone":"+4530530405","availableLanguage":["English","Danish"]},
+  "contactPoint": {"@type":"ContactPoint","contactType":"sales","url":SITE_URL+"/contact.html","availableLanguage":["English","Danish"]},
   "brand": {"@type":"Brand","name":"Another Life","slogan":"Luxury is longevity."},
 }
 
@@ -508,6 +515,7 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 {body}
 </main>
 {FOOTER}
+{OBF_JS}
 {MOTION_JS}
 <script>(function(){{var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){{h.classList.toggle('show',window.scrollY>40);}}t();window.addEventListener('scroll',t,{{passive:true}});}})();</script>
 <script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){{document.querySelectorAll('video[autoplay]').forEach(function(v){{v.pause();v.removeAttribute('autoplay');v.controls=true;}});}}</script>'''
@@ -520,7 +528,7 @@ FOOTER = f'''<footer><div class="wrap">
  <div><img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy"><p class="cap" style="margin-top:20px;max-width:34ch">Hospitality furniture from repurposed teak. Danish design, made in Indonesia.</p></div>
  <div><div class="label muted" style="margin-bottom:10px">SATU collection</div><ul>{"".join(f'<li><a href="{p["slug"]}.html">{p["name"]}</a></li>' for p in PRODUCTS)}</ul></div>
  <div><div class="label muted" style="margin-bottom:10px">About</div><ul><li><a href="mission.html">Mission</a></li><li><a href="in-use.html">In use</a></li><li><a href="material.html">Material and making</a></li><li><a href="passport.html">Another Life Passport</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
- <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li>WhatsApp {WHATSAPP}</li></ul></div>
+ <div><div class="label muted" style="margin-bottom:10px">Work with us</div><ul><li><a href="hospitality.html">For hospitality</a></li><li><a href="contact.html">Enquire</a></li><li><a href="contact.html?type=collab">Collaborate</a></li><li><a href="contact.html" data-obf="{E_WAD}" data-t="wa">WhatsApp</a></li></ul></div>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>'''
@@ -1177,7 +1185,7 @@ contact = f'''
   <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img">{fig("chair-seawall-step.jpg","A woman in a long dress stepping barefoot off The Chair on a sea wall, a beach and a sailboat behind","Come and say hello.")}</div>
-  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span id="wa-num">{WHATSAPP}</span>'),("Email", f'<a href="mailto:{EMAIL}">{EMAIL}</a>'),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
+  <div style="margin-top:32px">{ledger([("WhatsApp", f'Magnus Palm · <span data-obf="{E_WA}" data-t="text">via the button below</span>'),("Email", f'<span data-obf="{E_MAIL}" data-t="mail">via the button below</span>'),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}</div>
  </div>
  <div>
   <form id="enq" novalidate>
@@ -1197,8 +1205,8 @@ contact = f'''
   <div id="out" class="out" hidden style="margin-top:28px">
    <span class="label">Your enquiry</span>
    <pre id="out-text"></pre>
-   <div class="btns"><a class="btn" id="wa-send" href="{WA_LINK}" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="mail-send" href="mailto:{EMAIL}">Send by email</a><button class="btn" type="button" id="copy">Copy text</button></div>
-   <p class="cap" id="copy-note">Or copy the text and send it to {WHATSAPP} or {EMAIL}.</p>
+   <div class="btns"><a class="btn" id="wa-send" href="#" target="_blank" rel="noopener">Send on WhatsApp</a><a class="btn" id="mail-send" href="#">Send by email</a><button class="btn" type="button" id="copy">Copy text</button></div>
+   <p class="cap" id="copy-note">Or copy the text and send it to us on WhatsApp or by email.</p>
   </div>
  </div>
 </div></section>
@@ -1215,8 +1223,9 @@ contact = f'''
   var pcs=[].slice.call(f.querySelectorAll('input[name=pieces]:checked')).map(function(x){{return x.value;}});
   var t='Hello Another Life,\\n\\nName: '+g('f-name')+'\\nBusiness: '+g('f-biz')+'\\nType: '+g('f-type')+(g('f-where')?'\\nLocation: '+g('f-where'):'')+(pcs.length?'\\nPieces: '+pcs.join(', '):'')+(g('f-msg')?'\\n\\n'+g('f-msg'):'');
   document.getElementById('out-text').textContent=t;
-  document.getElementById('wa-send').href='{WA_LINK}?text='+encodeURIComponent(t);
-  document.getElementById('mail-send').href='mailto:{EMAIL}?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
+  var dd=function(s){{return atob(s).split('').reverse().join('');}};
+  document.getElementById('wa-send').href='https://wa.me/'+dd('{E_WAD}')+'?text='+encodeURIComponent(t);
+  document.getElementById('mail-send').href='mailto:'+dd('{E_MAIL}')+'?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
   document.getElementById('out').hidden=false;
  }});
  document.getElementById('copy').addEventListener('click',function(){{
@@ -1227,7 +1236,7 @@ contact = f'''
 }})();
 </script>
 '''
-pages["contact.html"] = ("Contact Another Life", "Enquire about Another Life furniture for your hotel, resort, restaurant or café. WhatsApp " + WHATSAPP + ". Based in Bali, Indonesia.", contact,
+pages["contact.html"] = ("Contact Another Life", "Enquire about Another Life furniture for your hotel, resort, restaurant or café. Send us your project on WhatsApp or by email.", contact,
   [breadcrumb([("index.html","Home"),("contact.html","Contact")]),
    {"@type":"ContactPage","url":url("contact.html"),"about":{"@id":url("index.html")+"#org"}}])
 
@@ -1264,7 +1273,7 @@ Key facts:
 - [Another Life Passport]({url('passport.html')}): the QR tracing platform being built (work in progress) and circular services in development
 - [For hospitality]({url('hospitality.html')}): who we work with and how an order works
 - [Questions]({url('faq.html')}): {len(FAQ)} answered questions
-- [Contact]({url('contact.html')}): enquiries, WhatsApp {WHATSAPP}
+- [Contact]({url('contact.html')}): enquiries by WhatsApp or email
 
 ## SATU collection
 """ + "\n".join(f"- [{p['name']}]({url(p['slug']+'.html')}): {dims(p)}" + (f", seat height {p['seat']} cm" if p['seat'] else "") + f". {p['short']}" for p in PRODUCTS) + f"""
@@ -1297,7 +1306,7 @@ brand_json = {
   "collections":[{"name":"SATU","meaning":"Indonesian for 'one'","products":[{"name":p["name"],"dimensions_cm":{"height":p["dims"][0],"width":p["dims"][1],"length":p["dims"][2]},"seat_height_cm":p["seat"],"category":p["category"],"url":url(p["slug"]+".html"),"description":p["short"]} for p in PRODUCTS]}],
   "glossary":{a:b for a,b in GLOSSARY},
   "images":[{"url":url("assets/"+src),"caption":cap} for src,lbl,cap in SPACES],
-  "contact":{"whatsapp":WHATSAPP,"email":EMAIL,"enquiry":url("contact.html")},
+  "contact":{"enquiry":url("contact.html"),"channels":["WhatsApp","Email"]},
   "logo":{"wordmark":"ANOTHER — LIFE","tagline":"Danish furniture. Designed for tomorrow.","file":url("assets/logo-lockup.png")},
   "naming_rules":["Always ANOTHER — LIFE with a dash in the wordmark","No founding date or Est. line anywhere"],
 }
