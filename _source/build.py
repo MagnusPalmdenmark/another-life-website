@@ -497,7 +497,7 @@ pages = {}
 
 ONCE_ITEMS = [
   ("Once a family home in Java","Teak pillars that held up a joglo for generations, now holding up your guests.","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them"),
-  ("Once a bridge over a river","Wood that carried people across the water for decades.","beams-garden.jpg","Old timber beams stacked under trees, weathered and split from their first life"),
+  ("Once a bridge over a river","Wood that carried people across the water for decades.","bridge-beams.jpg","Black-and-white photograph of heavy old bridge beams stacked in a timber shed, their sizes written in chalk on the cut ends"),
   ("Once a fishing boat","Wood that rode the waves, now taking it easy by the pool.","boat-timber.jpg","Black-and-white photograph of old boat planks and beams piled in a timber yard, houses and power lines behind"),
 ]
 ONCE = '<div class="once">' + "".join(f'<div><img class="once-img" src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy"><h3 class="disp">{e(a)}</h3><p>{e(b)}</p></div>' for a,b,src,alt in ONCE_ITEMS) + '</div>'
