@@ -481,7 +481,11 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="alternate" type="text/plain" title="LLM summary" href="llms.txt">
-<link rel="icon" href="assets/chair-glyph.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#182120">
 {FONTS}
 <style>{CSS}</style>
 {jsonld(graph)}'''
@@ -1310,6 +1314,7 @@ def build(outdir, standalone):
   if os.path.exists(outdir): shutil.rmtree(outdir)
   os.makedirs(outdir)
   shutil.copytree(os.path.join(ROOT,"site_assets"), os.path.join(outdir,"assets"))
+  shutil.copy(os.path.join(ROOT,"site_assets","favicon.ico"), os.path.join(outdir,"favicon.ico"))
   full=[]
   for path,v in pages.items():
     title,desc,body,ld = v[:4]; og = v[4] if len(v)>4 else "chair-studio-wide.jpg"
