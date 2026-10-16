@@ -727,7 +727,7 @@ mission = f'''
 
 <section id="design"><div class="wrap split">
  <div><span class="label eyebrow muted">Design principles</span><h2 class="disp">Danish design, made where the material is.</h2>
- <p class="prose" style="margin-top:24px">Our design follows a Scandinavian tradition: simple, functional, made to last and to never go out of style. The pieces are made by hand in Indonesia, close to the timber and the people who work it.</p></div>
+ <p class="prose" style="margin-top:24px">Our design follows a Scandinavian tradition: simple, functional, made to last and to never go out of style. The pieces are made by hand in Indonesia, close to the timber and the people who work it.</p><div class="lead-img">{fig("design-table-sun.jpg","A dark timber table in afternoon sun with chair drawings, a sketchbook, a laptop showing chair designs, a burned teak sample and two coffee cups","Sketches, drawings and a burned sample on the design table.")}</div></div>
  {rows([("Knock-down","Every piece ships disassembled and bolts together on site. Flat furniture takes far less space to move than assembled furniture."),
         ("Reassemblable","Joints must survive being taken apart and put back together many times, not once. A hotel can move, store or reconfigure its furniture."),
         ("Modular","Each component can be replaced on its own. One design can take different materials and parts over time, like a system rather than a single object."),
