@@ -550,6 +550,7 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 {body}
 </main>
 {FOOTER}
+{CF_ANALYTICS}
 {DOTS_JS}
 {OBF_JS}
 {MOTION_JS}
@@ -621,6 +622,8 @@ KEY_FACTS = [
 # ------------------------------------------------------------------ pages
 FILM_JS = "<script>\n(function(){\n var ov=document.getElementById('film-ov'),v=document.getElementById('film-full'),o=document.getElementById('film-open'),c=document.getElementById('film-close');\n function open(){ov.hidden=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});c.focus();}\n function close(){v.pause();ov.hidden=true;o.focus();}\n o.addEventListener('click',open);c.addEventListener('click',close);\n ov.addEventListener('click',function(e){if(e.target===ov)close();});\n document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});\n v.addEventListener('ended',close);\n})();\n</script>"
 pages = {}
+
+CF_ANALYTICS = """<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2bde136b23f84ce3be21365d0d57673f"}'></script><!-- End Cloudflare Web Analytics -->"""
 
 DOTS_JS = """<script>
 (function(){
