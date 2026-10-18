@@ -1,6 +1,56 @@
 [build]
   publish = "."
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Keep function source and package files private (the site publishes the repo root)
+[[redirects]]
+  from = "/netlify/*"
+  to = "/index.html"
+  status = 404
+  force = true
+[[redirects]]
+  from = "/package.json"
+  to = "/index.html"
+  status = 404
+  force = true
+
+# Another Life Passport on id.another-life.dk (codes engraved on furniture point here)
+[[redirects]]
+  from = "https://id.another-life.dk/passport-app/*"
+  to = "/passport-app/:splat"
+  status = 200
+  force = true
+[[redirects]]
+  from = "https://id.another-life.dk/assets/*"
+  to = "/assets/:splat"
+  status = 200
+  force = true
+[[redirects]]
+  from = "https://id.another-life.dk/favicon.ico"
+  to = "/favicon.ico"
+  status = 200
+  force = true
+[[redirects]]
+  from = "https://id.another-life.dk/*"
+  to = "/passport-app/index.html"
+  status = 200
+  force = true
+
+# The same app under /id on any other address (deploy previews, another-life.dk/id)
+[[redirects]]
+  from = "/id"
+  to = "/passport-app/index.html"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/id/*"
+  to = "/passport-app/index.html"
+  status = 200
+  force = true
+
 # Keep the site's source script private
 [[redirects]]
   from = "/_source/*"

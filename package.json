@@ -1,0 +1,8 @@
+{
+  "name": "another-life-website",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@netlify/blobs": "latest"
+  }
+}
