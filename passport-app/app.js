@@ -30,8 +30,17 @@
       lkFmt: "Codes look like AL-2610-03-Q.", lkBad: "That code doesn't look right. Check the last letter.", lkNone: "We have no batch with that code yet.",
       lkErr: "Something went wrong. Try again in a moment.", lkHint: "Want to see an example? Type", staffLink: "Factory / staff login",
       // login
-      liT: "Staff login", liP: "For the workshop and the Another Life team.", liPw: "Password", liBtn: "Log in",
-      liWrong: "That password isn't right.", liNotReady: "Login isn't set up yet. The staff password still needs to be added in Netlify.",
+      liT: "Staff access", liP: "This page is for the workshop and the Another Life team. Open the personal link you received on WhatsApp to get access.", adminLink: "Admin",
+      joining: "Opening your link…", joinUsed: "This link has already been used or has expired. Ask Another Life for a new one.",
+      welcome: n => `Welcome, ${n}. This phone now has access.`, loggedAs: n => `Logged in as ${n}`, manage: "Manage people", by: "by",
+      adT: "People", adKeyP: "Enter the admin key to manage who has access.", adKey: "Admin key", adBtn: "Open admin",
+      adWrong: "That key isn't right.", adNotReady: "The admin key hasn't been added in Netlify yet.",
+      adAdd: "Add a person", adName: "Name, e.g. Budi, workshop", adCreate: "Create invite link",
+      adLinkFor: n => `Personal link for ${n}`, adLinkNote: "Works once, within 7 days. Send it only to this person.",
+      adCopy: "Copy link", adCopied: "Copied", adWa: "Send on WhatsApp",
+      adWaMsg: (n, l) => `Hi ${n}, this is your personal link to the Another Life Passport. Open it on your work phone: ${l}`,
+      adList: "Who has access", adNone: "No one added yet.", stWaiting: "Link sent, not opened yet", stActive: d => `Active since ${d}`, stExpired: "Link expired, send a new one",
+      adNew: "New link", adRemove: "Remove", adConfirm: n => `Remove ${n}? Their phone loses access straight away.`, adYes: "Yes, remove", adNo: "Cancel", toFactory: "Go to the factory form",
       // factory
       newBatch: "New batch", q1: "Which product?", q2: "Where did the wood come from?", q3: "Area (if known)", q3ph: "e.g. Central Java",
       q4: "Made by", qN: "How many pieces in this batch?", q5: "Packed weight per piece in kg (if known)", dateLbl: "Date",
@@ -67,8 +76,17 @@
       lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
       lkFmt: "Format kode seperti AL-2610-03-Q.", lkBad: "Kode itu sepertinya salah. Periksa huruf terakhirnya.", lkNone: "Belum ada batch dengan kode itu.",
       lkErr: "Terjadi kesalahan. Coba lagi sebentar lagi.", lkHint: "Ingin melihat contoh? Ketik", staffLink: "Login pabrik / staf",
-      liT: "Login staf", liP: "Untuk bengkel dan tim Another Life.", liPw: "Kata sandi", liBtn: "Masuk",
-      liWrong: "Kata sandi itu salah.", liNotReady: "Login belum diatur. Kata sandi staf masih perlu ditambahkan di Netlify.",
+      liT: "Akses staf", liP: "Halaman ini untuk bengkel dan tim Another Life. Buka tautan pribadi yang Anda terima lewat WhatsApp untuk mendapatkan akses.", adminLink: "Admin",
+      joining: "Membuka tautan Anda…", joinUsed: "Tautan ini sudah dipakai atau sudah kedaluwarsa. Minta tautan baru ke Another Life.",
+      welcome: n => `Selamat datang, ${n}. Ponsel ini sekarang punya akses.`, loggedAs: n => `Masuk sebagai ${n}`, manage: "Kelola orang", by: "oleh",
+      adT: "Orang", adKeyP: "Masukkan kunci admin untuk mengatur siapa yang punya akses.", adKey: "Kunci admin", adBtn: "Buka admin",
+      adWrong: "Kunci itu salah.", adNotReady: "Kunci admin belum ditambahkan di Netlify.",
+      adAdd: "Tambah orang", adName: "Nama, mis. Budi, bengkel", adCreate: "Buat tautan undangan",
+      adLinkFor: n => `Tautan pribadi untuk ${n}`, adLinkNote: "Hanya bisa dipakai sekali, dalam 7 hari. Kirim hanya ke orang ini.",
+      adCopy: "Salin tautan", adCopied: "Tersalin", adWa: "Kirim lewat WhatsApp",
+      adWaMsg: (n, l) => `Halo ${n}, ini tautan pribadi Anda untuk Another Life Passport. Buka di ponsel kerja Anda: ${l}`,
+      adList: "Yang punya akses", adNone: "Belum ada orang.", stWaiting: "Tautan dikirim, belum dibuka", stActive: d => `Aktif sejak ${d}`, stExpired: "Tautan kedaluwarsa, kirim yang baru",
+      adNew: "Tautan baru", adRemove: "Hapus", adConfirm: n => `Hapus ${n}? Ponselnya langsung kehilangan akses.`, adYes: "Ya, hapus", adNo: "Batal", toFactory: "Ke formulir pabrik",
       newBatch: "Batch baru", q1: "Produk apa?", q2: "Kayunya berasal dari mana?", q3: "Daerah (jika tahu)", q3ph: "mis. Jawa Tengah",
       q4: "Dibuat oleh", qN: "Berapa produk dalam batch ini?", q5: "Berat kemasan per produk dalam kg (jika tahu)", dateLbl: "Tanggal",
       o_house: "Rumah tua", o_bridge: "Jembatan", o_boat: "Perahu", o_other: "Lainnya",
@@ -153,6 +171,8 @@
     if (!p) return { view: "lookup" };
     if (p.toLowerCase() === "login") return { view: "login" };
     if (p.toLowerCase() === "factory") return { view: "factory" };
+    if (p.toLowerCase() === "admin") return { view: "admin" };
+    if (/^join\//i.test(p)) return { view: "join", token: p.slice(5) };
     if (p.toLowerCase() === "test") return { view: "passport", code: "TEST" };
     return { view: "passport", code: p.toUpperCase() };
   }
@@ -174,7 +194,7 @@
   $("#homeLink").addEventListener("click", e => { e.preventDefault(); go(""); });
 
   // ---------- views
-  let current = null, cache = {}, form = null;
+  let current = null, cache = {}, form = null, who = {};
 
   function render(langOnly) {
     const r = route();
@@ -184,6 +204,8 @@
     if (r.view === "lookup") return viewLookup(langOnly);
     if (r.view === "login") return viewLogin();
     if (r.view === "factory") return viewFactory(langOnly);
+    if (r.view === "admin") return viewAdmin(langOnly);
+    if (r.view === "join") return viewJoin(r.token);
     return viewPassport(r.code);
   }
 
@@ -227,20 +249,116 @@
         <span class="k">${PUBLIC_HOST.toLowerCase()}</span>
         <h1>${L.liT}</h1>
         <p class="lead">${L.liP}</p>
-        <form class="form" id="liForm" style="gap:10px">
-          <label class="q"><span>${L.liPw}</span><input type="password" id="liPw" autocomplete="current-password" required></label>
-          <button class="btn" type="submit" id="liBtn">${L.liBtn}</button>
-          <p class="msg bad" id="liMsg" role="status"></p>
+      </section>
+      <section class="foot"><a class="staff" href="${BASE}/admin" data-go="admin">${L.adminLink}</a></section>`;
+  }
+
+  async function viewJoin(token) {
+    const L = t();
+    app.innerHTML = `<section><span class="k">${PUBLIC_HOST.toLowerCase()}</span><h1>${L.liT}</h1><p class="lead" id="jMsg">${L.joining}</p></section>`;
+    // Remove the secret from the address bar and history straight away
+    history.replaceState(null, "", BASE + "/login");
+    const { status, data } = await api("", { action: "join", token }).catch(() => ({ status: 0, data: {} }));
+    if (status === 200) {
+      $("#jMsg").textContent = L.welcome(data.name);
+      setTimeout(() => go("factory"), 1400);
+    } else {
+      $("#jMsg").textContent = status === 404 ? L.joinUsed : L.lkErr;
+      $("#jMsg").className = "msg bad";
+    }
+  }
+
+  let adminState = { link: null };
+  async function viewAdmin(langOnly) {
+    const L = t();
+    document.title = L.adT + " · Another Life Passport";
+    const me = (await api("me=1").catch(() => ({ data: {} }))).data;
+    if (!me.admin) {
+      app.innerHTML = `
+        <section>
+          <span class="k">${L.adminLink}</span>
+          <h1>${L.adT}</h1>
+          <p class="lead">${L.adKeyP}</p>
+          <form class="form" id="akForm" style="gap:10px">
+            <label class="q"><span>${L.adKey}</span><input type="password" id="akIn" autocomplete="current-password" required></label>
+            <button class="btn" type="submit" id="akBtn">${L.adBtn}</button>
+            <p class="msg bad" id="akMsg" role="status">${me.adminReady === false ? L.adNotReady : ""}</p>
+          </form>
+        </section>`;
+      $("#akForm").addEventListener("submit", async e => {
+        e.preventDefault();
+        const btn = $("#akBtn"); btn.disabled = true;
+        const { status } = await api("", { action: "admin-login", key: $("#akIn").value }).catch(() => ({ status: 0 }));
+        btn.disabled = false;
+        if (status === 200) return viewAdmin();
+        $("#akMsg").textContent = status === 503 ? L.adNotReady : status === 401 ? L.adWrong : L.lkErr;
+      });
+      return;
+    }
+    const link = adminState.link;
+    app.innerHTML = `
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.adminLink}</span><button type="button" class="staff" id="logout">${L.logout}</button></div>
+        <h1>${L.adT}</h1>
+        <form class="form" id="auForm" style="gap:10px">
+          <label class="q"><span>${L.adAdd}</span><input type="text" id="auName" maxlength="40" placeholder="${L.adName}" required></label>
+          <button class="btn" type="submit" id="auBtn">${L.adCreate}</button>
+          <p class="msg bad" id="auMsg" role="status"></p>
         </form>
-      </section>`;
-    $("#liForm").addEventListener("submit", async e => {
+        ${link ? `<div class="invite">
+          <span class="k">${esc(L.adLinkFor(link.name))}</span>
+          <input type="text" id="invLink" readonly value="${esc(link.url)}">
+          <p class="fine">${L.adLinkNote}</p>
+          <div class="two-btn"><button class="btn" type="button" id="invCopy">${L.adCopy}</button>
+          <a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(L.adWaMsg(link.name, link.url))}">${L.adWa}</a></div>
+        </div>` : ""}
+      </section>
+      <section>
+        <span class="k">${L.adList}</span>
+        <div class="recent" id="people"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
+      </section>
+      <section class="foot"><a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a></section>`;
+    $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); adminState.link = null; go(""); });
+    if (link) {
+      $("#invCopy").addEventListener("click", async () => {
+        const inp = $("#invLink");
+        try { await navigator.clipboard.writeText(inp.value); } catch (e) { inp.select(); document.execCommand && document.execCommand("copy"); }
+        $("#invCopy").textContent = L.adCopied;
+      });
+    }
+    $("#auForm").addEventListener("submit", async e => {
       e.preventDefault();
-      const btn = $("#liBtn"); btn.disabled = true; $("#liMsg").textContent = "";
-      const { status } = await api("", { action: "login", password: $("#liPw").value }).catch(() => ({ status: 0 }));
+      const name = $("#auName").value.trim(); if (!name) return;
+      const btn = $("#auBtn"); btn.disabled = true;
+      const { status, data } = await api("", { action: "add-user", name }).catch(() => ({ status: 0, data: {} }));
       btn.disabled = false;
-      if (status === 200) return go("factory");
-      $("#liMsg").textContent = status === 503 ? L.liNotReady : status === 401 ? L.liWrong : L.lkErr;
+      if (status === 201) { adminState.link = { name: data.user.name, url: `${location.origin}${BASE}/join/${data.token}` }; return viewAdmin(); }
+      $("#auMsg").textContent = L.err_other;
     });
+    loadPeople();
+  }
+
+  async function loadPeople() {
+    const L = t(), box = $("#people");
+    const { status, data } = await api("users=1").catch(() => ({ status: 0, data: {} }));
+    if (!box) return;
+    if (status !== 200) { box.innerHTML = `<p class="fine" style="padding:12px 0">${L.lkErr}</p>`; return; }
+    if (!data.users.length) { box.innerHTML = `<p class="fine" style="padding:12px 0">${L.adNone}</p>`; return; }
+    box.innerHTML = data.users.map(u => {
+      const st = u.joined ? L.stActive(dateStr(u.joined)) : u.waiting ? L.stWaiting : L.stExpired;
+      return `<div class="rrow" data-row="${esc(u.id)}"><div><b>${esc(u.name)}</b><br><small>${esc(st)}</small></div>
+        <div class="acts"><button type="button" class="linkish" data-new="${esc(u.id)}">${L.adNew}</button><button type="button" class="linkish" data-rm="${esc(u.id)}" data-name="${esc(u.name)}">${L.adRemove}</button></div></div>`;
+    }).join("");
+    box.querySelectorAll("[data-new]").forEach(b => b.addEventListener("click", async () => {
+      const { status, data } = await api("", { action: "new-link", id: b.dataset.new }).catch(() => ({ status: 0, data: {} }));
+      if (status === 200) { adminState.link = { name: data.user.name, url: `${location.origin}${BASE}/join/${data.token}` }; viewAdmin(); window.scrollTo(0, 0); }
+    }));
+    box.querySelectorAll("[data-rm]").forEach(b => b.addEventListener("click", () => {
+      const row = b.closest(".rrow");
+      row.innerHTML = `<div><b>${esc(L.adConfirm(b.dataset.name))}</b></div><div class="acts"><button type="button" class="linkish" data-yes>${L.adYes}</button><button type="button" class="linkish" data-no>${L.adNo}</button></div>`;
+      row.querySelector("[data-no]").addEventListener("click", loadPeople);
+      row.querySelector("[data-yes]").addEventListener("click", async () => { await api("", { action: "remove-user", id: b.dataset.rm }).catch(() => {}); loadPeople(); });
+    }));
   }
 
   async function viewFactory(langOnly) {
@@ -249,12 +367,14 @@
     if (!langOnly) {
       const me = await api("me=1").catch(() => ({ data: {} }));
       if (!me.data.staff) return go("login");
+      who = me.data;
     }
     form = form || { model: "", origin: "", region: "", maker: "", qty: "", kg: "" };
     const res = form.result;
     app.innerHTML = `
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.newBatch}</span><button type="button" class="staff" id="logout">${L.logout}</button></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.newBatch}</span><span style="display:flex;gap:14px">${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.manage}</a>` : ""}<button type="button" class="staff" id="logout">${L.logout}</button></span></div>
+        ${who.name ? `<p class="fine">${esc(L.loggedAs(who.name))}</p>` : ""}
         <div id="fWrap" ${res ? "hidden" : ""}>
           <form class="form" id="fForm" novalidate>
             <div class="q"><span>${L.q1}</span><div class="chips">${MODELS.map(m => `<button type="button" class="chip" data-m="${esc(m)}" aria-pressed="${m === form.model}">${esc(m)}</button>`).join("")}</div></div>
@@ -314,7 +434,7 @@
     if (!box) return;
     if (status !== 200) { box.innerHTML = `<p class="fine" style="padding:12px 0">${L.lkErr}</p>`; return; }
     if (!data.batches.length) { box.innerHTML = `<p class="fine" style="padding:12px 0">${L.none}</p>`; return; }
-    box.innerHTML = data.batches.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs} · ${dateStr(b.made)}</small></div>
+    box.innerHTML = data.batches.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs} · ${dateStr(b.made)}${b.createdBy ? ` · ${L.by} ${esc(b.createdBy)}` : ""}</small></div>
       <div class="acts"><button type="button" class="linkish" data-dl="${esc(b.code)}">SVG</button><a class="linkish" href="${BASE}/${esc(b.code)}" data-go="${esc(b.code)}">${L.view}</a></div></div>`).join("");
     box.querySelectorAll("[data-dl]").forEach(b => b.addEventListener("click", () => downloadSvg(b.dataset.dl)));
   }

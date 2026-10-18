@@ -79,3 +79,14 @@ export function safeEqual(a, b) {
   for (let i = 0; i < Math.max(a.length, b.length); i++) diff |= (a.charCodeAt(i) || 0) ^ (b.charCodeAt(i) || 0);
   return diff === 0;
 }
+
+// Random secrets for invite links and logged-in phones. Only their SHA-256 hashes are stored.
+export function randomToken(bytes = 32) {
+  const a = new Uint8Array(bytes); crypto.getRandomValues(a);
+  return Buffer.from(a).toString("base64url");
+}
+export async function sha256(s) {
+  const d = await crypto.subtle.digest("SHA-256", enc.encode(String(s)));
+  return Buffer.from(d).toString("base64url");
+}
+export function cleanName(v) { return clean(v, 40); }

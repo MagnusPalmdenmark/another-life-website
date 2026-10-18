@@ -124,3 +124,7 @@ input:hover{border-color:var(--ink)}
   .rings circle,.life,.checks path{animation:none}
   .map animateMotion{display:none}
 }
+.invite{display:grid;gap:10px;border:1px solid var(--ink);padding:16px;margin-top:6px}
+.invite input{font-size:13px}
+.two-btn{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:380px){.two-btn{grid-template-columns:1fr}}
