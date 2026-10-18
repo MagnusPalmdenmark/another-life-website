@@ -30,6 +30,7 @@
       lkFmt: "Codes look like AL-2610-03-Q.", lkBad: "That code doesn't look right. Check the last letter.", lkNone: "We have no batch with that code yet.",
       lkErr: "Something went wrong. Try again in a moment.", lkHint: "Want to see an example? Type", staffLink: "Factory / staff login",
       // login
+      tlT: "Test login (preview only)", tlU: "Username", tlP: "Password", tlBtn: "Log in", tlWrong: "Use test / test on the preview.",
       liT: "Staff access", liP: "This page is for the workshop and the Another Life team. Open the personal link you received on WhatsApp to get access.", adminLink: "Admin",
       joining: "Opening your link…", joinUsed: "This link has already been used or has expired. Ask Another Life for a new one.",
       welcome: n => `Welcome, ${n}. This phone now has access.`, loggedAs: n => `Logged in as ${n}`, manage: "Manage people", by: "by",
@@ -76,6 +77,7 @@
       lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
       lkFmt: "Format kode seperti AL-2610-03-Q.", lkBad: "Kode itu sepertinya salah. Periksa huruf terakhirnya.", lkNone: "Belum ada batch dengan kode itu.",
       lkErr: "Terjadi kesalahan. Coba lagi sebentar lagi.", lkHint: "Ingin melihat contoh? Ketik", staffLink: "Login pabrik / staf",
+      tlT: "Login uji (hanya pratinjau)", tlU: "Nama pengguna", tlP: "Kata sandi", tlBtn: "Masuk", tlWrong: "Gunakan test / test di pratinjau.",
       liT: "Akses staf", liP: "Halaman ini untuk bengkel dan tim Another Life. Buka tautan pribadi yang Anda terima lewat WhatsApp untuk mendapatkan akses.", adminLink: "Admin",
       joining: "Membuka tautan Anda…", joinUsed: "Tautan ini sudah dipakai atau sudah kedaluwarsa. Minta tautan baru ke Another Life.",
       welcome: n => `Selamat datang, ${n}. Ponsel ini sekarang punya akses.`, loggedAs: n => `Masuk sebagai ${n}`, manage: "Kelola orang", by: "oleh",
@@ -241,7 +243,7 @@
     });
   }
 
-  function viewLogin() {
+  async function viewLogin() {
     const L = t();
     document.title = L.liT + " · Another Life Passport";
     app.innerHTML = `
@@ -250,7 +252,28 @@
         <h1>${L.liT}</h1>
         <p class="lead">${L.liP}</p>
       </section>
+      <section id="testBox" hidden>
+        <span class="k">${L.tlT}</span>
+        <form class="form" id="tlForm" style="gap:10px">
+          <label class="q"><span>${L.tlU}</span><input type="text" id="tlU" autocomplete="username" autocapitalize="none"></label>
+          <label class="q"><span>${L.tlP}</span><input type="password" id="tlP" autocomplete="current-password"></label>
+          <button class="btn" type="submit" id="tlBtn">${L.tlBtn}</button>
+          <p class="msg bad" id="tlMsg" role="status"></p>
+        </form>
+      </section>
       <section class="foot"><a class="staff" href="${BASE}/admin" data-go="admin">${L.adminLink}</a></section>`;
+    const me = (await api("me=1").catch(() => ({ data: {} }))).data;
+    if (me.staff) return go("factory");
+    if (!me.testLogin || !$("#testBox")) return;
+    $("#testBox").hidden = false;
+    $("#tlForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      const btn = $("#tlBtn"); btn.disabled = true;
+      const { status } = await api("", { action: "test-login", username: $("#tlU").value, password: $("#tlP").value }).catch(() => ({ status: 0 }));
+      btn.disabled = false;
+      if (status === 200) return go("factory");
+      $("#tlMsg").textContent = status === 401 ? L.tlWrong : L.lkErr;
+    });
   }
 
   async function viewJoin(token) {

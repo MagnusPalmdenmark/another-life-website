@@ -15,10 +15,16 @@ function store(context) {
   return getStore({ name, consistency: "strong" });
 }
 
+// Test login (username "test", password "test") works only on previews and branch deploys, never in production.
+const isProd = context => context?.deploy?.context === "production";
+function adminSecret(context) {
+  return Netlify.env.get("ADMIN_KEY") || (isProd(context) ? null : "al-preview-test-only");
+}
+
 // Who is calling: { admin: true, name: "Admin" }, { id, name } for workshop staff, or null.
 async function whoAmI(db, context) {
-  const adminKey = Netlify.env.get("ADMIN_KEY");
-  if (adminKey && (await checkToken(adminKey, context.cookies.get(ADMIN_COOKIE)))) return { admin: true, name: "Admin" };
+  const secret = adminSecret(context);
+  if (secret && (await checkToken(secret, context.cookies.get(ADMIN_COOKIE)))) return { admin: true, name: "Admin" };
   const dev = context.cookies.get(DEVICE_COOKIE);
   if (!dev) return null;
   const userId = await db.get(`devices/${await sha256(dev)}`);
@@ -53,7 +59,7 @@ export default async (req, context) => {
     }
     if (url.searchParams.has("me")) {
       const me = await whoAmI(db, context);
-      return json({ staff: Boolean(me), admin: Boolean(me?.admin), name: me?.name || null, adminReady: Boolean(Netlify.env.get("ADMIN_KEY")) });
+      return json({ staff: Boolean(me), admin: Boolean(me?.admin), name: me?.name || null, adminReady: Boolean(Netlify.env.get("ADMIN_KEY")), testLogin: !isProd(context) });
     }
     if (url.searchParams.has("list")) {
       if (!(await whoAmI(db, context))) return json({ error: "auth" }, 401);
@@ -85,6 +91,12 @@ export default async (req, context) => {
       await new Promise(r => setTimeout(r, 500)); // slow down guessing
       if (!safeEqual(String(body.key || ""), key)) return json({ error: "wrong" }, 401);
       context.cookies.set({ name: ADMIN_COOKIE, value: await makeToken(key), path: "/", httpOnly: true, secure: true, sameSite: "Lax", expires: new Date(Date.now() + 30 * 864e5) });
+      return json({ ok: true });
+    }
+    case "test-login": {
+      if (isProd(context)) return json({ error: "unknown" }, 404);
+      if (String(body.username || "").trim().toLowerCase() !== "test" || String(body.password || "") !== "test") return json({ error: "wrong" }, 401);
+      context.cookies.set({ name: ADMIN_COOKIE, value: await makeToken(adminSecret(context), 1), path: "/", httpOnly: true, secure: true, sameSite: "Lax", expires: new Date(Date.now() + 864e5) });
       return json({ ok: true });
     }
     case "join": {
