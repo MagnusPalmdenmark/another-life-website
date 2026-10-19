@@ -348,30 +348,42 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
  .how-try{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.how-img{transition:none}.hstep{opacity:1}}
-/* material: a line or a loop */
-.lp-head{max-width:760px}
-.lp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,56px);margin-top:clamp(28px,4vw,48px)}
-.lp-fig{margin:0;border-top:1px solid var(--ink);padding-top:16px;display:grid;gap:8px;min-width:0}
-.lp-fig h3{font-size:clamp(30px,4vw,48px);line-height:.95;margin:4px 0 0}
-.lp-svg{width:100%;height:auto;display:block;overflow:visible}
-.lp-svg text{font:400 13px var(--font-mono);fill:var(--ink)}
-.lp-svg .lp-out{font-weight:500;fill:var(--ink-muted)}
-.lp-track{fill:none;stroke:var(--hairline);stroke-width:2}
-.lp-path{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:1 1;stroke-dashoffset:0}
-[data-kind="line"] .lp-path{stroke-dasharray:1 1}
-.lp-svg .st circle{fill:var(--ink);stroke:var(--ink);stroke-width:2}
-.lp-arrow{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.lp-mid circle{fill:var(--ink)}
-.lp-note{margin-top:20px}
-.lp-anim .lp-path{stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
-.lp-anim .st circle{fill:var(--paper);transition:fill .3s ease}
-.lp-anim .st text{opacity:.18;transition:opacity .4s ease}
-.lp-anim .st.in circle{fill:var(--ink)}
-.lp-anim .st.in text{opacity:1}
-.lp-anim .lp-arrows,.lp-anim .lp-mid{opacity:0;transition:opacity .6s ease}
-.lp-anim .done .lp-arrows,.lp-anim .done .lp-mid{opacity:1}
-[data-kind="line"] .lp-svg .lp-path{stroke-linecap:butt}
-@media (max-width:760px){.lp-grid{grid-template-columns:minmax(0,1fr)}}
+/* material: reclaimed? ask where it stood */
+.rc-head{max-width:760px}
+.rc-sub{margin:clamp(28px,4vw,48px) 0 0}
+.rc-steps{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border-top:1px solid var(--ink)}
+.rc-card{padding:20px 18px 8px 0;display:grid;gap:8px;align-content:start}
+.rc-card+.rc-card{padding-left:18px;border-left:1px solid var(--hairline)}
+.rc-card .n{font-family:var(--font-display);font-size:22px;line-height:1}
+.rc-card h3{font-size:clamp(22px,2.2vw,28px);line-height:1;margin:0}
+.rc-card p{margin:0;font-size:13px;line-height:20px;color:var(--ink-muted)}
+.rc-draw{width:min(100%,180px);height:auto;display:block;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.rc-draw *{fill:none}
+.rc-swipe{display:none}
+.rc-big{font-size:clamp(72px,14vw,180px);line-height:.85;margin:8px 0 0;white-space:nowrap}
+.rc-big span:first-child{font-size:.32em;vertical-align:.9em;margin-right:.15em}
+.rc-joglo{margin-top:24px;max-width:420px}
+.rc-big-draw{max-width:420px}
+.rc-row{display:flex;gap:10px;flex-wrap:wrap}
+.rc-x{position:relative;display:block;width:64px}
+.rc-mini{width:64px;height:auto;display:block;fill:none;stroke:var(--ink-muted);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
+.rc-x::after{content:"";position:absolute;left:4px;right:4px;top:50%;border-top:2px solid var(--ink);transform:rotate(-24deg) scaleX(1)}
+.rc-checks{margin:12px 0 0;padding:0;list-style:none;display:grid;border-top:1px solid var(--hairline)}
+.rc-checks li{padding:10px 0;border-bottom:1px solid var(--hairline)}
+.rc-src{margin-top:36px !important}
+.rc-src a{color:inherit}
+/* drawing animation */
+.rc-anim .rc-card .rc-draw *,.rc-anim .rc-joglo .rc-draw *{stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1.6s ease}
+.rc-anim .rc-card.in .rc-draw *,.rc-anim .rc-joglo.in .rc-draw *{stroke-dashoffset:0}
+.rc-anim .rc-card:nth-child(2) .rc-draw *{transition-delay:.15s}.rc-anim .rc-card:nth-child(3) .rc-draw *{transition-delay:.3s}.rc-anim .rc-card:nth-child(4) .rc-draw *{transition-delay:.45s}.rc-anim .rc-card:nth-child(5) .rc-draw *{transition-delay:.6s}
+.rc-anim .rc-row .rc-x::after{transform:rotate(-24deg) scaleX(0);transition:transform .5s ease}
+.rc-anim .rc-row.in .rc-x::after{transform:rotate(-24deg) scaleX(1)}
+.rc-anim .rc-row.in .rc-x:nth-child(2)::after{transition-delay:.15s}.rc-anim .rc-row.in .rc-x:nth-child(3)::after{transition-delay:.3s}.rc-anim .rc-row.in .rc-x:nth-child(4)::after{transition-delay:.45s}.rc-anim .rc-row.in .rc-x:nth-child(5)::after{transition-delay:.6s}
+@media (max-width:900px){
+ .rc-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin-right:calc(-1 * clamp(16px,4vw,56px));padding-right:clamp(16px,4vw,56px);-webkit-overflow-scrolling:touch}
+ .rc-card{flex:0 0 72%;scroll-snap-align:start}
+ .rc-swipe{display:block;margin-top:8px}
+}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -519,47 +531,42 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </div></section>
 <section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/timber-yard.jpg" alt="A yard stacked with old teak posts and beams, their cut ends marked in chalk" width="1800" height="1200" loading=lazy></div><p class="cap" style="margin-top:12px">Old posts and beams, marked and sorted before they are cut.</p></div></section>
 
-<section class="loopsec" id="loop"><div class="wrap">
- <div class="lp-head"><span class="label eyebrow muted">A line or a loop</span><h2 class="disp">Most furniture lives in a line. Ours is built to go round.</h2>
-  <p class="prose" style="margin-top:20px">Two chairs, two ways of living. One starts with a felled tree and ends in a skip. The other starts with wood that already had a life, and is made to come apart, be repaired and keep going.</p></div>
- <div class="lp-grid">
-  <figure class="lp-fig" data-kind="line"><figcaption><span class="label muted">A new chair</span><h3 class="disp">A line.</h3></figcaption><svg class="lp-svg" viewBox="0 0 440 420" role="img" aria-label="A new chair as a line: forest, felled, shipped, made, used, worn out, thrown away, then a new tree is cut and it starts again">
- <path class="lp-track" d="M70 20 V 410"/>
- <path class="lp-path" d="M70 20 V 410" pathLength="1"/>
- <g class="st" data-at="0.000"><circle cx="70" cy="40" r="6"/><text x="94" y="44">Forest</text></g><g class="st" data-at="0.143"><circle cx="70" cy="88" r="6"/><text x="94" y="92">Felled</text></g><g class="st" data-at="0.287"><circle cx="70" cy="136" r="6"/><text x="94" y="140">Shipped</text></g><g class="st" data-at="0.430"><circle cx="70" cy="184" r="6"/><text x="94" y="188">Made</text></g><g class="st" data-at="0.573"><circle cx="70" cy="232" r="6"/><text x="94" y="236">Used</text></g><g class="st" data-at="0.717"><circle cx="70" cy="280" r="6"/><text x="94" y="284">Worn out</text></g><g class="st" data-at="0.860"><circle cx="70" cy="328" r="6"/><text x="94" y="332">Thrown away</text></g>
- <g class="st" data-at="0.97"><text class="lp-out" x="94" y="386">A new tree is cut.</text><text class="lp-out" x="94" y="404">Start again.</text></g>
-</svg></figure>
-  <figure class="lp-fig" data-kind="loop"><figcaption><span class="label muted">An Another Life chair</span><h3 class="disp">A loop.</h3></figcaption><svg class="lp-svg" viewBox="0 0 440 420" role="img" aria-label="An Another Life chair as a loop: first life as a house, bridge or boat, taken apart, remade by hand, in use, repaired, rebuilt, and round again">
- <circle class="lp-track" cx="220" cy="200" r="110"/>
- <circle class="lp-path" cx="220" cy="200" r="110" pathLength="1" transform="rotate(-90 220 200)"/>
- <g class="lp-arrows"><path class="lp-arrow" d="M-5 -4 L1 0 L-5 4" transform="translate(275.0 104.7) rotate(30)"/><path class="lp-arrow" d="M-5 -4 L1 0 L-5 4" transform="translate(330.0 200.0) rotate(90)"/><path class="lp-arrow" d="M-5 -4 L1 0 L-5 4" transform="translate(275.0 295.3) rotate(150)"/><path class="lp-arrow" d="M-5 -4 L1 0 L-5 4" transform="translate(165.0 295.3) rotate(210)"/><path class="lp-arrow" d="M-5 -4 L1 0 L-5 4" transform="translate(110.0 200.0) rotate(270)"/><path class="lp-arrow" d="M-5 -4 L1 0 L-5 4" transform="translate(165.0 104.7) rotate(330)"/></g>
- <g class="st" data-at="0.000"><circle cx="220.0" cy="90.0" r="6"/><text x="220.0" y="64.0" text-anchor="middle">First life</text></g><g class="st" data-at="0.153"><circle cx="315.3" cy="145.0" r="6"/><text x="334.3" y="138.0" text-anchor="start">Taken apart</text></g><g class="st" data-at="0.307"><circle cx="315.3" cy="255.0" r="6"/><text x="334.3" y="270.0" text-anchor="start">Remade by hand</text></g><g class="st" data-at="0.460"><circle cx="220.0" cy="310.0" r="6"/><text x="220.0" y="346.0" text-anchor="middle">In use</text></g><g class="st" data-at="0.613"><circle cx="124.7" cy="255.0" r="6"/><text x="105.7" y="270.0" text-anchor="end">Repaired</text></g><g class="st" data-at="0.767"><circle cx="124.7" cy="145.0" r="6"/><text x="105.7" y="138.0" text-anchor="end">Rebuilt</text></g>
- <g class="lp-mid" transform="translate(220 200)"><circle cx="0" cy="-14" r="5"/><circle cx="12" cy="7" r="5"/><circle cx="-12" cy="7" r="5"/></g>
- <g class="st" data-at="0.97"><text class="lp-out" x="220" y="400" text-anchor="middle">And round again.</text></g>
-</svg></figure>
+<section class="recl" id="reclaimed"><div class="wrap">
+ <div class="rc-head"><span class="label eyebrow muted">Reclaimed? Not always.</span><h2 class="disp">Ask where it stood.</h2>
+  <p class="prose" style="margin-top:20px">“Reclaimed” is one of the easiest words to put on a label, and one of the hardest to check. It matters, because a new tree is never just one tree.</p></div>
+ <p class="label rc-sub">What a new tree sets in motion</p>
+ <ol class="rc-steps"><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><rect x="58" y="22" width="56" height="74" rx="2"/><path d="M68 40h36M68 52h36M68 64h22"/><circle cx="96" cy="80" r="9"/><path d="M92 80l3 3 6-6"/><path d="M30 100V56"/><path d="M30 60c-10 0-16-8-16-16 8 0 16 6 16 16zM30 52c10 0 15-8 15-15-8 0-15 6-15 15z"/><path d="M10 100h140"/></svg><span class="n">01</span><h3 class="disp">The licence</h3><p>A permit to take the biggest, oldest trees. On paper, the forest stays.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M62 100c6-20 30-24 26-44s-10-24-6-36"/><path d="M98 100c4-20 26-26 22-46s-12-22-8-34" stroke-dasharray="4 5"/><path d="M24 100V70M24 74c-8 0-12-6-12-12 6 0 12 4 12 12z"/><path d="M140 100V64M140 68c8 0 12-6 12-12-6 0-12 4-12 12z"/><rect x="70" y="60" width="20" height="11" rx="1"/><path d="M90 63h7l4 5v3h-11"/><circle cx="76" cy="73" r="3"/><circle cx="95" cy="73" r="3"/></svg><span class="n">02</span><h3 class="disp">The road</h3><p>Roads are cut in to reach them. On Borneo alone, about 270,000 km of logging roads were built between 1973 and 2010. That's almost seven times around the Earth.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M40 100V58M40 62c-9 0-14-7-14-14 7 0 14 5 14 14z"/><path d="M120 100V66M120 70c8 0 12-6 12-12-6 0-12 4-12 12z"/><path d="M64 100v-8h12v8M64 92h12"/><path d="M90 100v-6h10v6M90 94h10"/><circle cx="118" cy="26" r="9"/><path d="M118 10v4M118 38v4M102 26h4M130 26h4"/></svg><span class="n">03</span><h3 class="disp">The thinning</h3><p>What's left is weaker: drier, poorer in wildlife and quicker to burn.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M30 100v-8h12v8M30 92h12"/><path d="M54 100v-6h10v6M54 94h10"/><path d="M110 100V40"/><path d="M84 30h50l8 10-8 10H84z"/><circle cx="92" cy="40" r="2"/><path d="M100 40h26"/></svg><span class="n">04</span><h3 class="disp">The new label</h3><p>Logged land can be reclassified for plantations. That's when the forest really goes.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M34 100V68"/><path d="M34 68c-9-1-14 4-16 9M34 68c9-1 14 4 16 9M34 68c-6-6-12-6-15-4M34 68c6-6 12-6 15-4"/><path d="M80 100V68"/><path d="M80 68c-9-1-14 4-16 9M80 68c9-1 14 4 16 9M80 68c-6-6-12-6-15-4M80 68c6-6 12-6 15-4"/><path d="M126 100V68"/><path d="M126 68c-9-1-14 4-16 9M126 68c9-1 14 4 16 9M126 68c-6-6-12-6-15-4M126 68c6-6 12-6 15-4"/></svg><span class="n">05</span><h3 class="disp">Gone</h3><p>One crop, in rows. By 2010, plantations covered about a tenth of Borneo.</p></li></ol>
+ <p class="cap rc-swipe">Swipe to see all five steps.</p>
+</div></section>
+<section class="forest rc-stat"><div class="wrap split">
+ <div><span class="label eyebrow muted">Reuse, in one number</span><p class="rc-big disp"><span>Up to </span><span class="rc-count" data-to="92">92</span>%</p></div>
+ <div class="prose"><p class="pull">Lower emissions when a building is made from reused products instead of new ones.</p>
+ <p class="cap" style="margin-top:16px;color:var(--on-forest-muted)">From a 2024 study of a wooden house in the journal Buildings. Savings ranged from 23% to 92%, depending on how much was reused. It measured a building, not our furniture, but the logic is the same: what already exists does not need to be made again.</p></div>
+</div></section>
+<section class="rc-ours"><div class="wrap split">
+ <div><span class="label eyebrow muted">Our wood</span><h2 class="disp">Sets none of this in motion.</h2>
+  <div class="rc-joglo"><svg class="rc-draw rc-big-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M8 104h144"/><path d="M80 18L56 52h48z"/><path d="M56 52L22 70h116L104 52"/><path d="M34 70v34M126 70v34M62 70v34M98 70v34"/><path d="M74 104V84h12v20"/></svg></div>
+  <p class="cap">A joglo: the Javanese teak house much of our wood comes from.</p></div>
+ <div class="prose">
+  <div class="rc-row" aria-label="The five steps, crossed out"><span class="rc-x"><svg class="rc-mini" viewBox="0 0 160 120" aria-hidden="true"><rect x="58" y="22" width="56" height="74" rx="2"/><path d="M68 40h36M68 52h36M68 64h22"/><circle cx="96" cy="80" r="9"/><path d="M92 80l3 3 6-6"/><path d="M30 100V56"/><path d="M30 60c-10 0-16-8-16-16 8 0 16 6 16 16zM30 52c10 0 15-8 15-15-8 0-15 6-15 15z"/><path d="M10 100h140"/></svg></span><span class="rc-x"><svg class="rc-mini" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M62 100c6-20 30-24 26-44s-10-24-6-36"/><path d="M98 100c4-20 26-26 22-46s-12-22-8-34" stroke-dasharray="4 5"/><path d="M24 100V70M24 74c-8 0-12-6-12-12 6 0 12 4 12 12z"/><path d="M140 100V64M140 68c8 0 12-6 12-12-6 0-12 4-12 12z"/><rect x="70" y="60" width="20" height="11" rx="1"/><path d="M90 63h7l4 5v3h-11"/><circle cx="76" cy="73" r="3"/><circle cx="95" cy="73" r="3"/></svg></span><span class="rc-x"><svg class="rc-mini" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M40 100V58M40 62c-9 0-14-7-14-14 7 0 14 5 14 14z"/><path d="M120 100V66M120 70c8 0 12-6 12-12-6 0-12 4-12 12z"/><path d="M64 100v-8h12v8M64 92h12"/><path d="M90 100v-6h10v6M90 94h10"/><circle cx="118" cy="26" r="9"/><path d="M118 10v4M118 38v4M102 26h4M130 26h4"/></svg></span><span class="rc-x"><svg class="rc-mini" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M30 100v-8h12v8M30 92h12"/><path d="M54 100v-6h10v6M54 94h10"/><path d="M110 100V40"/><path d="M84 30h50l8 10-8 10H84z"/><circle cx="92" cy="40" r="2"/><path d="M100 40h26"/></svg></span><span class="rc-x"><svg class="rc-mini" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M34 100V68"/><path d="M34 68c-9-1-14 4-16 9M34 68c9-1 14 4 16 9M34 68c-6-6-12-6-15-4M34 68c6-6 12-6 15-4"/><path d="M80 100V68"/><path d="M80 68c-9-1-14 4-16 9M80 68c9-1 14 4 16 9M80 68c-6-6-12-6-15-4M80 68c6-6 12-6 15-4"/><path d="M126 100V68"/><path d="M126 68c-9-1-14 4-16 9M126 68c9-1 14 4 16 9M126 68c-6-6-12-6-15-4M126 68c6-6 12-6 15-4"/></svg></span></div>
+  <p class="pull" style="margin-top:20px">The tree was felled generations ago. The wood has already done one job, holding up a house, a bridge or a boat.</p>
+  <p>But don't take our word for it. With us, you can check:</p>
+  <ul class="rc-checks"><li>Where it stood: the building it came from.</li><li>What came with it: the records for its batch.</li><li>Which piece it became: the code on the furniture.</li></ul>
+  <div class="btns" style="margin-top:24px"><a class="btn" href="https://id.another-life.dk/test">Open an example passport</a><a class="btn ghost" href="passport.html">How the Passport works</a></div>
+  <p class="cap rc-src">Sources: <a href="https://doi.org/10.1371/journal.pone.0101654">Gaveau et al., Four decades of forest persistence, clearance and logging on Borneo, PLoS ONE 2014</a> · <a href="https://doi.org/10.1371/journal.pone.0069887">Gaveau et al., Reconciling forest conservation and logging in Indonesian Borneo, PLoS ONE 2013</a> · <a href="https://doi.org/10.3390/buildings14030800">Carbon assessment of a wooden single-family building, Buildings 2024</a></p>
  </div>
- <p class="cap lp-note">Shown without CO₂ figures. We only add numbers we can document.</p>
 </div></section>
 <script>
 (function(){
- var sec=document.getElementById('loop'); if(!sec) return;
+ var sec=document.getElementById('reclaimed'); if(!sec) return;
  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
- if(still) return;
- var figs=[].slice.call(sec.querySelectorAll('.lp-fig'));
- sec.classList.add('lp-anim');
- var tick=false;
- function frame(){ tick=false; var vh=window.innerHeight;
-  figs.forEach(function(f){
-   var r=f.getBoundingClientRect();
-   var p=(vh*0.85 - r.top)/(vh*0.62); p=Math.max(0,Math.min(1,p));
-   var path=f.querySelector('.lp-path'); path.style.strokeDashoffset=String(1-p);
-   [].forEach.call(f.querySelectorAll('.st'),function(g){ g.classList.toggle('in', p>=parseFloat(g.getAttribute('data-at'))); });
-   f.classList.toggle('done', p>=0.97);
-  });
- }
- window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
- window.addEventListener('resize',frame);
- frame();
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('rc-anim');
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target);
+   var c=e.target.querySelector&&e.target.querySelector('.rc-count');
+   if(c){ var to=+c.dataset.to, t0=performance.now(); (function step(t){ var k=Math.min(1,(t-t0)/1400); c.textContent=Math.round(to*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); })(t0); }
+ }); },{threshold:0.35});
+ [].forEach.call(document.querySelectorAll('.rc-card, .rc-joglo, .rc-row, .rc-stat'),function(el){ io.observe(el); });
 })();
 </script>
 
@@ -669,7 +676,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  if(still||!('IntersectionObserver' in window)) return;
  document.documentElement.classList.add('motion');
  var main=document.getElementById('main');
- var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.loopsec) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.loopsec) .split > *, .how-head, .how-try, .lp-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
  var seen=new Set();
  targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
  var nls=[];
