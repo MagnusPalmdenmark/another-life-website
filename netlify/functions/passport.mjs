@@ -69,6 +69,17 @@ export default async (req, context) => {
       items.sort((a, b) => (b.made || "").localeCompare(a.made || ""));
       return json({ batches: items.map(b => ({ ...publicView(b), createdBy: b.createdBy || null })) });
     }
+    if (url.searchParams.has("batches")) {
+      if (!(await whoAmI(db, context))) return json({ error: "auth" }, 401);
+      const { blobs } = await db.list({ prefix: "batch/" });
+      const items = [];
+      for (let i = 0; i < blobs.length; i += 50) {
+        const chunk = await Promise.all(blobs.slice(i, i + 50).map(b => db.get(b.key, { type: "json" })));
+        items.push(...chunk.filter(Boolean));
+      }
+      items.sort((a, b) => (b.made || "").localeCompare(a.made || ""));
+      return json({ batches: items.map(b => ({ ...publicView(b), createdBy: b.createdBy || null })) });
+    }
     if (url.searchParams.has("users")) {
       const me = await whoAmI(db, context);
       if (!me?.admin) return json({ error: "auth" }, 401);
