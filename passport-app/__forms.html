@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Forms</title><meta name="robots" content="noindex"></head>
+<body>
+<!-- Hidden skeleton so Netlify registers the repair form. The real form is rendered by app.js. -->
+<form name="repair" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" hidden>
+  <input type="hidden" name="form-name" value="repair">
+  <input type="hidden" name="subject">
+  <input name="code" type="text">
+  <input name="place" type="text">
+  <textarea name="message"></textarea>
+  <input type="checkbox" name="issue_loose" value="yes">
+  <input type="checkbox" name="issue_broken" value="yes">
+  <input type="checkbox" name="issue_surface" value="yes">
+  <input type="checkbox" name="issue_missing" value="yes">
+  <input type="checkbox" name="issue_other" value="yes">
+  <input name="contact" type="text">
+  <input name="lang" type="text">
+  <input name="photo" type="file">
+  <input name="bot-field">
+</form>
+</body>
+</html>
