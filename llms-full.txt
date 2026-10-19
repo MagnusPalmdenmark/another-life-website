@@ -455,6 +455,41 @@ Indonesia has more than 17,000 islands, and for centuries much of it was built i
 Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.
 Our teak (Tectona grandis) is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. We are also building a way to trace each piece's own story: the Passport.
 Old posts and beams, marked and sorted before they are cut.
+Reclaimed? Not always.Ask where it stood.
+“Reclaimed” is one of the easiest words to put on a label, and one of the hardest to check. It matters, because a new tree is never just one tree.
+What new tropical hardwood can set in motion
+01The licence
+A permit to take the biggest, oldest trees. On paper, the forest stays.
+02The road
+Roads are cut in to reach them. On Borneo alone, about 270,000 km of logging roads were built between 1973 and 2010. That's almost seven times around the Earth.
+03The thinning
+What's left is weaker: drier, poorer in wildlife and quicker to burn.
+04The new label
+Logged land can be reclassified for plantations. That's when the forest really goes.
+05Gone
+One crop, in rows. By 2010, plantations covered about a tenth of Borneo.
+Swipe to see all five steps.
+And teak?New teak isn’t old teak.
+Most new teak in Indonesia is grown in plantations, and some of it is cut very young. A 2018 study compared 10-year-old plantation teak with 40-year-old teak:
+Heartwood, the durable core
+10 years≈ 40%
+40 years≈ 80%
+Density
+10 years472 kg/m³
+40 years664 kg/m³
+The young wood was also less resistant to rot. The teak in an old joglo grew slowly, often for many decades, before it was ever cut. That kind of teak is no longer easy to buy new. Reclaiming it is how we work with it.
+Reuse, in one numberUp to 92%
+Lower emissions when a building is made from reused products instead of new ones.
+From a 2024 study of a wooden house in the journal Buildings. Savings ranged from 23% to 92%, depending on how much was reused. It measured a building, not our furniture, but the logic is the same: what already exists does not need to be made again.
+Our woodSets none of this in motion.
+A joglo: the Javanese teak house much of our wood comes from.
+The tree was felled generations ago. The wood has already done one job, holding up a house, a bridge or a boat.
+But don't take our word for it. With us, you can check:
+Where it stood: the building it came from.
+What came with it: the records for its batch.
+Which piece it became: the code on the furniture.
+Open an example passportHow the Passport works
+Sources: Gaveau et al., Four decades of forest persistence, clearance and logging on Borneo, PLoS ONE 2014 · Gaveau et al., Reconciling forest conservation and logging in Indonesian Borneo, PLoS ONE 2013 · Carbon assessment of a wooden single-family building, Buildings 2024 · Rizanti et al., Comparison of teak wood properties: short versus long rotation, Annals of Forest Science 2018
 Chapter 2 · In developmentMeet ulin, Borneo's ironwood.
 Reclaimed ulin: weathered outside, warm and dense inside.Old ulin beams. The S-shaped irons keep the ends from splitting.
 Ulin (Eusideroxylon zwageri) is so dense it sinks in water, so tough that termites give up, and so slow-growing that a tree can live for more than a thousand years. For generations it carried fishing boats, held up bridges and kept river villages above the water.
@@ -513,6 +548,21 @@ A story you can scan.
 We're building a system that gives every piece its own story: from the life its wood lived before, to every life it lives next.
 One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.
 Last updated 2026-10-16
+How it worksFrom one code to a whole story.
+These are real screens from the Passport. Scroll to follow one batch of benches from the engraver to a guest's phone.
+01 / 05
+01MarkedOne code on every piece.
+The system creates a batch code and a QR code, ready for the engraver. The code under the QR is a backup anyone can type in.
+02ScannedA guest points a phone at it.
+No app. The camera opens the page for that piece, with the batch code at the top.
+03Its livesThe whole story in a minute.
+From a teak tree, to the house, bridge or boat it held up, to the workshop, to the room it stands in now.
+04Its journeyHow far it travelled.
+Its route from the workshop, step by step, with an estimate of the transport CO₂ for that piece.
+05Its careSomething loose? Tell us.
+A short form with a photo comes straight to us, so a small repair keeps the piece in use.
+Try itScan the code at the top of this page, or open the example.
+Open the example passportFind a piece by its code
 Beyond the labelA label is not a mission.
 A stamp on the wall. Only part of the story.
 We believe sustainability is a responsibility, not a certification.
