@@ -322,6 +322,32 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 @keyframes tb1{0%,100%{transform:none}50%{transform:translate(-9px,-5px)}}
 @keyframes tb2{0%,100%{transform:none}50%{transform:translate(9px,-5px)}}
 @media (prefers-reduced-motion:reduce){.bdots *{animation:none!important}.bdots{animation:none!important}}
+/* passport: how it works (sticky phone, steps scroll past) */
+.how-head{max-width:720px}
+.how-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:0 clamp(24px,5vw,72px);margin-top:clamp(28px,4vw,48px);align-items:start}
+.how-stage{position:sticky;top:88px;display:grid;justify-items:center;gap:12px}
+.how-phone{position:relative;width:min(100%,320px);aspect-ratio:585/1266;max-height:calc(100vh - 150px);border:1px solid var(--ink);border-radius:28px;overflow:hidden;background:var(--paper);box-shadow:0 30px 60px -30px rgba(20,18,15,.35)}
+.how-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.how-img.on{opacity:1;transform:none}
+.how-steps{display:grid}
+.hstep{min-height:62vh;display:grid;grid-template-columns:56px minmax(0,1fr);gap:8px 16px;align-content:center;border-top:1px solid var(--hairline);opacity:.28;transition:opacity .5s ease}
+.hstep:last-child{border-bottom:1px solid var(--hairline)}
+.hstep.on{opacity:1}
+.hstep .n{font-family:var(--font-display);font-size:24px;line-height:1.2}
+.hstep h3{font-size:clamp(28px,3.6vw,46px);line-height:.95;margin:6px 0 12px}
+.hstep p{margin:0;max-width:44ch}
+.how-inline{display:none}
+.how-try{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px clamp(24px,5vw,72px);align-items:end;margin-top:clamp(36px,5vw,64px);padding-top:28px;border-top:1px solid var(--ink)}
+.how-try h3{font-size:clamp(24px,3vw,36px);line-height:1;margin:0}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+@media (max-width:820px){
+ .how-grid{grid-template-columns:minmax(0,1fr)}
+ .how-stage{display:none}
+ .hstep{min-height:0;opacity:1;padding-block:24px}
+ .how-inline{display:block;grid-column:1/-1;width:min(100%,300px);height:auto;margin:14px auto 0;border:1px solid var(--ink);border-radius:24px}
+ .how-try{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.how-img{transition:none}.hstep{opacity:1}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -588,7 +614,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  if(still||!('IntersectionObserver' in window)) return;
  document.documentElement.classList.add('motion');
  var main=document.getElementById('main');
- var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win) .wrap > *, section:not(.hero):not(.build):not(.win) .split > *, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how) .split > *, .how-head, .how-try, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
  var seen=new Set();
  targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
  var nls=[];

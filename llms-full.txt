@@ -513,6 +513,23 @@ A story you can scan.
 We're building a system that gives every piece its own story: from the life its wood lived before, to every life it lives next.
 One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.
 Last updated 2026-10-16
+How it worksFrom workshop to guest, in six screens.
+These are real screens from the Passport. Scroll to follow one batch of benches from the workshop floor to a guest's phone.
+01 / 06
+01MadeThe workshop logs each batch.
+When a batch is finished, the workshop fills in a short form on a phone: which product, where the wood came from, who made it. In Bahasa or English.
+02MarkedOne code on every piece.
+The system creates a batch code and a QR code, ready for the engraver. The code under the QR is a backup anyone can type in.
+03ScannedA guest points a phone at it.
+No app. The camera opens the page for that piece, with the batch code at the top.
+04Its livesThe whole story in a minute.
+From a teak tree, to the house, bridge or boat it held up, to the workshop, to the room it stands in now.
+05Its journeyHow far it travelled.
+Its route from the workshop, step by step, with an estimate of the transport CO₂ for that piece.
+06Its careSomething loose? Tell us.
+A short form with a photo comes straight to us, so a small repair keeps the piece in use.
+Try itScan the code at the top of this page, or open the example.
+Open the example passportFind a piece by its code
 Beyond the labelA label is not a mission.
 A stamp on the wall. Only part of the story.
 We believe sustainability is a responsibility, not a certification.
