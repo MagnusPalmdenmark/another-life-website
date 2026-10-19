@@ -348,6 +348,30 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
  .how-try{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.how-img{transition:none}.hstep{opacity:1}}
+/* material: a line or a loop */
+.lp-head{max-width:760px}
+.lp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,56px);margin-top:clamp(28px,4vw,48px)}
+.lp-fig{margin:0;border-top:1px solid var(--ink);padding-top:16px;display:grid;gap:8px;min-width:0}
+.lp-fig h3{font-size:clamp(30px,4vw,48px);line-height:.95;margin:4px 0 0}
+.lp-svg{width:100%;height:auto;display:block;overflow:visible}
+.lp-svg text{font:400 13px var(--font-mono);fill:var(--ink)}
+.lp-svg .lp-out{font-weight:500;fill:var(--ink-muted)}
+.lp-track{fill:none;stroke:var(--hairline);stroke-width:2}
+.lp-path{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:1 1;stroke-dashoffset:0}
+[data-kind="line"] .lp-path{stroke-dasharray:1 1}
+.lp-svg .st circle{fill:var(--ink);stroke:var(--ink);stroke-width:2}
+.lp-arrow{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.lp-mid circle{fill:var(--ink)}
+.lp-note{margin-top:20px}
+.lp-anim .lp-path{stroke-dashoffset:1;transition:stroke-dashoffset .12s linear}
+.lp-anim .st circle{fill:var(--paper);transition:fill .3s ease}
+.lp-anim .st text{opacity:.18;transition:opacity .4s ease}
+.lp-anim .st.in circle{fill:var(--ink)}
+.lp-anim .st.in text{opacity:1}
+.lp-anim .lp-arrows,.lp-anim .lp-mid{opacity:0;transition:opacity .6s ease}
+.lp-anim .done .lp-arrows,.lp-anim .done .lp-mid{opacity:1}
+[data-kind="line"] .lp-svg .lp-path{stroke-linecap:butt}
+@media (max-width:760px){.lp-grid{grid-template-columns:minmax(0,1fr)}}
 /* footer */
 footer{border-top:1px solid var(--ink);padding-block:48px}
 .foot{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:28px}
@@ -554,7 +578,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  if(still||!('IntersectionObserver' in window)) return;
  document.documentElement.classList.add('motion');
  var main=document.getElementById('main');
- var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how) .split > *, .how-head, .how-try, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.loopsec) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.loopsec) .split > *, .how-head, .how-try, .lp-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
  var seen=new Set();
  targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
  var nls=[];
