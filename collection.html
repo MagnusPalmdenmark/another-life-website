@@ -368,6 +368,12 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .rc-x{position:relative;display:block;width:64px}
 .rc-mini{width:64px;height:auto;display:block;fill:none;stroke:var(--ink-muted);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
 .rc-x::after{content:"";position:absolute;left:4px;right:4px;top:50%;border-top:2px solid var(--ink);transform:rotate(-24deg) scaleX(1)}
+.rc-bars{margin:18px 0;display:grid;gap:6px}
+.rc-bar{display:grid;grid-template-columns:80px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px}
+.rc-bar i{display:block;height:10px;background:var(--hairline);position:relative}
+.rc-bar i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--ink);transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.rc-anim .rc-bars:not(.in) .rc-bar i::after{width:0}
+.rc-bar b{font-weight:500;font-variant-numeric:tabular-nums;text-align:right}
 .rc-checks{margin:12px 0 0;padding:0;list-style:none;display:grid;border-top:1px solid var(--hairline)}
 .rc-checks li{padding:10px 0;border-bottom:1px solid var(--hairline)}
 .rc-src{margin-top:36px !important}
@@ -588,7 +594,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  if(still||!('IntersectionObserver' in window)) return;
  document.documentElement.classList.add('motion');
  var main=document.getElementById('main');
- var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
  var seen=new Set();
  targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
  var nls=[];

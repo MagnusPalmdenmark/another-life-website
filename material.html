@@ -368,6 +368,12 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .rc-x{position:relative;display:block;width:64px}
 .rc-mini{width:64px;height:auto;display:block;fill:none;stroke:var(--ink-muted);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
 .rc-x::after{content:"";position:absolute;left:4px;right:4px;top:50%;border-top:2px solid var(--ink);transform:rotate(-24deg) scaleX(1)}
+.rc-bars{margin:18px 0;display:grid;gap:6px}
+.rc-bar{display:grid;grid-template-columns:80px minmax(0,1fr) 92px;gap:10px;align-items:center;font-size:13px}
+.rc-bar i{display:block;height:10px;background:var(--hairline);position:relative}
+.rc-bar i::after{content:"";position:absolute;inset:0 auto 0 0;width:var(--w);background:var(--ink);transition:width 1.2s cubic-bezier(.2,.7,.2,1)}
+.rc-anim .rc-bars:not(.in) .rc-bar i::after{width:0}
+.rc-bar b{font-weight:500;font-variant-numeric:tabular-nums;text-align:right}
 .rc-checks{margin:12px 0 0;padding:0;list-style:none;display:grid;border-top:1px solid var(--hairline)}
 .rc-checks li{padding:10px 0;border-bottom:1px solid var(--hairline)}
 .rc-src{margin-top:36px !important}
@@ -534,9 +540,24 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section class="recl" id="reclaimed"><div class="wrap">
  <div class="rc-head"><span class="label eyebrow muted">Reclaimed? Not always.</span><h2 class="disp">Ask where it stood.</h2>
   <p class="prose" style="margin-top:20px">“Reclaimed” is one of the easiest words to put on a label, and one of the hardest to check. It matters, because a new tree is never just one tree.</p></div>
- <p class="label rc-sub">What a new tree sets in motion</p>
+ <p class="label rc-sub">What new tropical hardwood can set in motion</p>
  <ol class="rc-steps"><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><rect x="58" y="22" width="56" height="74" rx="2"/><path d="M68 40h36M68 52h36M68 64h22"/><circle cx="96" cy="80" r="9"/><path d="M92 80l3 3 6-6"/><path d="M30 100V56"/><path d="M30 60c-10 0-16-8-16-16 8 0 16 6 16 16zM30 52c10 0 15-8 15-15-8 0-15 6-15 15z"/><path d="M10 100h140"/></svg><span class="n">01</span><h3 class="disp">The licence</h3><p>A permit to take the biggest, oldest trees. On paper, the forest stays.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M62 100c6-20 30-24 26-44s-10-24-6-36"/><path d="M98 100c4-20 26-26 22-46s-12-22-8-34" stroke-dasharray="4 5"/><path d="M24 100V70M24 74c-8 0-12-6-12-12 6 0 12 4 12 12z"/><path d="M140 100V64M140 68c8 0 12-6 12-12-6 0-12 4-12 12z"/><rect x="70" y="60" width="20" height="11" rx="1"/><path d="M90 63h7l4 5v3h-11"/><circle cx="76" cy="73" r="3"/><circle cx="95" cy="73" r="3"/></svg><span class="n">02</span><h3 class="disp">The road</h3><p>Roads are cut in to reach them. On Borneo alone, about 270,000 km of logging roads were built between 1973 and 2010. That's almost seven times around the Earth.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M40 100V58M40 62c-9 0-14-7-14-14 7 0 14 5 14 14z"/><path d="M120 100V66M120 70c8 0 12-6 12-12-6 0-12 4-12 12z"/><path d="M64 100v-8h12v8M64 92h12"/><path d="M90 100v-6h10v6M90 94h10"/><circle cx="118" cy="26" r="9"/><path d="M118 10v4M118 38v4M102 26h4M130 26h4"/></svg><span class="n">03</span><h3 class="disp">The thinning</h3><p>What's left is weaker: drier, poorer in wildlife and quicker to burn.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M30 100v-8h12v8M30 92h12"/><path d="M54 100v-6h10v6M54 94h10"/><path d="M110 100V40"/><path d="M84 30h50l8 10-8 10H84z"/><circle cx="92" cy="40" r="2"/><path d="M100 40h26"/></svg><span class="n">04</span><h3 class="disp">The new label</h3><p>Logged land can be reclassified for plantations. That's when the forest really goes.</p></li><li class="rc-card"><svg class="rc-draw" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 100h140"/><path d="M34 100V68"/><path d="M34 68c-9-1-14 4-16 9M34 68c9-1 14 4 16 9M34 68c-6-6-12-6-15-4M34 68c6-6 12-6 15-4"/><path d="M80 100V68"/><path d="M80 68c-9-1-14 4-16 9M80 68c9-1 14 4 16 9M80 68c-6-6-12-6-15-4M80 68c6-6 12-6 15-4"/><path d="M126 100V68"/><path d="M126 68c-9-1-14 4-16 9M126 68c9-1 14 4 16 9M126 68c-6-6-12-6-15-4M126 68c6-6 12-6 15-4"/></svg><span class="n">05</span><h3 class="disp">Gone</h3><p>One crop, in rows. By 2010, plantations covered about a tenth of Borneo.</p></li></ol>
  <p class="cap rc-swipe">Swipe to see all five steps.</p>
+</div></section>
+<section class="rc-teak"><div class="wrap split">
+ <div><span class="label eyebrow muted">And teak?</span><h2 class="disp">New teak isn’t old teak.</h2></div>
+ <div class="prose">
+  <p>Most new teak in Indonesia is grown in plantations, and some of it is cut very young. A 2018 study compared 10-year-old plantation teak with 40-year-old teak:</p>
+  <div class="rc-bars" role="img" aria-label="10-year-old teak: about 40 percent heartwood and 472 kilograms per cubic metre. 40-year-old teak: about 80 percent heartwood and 664 kilograms per cubic metre.">
+   <p class="label muted">Heartwood, the durable core</p>
+   <div class="rc-bar"><span>10 years</span><i style="--w:40%"></i><b>≈ 40%</b></div>
+   <div class="rc-bar"><span>40 years</span><i style="--w:80%"></i><b>≈ 80%</b></div>
+   <p class="label muted" style="margin-top:14px">Density</p>
+   <div class="rc-bar"><span>10 years</span><i style="--w:57%"></i><b>472 kg/m³</b></div>
+   <div class="rc-bar"><span>40 years</span><i style="--w:80%"></i><b>664 kg/m³</b></div>
+  </div>
+  <p>The young wood was also less resistant to rot. The teak in an old joglo grew slowly, often for many decades, before it was ever cut. That kind of teak is no longer easy to buy new. Reclaiming it is how we work with it.</p>
+ </div>
 </div></section>
 <section class="forest rc-stat"><div class="wrap split">
  <div><span class="label eyebrow muted">Reuse, in one number</span><p class="rc-big disp"><span>Up to </span><span class="rc-count" data-to="92">92</span>%</p></div>
@@ -553,7 +574,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
   <p>But don't take our word for it. With us, you can check:</p>
   <ul class="rc-checks"><li>Where it stood: the building it came from.</li><li>What came with it: the records for its batch.</li><li>Which piece it became: the code on the furniture.</li></ul>
   <div class="btns" style="margin-top:24px"><a class="btn" href="https://id.another-life.dk/test">Open an example passport</a><a class="btn ghost" href="passport.html">How the Passport works</a></div>
-  <p class="cap rc-src">Sources: <a href="https://doi.org/10.1371/journal.pone.0101654">Gaveau et al., Four decades of forest persistence, clearance and logging on Borneo, PLoS ONE 2014</a> · <a href="https://doi.org/10.1371/journal.pone.0069887">Gaveau et al., Reconciling forest conservation and logging in Indonesian Borneo, PLoS ONE 2013</a> · <a href="https://doi.org/10.3390/buildings14030800">Carbon assessment of a wooden single-family building, Buildings 2024</a></p>
+  <p class="cap rc-src">Sources: <a href="https://doi.org/10.1371/journal.pone.0101654">Gaveau et al., Four decades of forest persistence, clearance and logging on Borneo, PLoS ONE 2014</a> · <a href="https://doi.org/10.1371/journal.pone.0069887">Gaveau et al., Reconciling forest conservation and logging in Indonesian Borneo, PLoS ONE 2013</a> · <a href="https://doi.org/10.3390/buildings14030800">Carbon assessment of a wooden single-family building, Buildings 2024</a> · <a href="https://doi.org/10.1007/s13595-018-0716-8">Rizanti et al., Comparison of teak wood properties: short versus long rotation, Annals of Forest Science 2018</a></p>
  </div>
 </div></section>
 <script>
@@ -566,7 +587,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
    var c=e.target.querySelector&&e.target.querySelector('.rc-count');
    if(c){ var to=+c.dataset.to, t0=performance.now(); (function step(t){ var k=Math.min(1,(t-t0)/1400); c.textContent=Math.round(to*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); })(t0); }
  }); },{threshold:0.35});
- [].forEach.call(document.querySelectorAll('.rc-card, .rc-joglo, .rc-row, .rc-stat'),function(el){ io.observe(el); });
+ [].forEach.call(document.querySelectorAll('.rc-card, .rc-joglo, .rc-row, .rc-stat, .rc-bars'),function(el){ io.observe(el); });
 })();
 </script>
 
@@ -676,7 +697,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  if(still||!('IntersectionObserver' in window)) return;
  document.documentElement.classList.add('motion');
  var main=document.getElementById('main');
- var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
  var seen=new Set();
  targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
  var nls=[];

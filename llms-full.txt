@@ -457,7 +457,7 @@ Our teak (Tectona grandis) is repurposed: timber that has already lived a life, 
 Old posts and beams, marked and sorted before they are cut.
 Reclaimed? Not always.Ask where it stood.
 “Reclaimed” is one of the easiest words to put on a label, and one of the hardest to check. It matters, because a new tree is never just one tree.
-What a new tree sets in motion
+What new tropical hardwood can set in motion
 01The licence
 A permit to take the biggest, oldest trees. On paper, the forest stays.
 02The road
@@ -469,6 +469,15 @@ Logged land can be reclassified for plantations. That's when the forest really g
 05Gone
 One crop, in rows. By 2010, plantations covered about a tenth of Borneo.
 Swipe to see all five steps.
+And teak?New teak isn’t old teak.
+Most new teak in Indonesia is grown in plantations, and some of it is cut very young. A 2018 study compared 10-year-old plantation teak with 40-year-old teak:
+Heartwood, the durable core
+10 years≈ 40%
+40 years≈ 80%
+Density
+10 years472 kg/m³
+40 years664 kg/m³
+The young wood was also less resistant to rot. The teak in an old joglo grew slowly, often for many decades, before it was ever cut. That kind of teak is no longer easy to buy new. Reclaiming it is how we work with it.
 Reuse, in one numberUp to 92%
 Lower emissions when a building is made from reused products instead of new ones.
 From a 2024 study of a wooden house in the journal Buildings. Savings ranged from 23% to 92%, depending on how much was reused. It measured a building, not our furniture, but the logic is the same: what already exists does not need to be made again.
@@ -480,7 +489,7 @@ Where it stood: the building it came from.
 What came with it: the records for its batch.
 Which piece it became: the code on the furniture.
 Open an example passportHow the Passport works
-Sources: Gaveau et al., Four decades of forest persistence, clearance and logging on Borneo, PLoS ONE 2014 · Gaveau et al., Reconciling forest conservation and logging in Indonesian Borneo, PLoS ONE 2013 · Carbon assessment of a wooden single-family building, Buildings 2024
+Sources: Gaveau et al., Four decades of forest persistence, clearance and logging on Borneo, PLoS ONE 2014 · Gaveau et al., Reconciling forest conservation and logging in Indonesian Borneo, PLoS ONE 2013 · Carbon assessment of a wooden single-family building, Buildings 2024 · Rizanti et al., Comparison of teak wood properties: short versus long rotation, Annals of Forest Science 2018
 Chapter 2 · In developmentMeet ulin, Borneo's ironwood.
 Reclaimed ulin: weathered outside, warm and dense inside.Old ulin beams. The S-shaped irons keep the ends from splitting.
 Ulin (Eusideroxylon zwageri) is so dense it sinks in water, so tough that termites give up, and so slow-growing that a tree can live for more than a thousand years. For generations it carried fishing boats, held up bridges and kept river villages above the water.
