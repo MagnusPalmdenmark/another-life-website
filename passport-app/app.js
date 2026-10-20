@@ -30,7 +30,7 @@
       lkFmt: "Codes look like AL-2610-03-Q.", lkBad: "That code doesn't look right. Check the last letter.", lkNone: "We have no batch with that code yet.",
       lkErr: "Something went wrong. Try again in a moment.", lkHint: "Want to see an example? Type", staffLink: "Factory / staff login",
       // login
-      abT: "All batches", abLink: "All batches", abSearch: "Search code, area or maker", abAllP: "All products", abAllM: "All months",
+      abT: "All batches", abLink: "All batches", abBig: "See all QR codes", newBig: "Make a new batch", abSearch: "Search code, area or maker", abAllP: "All products", abAllM: "All months",
       abCount: (n, t) => `${n} of ${t} batches`, abPieces: (n) => `${n} pieces in total`, abNone: "No batches match.", abCols: ["Code", "Product", "Wood", "Area", "Pieces", "Made", "By"],
       tlT: "Test login (preview only)", tlU: "Username", tlP: "Password", tlBtn: "Log in", tlWrong: "Use test / test on the preview.",
       liT: "Staff access", liP: "This page is for the workshop and the Another Life team. Open the personal link you received on WhatsApp to get access.", adminLink: "Admin",
@@ -86,7 +86,7 @@
       lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
       lkFmt: "Format kode seperti AL-2610-03-Q.", lkBad: "Kode itu sepertinya salah. Periksa huruf terakhirnya.", lkNone: "Belum ada batch dengan kode itu.",
       lkErr: "Terjadi kesalahan. Coba lagi sebentar lagi.", lkHint: "Ingin melihat contoh? Ketik", staffLink: "Login pabrik / staf",
-      abT: "Semua batch", abLink: "Semua batch", abSearch: "Cari kode, daerah atau pembuat", abAllP: "Semua produk", abAllM: "Semua bulan",
+      abT: "Semua batch", abLink: "Semua batch", abBig: "Lihat semua kode QR", newBig: "Buat batch baru", abSearch: "Cari kode, daerah atau pembuat", abAllP: "Semua produk", abAllM: "Semua bulan",
       abCount: (n, t) => `${n} dari ${t} batch`, abPieces: (n) => `${n} produk total`, abNone: "Tidak ada batch yang cocok.", abCols: ["Kode", "Produk", "Kayu", "Daerah", "Jumlah", "Dibuat", "Oleh"],
       tlT: "Login uji (hanya pratinjau)", tlU: "Nama pengguna", tlP: "Kata sandi", tlBtn: "Masuk", tlWrong: "Gunakan test / test di pratinjau.",
       liT: "Akses staf", liP: "Halaman ini untuk bengkel dan tim Another Life. Buka tautan pribadi yang Anda terima lewat WhatsApp untuk mendapatkan akses.", adminLink: "Admin",
@@ -347,6 +347,7 @@
       <section>
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.adminLink}</span><button type="button" class="staff" id="logout">${L.logout}</button></div>
         <h1>${L.adT}</h1>
+        <div class="two-btn" style="margin:4px 0 28px"><a class="btn" href="${BASE}/batches" data-go="batches">${L.abBig}</a><a class="btn ghost" href="${BASE}/factory" data-go="factory">${L.newBig}</a></div>
         <form class="form" id="auForm" style="gap:10px">
           <label class="q"><span>${L.adAdd}</span><input type="text" id="auName" maxlength="40" placeholder="${L.adName}" required></label>
           <button class="btn" type="submit" id="auBtn">${L.adCreate}</button>
@@ -694,7 +695,7 @@
       const pieces = rows.reduce((n, b) => n + (b.qty || 0), 0);
       $("#abSum").textContent = `${L.abCount(rows.length, allBatches.length)} · ${L.abPieces(pieces)}`;
       $("#abBody").innerHTML = rows.length ? rows.map(b => `<tr>
-        <td data-l="${L.abCols[0]}"><a href="${BASE}/${esc(b.code)}" data-go="${esc(b.code)}">${esc(b.code)}</a></td>
+        <td data-l="${L.abCols[0]}"><a class="ab-code" href="${BASE}/${esc(b.code)}" data-go="${esc(b.code)}">${rows.length <= 300 ? `<span class="ab-qr">${qrSvg(b.code, false)}</span>` : ""}${esc(b.code)}</a></td>
         <td data-l="${L.abCols[1]}">${esc(b.model)}</td><td data-l="${L.abCols[2]}">${esc(L["o_" + b.origin] || b.origin)}</td>
         <td data-l="${L.abCols[3]}">${esc(b.region || "–")}</td><td data-l="${L.abCols[4]}" class="num">${b.qty}</td>
         <td data-l="${L.abCols[5]}">${dateStr(b.made)}</td><td data-l="${L.abCols[6]}">${esc(b.createdBy || b.maker || "–")}</td></tr>`).join("")
