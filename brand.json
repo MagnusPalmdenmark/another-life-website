@@ -80,8 +80,9 @@
   },
   "traceability": {
     "name": "Another Life Passport",
-    "status": "Work in progress, not yet available. No commitments on features or timing.",
-    "description": "A QR tracing platform being built to tell the story of each piece",
+    "status": "Live",
+    "url": "https://id.another-life.dk",
+    "description": "QR-based product record for each batch: recorded origins, making, journey, care information and a repair form. Not an independent certification.",
     "intended_questions": [
       "Where did the material come from?",
       "Who made it?",
@@ -125,7 +126,7 @@
           "seat_height_cm": 45,
           "category": "Chair",
           "url": "https://another-life.dk/the-chair.html",
-          "description": "A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced."
+          "description": "A slatted dining chair in reclaimed teak, with exposed three-bolt joints."
         },
         {
           "name": "The Sun Lounger",
@@ -137,7 +138,7 @@
           "seat_height_cm": 32,
           "category": "Lounger",
           "url": "https://another-life.dk/the-sun-lounger.html",
-          "description": "A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site."
+          "description": "A slatted sun lounger in reclaimed teak, with an adjustable backrest for reading or reclining."
         },
         {
           "name": "The Bench",
@@ -149,7 +150,7 @@
           "seat_height_cm": 45,
           "category": "Bench",
           "url": "https://another-life.dk/the-bench.html",
-          "description": "A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair."
+          "description": "A 206 cm slatted bench in reclaimed teak for dining tables, terraces and halls."
         },
         {
           "name": "The Lounge Chair",
@@ -161,7 +162,7 @@
           "seat_height_cm": 32,
           "category": "Lounge chair",
           "url": "https://another-life.dk/the-lounge-chair.html",
-          "description": "A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces."
+          "description": "A low, deep chair in reclaimed teak for lounges, lobbies and terraces."
         },
         {
           "name": "The Side Table",
@@ -173,7 +174,7 @@
           "seat_height_cm": null,
           "category": "Table",
           "url": "https://another-life.dk/the-side-table.html",
-          "description": "A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair."
+          "description": "A square table in reclaimed teak for poolside, terraces and lounges."
         },
         {
           "name": "The Coffee Table",
@@ -185,7 +186,7 @@
           "seat_height_cm": null,
           "category": "Table",
           "url": "https://another-life.dk/the-coffee-table.html",
-          "description": "A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces."
+          "description": "A low, rectangular table in reclaimed teak for lounges, lobbies and terraces."
         },
         {
           "name": "The Table",
@@ -197,20 +198,20 @@
           "seat_height_cm": null,
           "category": "Table",
           "url": "https://another-life.dk/the-table.html",
-          "description": "A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench."
+          "description": "A reclaimed-teak dining table made to sit with The Chair and The Bench."
         }
       ]
     }
   ],
   "glossary": {
     "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table and The Table.",
-    "Repurposed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
+    "Reclaimed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
     "Joglo": "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.",
     "Shou Sugi Ban": "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil.",
     "Ulin": "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material.",
     "Knock-down": "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once.",
     "Conscious Sustainability": "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation.",
-    "Another Life Passport": "The QR tracing system we are building: a code on each piece that opens its own story, from its first life to its next."
+    "Another Life Passport": "Our live QR-based product record: a code on each piece opens its recorded origins, making, journey, care information and a repair form."
   },
   "images": [
     {

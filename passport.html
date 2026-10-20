@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Another Life Passport</title>
-<meta name="description" content="The Another Life Passport is the QR tracing system Another Life is building: one code per piece, opening its story from origin and making to care, repair and its next owner.">
+<meta name="description" content="The Another Life Passport is live. Scan a piece’s QR code for recorded origins, making, journey, care information and repair enquiries.">
 <link rel="canonical" href="https://another-life.dk/passport.html">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Another Life">
-<meta property="og:title" content="Another Life Passport"><meta property="og:description" content="The Another Life Passport is the QR tracing system Another Life is building: one code per piece, opening its story from origin and making to care, repair and its next owner.">
+<meta property="og:title" content="Another Life Passport"><meta property="og:description" content="The Another Life Passport is live. Scan a piece’s QR code for recorded origins, making, journey, care information and repair enquiries.">
 <meta property="og:url" content="https://another-life.dk/passport.html"><meta property="og:image" content="https://another-life.dk/assets/chair-studio-wide.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -360,6 +360,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .rc-draw{width:min(100%,180px);height:auto;display:block;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .rc-draw *{fill:none}
 .rc-swipe{display:none}
+.rc-steps3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .rc-big{font-size:clamp(72px,14vw,180px);line-height:.85;margin:8px 0 0;white-space:nowrap}
 .rc-big span:first-child{font-size:.32em;vertical-align:.9em;margin-right:.15em}
 .rc-joglo{margin-top:24px;max-width:420px}
@@ -486,7 +487,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
    "about": {
     "@type": "DefinedTerm",
     "name": "Another Life Passport",
-    "description": "The QR tracing system we are building: a code on each piece that opens its own story, from its first life to its next."
+    "description": "Our live QR-based product record: a code on each piece opens its recorded origins, making, journey, care information and a repair form."
    },
    "dateModified": "2026-10-16"
   }
@@ -506,15 +507,15 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <a href="https://id.another-life.dk/test" aria-label="Open the example passport"><img class="qr" src="assets/passport-qr.svg" alt="QR code that opens an example Another Life Passport" width="120" height="120"></a>
  <span class="label eyebrow">Another Life Passport</span>
  <h1 class="disp">A story you<br>can scan.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">We're building a system that gives every piece its own story: from the life its wood lived before, to every life it lives next.</p>
- <div class="prose"><p>One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.</p></div></div>
+ <div class="split" style="margin-top:32px"><p class="pull">The Another Life Passport is live. Scan the QR code on a piece to see its recorded origins, making, journey and care information.</p>
+ <div class="prose"><p>The code connects each piece to its batch record and stays with the furniture as it moves on.</p></div></div>
  <p class="cap updated">Last updated 2026-10-16</p>
 </div></section>
 <section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/timber-racks.jpg" alt="Racks of sorted teak boards in a timber store, each board marked by hand with its length" width="1200" height="1800" loading=lazy></div></div></section>
 
 <section class="how" id="how"><div class="wrap">
- <div class="how-head"><span class="label eyebrow muted">How it works</span><h2 class="disp">From one code to a whole story.</h2>
-  <p class="prose" style="margin-top:20px">These are real screens from the Passport. Scroll to follow one batch of benches from the engraver to a guest's phone.</p></div>
+ <div class="how-head"><span class="label eyebrow muted">How it works</span><h2 class="disp">Scan, explore, care.</h2>
+  <p class="prose" style="margin-top:20px">Follow a batch of benches through these screens from the live Passport.</p></div>
  <div class="how-grid">
   <div class="how-stage" aria-hidden="true"><div class="how-phone">
    <img class="how-img on" data-i="0" src="assets/pp-mark.jpg" alt="Phone screen showing a QR code with the batch code AL-2610-01-X underneath, ready to engrave" width="585" height="1266">
@@ -528,9 +529,9 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
    <img class="how-inline" src="assets/pp-mark.jpg" alt="Phone screen showing a QR code with the batch code AL-2610-01-X underneath, ready to engrave" width="585" height="1266" loading="lazy"></div>
   <div class="hstep" data-i="1"><span class="n">02</span><div><span class="label muted">Scanned</span><h3 class="disp">A guest points a phone at it.</h3><p>No app. The camera opens the page for that piece, with the batch code at the top.</p></div>
    <img class="how-inline" src="assets/pp-scan.jpg" alt="Phone screen of a passport page opening with tree rings and the headline This wood has lived before" width="585" height="1266" loading="lazy"></div>
-  <div class="hstep" data-i="2"><span class="n">03</span><div><span class="label muted">Its lives</span><h3 class="disp">The whole story in a minute.</h3><p>From a teak tree, to the house, bridge or boat it held up, to the workshop, to the room it stands in now.</p></div>
+  <div class="hstep" data-i="2"><span class="n">03</span><div><span class="label muted">Its lives</span><h3 class="disp">The whole story in a minute.</h3><p>Explore the wood’s recorded former life and its route through the workshop to its current setting.</p></div>
    <img class="how-inline" src="assets/pp-lives.jpg" alt="Phone screen listing the lives of a piece: a teak tree, a bridge, the workshop, and here with you" width="585" height="1266" loading="lazy"></div>
-  <div class="hstep" data-i="3"><span class="n">04</span><div><span class="label muted">Its journey</span><h3 class="disp">How far it travelled.</h3><p>Its route from the workshop, step by step, with an estimate of the transport CO₂ for that piece.</p></div>
+  <div class="hstep" data-i="3"><span class="n">04</span><div><span class="label muted">Its journey</span><h3 class="disp">How far it travelled.</h3><p>Follow the route from the workshop, with an estimate of transport CO₂ for the piece.</p></div>
    <img class="how-inline" src="assets/pp-journey.jpg" alt="Phone screen with a map of the route from Jakarta to Bali and a travel calculator showing distance and CO2" width="585" height="1266" loading="lazy"></div>
   <div class="hstep" data-i="4"><span class="n">05</span><div><span class="label muted">Its care</span><h3 class="disp">Something loose? Tell us.</h3><p>A short form with a photo comes straight to us, so a small repair keeps the piece in use.</p></div>
    <img class="how-inline" src="assets/pp-repair.jpg" alt="Phone screen of the repair form with Loose joint or bolt ticked and a photo of a chair joint" width="585" height="1266" loading="lazy"></div>
@@ -558,36 +559,31 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </script>
 
 <section id="label"><div class="wrap split">
- <div><span class="label eyebrow muted">Beyond the label</span><h2 class="disp">A label is not a mission.</h2>
-  <div class="lead-img"><figure class="fig"><img src="assets/label-workshop.jpg" alt="Black-and-white photograph of certification signs leaning against a workshop wall, next to an old speaker and a pair of work gloves" width="1200" height="1600" loading="lazy"><figcaption class="cap">A stamp on the wall. Only part of the story.</figcaption></figure></div></div>
+ <div><span class="label eyebrow muted">Certification and transparency</span><h2 class="disp">Evidence that works together.</h2>
+  <div class="lead-img"><figure class="fig"><img src="assets/label-workshop.jpg" alt="Black-and-white photograph of certification signs leaning against a workshop wall, next to an old speaker and a pair of work gloves" width="1200" height="1600" loading="lazy"></figure></div></div>
  <div class="prose">
-  <p class="pull" style="margin-bottom:24px">We believe sustainability is a responsibility, not a certification.</p>
-  <p>We don't believe one label can tell the whole story. A certification can tell you where a material comes from, but not necessarily how long a product will last, how it was made, whether it can be repaired, or what happens when its life comes to an end.</p>
-  <p>Certifications have their place. But we've learned that a stamp of approval doesn't always mean a product is truly sustainable, and we believe sustainability should go much further than meeting a set of requirements.</p>
-  <p>We don't want to buy our way into being called sustainable. We want to earn it through the things we make. By questioning materials. By understanding their origins. By designing for longevity, repair and reuse. By taking responsibility for what happens long after a piece leaves our hands.</p>
-  <p>That's what the Passport is for: showing the evidence, piece by piece, instead of asking you to trust a stamp.</p>
-  <p>We don't claim to have all the answers. We're learning, questioning and challenging the way things have always been done.</p>
-  <p class="pull" style="margin-top:28px">Sustainability isn't a label you put on a product. It's a responsibility you build into it.</p>
+  <p class="pull" style="margin-bottom:24px">Independent standards and product records each have a role.</p>
+  <p>We support FSC’s role in responsible forest sourcing and verified reclaimed material.</p>
+  <p>Independent certification provides assurance within its scope. The Passport complements that work with records of origin, making, transport and care.</p>
+  <p>The Passport is our product record, not an independent certification.</p>
  </div>
 </div></section>
 
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">For hospitality</span><h2 class="disp">A story guests can read for themselves.</h2></div>
- <div class="prose"><p>Hotels and restaurants are asked more and more what their spaces are made of, and furniture is often left out. The Passport is designed to give every piece a traceable origin, with something real behind it.</p>
- <p>And it starts conversations. A guest scans a chair and reads that its wood once held up a family home in Java.</p></div>
+ <div class="prose"><p>Guests can scan the furniture to explore its recorded history and understand the materials around them.</p></div>
 </div></section>
 
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">After the first life</span><h2 class="disp">Built to support what comes next.</h2>
- <p class="prose" style="margin-top:24px">These are the services we're developing, and the Passport is designed around them.</p>
+ <p class="prose" style="margin-top:24px">The Passport is already live. Alongside it, we are developing these services to extend the furniture’s useful life:</p>
  <div class="lead-img"><figure class="fig"><img src="assets/chair-raw-workshop.jpg" alt="An unfinished teak chair standing on a sawdust-covered workshop floor, before burning" width="886" height="886" loading="lazy"><figcaption class="cap">A chair on the workshop floor, before it is burned.</figcaption></figure></div></div>
  <div class="rows"><div class="row"><h3 class="disp">Replacement parts</h3><p>A single component, replaced on its own.</p></div><div class="row"><h3 class="disp">Refinishing</h3><p>A worn surface brought back.</p></div><div class="row"><h3 class="disp">Reconfiguration</h3><p>Parts rearranged for a new space or use.</p></div><div class="row"><h3 class="disp">Refurbishment</h3><p>A full restoration of a used piece.</p></div><div class="row"><h3 class="disp">Take-back</h3><p>Pieces returned to us and given another life, rather than discarded.</p></div></div>
 </div></section>
 
 <section><div class="wrap split">
- <div><span class="label eyebrow muted">Build it with us</span><h2 class="disp">Want to help shape it?</h2></div>
- <div class="prose"><p>We're looking for hotels, designers and partners who care about where things come from and where they go next. We'll share more as the system takes shape.</p>
- <p class="label" style="margin-top:20px">Made from what came before. Made for what comes next.</p>
+ <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Bring the story into your space.</h2></div>
+ <div class="prose"><p>Talk to us about using the live Passport in your hotel or restaurant, or helping develop the next care and reuse services.</p>
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html?type=collab">Get in touch</a></div></div>
 </div></section>
 
