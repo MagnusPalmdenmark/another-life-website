@@ -30,6 +30,8 @@
       lkFmt: "Codes look like AL-2610-03-Q.", lkBad: "That code doesn't look right. Check the last letter.", lkNone: "We have no batch with that code yet.",
       lkErr: "Something went wrong. Try again in a moment.", lkHint: "Want to see an example? Type", staffLink: "Factory / staff login",
       // login
+      abT: "All batches", abLink: "All batches", abBig: "See all QR codes", newBig: "Make a new batch", abSearch: "Search code, area or maker", abAllP: "All products", abAllM: "All months",
+      abCount: (n, t) => `${n} of ${t} batches`, abPieces: (n) => `${n} pieces in total`, abNone: "No batches match.", abCols: ["Code", "Product", "Wood", "Area", "Pieces", "Made", "By"],
       tlT: "Test login (preview only)", tlU: "Username", tlP: "Password", tlBtn: "Log in", tlWrong: "Use test / test on the preview.",
       liT: "Staff access", liP: "This page is for the workshop and the Another Life team. Open the personal link you received on WhatsApp to get access.", adminLink: "Admin",
       joining: "Opening your link…", joinUsed: "This link has already been used or has expired. Ask Another Life for a new one.",
@@ -84,6 +86,8 @@
       lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
       lkFmt: "Format kode seperti AL-2610-03-Q.", lkBad: "Kode itu sepertinya salah. Periksa huruf terakhirnya.", lkNone: "Belum ada batch dengan kode itu.",
       lkErr: "Terjadi kesalahan. Coba lagi sebentar lagi.", lkHint: "Ingin melihat contoh? Ketik", staffLink: "Login pabrik / staf",
+      abT: "Semua batch", abLink: "Semua batch", abBig: "Lihat semua kode QR", newBig: "Buat batch baru", abSearch: "Cari kode, daerah atau pembuat", abAllP: "Semua produk", abAllM: "Semua bulan",
+      abCount: (n, t) => `${n} dari ${t} batch`, abPieces: (n) => `${n} produk total`, abNone: "Tidak ada batch yang cocok.", abCols: ["Kode", "Produk", "Kayu", "Daerah", "Jumlah", "Dibuat", "Oleh"],
       tlT: "Login uji (hanya pratinjau)", tlU: "Nama pengguna", tlP: "Kata sandi", tlBtn: "Masuk", tlWrong: "Gunakan test / test di pratinjau.",
       liT: "Akses staf", liP: "Halaman ini untuk bengkel dan tim Another Life. Buka tautan pribadi yang Anda terima lewat WhatsApp untuk mendapatkan akses.", adminLink: "Admin",
       joining: "Membuka tautan Anda…", joinUsed: "Tautan ini sudah dipakai atau sudah kedaluwarsa. Minta tautan baru ke Another Life.",
@@ -188,6 +192,7 @@
     if (p.toLowerCase() === "login") return { view: "login" };
     if (p.toLowerCase() === "factory") return { view: "factory" };
     if (p.toLowerCase() === "admin") return { view: "admin" };
+    if (p.toLowerCase() === "batches") return { view: "batches" };
     if (/^join\//i.test(p)) return { view: "join", token: p.slice(5) };
     const m = p.match(/^(.+)\/repair$/i);
     if (m) return { view: "repair", code: m[1].toLowerCase() === "test" ? "TEST" : m[1].toUpperCase() };
@@ -217,12 +222,14 @@
   function render(langOnly) {
     const r = route();
     $("#banner").hidden = true;
+    if (r.view !== "batches") document.body.classList.remove("wide");
     document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
     document.documentElement.lang = lang;
     if (r.view === "lookup") return viewLookup(langOnly);
     if (r.view === "login") return viewLogin();
     if (r.view === "factory") return viewFactory(langOnly);
     if (r.view === "admin") return viewAdmin(langOnly);
+    if (r.view === "batches") return viewBatches(langOnly);
     if (r.view === "join") return viewJoin(r.token);
     if (r.view === "repair") return viewRepair(r.code);
     return viewPassport(r.code);
@@ -340,6 +347,7 @@
       <section>
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.adminLink}</span><button type="button" class="staff" id="logout">${L.logout}</button></div>
         <h1>${L.adT}</h1>
+        <div class="two-btn" style="margin:4px 0 28px"><a class="btn" href="${BASE}/batches" data-go="batches">${L.abBig}</a><a class="btn ghost" href="${BASE}/factory" data-go="factory">${L.newBig}</a></div>
         <form class="form" id="auForm" style="gap:10px">
           <label class="q"><span>${L.adAdd}</span><input type="text" id="auName" maxlength="40" placeholder="${L.adName}" required></label>
           <button class="btn" type="submit" id="auBtn">${L.adCreate}</button>
@@ -357,7 +365,7 @@
         <span class="k">${L.adList}</span>
         <div class="recent" id="people"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
       </section>
-      <section class="foot"><a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a></section>`;
+      <section class="foot" style="display:flex;gap:20px;flex-wrap:wrap"><a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a></section>`;
     $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); adminState.link = null; go(""); });
     if (link) {
       $("#invCopy").addEventListener("click", async () => {
@@ -413,7 +421,7 @@
     const res = form.result;
     app.innerHTML = `
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.newBatch}</span><span style="display:flex;gap:14px">${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.manage}</a>` : ""}<button type="button" class="staff" id="logout">${L.logout}</button></span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.newBatch}</span><span style="display:flex;gap:14px"><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a>${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.manage}</a>` : ""}<button type="button" class="staff" id="logout">${L.logout}</button></span></div>
         ${who.name ? `<p class="fine">${esc(L.loggedAs(who.name))}</p>` : ""}
         <div id="fWrap" ${res ? "hidden" : ""}>
           <form class="form" id="fForm" novalidate>
@@ -652,6 +660,51 @@
         </section>`;
       window.scrollTo(0, 0);
     });
+  }
+
+  let allBatches = null, abState = { q: "", model: "", month: "" };
+  async function viewBatches(langOnly) {
+    const L = t();
+    document.title = L.abT + " · Another Life Passport";
+    document.body.classList.add("wide");
+    if (!langOnly || !allBatches) {
+      app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
+      const { status, data } = await api("batches=1").catch(() => ({ status: 0, data: {} }));
+      if (status === 401) return go("login");
+      if (status !== 200) { app.innerHTML = `<section><p class="msg bad">${L.lkErr}</p></section>`; return; }
+      allBatches = data.batches;
+    }
+    const months = [...new Set(allBatches.map(b => (b.made || "").slice(0, 7)).filter(Boolean))];
+    const monthName = m => new Date(m + "-01").toLocaleDateString(lang === "id" ? "id-ID" : "en-GB", { month: "long", year: "numeric" });
+    app.innerHTML = `
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><span class="k">${PUBLIC_HOST.toLowerCase()}</span><a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a></div>
+        <h1>${L.abT}</h1>
+        <div class="ab-tools">
+          <input type="text" id="abQ" placeholder="${L.abSearch}" value="${esc(abState.q)}" aria-label="${L.abSearch}">
+          <select id="abM" aria-label="${L.abAllP}"><option value="">${L.abAllP}</option>${MODELS.map(m => `<option ${m === abState.model ? "selected" : ""}>${esc(m)}</option>`).join("")}</select>
+          <select id="abD" aria-label="${L.abAllM}"><option value="">${L.abAllM}</option>${months.map(m => `<option value="${m}" ${m === abState.month ? "selected" : ""}>${esc(monthName(m))}</option>`).join("")}</select>
+        </div>
+        <p class="fine" id="abSum"></p>
+        <div class="ab-wrap"><table class="ab-table"><thead><tr>${L.abCols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody id="abBody"></tbody></table></div>
+      </section>`;
+    const draw = () => {
+      const q = abState.q.trim().toLowerCase();
+      const rows = allBatches.filter(b => (!abState.model || b.model === abState.model) && (!abState.month || (b.made || "").startsWith(abState.month)) &&
+        (!q || [b.code, b.region, b.maker, b.createdBy, b.model].some(v => String(v || "").toLowerCase().includes(q))));
+      const pieces = rows.reduce((n, b) => n + (b.qty || 0), 0);
+      $("#abSum").textContent = `${L.abCount(rows.length, allBatches.length)} · ${L.abPieces(pieces)}`;
+      $("#abBody").innerHTML = rows.length ? rows.map(b => `<tr>
+        <td data-l="${L.abCols[0]}"><a class="ab-code" href="${BASE}/${esc(b.code)}" data-go="${esc(b.code)}">${rows.length <= 300 ? `<span class="ab-qr">${qrSvg(b.code, false)}</span>` : ""}${esc(b.code)}</a></td>
+        <td data-l="${L.abCols[1]}">${esc(b.model)}</td><td data-l="${L.abCols[2]}">${esc(L["o_" + b.origin] || b.origin)}</td>
+        <td data-l="${L.abCols[3]}">${esc(b.region || "–")}</td><td data-l="${L.abCols[4]}" class="num">${b.qty}</td>
+        <td data-l="${L.abCols[5]}">${dateStr(b.made)}</td><td data-l="${L.abCols[6]}">${esc(b.createdBy || b.maker || "–")}</td></tr>`).join("")
+        : `<tr><td colspan="7" class="fine">${L.abNone}</td></tr>`;
+    };
+    $("#abQ").addEventListener("input", e => { abState.q = e.target.value; draw(); });
+    $("#abM").addEventListener("change", e => { abState.model = e.target.value; draw(); });
+    $("#abD").addEventListener("change", e => { abState.month = e.target.value; draw(); });
+    draw();
   }
 
   function notFound(message) {
