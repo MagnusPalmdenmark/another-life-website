@@ -359,6 +359,8 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .rc-card p{margin:0;font-size:13px;line-height:20px;color:var(--ink-muted)}
 .rc-draw{width:min(100%,180px);height:auto;display:block;fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .rc-draw *{fill:none}
+.reuse-fig{margin:32px 0 0;max-width:520px}.reuse-draw{width:100%}
+.reuse-caps{display:grid;grid-template-columns:40% 60%;gap:12px;margin-top:10px}
 .rc-swipe{display:none}
 .rc-big{font-size:clamp(72px,14vw,180px);line-height:.85;margin:8px 0 0;white-space:nowrap}
 .rc-big span:first-child{font-size:.32em;vertical-align:.9em;margin-right:.15em}
@@ -504,10 +506,10 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </div></section>
 <section style="padding-top:0;border-top:0"><div class="wrap split">
  <div>
-  <p class="prose">Contact Magnus Palm on WhatsApp and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
+  <p class="prose">Contact us and tell us what you are furnishing, where and when. We work with hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them.</p>
   <p class="prose">Running a planting project, a community initiative or something else that fits our mission? Choose Collaboration and say hello.</p>
   <div class="lead-img"><figure class="fig"><img src="assets/chair-seawall-step.jpg" alt="A woman in a long dress stepping barefoot off The Chair on a sea wall, a beach and a sailboat behind" width="1004" height="781" loading="lazy"><figcaption class="cap">Come and say hello.</figcaption></figure></div>
-  <div style="margin-top:32px"><dl class="ledger"><div><dt>WhatsApp</dt><dd>Magnus Palm · <span data-obf="NTAgNDAgMzUgMDMgNTQr" data-t="text">via the button below</span></dd></div><div><dt>Email</dt><dd><span data-obf="a2QuZWZpbC1yZWh0b25hQHN1bmdhbQ==" data-t="mail">via the button below</span></dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div><div><dt>Pricing</dt><dd>On request. Ex works, Indonesia</dd></div></dl></div>
+  <div style="margin-top:32px"><dl class="ledger"><div><dt>WhatsApp</dt><dd><span data-obf="NTAgNDAgMzUgMDMgNTQr" data-t="text">via the button below</span></dd></div><div><dt>Email</dt><dd><span data-obf="a2QuZWZpbC1yZWh0b25hQG9sbGVo" data-t="mail">via the button below</span></dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div></dl></div>
  </div>
  <div>
   <form id="enq" novalidate>
@@ -547,7 +549,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
   document.getElementById('out-text').textContent=t;
   var dd=function(s){return atob(s).split('').reverse().join('');};
   document.getElementById('wa-send').href='https://wa.me/'+dd('NTA0MDM1MDM1NA==')+'?text='+encodeURIComponent(t);
-  document.getElementById('mail-send').href='mailto:'+dd('a2QuZWZpbC1yZWh0b25hQHN1bmdhbQ==')+'?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
+  document.getElementById('mail-send').href='mailto:'+dd('a2QuZWZpbC1yZWh0b25hQG9sbGVo')+'?subject='+encodeURIComponent('Enquiry from '+g('f-biz'))+'&body='+encodeURIComponent(t);
   document.getElementById('out').hidden=false;
  });
  document.getElementById('copy').addEventListener('click',function(){
@@ -561,7 +563,6 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </main>
 <footer><div class="wrap">
 <div class="foot">
- <img class="foot-logo" src="assets/logo-lockup.png" alt="ANOTHER — LIFE. Danish furniture. Designed for tomorrow." width="1400" height="248" loading="lazy">
  <ul class="foot-links"><li><a href="collection.html">Collection</a></li><li><a href="passport.html">Passport</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html" data-obf="NTA0MDM1MDM1NA==" data-t="wa">WhatsApp</a></li></ul>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
