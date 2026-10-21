@@ -1,5 +1,5 @@
 # Another Life — full site text
-Updated 2026-10-16
+Updated 2026-10-21
 
 # Another Life — Hospitality furniture in reclaimed teak, Bali
 URL: https://another-life.dk/
@@ -51,7 +51,6 @@ Satu means one in Indonesian. One material, one system, one idea carried through
 Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.
 The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.
 Old wood, new purpose, long life.
-Last updated 2026-10-16
 01The ChairDining rooms, restaurants and terracesH 80 / W 45 / L 45 cm02The Sun LoungerPoolside and outdoorsH 32 / W 75 / L 211 cm03The BenchDining tables, terraces and hallsH 45 / W 206 / L 40 cm04The Lounge ChairLounges, lobbies and terracesH 78 / W 68 / L 60 cm05The Side TablePoolside, terraces and loungesH 32 / W 75 / L 75 cm06The Coffee TableLounges, lobbies and terracesH 32 / W 75 / L 100 cm07The TableDining rooms and restaurantsH 75 / W 100 / L 220 cm
 Shared by every pieceOne design. Different lives.
 Material
@@ -105,11 +104,10 @@ Every component can be replaced on its own. A broken leg is a new leg, not a new
 Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
 In detail
 Another Life PassportIts own story, one scan away.
-We are building a tracing system that gives each piece its own QR code and its own story: where the wood of The Chair lived before, who made it, and how to care for it and repair it.
+Each piece carries a QR code that opens its own story: where the wood of The Chair lived before, who made it, and how to care for it and repair it.
 About the Passport
 Pairs with
 SATU · 07The TableDining rooms and restaurantsSATU · 03The BenchDining tables, terraces and halls
-Last updated 2026-10-16
 
 ---
 
@@ -148,11 +146,10 @@ Slats, rails and backrest are separate parts. Any one of them can be replaced wi
 Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
 In detail
 Another Life PassportIts own story, one scan away.
-We are building a tracing system that gives each piece its own QR code and its own story: where the wood of The Sun Lounger lived before, who made it, and how to care for it and repair it.
+Each piece carries a QR code that opens its own story: where the wood of The Sun Lounger lived before, who made it, and how to care for it and repair it.
 About the Passport
 Pairs with
 SATU · 05The Side TablePoolside, terraces and loungesSATU · 04The Lounge ChairLounges, lobbies and terraces
-Last updated 2026-10-16
 
 ---
 
@@ -190,11 +187,10 @@ The slats sit in a bolted frame. Any slat or leg can be replaced on its own.
 At 45 cm, its seat height matches The Chair, so the two work at the same table.
 Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
 Another Life PassportIts own story, one scan away.
-We are building a tracing system that gives each piece its own QR code and its own story: where the wood of The Bench lived before, who made it, and how to care for it and repair it.
+Each piece carries a QR code that opens its own story: where the wood of The Bench lived before, who made it, and how to care for it and repair it.
 About the Passport
 Pairs with
 SATU · 01The ChairDining rooms, restaurants and terracesSATU · 07The TableDining rooms and restaurants
-Last updated 2026-10-16
 
 ---
 
@@ -232,11 +228,10 @@ Same repurposed teak, same Shou Sugi Ban finish, same bolted system as The Chair
 Seat and backrest are made of separate slats held in a bolted frame, so parts can be replaced.
 Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
 Another Life PassportIts own story, one scan away.
-We are building a tracing system that gives each piece its own QR code and its own story: where the wood of The Lounge Chair lived before, who made it, and how to care for it and repair it.
+Each piece carries a QR code that opens its own story: where the wood of The Lounge Chair lived before, who made it, and how to care for it and repair it.
 About the Passport
 Pairs with
 SATU · 06The Coffee TableLounges, lobbies and terracesSATU · 05The Side TablePoolside, terraces and lounges
-Last updated 2026-10-16
 
 ---
 
@@ -272,11 +267,10 @@ At 32 cm high it sits level with the seats of The Sun Lounger and The Lounge Cha
 Like every SATU piece, it travels flat and goes together on site.
 Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
 Another Life PassportIts own story, one scan away.
-We are building a tracing system that gives each piece its own QR code and its own story: where the wood of The Side Table lived before, who made it, and how to care for it and repair it.
+Each piece carries a QR code that opens its own story: where the wood of The Side Table lived before, who made it, and how to care for it and repair it.
 About the Passport
 Pairs with
 SATU · 02The Sun LoungerPoolside and outdoorsSATU · 04The Lounge ChairLounges, lobbies and terraces
-Last updated 2026-10-16
 
 ---
 
@@ -312,11 +306,10 @@ The longer partner to The Side Table, at the same 32 cm height.
 Like every SATU piece, it travels flat and goes together on site.
 Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
 Another Life PassportIts own story, one scan away.
-We are building a tracing system that gives each piece its own QR code and its own story: where the wood of The Coffee Table lived before, who made it, and how to care for it and repair it.
+Each piece carries a QR code that opens its own story: where the wood of The Coffee Table lived before, who made it, and how to care for it and repair it.
 About the Passport
 Pairs with
 SATU · 04The Lounge ChairLounges, lobbies and terracesSATU · 03The BenchDining tables, terraces and halls
-Last updated 2026-10-16
 
 ---
 
@@ -352,11 +345,10 @@ At 75 cm high, it meets the 45 cm seat height of The Chair and The Bench.
 The planked top sits in a bolted frame, with the same three-bolt clusters at each leg as every SATU piece. Any part can be replaced on its own.
 Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
 Another Life PassportIts own story, one scan away.
-We are building a tracing system that gives each piece its own QR code and its own story: where the wood of The Table lived before, who made it, and how to care for it and repair it.
+Each piece carries a QR code that opens its own story: where the wood of The Table lived before, who made it, and how to care for it and repair it.
 About the Passport
 Pairs with
 SATU · 01The ChairDining rooms, restaurants and terracesSATU · 03The BenchDining tables, terraces and halls
-Last updated 2026-10-16
 
 ---
 
@@ -367,7 +359,6 @@ The best day was yesterday. Let's make sure there's a tomorrow.
 Mission
 On this page
 Why we exist · Origin · Design · Where we're heading
-Last updated 2026-10-16
 PurposeWhy we exist.
 To make furniture that lasts a long time.
 Hotels and restaurants spend years building a sense of place, and many of them look to Danish design for credibility. Then they furnish those places with pieces that won't last: plastic chairs and loungers that are bought, worn out and replaced on a short cycle.
@@ -402,14 +393,13 @@ URL: https://another-life.dk/material.html
 
 Material and making
 Timber that already lived once.
-Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.
+Where our wood comes from, how we burn and oil it, and how every piece is built.
 On this page
 Where our wood comes from · Shou Sugi Ban, our way · Making · Hardware · The sign · Shipping
-Last updated 2026-10-16
 Chapter 1 · Where our wood comes from17,000 islands, built in wood.
 Indonesia has more than 17,000 islands, and for centuries much of it was built in wood.
 Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.
-Our teak is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. We are also building a way to trace each piece's own story: the Passport.
+Our teak is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. Each piece's own story can be traced through the Passport.
 Old posts and beams, marked and sorted before they are cut.
 Reclaimed? Not always.Ask where it stood.
 “Reclaimed” is one of the easiest words to put on a label, and one of the hardest to check. It matters, because a new tree is never just one tree.
@@ -450,9 +440,8 @@ URL: https://another-life.dk/passport.html
 
 Another Life Passport
 A story you can scan.
-We're building a system that gives every piece its own story: from the life its wood lived before, to every life it lives next.
+A system that gives every piece its own story: from the life its wood lived before, to every life it lives next.
 One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.
-Last updated 2026-10-16
 How it worksFrom one code to a whole story.
 We don't believe one label can tell the whole story. A certification can tell you where a material comes from.
 Certifications have their place. But we've learned that a stamp of approval doesn't always mean a product is truly sustainable, and we believe sustainability should go much further than meeting a set of requirements.
@@ -483,7 +472,6 @@ For hospitality
 Furniture that outlasts the fit-out.
 The Chair in a restaurant above the forest.
 We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.
-Last updated 2026-10-16
 Who we work withThe people who shape a place.
 We like to work directly with owners and the people who define what a hospitality brand stands for, not only how it looks. If your place is built on values, your furniture should carry them.
 We also work with the architects and interior designers who specify furniture for hotels and restaurants.
@@ -515,7 +503,6 @@ In use
 Where it lives.
 Our furniture in dining rooms, on terraces and by the water. Indoors and out.
 Every piece here is the same repurposed teak with a Shou Sugi Ban finish. The rooms change; the furniture is built to outlast them.
-Last updated 2026-10-16
 Hotel roomBeach clubRestaurantTerraceLiving roomKitchen table
 Your spaceTell us where yours will live.
 We work with hotels, resorts, restaurants and cafés. Send us the space and we'll reply with what fits.
@@ -528,7 +515,6 @@ URL: https://another-life.dk/faq.html
 
 Questions
 Questions, answered plainly.
-Last updated 2026-10-16
 What is Another Life?
 Another Life is a hospitality furniture brand from Bali. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time.
 What does the name mean?
@@ -548,7 +534,7 @@ Because the teak has a history. Marks and nail holes from the wood's first life 
 Is Another Life furniture sustainable?
 Sustainability guides every decision we make: repurposed teak, a flame-darkened finish with natural oil, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make.
 How do you show where the wood comes from?
-Today we tell it as the story of our wood: old houses, bridges and boats across Indonesia. We are also building the Another Life Passport, a QR tracing system that gives every piece its own story, from its first life to its next.
+Through the story of our wood: old houses, bridges and boats across Indonesia. Every piece also carries the Another Life Passport, a QR code that opens its own story, from its first life to its next.
 What happens when a hotel no longer needs the furniture?
 It comes apart. Undo the bolts and every piece packs flat, can be stored, and goes back together for its next place or owner. If a part is worn, you replace that part, not the piece. Our furniture is made to be used, never stacked in a corner, and never sent to landfill.
 Is the furniture recyclable?
@@ -564,7 +550,7 @@ Stainless steel bolts, three at every main joint, screwed into threaded inserts 
 Can the furniture be repaired?
 Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again.
 What is the Another Life Passport?
-The tracing system we are building. A small QR code on the furniture opens the story of that piece: where its wood came from and what it was before, who made it, how it travelled, and how to care for it and repair it. When a piece moves to a new owner, its story moves with it. We will share more as the system takes shape.
+Our QR tracing system. A small QR code on the furniture opens the story of that piece: where its wood came from and what it was before, who made it, how it travelled, and how to care for it and repair it. When a piece moves to a new owner, its story moves with it. No app is needed.
 Who do you make furniture for?
 Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for.
 Is Another Life Danish?
