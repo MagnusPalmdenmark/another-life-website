@@ -52,7 +52,7 @@ export function validateBatch(body) {
 
 // The public view of a batch: only the story, nothing private.
 export function publicView(b) {
-  return { code: b.code, model: b.model, origin: b.origin, region: b.region, maker: b.maker, qty: b.qty, kg: b.kg, route: b.route, made: b.made };
+  return { code: b.code, model: b.model, origin: b.origin, region: b.region, maker: b.maker, qty: b.qty, kg: b.kg, route: b.route, made: b.made, photos: b.photos || [] };
 }
 
 // Staff session tokens: expiry + HMAC, keyed from the staff password.

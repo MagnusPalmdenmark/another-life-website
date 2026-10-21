@@ -5,6 +5,9 @@ const ADMIN_COOKIE = "al_admin";   // signed with ADMIN_KEY, 30 days
 const DEVICE_COOKIE = "al_device"; // personal phone key from an invite link
 const INVITE_DAYS = 7;
 const DEVICE_DAYS = 400;
+const MAX_PHOTOS = 6;
+const MAX_PHOTO_BYTES = 2_500_000;
+const PHOTO_ID = /^[a-f0-9]{12}$/;
 
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
@@ -56,6 +59,14 @@ export default async (req, context) => {
       const b = await db.get(`batch/${p.code}`, { type: "json" });
       if (!b) return json({ error: "none" }, 404);
       return json({ batch: publicView(b) });
+    }
+    if (url.searchParams.has("photo")) {
+      const [c, id] = String(url.searchParams.get("photo")).split("/");
+      const p = parseCode(c || "");
+      if (p.error || !PHOTO_ID.test(id || "")) return json({ error: "none" }, 404);
+      const img = await db.get(`photo/${p.code}/${id}`, { type: "arrayBuffer" });
+      if (!img) return json({ error: "none" }, 404);
+      return new Response(img, { headers: { "content-type": "image/jpeg", "cache-control": "public, max-age=31536000, immutable" } });
     }
     if (url.searchParams.has("me")) {
       const me = await whoAmI(db, context);
@@ -160,6 +171,38 @@ export default async (req, context) => {
         if (!res || res.modified !== false) return json({ batch: publicView(batch) }, 201);
       }
       return json({ error: "busy" }, 409);
+    }
+    case "photo": {
+      // Photos of the wood before it was remade, added by workshop staff to a batch.
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const p = parseCode(String(body.code || ""));
+      if (p.error) return json({ error: "code" }, 400);
+      const batch = await db.get(`batch/${p.code}`, { type: "json" });
+      if (!batch) return json({ error: "none" }, 404);
+      batch.photos = batch.photos || [];
+      if (batch.photos.length >= MAX_PHOTOS) return json({ error: "photos-full" }, 409);
+      let bytes;
+      try { bytes = Buffer.from(String(body.image || ""), "base64"); } catch { return json({ error: "photo" }, 400); }
+      if (bytes.length < 100 || bytes.length > MAX_PHOTO_BYTES || bytes[0] !== 0xff || bytes[1] !== 0xd8) return json({ error: "photo" }, 400);
+      const id = crypto.randomUUID().replace(/-/g, "").slice(0, 12);
+      await db.set(`photo/${p.code}/${id}`, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
+      batch.photos.push(id);
+      await db.setJSON(`batch/${p.code}`, batch);
+      return json({ batch: publicView(batch) }, 201);
+    }
+    case "photo-remove": {
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const p = parseCode(String(body.code || ""));
+      const id = String(body.id || "");
+      if (p.error || !PHOTO_ID.test(id)) return json({ error: "none" }, 404);
+      const batch = await db.get(`batch/${p.code}`, { type: "json" });
+      if (!batch || !(batch.photos || []).includes(id)) return json({ error: "none" }, 404);
+      batch.photos = batch.photos.filter(x => x !== id);
+      await db.delete(`photo/${p.code}/${id}`);
+      await db.setJSON(`batch/${p.code}`, batch);
+      return json({ batch: publicView(batch) });
     }
   }
 
