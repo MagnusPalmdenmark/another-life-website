@@ -64,6 +64,15 @@
       l3k: "Remade", l3h: "The workshop",
       l3p: (by, n) => `Cut, burned and oiled by hand${by ? ` by ${by}` : ""} in Jakarta, as one of ${n} pieces in this batch. Bolted together so it can come apart again.`,
       l4k: "Life 3 · now", l4h: "Here, with you", l4p: "And when this life ends, it can be repaired, rebuilt or given another one.",
+      started: m => `This ${m.replace(/^The /, "")} started as a tree.`,
+      s1: "Decades of slow growth.",
+      s2: { house: "Held up a home.", bridge: "Carried people across.", boat: "Went out to sea.", other: "Already did one job." },
+      s3: (by, d) => `Remade${by ? ` by ${by}` : ""} in Jakarta, ${d}.`,
+      s4: "Ready to be repaired, rebuilt or passed on.",
+      beforeK: m => `Before it became ${m}`, seeOn: m => `See ${m} on another-life.dk`,
+      qPh: "Photos of the wood before (optional)", qPhHint: "What it was: the house, bridge or boat. Up to 6 photos.",
+      phPick: "Take or choose photos", phSel: n => `${n} photo${n === 1 ? "" : "s"} selected`, phUp: (i, n) => `Uploading photo ${i} of ${n}…`,
+      phErr: "A photo couldn't be uploaded. Add it again below.", phAdd: "Add photos", phFull: "This batch has 6 photos, the most it can hold.", phRemove: "Remove",
       journeyK: "Its journey", journeyT: "Jakarta to Bali", calcK: "Travel calculator", distK: "Distance", distU: "km by road and ferry",
       co2K: "Transport CO₂", co2U: "kg CO₂e for this piece", madeK: "Made in", madeV: "Jakarta", madeU: "on Java",
       legs: [["Truck", "Across Java"], ["Ferry", "Over the Bali Strait"], ["Truck", "To its new home in Bali"]],
@@ -118,6 +127,15 @@
       l3k: "Dibuat ulang", l3h: "Bengkel kerja",
       l3p: (by, n) => `Dipotong, dibakar, dan diminyaki dengan tangan${by ? ` oleh ${by}` : ""} di Jakarta, sebagai salah satu dari ${n} produk dalam batch ini. Dibaut agar bisa dibongkar lagi.`,
       l4k: "Kehidupan 3 · sekarang", l4h: "Di sini, bersama Anda", l4p: "Saat kehidupan ini berakhir, ia bisa diperbaiki, dirakit ulang, atau diberi kehidupan berikutnya.",
+      started: m => `${m.replace(/^The /, "")} ini berawal dari sebatang pohon.`,
+      s1: "Tumbuh perlahan selama puluhan tahun.",
+      s2: { house: "Menopang sebuah rumah.", bridge: "Dilalui orang untuk menyeberang.", boat: "Pernah berlayar di laut.", other: "Sudah pernah dipakai." },
+      s3: (by, d) => `Dibuat ulang${by ? ` oleh ${by}` : ""} di Jakarta, ${d}.`,
+      s4: "Siap diperbaiki, dirakit ulang, atau diwariskan.",
+      beforeK: m => `Sebelum menjadi ${m}`, seeOn: m => `Lihat ${m} di another-life.dk`,
+      qPh: "Foto kayu sebelumnya (opsional)", qPhHint: "Asalnya: rumah, jembatan, atau perahu. Maksimal 6 foto.",
+      phPick: "Ambil atau pilih foto", phSel: n => `${n} foto dipilih`, phUp: (i, n) => `Mengunggah foto ${i} dari ${n}…`,
+      phErr: "Ada foto yang gagal diunggah. Tambahkan lagi di bawah.", phAdd: "Tambah foto", phFull: "Batch ini sudah punya 6 foto, jumlah maksimal.", phRemove: "Hapus",
       journeyK: "Perjalanannya", journeyT: "Jakarta ke Bali", calcK: "Kalkulator perjalanan", distK: "Jarak", distU: "km lewat darat dan feri",
       co2K: "CO₂ transportasi", co2U: "kg CO₂e untuk produk ini", madeK: "Dibuat di", madeV: "Jakarta", madeU: "di Pulau Jawa",
       legs: [["Truk", "Melintasi Pulau Jawa"], ["Feri", "Menyeberangi Selat Bali"], ["Truk", "Ke rumah barunya di Bali"]],
@@ -138,7 +156,10 @@
     }
   };
 
-  const TEST_BATCH = { code: "TEST", model: "The Bench", origin: "bridge", region: "Central Java", maker: "Tim A", qty: 12, kg: 9, route: "jakarta-bali", made: new Date().toISOString() };
+  const TEST_BATCH = { code: "TEST", model: "The Bench", origin: "bridge", region: "Central Java", maker: "Tim A", qty: 12, kg: 9, route: "jakarta-bali", made: new Date().toISOString(), photos: ["test1", "test2"] };
+  const photoUrl = (code, id) => code === "TEST" ? `/passport-app/wood-${id}.jpg` : `${API}?photo=${encodeURIComponent(code)}/${id}`;
+  const SITE = "https://another-life.dk";
+  const productUrl = m => `${SITE}/${m.toLowerCase().replace(/\s+/g, "-")}.html`;
 
   // ---------- helpers
   const $ = s => document.querySelector(s);
@@ -213,8 +234,7 @@
     render(true);
   }
   document.querySelectorAll("[data-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
-  $("#homeLink").href = BASE + "/";
-  $("#homeLink").addEventListener("click", e => { e.preventDefault(); go(""); });
+  $("#homeLink").href = SITE;
 
   // ---------- views
   let current = null, cache = {}, form = null, who = {};
@@ -431,6 +451,8 @@
             <label class="q"><span>${L.q4}</span><input type="text" id="fMaker" maxlength="60" value="${esc(form.maker)}"></label>
             <label class="q"><span>${L.qN}</span><input type="number" id="fQty" min="1" max="999" inputmode="numeric" value="${esc(form.qty)}"></label>
             <label class="q"><span>${L.q5}</span><input type="number" id="fKg" min="0" step="0.1" inputmode="decimal" value="${esc(form.kg)}"></label>
+            <div class="q"><span>${L.qPh}</span><small class="fine">${L.qPhHint}</small>
+              <label class="photo-pick"><input type="file" id="fPhotos" accept="image/*" multiple><span>${form.files && form.files.length ? L.phSel(form.files.length) : L.phPick}</span></label></div>
             <div class="auto"><span>${L.dateLbl}</span><span>${dateStr(new Date().toISOString())}</span></div>
             <button class="btn" type="submit" id="fBtn">${L.create}</button>
             <p class="msg bad" id="fMsg" role="status"></p>
@@ -440,6 +462,9 @@
           <span class="k">${L.engrave}</span>
           <div class="plate">${qrSvg(res.code, false)}<span class="serial">${esc(res.code)}</span></div>
           <p class="fine">${L.same(res.qty)}</p>
+          <div class="before staff-ph" id="resPh">${(res.photos || []).map(id => `<figure><img src="${photoUrl(res.code, id)}" alt=""><button type="button" class="linkish" data-rm="${id}">${L.phRemove}</button></figure>`).join("")}</div>
+          <p class="msg bad" id="phMsg" role="status">${form.photoErr ? L.phErr : ""}</p>
+          ${(res.photos || []).length < 6 ? `<label class="photo-pick"><input type="file" id="moreP" accept="image/*" multiple><span>${L.phAdd}</span></label>` : `<p class="fine">${L.phFull}</p>`}
           <button class="btn" type="button" id="dl">${L.dl}</button>
           <a class="btn ghost" href="${BASE}/${res.code}" data-go="${res.code}">${L.view}</a>
           <button class="btn ghost" type="button" id="nextB">${L.next}</button>
@@ -450,12 +475,22 @@
         <div class="recent" id="recent"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
       </section>`;
 
+    form.photoErr = false;
     $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); form = null; go(""); });
     if (res) {
       $("#dl").addEventListener("click", () => downloadSvg(res.code));
       $("#nextB").addEventListener("click", () => { form = { model: form.model, origin: "", region: "", maker: form.maker, qty: "", kg: form.kg }; viewFactory(true); });
+      const more = $("#moreP");
+      if (more) more.addEventListener("change", async () => { await uploadPhotos(res, [...more.files]); viewFactory(true); });
+      app.querySelectorAll("[data-rm]").forEach(btn => btn.addEventListener("click", async () => {
+        btn.disabled = true;
+        const { status, data } = await api("", { action: "photo-remove", code: res.code, id: btn.dataset.rm }).catch(() => ({ status: 0, data: {} }));
+        if (status === 200) { form.result = data.batch; cache[res.code] = data.batch; }
+        viewFactory(true);
+      }));
     } else {
       const sync = () => { form.region = $("#fRegion").value; form.maker = $("#fMaker").value; form.qty = $("#fQty").value; form.kg = $("#fKg").value; };
+      $("#fPhotos").addEventListener("change", e => { sync(); form.files = [...(form.files || []), ...e.target.files].slice(0, 6); viewFactory(true); });
       app.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => { sync(); form.model = b.dataset.m; viewFactory(true); }));
       app.querySelectorAll("[data-o]").forEach(b => b.addEventListener("click", () => { sync(); form.origin = b.dataset.o; viewFactory(true); }));
       $("#fForm").addEventListener("submit", async e => {
@@ -468,12 +503,32 @@
         const btn = $("#fBtn"); btn.disabled = true; btn.textContent = L.creating;
         const { status, data } = await api("", { action: "create", model: form.model, origin: form.origin, region: form.region, maker: form.maker, qty, kg: form.kg }).catch(() => ({ status: 0, data: {} }));
         btn.disabled = false; btn.textContent = L.create;
-        if (status === 201) { form.result = data.batch; cache[data.batch.code] = data.batch; return viewFactory(true); }
+        if (status === 201) {
+          form.result = data.batch; cache[data.batch.code] = data.batch;
+          if (form.files && form.files.length) { btn.disabled = true; await uploadPhotos(form.result, form.files, btn); form.files = []; }
+          return viewFactory(true);
+        }
         if (status === 401) return go("login");
         msg.textContent = L["err_" + data.error] || L.err_other;
       });
     }
     loadRecent();
+  }
+
+  // Upload photos one by one to a batch; keeps form.result up to date.
+  async function uploadPhotos(batch, files, btn) {
+    const L = t();
+    let failed = false;
+    files = files.slice(0, Math.max(0, 6 - (batch.photos || []).length));
+    for (let i = 0; i < files.length; i++) {
+      const msg = btn || $("#phMsg"); if (msg) msg.textContent = L.phUp(i + 1, files.length);
+      const small = await shrinkPhoto(files[i]);
+      const image = await new Promise(r => { const fr = new FileReader(); fr.onload = () => r(String(fr.result).split(",")[1] || ""); fr.onerror = () => r(""); fr.readAsDataURL(small); });
+      const { status, data } = await api("", { action: "photo", code: batch.code, image }).catch(() => ({ status: 0, data: {} }));
+      if (status === 201) { form.result = data.batch; cache[batch.code] = data.batch; batch = data.batch; } else failed = true;
+    }
+    if (btn) { btn.disabled = false; btn.textContent = L.create; }
+    if (failed) form.photoErr = true;
   }
 
   async function loadRecent() {
@@ -502,11 +557,12 @@
     document.title = `${b.model} · ${b.code} · Another Life Passport`;
     const by = (b.maker || "").trim(), reg = (b.region || "").trim();
     const lives = [
-      ["tree", L.l1k, L.l1h, L.l1p, ""],
-      [b.origin, L.l2k, L.l2h[b.origin], L.l2p[b.origin] + (reg ? ` · ${reg}` : ""), ""],
-      ["work", `${L.l3k} · ${dateStr(b.made)}`, L.l3h, L.l3p(by, b.qty || 1), ""],
-      ["now", L.l4k, L.l4h, L.l4p, "now"]
+      ["tree", L.l1h, L.s1, ""],
+      [b.origin, L.l2h[b.origin], L.s2[b.origin] + (reg ? ` · ${reg}` : ""), ""],
+      ["work", L.l3h, L.s3(by, dateStr(b.made)), ""],
+      ["now", L.l4h, L.s4, "now"]
     ];
+    const photos = (b.photos || []).slice(0, 6);
     const total = LEGS.reduce((a, c) => a + c, 0);
     const hasKg = b.kg != null && b.kg > 0;
     let rings = ""; for (let i = 1; i <= 20; i++) { const r = 6 + i * 6.6 + (i % 3) * 1.2; rings += `<circle cx="150" cy="150" r="${r.toFixed(1)}" style="animation-delay:${(i * .05).toFixed(2)}s;opacity:${(1 - i * .028).toFixed(2)}"></circle>`; }
@@ -520,8 +576,13 @@
       </section>
       <section>
         <span class="k">${L.livesK}</span>
-        <div>${lives.map((l, i) => `<div class="life ${l[4]}" style="animation-delay:${.15 + i * .2}s">${ICONS[l[0]] || ICONS.other}<div><span class="k">${esc(l[1])}</span><h3>${esc(l[2])}</h3><p>${esc(l[3])}</p></div></div>`).join("")}</div>
+        <p class="h2">${esc(L.started(b.model))}</p>
+        <div>${lives.map((l, i) => `<div class="life ${l[3]}" style="animation-delay:${.15 + i * .2}s">${ICONS[l[0]] || ICONS.other}<div><h3>${esc(l[1])}</h3><p>${esc(l[2])}</p></div></div>`).join("")}</div>
       </section>
+      ${photos.length ? `<section>
+        <span class="k">${esc(L.beforeK(b.model))}</span>
+        <div class="before">${photos.map(id => `<a href="${photoUrl(b.code, id)}" target="_blank" rel="noopener"><img src="${photoUrl(b.code, id)}" alt="${esc(L.beforeK(b.model))}" loading="lazy"></a>`).join("")}</div>
+      </section>` : ""}
       <section>
         <span class="k">${L.journeyK}</span>
         <p class="h2">${L.journeyT}</p>
@@ -563,9 +624,10 @@
           ${[L.c1, L.c2, L.c3].map((c, i) => `<li><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11.5l4.5 4.5L18 6.5" style="animation-delay:${.2 + i * .3}s"/></svg><span>${c}</span></li>`).join("")}
         </ul>
         <a class="btn" href="${BASE}/${b.code === "TEST" ? "test" : b.code}/repair" data-go="${b.code === "TEST" ? "test" : b.code}/repair">${L.repair}</a>
+        <a class="btn ghost" href="${productUrl(b.model)}">${esc(L.seeOn(b.model))}</a>
         <a class="btn ghost" href="${BASE}/" data-go="">${L.another}</a>
       </section>
-      <section class="foot"><a class="staff" href="https://another-life.dk">${L.site}</a></section>`;
+      <section class="foot"><a class="staff" href="${SITE}">${L.site}</a></section>`;
     const setPack = p => {
       $("#box").className = "box " + p; $("#box").innerHTML = "<i></i>".repeat(p === "flat" ? 300 : 30);
       $("#tFlat").setAttribute("aria-pressed", String(p === "flat")); $("#tAsm").setAttribute("aria-pressed", String(p === "asm"));
@@ -584,7 +646,7 @@
         const c = document.createElement("canvas"); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
         c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
         URL.revokeObjectURL(url);
-        c.toBlob(b => resolve(b ? new File([b], "repair-photo.jpg", { type: "image/jpeg" }) : file), "image/jpeg", 0.82);
+        c.toBlob(b => resolve(b ? new File([b], "photo.jpg", { type: "image/jpeg" }) : file), "image/jpeg", 0.82);
       };
       img.onerror = () => { URL.revokeObjectURL(url); resolve(file); };
       img.src = url;
