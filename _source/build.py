@@ -880,7 +880,7 @@ home = f'''
  <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
 </div></section>
 '''
-pages["index.html"] = ("Another Life", "Another Life makes hospitality furniture from repurposed teak: Danish design, made in Indonesia, shipped flat and built to be repaired. First collection: SATU.", home,
+pages["index.html"] = ("Another Life — Hospitality furniture in reclaimed teak, Bali", "Another Life makes hospitality furniture from repurposed teak: Danish design, made in Indonesia, shipped flat and built to be repaired. First collection: SATU.", home,
   [breadcrumb([("index.html","Home")]),
    {"@type":"VideoObject","name":"Another Life — brand film","description":"A 34-second film about Another Life: reclaimed timber, making furniture by hand in Indonesia, and The Chair in rooms and by the sea. Ends with the line Danish furniture, designed for tomorrow.",
     "thumbnailUrl":[url("assets/film-poster.jpg"),url("assets/film-card.jpg")],"uploadDate":"2026-10-08","duration":"PT34S","contentUrl":url("assets/film.mp4"),
