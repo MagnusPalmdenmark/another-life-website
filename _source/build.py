@@ -5,7 +5,7 @@ import json, os, shutil, html, re, urllib.parse
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE_URL = "https://another-life.dk"
-UPDATED = "2026-10-16"
+UPDATED = "2026-10-21"
 WHATSAPP = "+45 30 53 04 05"
 WA_LINK = "https://wa.me/4530530405"
 EMAIL = "hello@another-life.dk"
@@ -30,7 +30,7 @@ BRAND = {
   "made_in": "Indonesia",
   "collection": "SATU",
   "material": "Repurposed teak, often from old joglo houses",
-  "second_material": "Reclaimed ulin (Borneo ironwood, Eusideroxylon zwageri), in development",
+  "second_material": None,
   "finish": "Shou Sugi Ban: flame-darkened teak, finished with natural oil to preserve the character of the wood.",
   "construction": "Knock-down: ships flat, bolts together on site, can be taken apart again and has replaceable parts",
   "customers": "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them",
@@ -118,7 +118,7 @@ FAQ = [
   ("What is a joglo?", "A joglo is a traditional Javanese house: a tall roof carried by four big teak pillars, put together with joinery so it can be taken apart and moved. Many old joglos are making way for concrete houses. Much of the teak we use comes from houses like these."),
   ("Why does every piece look a little different?", "Because the teak has a history. Marks and nail holes from the wood's first life are part of its character, and we keep them visible as a quiet record of where it has been. Strength always comes first, so each piece is built to last."),
   ("Is Another Life furniture sustainable?", "Sustainability guides every decision we make: repurposed teak, a flame-darkened finish with natural oil, flat-pack shipping, and furniture designed to be repaired rather than replaced. We believe the most sustainable piece is the one you keep for decades, so that is what we make."),
-  ("How do you show where the wood comes from?", "Today we tell it as the story of our wood: old houses, bridges and boats across Indonesia. We are also building the Another Life Passport, a QR tracing system that gives every piece its own story, from its first life to its next."),
+  ("How do you show where the wood comes from?", "Through the story of our wood: old houses, bridges and boats across Indonesia. Every piece also carries the Another Life Passport, a QR code that opens its own story, from its first life to its next."),
   ("What happens when a hotel no longer needs the furniture?", "It comes apart. Undo the bolts and every piece packs flat, can be stored, and goes back together for its next place or owner. If a part is worn, you replace that part, not the piece. Our furniture is made to be used, never stacked in a corner, and never sent to landfill."),
   ("Is the furniture recyclable?", "It is solid wood finished with natural oil, so at the very end of its life it can be. But we hope it never gets there. Recycling ends a product's life and takes energy to make something new. We would rather a piece is kept, repaired, moved and passed on, like a glass bottle that is refilled instead of melted down."),
   ("Do you plant trees?", "It is part of our mission. We want to plant new trees for the wood we use, give back to the communities and makers behind our furniture, and do it with partners who care about the same things. We have just started, so we say it as a goal, not as something we already do. If you run a planting or community project, we would love to hear from you."),
@@ -126,7 +126,7 @@ FAQ = [
   ("How is the furniture shipped?", "Flat-packed. Every piece travels knocked down, so more fits in each container, and it is bolted together on site."),
   ("What holds the furniture together?", "Stainless steel bolts, three at every main joint, screwed into threaded inserts in the wood. Hardware is often the weakest, cheapest part of furniture. We made it one of the strongest, so the joints can be taken apart and tightened again for decades."),
   ("Can the furniture be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
-  ("What is the Another Life Passport?", "The tracing system we are building. A small QR code on the furniture opens the story of that piece: where its wood came from and what it was before, who made it, how it travelled, and how to care for it and repair it. When a piece moves to a new owner, its story moves with it. We will share more as the system takes shape."),
+  ("What is the Another Life Passport?", "Our QR tracing system. A small QR code on the furniture opens the story of that piece: where its wood came from and what it was before, who made it, how it travelled, and how to care for it and repair it. When a piece moves to a new owner, its story moves with it. No app is needed."),
   ("Who do you make furniture for?", "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for."),
   ("Is Another Life Danish?", "Yes. Another Life is a Danish family company. Design runs in the family: we come from a line of architects and furniture makers, and that heritage shapes everything we draw. We are Danish at heart and inspired by the world. Every piece is made by hand in Indonesia, close to the material and the makers."),
   ("How do I order?", "Send us a message with your space, the pieces you like and your timeline. We will reply with options, pricing and lead times."),
@@ -137,10 +137,9 @@ GLOSSARY = [
   ("Repurposed teak", "Teak that has already been cut and used. Much of ours comes from old joglo houses."),
   ("Joglo", "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses."),
   ("Shou Sugi Ban", "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil."),
-  ("Ulin", "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material."),
   ("Knock-down", "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once."),
   ("Conscious Sustainability", "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation."),
-  ("Another Life Passport", "The QR tracing system we are building: a code on each piece that opens its own story, from its first life to its next."),
+  ("Another Life Passport", "Our QR tracing system: a code on each piece that opens its own story, from its first life to its next."),
 ]
 
 PRINCIPLES_BELIEF = [
@@ -665,7 +664,7 @@ def thumb(p):
   return '<span class="pthumb none"><img src="assets/chair-glyph.png" alt=""></span>'
 
 def updated():
-  return f'<p class="cap updated">Last updated {UPDATED}</p>'
+  return ''
 
 KEY_FACTS = [
   ("Brand", "Another Life (wordmark: ANOTHER — LIFE)"),
@@ -674,7 +673,6 @@ KEY_FACTS = [
   ("First collection", 'SATU: seven pieces. <a href="collection.html">See the collection</a>'),
   ("Material", "Repurposed teak, often from old joglo houses"),
   ("Finish", "Shou Sugi Ban. Flame-darkened, finished with natural oil."),
-  ("In development", "Reclaimed ulin (Borneo ironwood). First samples made"),
   ("Point of view", "Use it again, before you make it again"),
   ("Construction", "Modular and knock-down. Travels flat, comes apart without damage, parts replaceable"),
   ("Design", "Danish and Scandinavian design tradition"),
@@ -943,7 +941,7 @@ for p in PRODUCTS:
 {gallery_html}
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Another Life Passport</span><h2 class="disp">Its own story, one scan away.</h2></div>
- <div class="prose"><p>We are building a tracing system that gives each piece its own QR code and its own story: where the wood of {p["name"]} lived before, who made it, and how to care for it and repair it.</p><p class="cap" style="margin-top:20px"><a href="passport.html">About the Passport</a></p></div>
+ <div class="prose"><p>Each piece carries a QR code that opens its own story: where the wood of {p["name"]} lived before, who made it, and how to care for it and repair it.</p><p class="cap" style="margin-top:20px"><a href="passport.html">About the Passport</a></p></div>
 </div></section>
 <section><div class="wrap">
  <span class="label eyebrow muted">Pairs with</span>
@@ -1009,7 +1007,7 @@ mission = f'''
 
 
 '''
-pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: long life over recycling, why we exist, our beliefs and design principles, the life of a piece, and our goals to plant, give back and collaborate.", mission,
+pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: why we exist, the family behind it, our design principles and our goals to give back and collaborate.", mission,
   [breadcrumb([("index.html","Home"),("mission.html","Mission")]),
    {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED}])
 
@@ -1018,7 +1016,7 @@ material = f'''
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, the ironwood we're developing, how we burn and oil it, and how every piece is built.</p>
+ <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, how we burn and oil it, and how every piece is built.</p>
  <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#sign">The sign</a> · <a href="#air">Shipping</a></p></nav></div>
  {updated()}
 </div></section>
@@ -1027,7 +1025,7 @@ material = f'''
  <div><span class="label eyebrow muted">Chapter 1 · Where our wood comes from</span><h2 class="disp">17,000 islands, built in wood.</h2><div class="lead-img">{fig("workshop-door.jpg","Looking out of a dark timber shed onto a pile of old wood offcuts in the sun")}</div></div>
  <div class="prose"><p>Indonesia has more than 17,000 islands, and for centuries much of it was built in wood.</p>
  <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
- <p>Our teak is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. We are also building a way to trace each piece's own story: the <a href="passport.html">Passport</a>.</p></div>
+ <p>Our teak is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. Each piece's own story can be traced through the <a href="passport.html">Passport</a>.</p></div>
 </div></section>
 {window("timber-yard.jpg","A yard stacked with old teak posts and beams, their cut ends marked in chalk",cap="Old posts and beams, marked and sorted before they are cut.")}
 
@@ -1100,11 +1098,10 @@ material = f'''
   sec.querySelectorAll('.seg button').forEach(function(x){{x.setAttribute('aria-pressed',x===b?'true':'false');}});
   sec.querySelectorAll('[data-k]').forEach(function(el){{el.textContent=d[el.dataset.k];}});}});}});}})();</script>
 '''
-pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak from old joglo houses, bridges and boats, and is developing reclaimed ulin (Borneo ironwood). Burned with Shou Sugi Ban, finished with natural oil, made in Indonesia and built to be rebuilt.", material,
+pages["material.html"] = ("Material and Making", "Another Life uses repurposed teak from old joglo houses, bridges and boats. Burned with Shou Sugi Ban, finished with natural oil, made in Indonesia and built with stainless steel bolts so it can be taken apart and rebuilt.", material,
   [breadcrumb([("index.html","Home"),("material.html","Material and making")]),
    {"@type":"WebPage","name":"Material and making","url":url("material.html"),"dateModified":UPDATED,
     "about":[{"@type":"Thing","name":"Reclaimed teak","alternateName":"Tectona grandis"},
-             {"@type":"Thing","name":"Reclaimed ulin","alternateName":["Borneo ironwood","Eusideroxylon zwageri"]},
              {"@type":"Thing","name":"Joglo","description":"Traditional Javanese teak house"},
              {"@type":"Thing","name":"Shou Sugi Ban","alternateName":"Yakisugi"}]}])
 
@@ -1122,7 +1119,7 @@ passport = f'''
  <a href="https://id.another-life.dk/test" aria-label="Open the example passport"><img class="qr" src="assets/passport-qr.svg" alt="QR code that opens an example Another Life Passport" width="120" height="120"></a>
  <span class="label eyebrow">Another Life Passport</span>
  <h1 class="disp">A story you<br>can scan.</h1>
- <div class="split" style="margin-top:32px"><p class="pull">We're building a system that gives every piece its own story: from the life its wood lived before, to every life it lives next.</p>
+ <div class="split" style="margin-top:32px"><p class="pull">A system that gives every piece its own story: from the life its wood lived before, to every life it lives next.</p>
  <div class="prose"><p>One small code on the furniture. One page behind it. A story that keeps growing as the piece is used, repaired and passed on.</p></div></div>
  {updated()}
 </div></section>
@@ -1166,7 +1163,7 @@ passport = f'''
 </div></section>
 
 '''
-pages["passport.html"] = ("Another Life Passport", "The Another Life Passport is the QR tracing system Another Life is building: one code per piece, opening its story from origin and making to care, repair and its next owner.", passport,
+pages["passport.html"] = ("Another Life Passport", "The Another Life Passport is Another Life's QR tracing system: one code on every piece, opening its story from origin and making to care, repair and its next owner.", passport,
   [breadcrumb([("index.html","Home"),("passport.html","Passport")]),
    {"@type":"WebPage","name":"Another Life Passport","url":url("passport.html"),"about":{"@type":"DefinedTerm","name":"Another Life Passport","description":dict(GLOSSARY)["Another Life Passport"]},"dateModified":UPDATED}])
 
@@ -1245,7 +1242,7 @@ faq_body = f'''
  {"".join(f'<details><summary>{e(q)}</summary><div class="ans">{e(a)}</div></details>' for q,a in FAQ)}
 </div></div></section>
 '''
-pages["faq.html"] = ("Another Life Questions", "Answers about Another Life: what it is, where it is based, the SATU collection and sizes, repurposed teak, the Shou Sugi Ban finish, sustainability, shipping, repair and pricing.", faq_body,
+pages["faq.html"] = ("Another Life Questions", "Answers about Another Life: what it is, the SATU collection, repurposed teak, the Shou Sugi Ban finish, sustainability, shipping, repair and how to order.", faq_body,
   [breadcrumb([("index.html","Home"),("faq.html","Questions")]),
    {"@type":"FAQPage","url":url("faq.html"),"mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in FAQ]}])
 
@@ -1334,19 +1331,19 @@ Key facts:
 - Main tagline: "Made for this life. And another." Other lines: "Luxury is longevity.", "Furniture worth keeping.", "Make it once. Let it live."
 - Position on labels: "A label is not a mission." Certifications have their place, but no single label tells the whole story; Another Life aims to earn the word sustainable through what it makes.
 - Philosophy: Conscious Sustainability. No single material or label is sustainable everywhere; materials are judged on origin, production, longevity, transport, repairability and documentation. Another Life does not claim any piece is completely sustainable.
-- Traceability: the Another Life Passport, a QR tracing platform Another Life is building. Work in progress, not yet available; nothing about it should be described as offered today.
+- Traceability: the Another Life Passport is live at id.another-life.dk. A QR code on each batch opens its story: origin, making, journey, care and a repair form.
 - Point of view: "Use it again, before you make it again." Long life beats recycling; recycling is the last stop, not plan A. Order: use, repair, take apart and store, rebuild, recycle.
-- Second material: reclaimed ulin (Borneo ironwood, Eusideroxylon zwageri), in development, first samples made. Reclaimed only; new ulin is protected and cannot be exported from Indonesia.
+
 - Wood sources: teak (Tectona grandis) from old joglo houses, bridges, boats and other structures.
 - Mission goals (not yet achieved, the company has just launched): plant trees for the wood used, give back to communities and makers, collaborate with partners.
 - Do not print a founding date. Always write the wordmark with a dash: ANOTHER — LIFE.
 
 ## Pages
 - [Home]({url('index.html')}): overview of the brand and collection, with the 34-second brand film ({url('assets/film.mp4')})
-- [Mission]({url('mission.html')}): long life over recycling, purpose, origin, beliefs, design principles, the life of a piece, goals (plant, give back, collaborate), voice, glossary
+- [Mission]({url('mission.html')}): purpose, origin, design principles, goals (give back, collaborate)
 - [In use]({url('in-use.html')}): photographs of the furniture in restaurants, terraces and homes
-- [Material and making]({url('material.html')}): repurposed teak from joglo houses, bridges and boats; reclaimed ulin (in development); Shou Sugi Ban on hardwood; natural oil; making in Indonesia; built to be rebuilt
-- [Another Life Passport]({url('passport.html')}): the QR tracing platform being built (work in progress) and circular services in development
+- [Material and making]({url('material.html')}): repurposed teak from joglo houses, bridges and boats; Shou Sugi Ban on hardwood; natural oil; making in Indonesia; stainless steel hardware; flat-pack shipping
+- [Another Life Passport]({url('passport.html')}): the live QR tracing system, how it works, and the example passport
 - [For hospitality]({url('hospitality.html')}): who we work with and how an order works
 - [Questions]({url('faq.html')}): {len(FAQ)} answered questions
 - [Contact]({url('contact.html')}): enquiries by WhatsApp or email
@@ -1367,16 +1364,15 @@ brand_json = {
   "design_tradition":"Danish / Scandinavian",
   "material":{"name":"Repurposed teak","botanical_name":"Tectona grandis","source":"Often old joglo houses in Indonesia, also bridges, boats and other structures"},
   "finish":{"name":"Shou Sugi Ban","process":"Flame-darkened teak, finished with natural oil to preserve the character of the wood.","standard":"Marks from the wood's first life stay visible, never at the cost of strength.","note":"Japanese yakisugi was made for softwood (cedar); Another Life applies it to hardwood teak. The aim is to help the wood handle strong sun; this has not been formally tested."},
-  "second_material":{"name":"Reclaimed ulin","also_called":"Borneo ironwood","botanical_name":"Eusideroxylon zwageri","status":"In development; first samples made","rule":"Reclaimed only. New ulin is protected and its export from Indonesia is banned; reclaimed ulin is traced and documented."},
   "point_of_view":{"headline":"Use it again, before you make it again.","summary":"Long life beats recycling. Recycling ends a product's life and costs energy to make something new, so it is the last stop, not plan A. Order of preference: use, repair, take apart and store, rebuild, recycle.","analogy":"A refillable glass bottle is better than one melted down into a new bottle."},
   "lifecycle":LIFE,
-  "mission_goals":{"status":"Goals, not yet achieved. Another Life has just launched.","goals":["Plant new trees for the wood we use, including native species like teak and ulin","Give back to the communities and makers behind the furniture","Collaborate with planting projects, NGOs, hotels, architects, makers and community initiatives"]},
+  "mission_goals":{"status":"Goals, not yet achieved. Another Life has just launched.","goals":["Plant new trees for the wood we use","Give back to the communities and makers behind the furniture","Collaborate with planting projects, NGOs, hotels, architects, makers and community initiatives"]},
   "hardware":"Engineered stainless steel (SUS) bolts in threaded inserts, three-bolt clusters at each main joint, designed to outlast the furniture",
   "construction":["Modular","Knock-down: travels flat and is assembled on site","Comes apart without damage and goes back together as it was","If one part reaches its end, you replace the part, not the piece"],
   "use":"Indoor and outdoor hospitality spaces",
   "pricing":"On request, ex works Indonesia",
   "philosophy":{"name":"Conscious Sustainability","criteria":[c for c,_ in CRITERIA],"core_line":"A label is not a mission. Sustainability isn't a label you put on a product; it's a responsibility you build into it.","position_on_certification":"Certifications have their place, but no single label tells the whole story (lifespan, making, repairability, end of life). Another Life aims to show sustainability through what it makes rather than rely on a label alone.","claims_policy":"Never claim a piece is completely sustainable; never publish unverified carbon or transport figures."},
-  "traceability":{"name":"Another Life Passport","status":"Work in progress, not yet available. No commitments on features or timing.","description":"A QR tracing platform being built to tell the story of each piece","intended_questions":PASSPORT_Q},
+  "traceability":{"name":"Another Life Passport","status":"Live","url":"https://id.another-life.dk","description":"A QR tracing system that tells the story of each piece: origin, making, journey, care and repair","intended_questions":PASSPORT_Q},
   "circular_services_in_development":["Replacement parts","Refinishing","Reconfiguration","Refurbishment","Take-back"],
   "taglines":BRAND["slogans"],
   "collections":[{"name":"SATU","meaning":"Indonesian for 'one'","products":[{"name":p["name"],"dimensions_cm":{"height":p["dims"][0],"width":p["dims"][1],"length":p["dims"][2]},"seat_height_cm":p["seat"],"category":p["category"],"url":url(p["slug"]+".html"),"description":p["short"]} for p in PRODUCTS]}],

@@ -2,7 +2,7 @@
   "name": "Another Life",
   "wordmark": "ANOTHER — LIFE",
   "url": "https://another-life.dk",
-  "updated": "2026-10-16",
+  "updated": "2026-10-21",
   "description": "Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired.",
   "purpose": "We exist to make furniture that lasts a long time.",
   "founders": [
@@ -27,13 +27,6 @@
     "standard": "Marks from the wood's first life stay visible, never at the cost of strength.",
     "note": "Japanese yakisugi was made for softwood (cedar); Another Life applies it to hardwood teak. The aim is to help the wood handle strong sun; this has not been formally tested."
   },
-  "second_material": {
-    "name": "Reclaimed ulin",
-    "also_called": "Borneo ironwood",
-    "botanical_name": "Eusideroxylon zwageri",
-    "status": "In development; first samples made",
-    "rule": "Reclaimed only. New ulin is protected and its export from Indonesia is banned; reclaimed ulin is traced and documented."
-  },
   "point_of_view": {
     "headline": "Use it again, before you make it again.",
     "summary": "Long life beats recycling. Recycling ends a product's life and costs energy to make something new, so it is the last stop, not plan A. Order of preference: use, repair, take apart and store, rebuild, recycle.",
@@ -50,7 +43,7 @@
   "mission_goals": {
     "status": "Goals, not yet achieved. Another Life has just launched.",
     "goals": [
-      "Plant new trees for the wood we use, including native species like teak and ulin",
+      "Plant new trees for the wood we use",
       "Give back to the communities and makers behind the furniture",
       "Collaborate with planting projects, NGOs, hotels, architects, makers and community initiatives"
     ]
@@ -80,8 +73,9 @@
   },
   "traceability": {
     "name": "Another Life Passport",
-    "status": "Work in progress, not yet available. No commitments on features or timing.",
-    "description": "A QR tracing platform being built to tell the story of each piece",
+    "status": "Live",
+    "url": "https://id.another-life.dk",
+    "description": "A QR tracing system that tells the story of each piece: origin, making, journey, care and repair",
     "intended_questions": [
       "Where did the material come from?",
       "Who made it?",
@@ -207,10 +201,9 @@
     "Repurposed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
     "Joglo": "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.",
     "Shou Sugi Ban": "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil.",
-    "Ulin": "Borneo ironwood (Eusideroxylon zwageri). An extremely dense, slow-growing and protected wood. We use it only reclaimed; it is in development as our second material.",
     "Knock-down": "Furniture that ships disassembled and bolts together on site. Ours is designed to be taken apart and reassembled more than once.",
     "Conscious Sustainability": "Our way of judging materials and methods. No single material or label is sustainable everywhere, so we look at origin, production, longevity, transport, repairability and documentation.",
-    "Another Life Passport": "The QR tracing system we are building: a code on each piece that opens its own story, from its first life to its next."
+    "Another Life Passport": "Our QR tracing system: a code on each piece that opens its own story, from its first life to its next."
   },
   "images": [
     {
