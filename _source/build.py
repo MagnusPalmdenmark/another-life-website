@@ -191,7 +191,7 @@ CSS = """
 .h-door-grid{display:grid;gap:clamp(28px,4vw,40px)}
 @media (min-width:760px){.h-door-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .h-door{display:grid;gap:10px;text-decoration:none;color:inherit}
-.h-door{align-content:start}.h-door-img{display:block;aspect-ratio:4/5;overflow:hidden;background:var(--hairline)}.h-door-img img{width:100%;height:100%;object-fit:cover;display:block}
+.h-door{align-content:start}.h-door-img{display:block;aspect-ratio:3/2;overflow:hidden;background:var(--hairline)}.h-door-img img{width:100%;height:100%;object-fit:cover;display:block}
 .h-door-t{font-size:clamp(26px,3vw,34px);line-height:1;margin-top:6px}
 .h-door-p{max-width:34ch;color:var(--ink-muted)}
 .h-door:hover .h-door-t{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
@@ -830,9 +830,9 @@ LIFE = ["Made by hand from wood that has already lived once.","Shipped flat and 
         "A part wears out: swap just that part.","The place renovates or closes: take it apart, store it flat.","Someone gives it a new place and a new purpose. Back to step 3."]
 
 # HOME (simple: film, the pieces, three doors, one line)
-DOORS_UNUSED = [("material.html","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them","The wood","Teak from old houses, bridges and boats, given another life."),
-         ("passport.html","timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length","The Passport","Scan a piece and read where its wood comes from."),
-         ("mission.html","chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk","Our mission","Why we make furniture to be kept, repaired and passed on.")]
+DOORS = [("material.html","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them","Our wood has stories","Teak from old houses, bridges and boats, given another life."),
+         ("passport.html","timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length","Every piece has a Passport","Scan a piece and read where its wood comes from."),
+         ("mission.html","chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk","Reuse beats recycling","Why we make furniture to be kept, repaired and passed on.")]
 home = f'''
 <section class="hero">
 <div class="hero-stage">
@@ -857,9 +857,7 @@ home = f'''
 <section><div class="wrap split">
  <div><span class="label eyebrow muted">Why we exist</span><h2 class="disp">Hotels want Danish design. Then they fill the room with plastic.</h2></div>
  <div class="prose">
-  <p>Most hospitality furniture is bought, used for a few years and thrown away. We think the places that care most about how they look should also care how long their furniture lives.</p>
-  <p>So we start with teak that has already lived once, often in old joglo houses. We design every piece to ship flat, bolt together on site and be repaired part by part.</p>
-  <p><a class="tlink" href="mission.html">Our mission</a></p>
+  <p>Most hospitality furniture is bought, used for a few years and thrown away. We start with teak that has already lived once, and design every piece to be repaired part by part.</p>
  </div>
 </div></section>
 
@@ -870,24 +868,8 @@ home = f'''
 </div></section>
 <script>(function(){{var t=document.getElementById('h-track');if(!t)return;document.querySelectorAll('.h-arrow').forEach(function(b){{b.addEventListener('click',function(){{t.scrollBy({{left:(+b.dataset.dir)*t.clientWidth*0.8,behavior:'smooth'}});}});}});}})();</script>
 
-<section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><h2 class="disp">Our wood has stories.</h2></div>
- <p class="prose" style="margin:0">Before it was furniture, our wood held up houses, carried people across rivers and rode the waves. <a class="tlink" href="material.html">Where our wood comes from</a></p></div>
- {ONCE}
-</div></section>
-
-<section class="h-pass"><div class="wrap split">
- <div><span class="label eyebrow muted">Another Life Passport</span><h2 class="disp">Every piece has a Passport.</h2>
-  <p class="prose" style="margin-top:20px">Scan the code on any piece to see where its wood comes from, who made it, how it travelled and how to care for it.</p>
-  <div class="btns" style="margin-top:24px"><a class="btn" href="https://id.another-life.dk/test">Open an example</a><a class="label tlink" href="passport.html">How it works</a></div></div>
- <div class="h-phone"><img src="assets/pp-scan.jpg" alt="Phone screen of a passport page opening with tree rings and the headline This wood has lived before" width="585" height="1266" loading="lazy"></div>
-</div></section>
-
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2><figure class="reuse-fig"><svg class="rc-draw reuse-draw" viewBox="0 0 520 190" aria-hidden="true"><path d="M88 64h14v16c0 9 17 13 17 30v38a5 5 0 0 1-5 5h-38a5 5 0 0 1-5-5v-38c0-17 17-21 17-30z"/><path d="M78 126h34"/><path d="M95 50A60 60 0 1 1 37 94.5"/><path d="M40.4 103.9L37 94.5L29.3 100.9"/><path d="M293 64h14v16c0 9 17 13 17 30v38a5 5 0 0 1-5 5h-38a5 5 0 0 1-5-5v-38c0-17 17-21 17-30z"/><path d="M283 126h34"/><path d="M330 120h34"/><path d="M357 113l7 7-7 7"/><path d="M398 148c-14 0-20-11-16-22 3-8 9-11 9-21 9 6 12 12 11 18 4-2 6-6 6-9 7 8 9 16 6 23-3 7-9 11-16 11z"/><path d="M418 120h34"/><path d="M445 113l7 7-7 7"/><g transform="translate(482 40) scale(.62)"><path d="M-7 64h14v16c0 9 17 13 17 30v38a5 5 0 0 1-5 5h-38a5 5 0 0 1-5-5v-38c0-17 17-21 17-30z"/><path d="M-17 126h34"/></g><path d="M10 176h500" stroke-width="1"/></svg><figcaption class="reuse-caps"><span class="cap">Refilled: the same bottle, again and again.</span><span class="cap">Melted down: energy spent to make it again.</span></figcaption></figure></div>
- <div class="prose"><p>A bottle that gets refilled does more good than one that gets melted down. Furniture works the same way: the longer a piece stays in use, the less needs to be made again.</p>
- <p>That idea shapes everything we design, and where we want to go next.</p>
- <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
+<section class="h-doors"><div class="wrap">
+ <div class="h-door-grid">{"".join(f'<a class="h-door" href="{href}"><span class="h-door-img"><img src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy"></span><span class="h-door-t disp">{e(t)}</span><span class="h-door-p">{e(d)}</span></a>' for href,src,alt,t,d in DOORS)}</div>
 </div></section>
 
 <section class="h-line"><div class="wrap">
