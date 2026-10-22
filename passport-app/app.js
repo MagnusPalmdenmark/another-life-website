@@ -81,14 +81,15 @@
       flatNote: "Flat-packed, many more pieces fit in each truck, so fewer trips are needed.",
       youK: "What your scan just did", youT: "Now you know where it comes from.",
       c1: "The wood in this piece has already lived one life.", c2: "Its story stays with it, through every repair and every new owner.", c3: "Most furniture can't tell you any of this. This piece can.",
-      repair: "Report a repair",
-      rpT: "Report a repair", rpP: "Tell us what happened and we'll get back to you. It takes a minute.",
-      rpWhat: "What's wrong? Tick all that apply", rpLoose: "Loose joint or bolt", rpBroken: "Broken or cracked part", rpSurface: "Worn surface, needs oil", rpMissing: "Missing part", rpOther: "Something else",
-      rpPhoto: "Photo of the problem", rpPhotoBtn: "Take or choose a photo", rpPhotoChange: "Change photo",
-      rpMsg: "Anything else we should know? (optional)", rpPlace: "Where is the piece? Hotel or restaurant name (optional)",
+      repair: "Tell us about this piece",
+      rpT: "Tell us about this piece", rpP: "Something wrong with it, or is it in a different place than this passport says? Tell us. It takes a minute.",
+      rpWhat: "What is it about? Tick all that apply", rpLocation: "It's in a different place than the passport says",
+      rpGps: "Add my location", rpGpsOk: "Location added", rpGpsNo: "Couldn't get the location. Type the place instead.", rpNeedPlace: "Tell us where the piece is now, or add your location.", rpLoose: "Loose joint or bolt", rpBroken: "Broken or cracked part", rpSurface: "Worn surface, needs oil", rpMissing: "Missing part", rpOther: "Something else",
+      rpPhoto: "Photo (optional)", rpPhotoBtn: "Take or choose a photo", rpPhotoChange: "Change photo",
+      rpMsg: "Anything else we should know? (optional)", rpPlace: "Where is the piece now? Place, hotel or restaurant name",
       rpContact: "Your email or phone, if you'd like a reply (optional)", rpSend: "Send report", rpSending: "Sending…",
       rpNeed: "Tick at least one box or add a photo.", rpErr: "Couldn't send. Check the connection and try again.", rpBig: "That photo is too large. Try another one.",
-      rpThanks: "Thank you so much for reporting.", rpThanksP: "We've received it and will take a look. Small repairs are part of the plan, so this piece can keep going.", rpBack: "Back to the passport",
+      rpThanks: "Thank you so much for reporting.", rpThanksP: "We've received it and will take a look. It helps this piece keep going, and keeps its story right.", rpBack: "Back to the passport",
       another: "Look up another code", site: "Visit another-life.dk", loading: "Loading…"
     },
     id: {
@@ -144,14 +145,15 @@
       flatNote: "Dalam kemasan datar, jauh lebih banyak produk muat di setiap truk, jadi perjalanan lebih sedikit.",
       youK: "Arti pindaian Anda", youT: "Sekarang Anda tahu asal-usulnya.",
       c1: "Kayu pada produk ini sudah menjalani satu kehidupan.", c2: "Kisahnya tetap melekat, melalui setiap perbaikan dan setiap pemilik baru.", c3: "Kebanyakan furnitur tidak bisa menceritakan semua ini. Produk ini bisa.",
-      repair: "Laporkan perbaikan",
-      rpT: "Laporkan perbaikan", rpP: "Ceritakan apa yang terjadi dan kami akan menghubungi Anda. Hanya butuh satu menit.",
-      rpWhat: "Apa masalahnya? Centang semua yang sesuai", rpLoose: "Sambungan atau baut longgar", rpBroken: "Bagian patah atau retak", rpSurface: "Permukaan aus, perlu diminyaki", rpMissing: "Ada bagian yang hilang", rpOther: "Lainnya",
-      rpPhoto: "Foto masalahnya", rpPhotoBtn: "Ambil atau pilih foto", rpPhotoChange: "Ganti foto",
-      rpMsg: "Ada hal lain yang perlu kami tahu? (opsional)", rpPlace: "Di mana produk ini? Nama hotel atau restoran (opsional)",
+      repair: "Beri tahu kami tentang produk ini",
+      rpT: "Beri tahu kami tentang produk ini", rpP: "Ada yang rusak, atau lokasinya berbeda dari yang tertulis di paspor ini? Beri tahu kami. Hanya butuh satu menit.",
+      rpWhat: "Tentang apa? Centang semua yang sesuai", rpLocation: "Lokasinya berbeda dari yang tertulis di paspor",
+      rpGps: "Tambahkan lokasi saya", rpGpsOk: "Lokasi ditambahkan", rpGpsNo: "Lokasi tidak bisa didapat. Ketik tempatnya saja.", rpNeedPlace: "Beri tahu kami di mana produk ini sekarang, atau tambahkan lokasi Anda.", rpLoose: "Sambungan atau baut longgar", rpBroken: "Bagian patah atau retak", rpSurface: "Permukaan aus, perlu diminyaki", rpMissing: "Ada bagian yang hilang", rpOther: "Lainnya",
+      rpPhoto: "Foto (opsional)", rpPhotoBtn: "Ambil atau pilih foto", rpPhotoChange: "Ganti foto",
+      rpMsg: "Ada hal lain yang perlu kami tahu? (opsional)", rpPlace: "Di mana produk ini sekarang? Tempat, nama hotel atau restoran",
       rpContact: "Email atau nomor telepon Anda, jika ingin dibalas (opsional)", rpSend: "Kirim laporan", rpSending: "Mengirim…",
       rpNeed: "Centang minimal satu kotak atau tambahkan foto.", rpErr: "Gagal mengirim. Periksa koneksi dan coba lagi.", rpBig: "Foto itu terlalu besar. Coba foto lain.",
-      rpThanks: "Terima kasih banyak atas laporannya.", rpThanksP: "Laporan sudah kami terima dan akan kami periksa. Perbaikan kecil memang bagian dari rencana, agar produk ini bisa terus dipakai.", rpBack: "Kembali ke paspor",
+      rpThanks: "Terima kasih banyak atas laporannya.", rpThanksP: "Laporan sudah kami terima dan akan kami periksa. Ini membantu produk ini terus dipakai, dan kisahnya tetap benar.", rpBack: "Kembali ke paspor",
       another: "Cari kode lain", site: "Kunjungi another-life.dk", loading: "Memuat…"
     }
   };
@@ -666,7 +668,7 @@
     if (code === "TEST") { $("#banner").textContent = L.testBanner; $("#banner").hidden = false; }
     document.title = `${L.rpT} · ${b.code} · Another Life Passport`;
     const back = code === "TEST" ? "test" : b.code;
-    const issues = [["issue_loose", L.rpLoose], ["issue_broken", L.rpBroken], ["issue_surface", L.rpSurface], ["issue_missing", L.rpMissing], ["issue_other", L.rpOther]];
+    const issues = [["issue_loose", L.rpLoose], ["issue_broken", L.rpBroken], ["issue_surface", L.rpSurface], ["issue_missing", L.rpMissing], ["issue_location", L.rpLocation], ["issue_other", L.rpOther]];
     app.innerHTML = `
       <section>
         <span class="k">${L.passport} · ${esc(b.code)} · ${esc(b.model)}</span>
@@ -682,6 +684,8 @@
             <img id="rpPrev" class="photo-prev" alt="" hidden></div>
           <label class="q"><span>${L.rpMsg}</span><textarea name="message" rows="3" maxlength="1500"></textarea></label>
           <label class="q"><span>${L.rpPlace}</span><input type="text" name="place" maxlength="120"></label>
+          <input type="hidden" name="gps" id="rpGps">
+          <button type="button" class="btn ghost" id="rpGpsBtn">${L.rpGps}</button>
           <label class="q"><span>${L.rpContact}</span><input type="text" name="contact" maxlength="120" autocomplete="email"></label>
           <button class="btn" type="submit" id="rpBtn">${L.rpSend}</button>
           <p class="msg bad" id="rpMsgOut" role="status"></p>
@@ -690,6 +694,16 @@
       <section class="foot"><a class="staff" href="${BASE}/${back}" data-go="${back}">${L.rpBack}</a></section>`;
     let photo = null;
     $("#rpForm").addEventListener("change", () => { $("#rpMsgOut").textContent = ""; });
+    $("#rpGpsBtn").addEventListener("click", () => {
+      const btn = $("#rpGpsBtn");
+      if (!navigator.geolocation) { $("#rpMsgOut").textContent = L.rpGpsNo; return; }
+      btn.disabled = true;
+      navigator.geolocation.getCurrentPosition(pos => {
+        const { latitude: la, longitude: lo } = pos.coords;
+        $("#rpGps").value = `${la.toFixed(5)},${lo.toFixed(5)} https://maps.google.com/?q=${la.toFixed(5)},${lo.toFixed(5)}`;
+        btn.textContent = L.rpGpsOk + " ✓"; btn.disabled = false; $("#rpMsgOut").textContent = "";
+      }, () => { btn.disabled = false; $("#rpMsgOut").textContent = L.rpGpsNo; }, { enableHighAccuracy: true, timeout: 15000 });
+    });
     $("#rpPhoto").addEventListener("change", async e => {
       const f = e.target.files && e.target.files[0]; if (!f) return;
       photo = await shrinkPhoto(f);
@@ -701,11 +715,13 @@
       const form = e.target, out = $("#rpMsgOut");
       const ticked = issues.some(([n]) => form.elements[n].checked);
       if (!ticked && !photo) { out.textContent = L.rpNeed; return; }
+      const wrongPlace = form.elements.issue_location.checked;
+      if (wrongPlace && !form.elements.place.value.trim() && !$("#rpGps").value) { out.textContent = L.rpNeedPlace; return; }
       if (photo && photo.size > 7.5e6) { out.textContent = L.rpBig; return; }
       const fd = new FormData(form);
       fd.set("code", b.code);
       fd.set("lang", lang);
-      fd.set("subject", `Repair report · ${b.code} · ${b.model}`);
+      fd.set("subject", `${wrongPlace ? "Wrong location" : "Report"} · ${b.code} · ${b.model}`);
       if (photo) fd.set("photo", photo, photo.name || "repair-photo.jpg");
       const btn = $("#rpBtn"); btn.disabled = true; btn.textContent = L.rpSending; out.textContent = "";
       let ok = false;
