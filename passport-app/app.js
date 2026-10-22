@@ -668,7 +668,7 @@
     if (code === "TEST") { $("#banner").textContent = L.testBanner; $("#banner").hidden = false; }
     document.title = `${L.rpT} · ${b.code} · Another Life Passport`;
     const back = code === "TEST" ? "test" : b.code;
-    const issues = [["issue_loose", L.rpLoose], ["issue_broken", L.rpBroken], ["issue_surface", L.rpSurface], ["issue_missing", L.rpMissing], ["issue_location", L.rpLocation], ["issue_other", L.rpOther]];
+    const issues = [["issue_loose", L.rpLoose], ["issue_broken", L.rpBroken], ["issue_surface", L.rpSurface], ["issue_missing", L.rpMissing], ["issue_other", L.rpOther], ["issue_location", L.rpLocation]];
     app.innerHTML = `
       <section>
         <span class="k">${L.passport} · ${esc(b.code)} · ${esc(b.model)}</span>
@@ -678,14 +678,16 @@
           <input type="hidden" name="form-name" value="repair">
           <p hidden><label>Leave empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
           <div class="q"><span>${L.rpWhat}</span>
-            <div class="checks-list">${issues.map(([n, l]) => `<label class="check"><input type="checkbox" name="${n}" value="yes"><span>${l}</span></label>`).join("")}</div></div>
+            <div class="checks-list">${issues.map(([n, l]) => `<label class="check"><input type="checkbox" name="${n}" value="yes"><span>${l}</span></label>`).join("")}</div>
+            <div class="where">
+              <label class="q"><span>${L.rpPlace}</span><input type="text" name="place" maxlength="120"></label>
+              <input type="hidden" name="gps" id="rpGps">
+              <button type="button" class="btn ghost" id="rpGpsBtn">${L.rpGps}</button>
+            </div></div>
           <div class="q"><span>${L.rpPhoto}</span>
             <label class="photo-pick" id="rpPick"><input type="file" id="rpPhoto" accept="image/*"><span id="rpPickTxt">${L.rpPhotoBtn}</span></label>
             <img id="rpPrev" class="photo-prev" alt="" hidden></div>
           <label class="q"><span>${L.rpMsg}</span><textarea name="message" rows="3" maxlength="1500"></textarea></label>
-          <label class="q"><span>${L.rpPlace}</span><input type="text" name="place" maxlength="120"></label>
-          <input type="hidden" name="gps" id="rpGps">
-          <button type="button" class="btn ghost" id="rpGpsBtn">${L.rpGps}</button>
           <label class="q"><span>${L.rpContact}</span><input type="text" name="contact" maxlength="120" autocomplete="email"></label>
           <button class="btn" type="submit" id="rpBtn">${L.rpSend}</button>
           <p class="msg bad" id="rpMsgOut" role="status"></p>

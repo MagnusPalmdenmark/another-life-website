@@ -167,3 +167,4 @@ body.wide .wrap{max-width:1100px}
 .before img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;background:var(--soft)}
 .staff-ph:empty{display:none}
 .staff-ph figure{display:grid;gap:4px}.staff-ph img{aspect-ratio:1}
+.where{display:grid;gap:10px;padding-top:14px}
