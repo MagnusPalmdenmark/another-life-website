@@ -200,12 +200,10 @@ CSS = """
 .h-nav{display:flex;gap:8px}
 .h-arrow{width:44px;height:44px;border:1px solid var(--ink);background:none;color:var(--ink);font-size:18px;cursor:pointer}
 .h-arrow:hover{background:var(--ink);color:var(--paper)}
-.h-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,26%);gap:clamp(16px,2.5vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-@media (max-width:700px){.h-track{grid-auto-columns:72%;margin-right:calc(-1 * clamp(16px,4vw,56px));padding-right:clamp(16px,4vw,56px)}.h-nav{display:none}}
+.h-track{--col:clamp(220px,22vw,320px);display:grid;grid-auto-flow:column;grid-auto-columns:var(--col);gap:clamp(16px,2.5vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%);background:linear-gradient(#fff,#fff) 0 0/100% calc(var(--col) * .75) no-repeat}
+@media (max-width:700px){.h-track{--col:72vw}.h-nav{display:none}}
 .h-track .h-piece{scroll-snap-align:start}
-.h-pieces{background:#fff;border-top:0}
-.h-pieces+.h-doors{border-top:0}
-.h-all .h-img{border-color:#e6e2da}
+.h-all .h-img{border:0}
 .h-meta{font:400 11px/14px var(--mono);color:var(--ink-muted)}
 .h-all .h-img{display:flex;align-items:center;justify-content:center;border:1px solid var(--hairline)}
 .h-all .disp{font-size:clamp(22px,2.4vw,30px)}
@@ -864,7 +862,7 @@ home = f'''
   <div class="h-nav"><button type="button" class="h-arrow" data-dir="-1" aria-label="Previous pieces">&#8592;</button><button type="button" class="h-arrow" data-dir="1" aria-label="Next pieces">&#8594;</button></div></div>
  <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img src="{p["img"]}" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak"{_wh(p["img"][7:])} loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
 </div></section>
-<script>(function(){{var t=document.getElementById('h-track');if(!t)return;document.querySelectorAll('.h-arrow').forEach(function(b){{b.addEventListener('click',function(){{t.scrollBy({{left:(+b.dataset.dir)*t.clientWidth*0.8,behavior:'smooth'}});}});}});}})();</script>
+<script>(function(){{var t=document.getElementById('h-track');if(!t)return;function sp(){{t.style.scrollPaddingInline=getComputedStyle(t).paddingLeft;}}sp();t.scrollLeft=0;window.addEventListener('resize',sp);document.querySelectorAll('.h-arrow').forEach(function(b){{b.addEventListener('click',function(){{t.scrollBy({{left:(+b.dataset.dir)*t.clientWidth*0.8,behavior:'smooth'}});}});}});}})();</script>
 
 <section class="h-doors"><div class="wrap">
  <div class="h-door-grid">{"".join(f'<a class="h-door" href="{href}"><span class="h-door-img"><img src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy"></span><span class="h-door-t disp">{e(t)}</span><span class="h-door-p">{e(d)}</span></a>' for href,src,alt,t,d in DOORS)}</div>
