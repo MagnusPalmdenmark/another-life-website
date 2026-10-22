@@ -868,6 +868,11 @@ home = f'''
  <div class="h-door-grid">{"".join(f'<a class="h-door" href="{href}"><span class="h-door-img"><img src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy"></span><span class="h-door-t disp">{e(t)}</span><span class="h-door-p">{e(d)}</span></a>' for href,src,alt,t,d in DOORS)}</div>
 </div></section>
 
+<section class="forest h-life"><div class="wrap">
+ <img class="glyph-forest" src="assets/chair-glyph-light.png" alt="">
+ <h2 class="disp name-lines" style="margin-top:28px">Another material.<br>Another owner.<br>Another place.<br>Another life.</h2>
+</div></section>
+
 <section class="h-line"><div class="wrap">
  <p>Furnishing a hotel or restaurant? <a class="tlink" href="contact.html">Get in touch</a></p>
 </div></section>
