@@ -179,6 +179,18 @@ def url(path):  # canonical absolute url for JSON-LD
 
 # ------------------------------------------------------------------ CSS
 CSS = """
+
+/* collection grid */
+.c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(36px,5vw,64px) clamp(16px,3vw,40px)}
+@media (min-width:900px){.c-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.c-piece{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;text-decoration:none;color:inherit;align-content:start}
+.c-img{grid-column:1/-1;display:block;aspect-ratio:4/3;margin-bottom:14px}
+.c-img img{width:86%;height:86%;margin:7% auto 0;object-fit:contain;object-position:center bottom;display:block}
+.c-n{font:500 11px/26px var(--mono);color:var(--ink-muted)}
+.c-name{font-size:clamp(22px,2.4vw,30px);line-height:1.05}
+.c-use,.c-dim{grid-column:2;font:400 12px/18px var(--mono);color:var(--ink-muted)}
+.c-piece:hover .c-name{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+@media (max-width:600px){.c-use,.c-n{display:none}.c-name,.c-dim{grid-column:1/-1}.c-name{font-size:20px}.c-dim{font-size:11px;white-space:nowrap}}
 /* simple homepage */
 .h-pieces .h-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:clamp(20px,3vw,36px)}
 .h-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px) clamp(16px,3vw,40px)}
@@ -888,13 +900,15 @@ coll = f'''
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Collection</span>
  <h1 class="disp">The SATU collection.</h1>
- <div class="split page-head-body" style="margin-top:32px"><div></div>
- <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Old wood, new purpose, long life.</strong></p></div></div>
- {updated()}
+ <p class="pull" style="margin-top:24px;max-width:46ch">Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p>
 </div></section>
-{bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up",lazy=False)}
-<section><div class="wrap">
- <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["use"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+<section class="c-grid-sec" style="padding-top:0;border-top:0"><div class="wrap">
+ <div class="c-grid">{"".join(f'<a class="c-piece" href="{p["slug"]}.html"><span class="c-img"><img src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak with a Shou Sugi Ban finish" loading="{"eager" if p["order"]<4 else "lazy"}"></span><span class="c-n">{p["order"]:02d}</span><span class="c-name disp">{p["name"]}</span><span class="c-use">{e(p["use"])}</span><span class="c-dim">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+</div></section>
+{bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up")}
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">About SATU</span><h2 class="disp">Old wood, new purpose, long life.</h2></div>
+ <div class="prose"><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p></div>
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Shared by every piece</span><h2 class="disp">One design. Different lives.</h2></div>
