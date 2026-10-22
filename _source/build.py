@@ -185,7 +185,7 @@ CSS = """
 @media (min-width:900px){.h-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .h-piece{display:grid;gap:12px;align-content:start;text-decoration:none;color:inherit}
 .h-img{display:block;aspect-ratio:4/3}
-.h-img img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;filter:brightness(1.12) contrast(1.08);display:block}
+.h-img img{width:86%;height:86%;margin:7% auto 0;object-fit:contain;object-position:center bottom;display:block}
 .h-name{font:500 12px/16px var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .h-piece:hover .h-name{text-decoration:underline;text-underline-offset:4px}
 .h-door-grid{display:grid;gap:clamp(28px,4vw,40px)}
@@ -200,7 +200,7 @@ CSS = """
 .h-nav{display:flex;gap:8px}
 .h-arrow{width:44px;height:44px;border:1px solid var(--ink);background:none;color:var(--ink);font-size:18px;cursor:pointer}
 .h-arrow:hover{background:var(--ink);color:var(--paper)}
-.h-track{--col:clamp(220px,22vw,320px);display:grid;grid-auto-flow:column;grid-auto-columns:var(--col);gap:clamp(16px,2.5vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%);background:linear-gradient(#fff,#fff) 0 0/100% calc(var(--col) * .75) no-repeat}
+.h-track{--col:clamp(220px,22vw,320px);display:grid;grid-auto-flow:column;grid-auto-columns:var(--col);gap:clamp(16px,2.5vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}
 @media (max-width:700px){.h-track{--col:72vw}.h-nav{display:none}}
 .h-track .h-piece{scroll-snap-align:start}
 .h-all .h-img{border:0}
@@ -860,7 +860,7 @@ home = f'''
 <section class="h-pieces"><div class="wrap">
  <div class="h-head"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Seven pieces, one system.</h2></div>
   <div class="h-nav"><button type="button" class="h-arrow" data-dir="-1" aria-label="Previous pieces">&#8592;</button><button type="button" class="h-arrow" data-dir="1" aria-label="Next pieces">&#8594;</button></div></div>
- <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img src="{p["img"]}" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak"{_wh(p["img"][7:])} loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
+ <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak" loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
 </div></section>
 <script>(function(){{var t=document.getElementById('h-track');if(!t)return;function sp(){{t.style.scrollPaddingInline=getComputedStyle(t).paddingLeft;}}sp();t.scrollLeft=0;window.addEventListener('resize',sp);document.querySelectorAll('.h-arrow').forEach(function(b){{b.addEventListener('click',function(){{t.scrollBy({{left:(+b.dataset.dir)*t.clientWidth*0.8,behavior:'smooth'}});}});}});}})();</script>
 
