@@ -25,7 +25,6 @@ BRAND = {
   "wordmark": "ANOTHER — LIFE",
   "one_line": "Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired.",
   "mission": "We exist to make furniture that lasts a long time.",
-  "based": "Bali, Indonesia",
   "made_in": "Indonesia",
   "collection": "SATU",
   "material": "Repurposed teak, often from old joglo houses",
@@ -108,7 +107,7 @@ def dims(p):
 PBY = {p["slug"]: p for p in PRODUCTS}
 
 FAQ = [
-  ("What is Another Life?", "Another Life is a hospitality furniture brand from Bali. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
+  ("What is Another Life?", "Another Life is a hospitality furniture brand. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
   ("What does the name mean?", "The teak we use has already lived one life, in a house, a bridge or a boat. Every piece we make from it is meant to keep going: repaired, moved and handed on to its next owner."),
   ("What is SATU?", "SATU is our first collection. The name is the Indonesian word for one, because every piece shares the same wood, finish and way of building."),
   ("What is the furniture made from?", "Repurposed teak: timber that has already lived a life, often in old joglo houses. We give it another life through Danish design and Indonesian hands."),
@@ -615,7 +614,6 @@ ORG = {
   "logo": url("assets/logo-lockup.png"),
   "description": BRAND["one_line"],
   "slogan": "Made for this life. And another.",
-  "address": {"@type":"PostalAddress","addressRegion":"Bali","addressCountry":"ID"},
   "areaServed": "Worldwide",
   "knowsAbout": ["Reclaimed teak furniture","Hospitality furniture","Contract furniture","Knock-down furniture","Repairable furniture","Circular design","Danish design","Material traceability"],
   "contactPoint": {"@type":"ContactPoint","contactType":"sales","url":SITE_URL+"/contact.html","availableLanguage":["English","Danish"]},
@@ -886,7 +884,7 @@ home = f'''
  <p>Furnishing a hotel or restaurant? <a class="tlink" href="contact.html">Get in touch</a></p>
 </div></section>
 '''
-pages["index.html"] = ("Another Life — Hospitality furniture in reclaimed teak, Bali", "Danish-designed furniture in reclaimed teak, made by hand in Indonesia for hotels and restaurants. Made for longevity, repair and another life. First collection: SATU.", home,
+pages["index.html"] = ("Another Life — Hospitality furniture in reclaimed teak", "Danish-designed furniture in reclaimed teak, made by hand in Indonesia for hotels and restaurants. Made for longevity, repair and another life. First collection: SATU.", home,
   [breadcrumb([("index.html","Home")]),
    {"@type":"VideoObject","name":"Another Life — brand film","description":"A 34-second film about Another Life: reclaimed timber, making furniture by hand in Indonesia, and The Chair in rooms and by the sea. Ends with the line Danish furniture, designed for tomorrow.",
     "thumbnailUrl":[url("assets/film-poster.jpg"),url("assets/film-card.jpg")],"uploadDate":"2026-10-08","duration":"PT34S","contentUrl":url("assets/film.mp4"),
@@ -976,7 +974,7 @@ mission = f'''
 <section class="page-head" style="padding-block:clamp(24px,4vw,40px)"><div class="wrap">
  <span class="label eyebrow">Mission</span>
  <div style="margin-top:8px">
- <nav class="prose" style="max-width:none" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#purpose">Why we exist</a> · <a href="#origin">Origin</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a></p></nav></div>
+ <nav class="prose" style="max-width:none" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#purpose">Why we exist</a> · <a href="#design">Design</a> · <a href="#heading">Where we're heading</a></p></nav></div>
  {updated()}
 </div></section>
 {bleed("chair-beach-hands.jpg","Black-and-white photograph of hands resting on the backrest of The Chair on a beach, waves and sailboats behind",lazy=False)}
@@ -987,12 +985,6 @@ mission = f'''
  <p>Hotels and restaurants spend years building a sense of place, and many of them look to Danish design for credibility. Then they furnish those places with pieces that won't last: plastic chairs and loungers that are bought, worn out and replaced on a short cycle.</p>
  <p>That gap is the reason Another Life exists. We make furniture that earns the design it borrows from: well made, built from material that already exists, and designed to be repaired rather than thrown away.</p>
  <p>The new luxury is longevity.</p></div>
-</div></section>
-
-<section id="origin"><div class="wrap split">
- <div><span class="label eyebrow muted">Origin</span><h2 class="disp">An idea born in Bali.</h2></div>
- <div class="prose"><p>The idea came from looking around: hotels across Bali and the islands east of it, full of plastic furniture with short lives.</p>
- <p>We wanted to build something that does good, rather than chase scale for its own sake. We build it the way we think furniture should be made: for the long run.</p></div>
 </div></section>
 
 <section id="design"><div class="wrap split">
@@ -1016,7 +1008,7 @@ mission = f'''
 
 
 '''
-pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: why we exist, where the idea came from, our design principles and our goals to give back and collaborate.", mission,
+pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: why we exist, our design principles and our goals to give back and collaborate.", mission,
   [breadcrumb([("index.html","Home"),("mission.html","Mission")]),
    {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED}])
 
@@ -1333,7 +1325,7 @@ llms = f"""# Another Life
 
 > {BRAND['one_line']} {BRAND['mission']}
 
-Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia. Its first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
+Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand. Its first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
 
 Key facts:
 - Purpose: to make furniture that lasts a long time.
@@ -1368,7 +1360,7 @@ Key facts:
 brand_json = {
   "name":"Another Life","wordmark":"ANOTHER — LIFE","url":SITE_URL,"updated":UPDATED,
   "description":BRAND["one_line"],"purpose":BRAND["mission"],
-  "based_in":BRAND["based"],"made_in":BRAND["made_in"],"origin":"An idea born in Bali",
+  "made_in":BRAND["made_in"],
   "category":"Hospitality furniture (B2B)","customers":BRAND["customers"],
   "design_tradition":"Danish / Scandinavian",
   "material":{"name":"Repurposed teak","botanical_name":"Tectona grandis","source":"Often old joglo houses in Indonesia, also bridges, boats and other structures"},
