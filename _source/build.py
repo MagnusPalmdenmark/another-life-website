@@ -179,6 +179,51 @@ def url(path):  # canonical absolute url for JSON-LD
 
 # ------------------------------------------------------------------ CSS
 CSS = """
+
+/* collection grid */
+.c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(36px,5vw,64px) clamp(16px,3vw,40px)}
+@media (min-width:900px){.c-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.c-piece{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;text-decoration:none;color:inherit;align-content:start}
+.c-img{grid-column:1/-1;display:block;aspect-ratio:4/3;margin-bottom:14px}
+.c-img img{width:86%;height:86%;margin:7% auto 0;object-fit:contain;object-position:center bottom;display:block}
+.c-n{font:500 11px/26px var(--mono);color:var(--ink-muted)}
+.c-name{font-size:clamp(22px,2.4vw,30px);line-height:1.05}
+.c-use,.c-dim{grid-column:2;font:400 12px/18px var(--mono);color:var(--ink-muted)}
+.c-piece:hover .c-name{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+@media (max-width:600px){.c-use,.c-n{display:none}.c-name,.c-dim{grid-column:1/-1}.c-name{font-size:20px}.c-dim{font-size:11px;white-space:nowrap}}
+/* simple homepage */
+.h-pieces .h-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:clamp(20px,3vw,36px)}
+.h-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px) clamp(16px,3vw,40px)}
+@media (min-width:900px){.h-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.h-piece{display:grid;gap:12px;align-content:start;text-decoration:none;color:inherit}
+.h-img{display:block;aspect-ratio:4/3}
+.h-img img{width:86%;height:86%;margin:7% auto 0;object-fit:contain;object-position:center bottom;display:block}
+.h-name{font:500 12px/16px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.h-piece:hover .h-name{text-decoration:underline;text-underline-offset:4px}
+.h-door-grid{display:grid;gap:clamp(28px,4vw,40px)}
+@media (min-width:760px){.h-door-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.h-door{display:grid;gap:10px;text-decoration:none;color:inherit}
+.h-door{align-content:start}.h-door-img{display:block;aspect-ratio:3/2;overflow:hidden;background:var(--hairline)}.h-door-img img{width:100%;height:100%;object-fit:cover;display:block}
+.h-door-t{font-size:clamp(26px,3vw,34px);line-height:1;margin-top:6px}
+.h-door-p{max-width:34ch;color:var(--ink-muted)}
+.h-door:hover .h-door-t{text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px}
+.h-line p{margin:0;font-size:clamp(17px,2vw,20px)}
+.h-head{align-items:end!important}
+.h-nav{display:flex;gap:8px}
+.h-arrow{width:44px;height:44px;border:1px solid var(--ink);background:none;color:var(--ink);font-size:18px;cursor:pointer}
+.h-arrow:hover{background:var(--ink);color:var(--paper)}
+.h-track{--col:clamp(220px,22vw,320px);display:grid;grid-auto-flow:column;grid-auto-columns:var(--col);gap:clamp(16px,2.5vw,32px);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;margin-inline:calc(50% - 50vw);padding-inline:calc(50vw - 50%)}
+@media (max-width:700px){.h-track{--col:72vw}.h-nav{display:none}}
+.h-track .h-piece{scroll-snap-align:start}
+.h-all .h-img{border:0}
+.h-meta{font:400 11px/14px var(--mono);color:var(--ink-muted)}
+.h-all .h-img{display:flex;align-items:center;justify-content:center;border:1px solid var(--hairline)}
+.h-all .disp{font-size:clamp(22px,2.4vw,30px)}
+.h-phone{display:flex;justify-content:center}
+.h-phone img{width:min(260px,70%);height:auto;box-shadow:0 18px 50px rgba(20,18,15,.18)}
+
+button.tlink{background:none;border:0;padding:0;color:inherit;cursor:pointer}
+
 /* Layout: an editorial ledger. Hairline-ruled rows, one forest spread per page, mono body, condensed display. */
 :root{
   --paper:#f2ede4; --ink:#14120f; --ink-muted:#6b6459; --hairline:#d9d2c4;
@@ -797,7 +842,10 @@ ONCE_PLAIN = '<div class="once">' + "".join(f'<div><h3 class="disp">{e(a)}</h3><
 LIFE = ["Made by hand from wood that has already lived once.","Shipped flat and bolted together on site.","Used every day: a dining room, a terrace, a pool.",
         "A part wears out: swap just that part.","The place renovates or closes: take it apart, store it flat.","Someone gives it a new place and a new purpose. Back to step 3."]
 
-# HOME
+# HOME (simple: film, the pieces, three doors, one line)
+DOORS = [("material.html","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them","Our wood has stories","Teak from old houses, bridges and boats, given another life."),
+         ("passport.html","timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length","Every piece has a Passport","Scan a piece and read where its wood comes from."),
+         ("mission.html","chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk","Reuse beats recycling","Why we make furniture to be kept, repaired and passed on.")]
 home = f'''
 <section class="hero">
 <div class="hero-stage">
@@ -808,8 +856,8 @@ home = f'''
  </div></div>
 </div>
 <div class="wrap hero-foot">
- <p>Hospitality furniture from teak that already lived once. Designed in a Danish tradition, made by hand in Indonesia, and built to stay in use for decades.</p>
- <div class="btns"><button class="btn" type="button" id="film-open">Watch the film · 0:34</button><a class="label tlink" href="collection.html">See the SATU collection</a></div>
+ <p>Danish-designed furniture in reclaimed teak. Made for longevity, repair and another life.</p>
+ <div class="btns"><a class="btn" href="collection.html">See the collection</a><button class="label tlink" type="button" id="film-open">Watch the film · 0:34</button></div>
 </div></section>
 <div class="film-ov" id="film-ov" hidden role="dialog" aria-modal="true" aria-label="Another Life brand film">
  <div class="film-box">
@@ -819,66 +867,29 @@ home = f'''
 </div>
 {FILM_JS}
 
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Why we exist</span><h2 class="disp">Hotels want Danish design. Then they fill the room with plastic.</h2></div>
- <div class="prose">
-  <p>Most hospitality furniture is bought, used for a few years and thrown away. We think the places that care most about how they look should also care how long their furniture lives.</p>
-  <p>So we start with teak that has already lived once, often in old joglo houses. We design every piece to ship flat, bolt together on site and be repaired part by part.</p>
-  <p><a class="tlink" href="mission.html">Our mission</a></p>
- </div>
-</div></section>
-{window("lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden")}
 
-<section><div class="wrap">
- <div class="split" style="margin-bottom:40px"><div><h2 class="disp">Our wood has stories.</h2></div>
- <p class="prose" style="margin:0">Before it was furniture, our wood held up houses, carried people across rivers and rode the waves. <a class="tlink" href="material.html">Where our wood comes from</a></p></div>
- {ONCE}
+
+<section class="h-pieces"><div class="wrap">
+ <div class="h-head"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Seven pieces, one system.</h2></div>
+  <div class="h-nav"><button type="button" class="h-arrow" data-dir="-1" aria-label="Previous pieces">&#8592;</button><button type="button" class="h-arrow" data-dir="1" aria-label="Next pieces">&#8594;</button></div></div>
+ <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak" loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
+</div></section>
+<script>(function(){{var t=document.getElementById('h-track');if(!t)return;function sp(){{t.style.scrollPaddingInline=getComputedStyle(t).paddingLeft;}}sp();t.scrollLeft=0;window.addEventListener('resize',sp);document.querySelectorAll('.h-arrow').forEach(function(b){{b.addEventListener('click',function(){{t.scrollBy({{left:(+b.dataset.dir)*t.clientWidth*0.8,behavior:'smooth'}});}});}});}})();</script>
+
+<section class="h-doors"><div class="wrap">
+ <div class="h-door-grid">{"".join(f'<a class="h-door" href="{href}"><span class="h-door-img"><img src="assets/{src}" alt="{e(alt)}"{_wh(src)} loading="lazy"></span><span class="h-door-t disp">{e(t)}</span><span class="h-door-p">{e(d)}</span></a>' for href,src,alt,t,d in DOORS)}</div>
 </div></section>
 
-<section class="forest"><div class="wrap">
+<section class="forest h-life"><div class="wrap">
  <img class="glyph-forest" src="assets/chair-glyph-light.png" alt="">
  <h2 class="disp name-lines" style="margin-top:28px">Another material.<br>Another owner.<br>Another place.<br>Another life.</h2>
- <div class="hero-foot" style="border-top:1px solid rgba(242,237,228,.28);margin-top:36px">
-  <p>Teak that already lived once, made into furniture that can outlast the room it was bought for.</p>
-  <p class="label">Furniture worth keeping.</p>
- </div>
 </div></section>
 
-<section class="build" id="build"><div class="wrap build-grid">
- <div class="build-head"><svg class="dots3" viewBox="0 0 100 86" aria-hidden="true"><circle data-i="0" cx="50" cy="16" r="12"/><circle data-i="1" cx="80" cy="66" r="12"/><circle data-i="2" cx="20" cy="66" r="12"/></svg><span class="label eyebrow muted">How we build</span><h2 class="disp">Three things every piece does.</h2></div>
- <div class="build-stage">
-  <div class="build-frame">
-   <video class="on" data-i="0" src="assets/build-reclaimed.mp4" poster="assets/build-reclaimed.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="Old teak beams with joinery holes, stacked side by side"></video>
-   <video data-i="1" src="assets/build-burn.mp4" poster="assets/build-burn.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="A maker burning the surface of a teak board with a torch, flames running along the wood"></video>
-   <video data-i="2" src="assets/build-make.mp4" poster="assets/build-make.jpg" width="1280" height="720" muted loop playsinline preload="metadata" aria-label="Hands working a piece of teak on the workshop floor"></video>
-   <span class="build-count label"><span id="build-n">01</span> / 03</span>
-  </div>
- </div>
- <div class="build-steps">
-  <div class="bstep on" data-i="0"><span class="n">01</span><h3 class="disp">Reclaimed</h3><p>Teak that already lived once, often in old joglo houses. Far too good to waste.</p></div>
-  <div class="bstep" data-i="1"><span class="n">02</span><h3 class="disp">Burned</h3><p>An old Japanese technique to protect the wood. Finished with natural oil.</p></div>
-  <div class="bstep" data-i="2"><span class="n">03</span><h3 class="disp">Made to be built again and again</h3><p>Ships flat, bolts together on site and comes apart again whenever it needs to.</p></div>
- </div>
-</div></section>
-{BUILD_JS}
-
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Our mission</span><h2 class="disp">Reuse beats recycling.</h2><figure class="reuse-fig"><svg class="rc-draw reuse-draw" viewBox="0 0 520 190" aria-hidden="true"><path d="M88 64h14v16c0 9 17 13 17 30v38a5 5 0 0 1-5 5h-38a5 5 0 0 1-5-5v-38c0-17 17-21 17-30z"/><path d="M78 126h34"/><path d="M95 50A60 60 0 1 1 37 94.5"/><path d="M40.4 103.9L37 94.5L29.3 100.9"/><path d="M293 64h14v16c0 9 17 13 17 30v38a5 5 0 0 1-5 5h-38a5 5 0 0 1-5-5v-38c0-17 17-21 17-30z"/><path d="M283 126h34"/><path d="M330 120h34"/><path d="M357 113l7 7-7 7"/><path d="M398 148c-14 0-20-11-16-22 3-8 9-11 9-21 9 6 12 12 11 18 4-2 6-6 6-9 7 8 9 16 6 23-3 7-9 11-16 11z"/><path d="M418 120h34"/><path d="M445 113l7 7-7 7"/><g transform="translate(482 40) scale(.62)"><path d="M-7 64h14v16c0 9 17 13 17 30v38a5 5 0 0 1-5 5h-38a5 5 0 0 1-5-5v-38c0-17 17-21 17-30z"/><path d="M-17 126h34"/></g><path d="M10 176h500" stroke-width="1"/></svg><figcaption class="reuse-caps"><span class="cap">Refilled: the same bottle, again and again.</span><span class="cap">Melted down: energy spent to make it again.</span></figcaption></figure></div>
- <div class="prose"><p>A bottle that gets refilled does more good than one that gets melted down. Furniture works the same way: the longer a piece stays in use, the less needs to be made again.</p>
- <p>That idea shapes everything we design, and where we want to go next.</p>
- <p><a class="tlink" href="mission.html">Read our mission</a></p></div>
-</div></section>
-
-
-
-
-<section><div class="wrap split">
- <div><span class="label eyebrow muted">Work with us</span><h2 class="disp">Furnishing a place?</h2></div>
- <div class="prose"><p>We work with boutique hotels, resorts, restaurants and cafés, and with the architects and designers who furnish them. Tell us about the space and we'll reply with what is possible.</p>
- <div class="btns" style="margin-top:24px"><a class="btn" href="contact.html">Enquire</a><a class="label tlink" href="hospitality.html">How we work</a></div></div>
+<section class="h-line"><div class="wrap">
+ <p>Furnishing a hotel or restaurant? <a class="tlink" href="contact.html">Get in touch</a></p>
 </div></section>
 '''
-pages["index.html"] = ("Another Life — Hospitality furniture in reclaimed teak, Bali", "Another Life makes hospitality furniture from repurposed teak: Danish design, made in Indonesia, shipped flat and built to be repaired. First collection: SATU.", home,
+pages["index.html"] = ("Another Life — Hospitality furniture in reclaimed teak, Bali", "Danish-designed furniture in reclaimed teak, made by hand in Indonesia for hotels and restaurants. Made for longevity, repair and another life. First collection: SATU.", home,
   [breadcrumb([("index.html","Home")]),
    {"@type":"VideoObject","name":"Another Life — brand film","description":"A 34-second film about Another Life: reclaimed timber, making furniture by hand in Indonesia, and The Chair in rooms and by the sea. Ends with the line Danish furniture, designed for tomorrow.",
     "thumbnailUrl":[url("assets/film-poster.jpg"),url("assets/film-card.jpg")],"uploadDate":"2026-10-08","duration":"PT34S","contentUrl":url("assets/film.mp4"),
@@ -889,13 +900,15 @@ coll = f'''
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Collection</span>
  <h1 class="disp">The SATU collection.</h1>
- <div class="split page-head-body" style="margin-top:32px"><div></div>
- <div class="prose"><p>Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p><p><strong>Old wood, new purpose, long life.</strong></p></div></div>
- {updated()}
+ <p class="pull" style="margin-top:24px;max-width:46ch">Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p>
 </div></section>
-{bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up",lazy=False)}
-<section><div class="wrap">
- <div class="pindex">{"".join(f'<a class="pitem" href="{p["slug"]}.html"><span class="n">{p["order"]:02d}</span>{thumb(p)}<span class="disp">{p["name"]}</span><span class="d muted">{e(p["use"])}</span><span class="sku cap">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+<section class="c-grid-sec" style="padding-top:0;border-top:0"><div class="wrap">
+ <div class="c-grid">{"".join(f'<a class="c-piece" href="{p["slug"]}.html"><span class="c-img"><img src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak with a Shou Sugi Ban finish" loading="{"eager" if p["order"]<4 else "lazy"}"></span><span class="c-n">{p["order"]:02d}</span><span class="c-name disp">{p["name"]}</span><span class="c-use">{e(p["use"])}</span><span class="c-dim">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+</div></section>
+{bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up")}
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">About SATU</span><h2 class="disp">Old wood, new purpose, long life.</h2></div>
+ <div class="prose"><p>Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.</p><p>The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.</p></div>
 </div></section>
 <section class="forest"><div class="wrap split">
  <div><span class="label eyebrow muted">Shared by every piece</span><h2 class="disp">One design. Different lives.</h2></div>
