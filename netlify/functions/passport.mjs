@@ -1,5 +1,5 @@
 import { getStore } from "@netlify/blobs";
-import { parseCode, makeCode, yymmNow, validateBatch, publicView, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
+import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
 
 const ADMIN_COOKIE = "al_admin";   // signed with ADMIN_KEY, 30 days
 const DEVICE_COOKIE = "al_device"; // personal phone key from an invite link
@@ -24,7 +24,7 @@ function adminSecret(context) {
   return Netlify.env.get("ADMIN_KEY") || (isProd(context) ? null : "al-preview-test-only");
 }
 
-// Who is calling: { admin: true, name: "Admin" }, { id, name } for workshop staff, or null.
+// Who is calling: { admin: true, name: "Admin" }, { id, name, workshopId } for workshop staff, or null.
 async function whoAmI(db, context) {
   const secret = adminSecret(context);
   if (secret && (await checkToken(secret, context.cookies.get(ADMIN_COOKIE)))) return { admin: true, name: "Admin" };
@@ -33,7 +33,35 @@ async function whoAmI(db, context) {
   const userId = await db.get(`devices/${await sha256(dev)}`);
   if (!userId) return null;
   const user = await db.get(`users/${userId}`, { type: "json" });
-  return user && user.active ? { id: user.id, name: user.name } : null;
+  return user && user.active ? { id: user.id, name: user.name, workshopId: user.workshopId || null } : null;
+}
+
+// Workshop staff see and change only their own workshop's batches. Someone not yet placed in a
+// workshop sees only the batches they made themselves. Admin sees everything.
+function canSee(me, b) {
+  if (!me || !b) return false;
+  if (me.admin) return true;
+  return me.workshopId ? b.workshopId === me.workshopId : b.createdById === me.id;
+}
+
+async function readAll(db, prefix) {
+  const { blobs } = await db.list({ prefix });
+  const items = [];
+  for (let i = 0; i < blobs.length; i += 50) {
+    const chunk = await Promise.all(blobs.slice(i, i + 50).map(b => db.get(b.key, { type: "json" })));
+    items.push(...chunk.filter(Boolean));
+  }
+  return items;
+}
+// id -> name of every workshop
+async function workshopNames(db) {
+  const ws = await readAll(db, "workshops/");
+  return Object.fromEntries(ws.filter(w => w.active).map(w => [w.id, w.name]));
+}
+async function loadBatch(db, code) {
+  const p = parseCode(String(code || ""));
+  if (p.error) return null;
+  return db.get(`batch/${p.code}`, { type: "json" });
 }
 
 async function newInvite(db, user) {
@@ -46,7 +74,7 @@ async function newInvite(db, user) {
   return token;
 }
 
-const userView = u => ({ id: u.id, name: u.name, active: u.active, created: u.created, joined: u.joined || null, waiting: Boolean(u.inviteHash) && (u.inviteExpires || 0) > Date.now() });
+const userView = u => ({ id: u.id, name: u.name, active: u.active, created: u.created, joined: u.joined || null, workshopId: u.workshopId || null, waiting: Boolean(u.inviteHash) && (u.inviteExpires || 0) > Date.now() });
 
 export default async (req, context) => {
   const url = new URL(req.url);
@@ -70,26 +98,26 @@ export default async (req, context) => {
     }
     if (url.searchParams.has("me")) {
       const me = await whoAmI(db, context);
-      return json({ staff: Boolean(me), admin: Boolean(me?.admin), name: me?.name || null, adminReady: Boolean(Netlify.env.get("ADMIN_KEY")), testLogin: !isProd(context) });
+      const ws = me?.workshopId ? await db.get(`workshops/${me.workshopId}`, { type: "json" }) : null;
+      return json({ staff: Boolean(me), admin: Boolean(me?.admin), name: me?.name || null, workshopId: me?.workshopId || null, workshop: ws?.name || null,
+        adminReady: Boolean(Netlify.env.get("ADMIN_KEY")), testLogin: !isProd(context) });
     }
-    if (url.searchParams.has("list")) {
-      if (!(await whoAmI(db, context))) return json({ error: "auth" }, 401);
-      const { blobs } = await db.list({ prefix: "batch/" });
-      const keys = blobs.map(b => b.key).sort().reverse().slice(0, 30);
-      const items = (await Promise.all(keys.map(k => db.get(k, { type: "json" })))).filter(Boolean);
-      items.sort((a, b) => (b.made || "").localeCompare(a.made || ""));
-      return json({ batches: items.map(b => ({ ...publicView(b), createdBy: b.createdBy || null })) });
+    if (url.searchParams.has("list") || url.searchParams.has("batches")) {
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const [items, names] = await Promise.all([readAll(db, "batch/"), workshopNames(db)]);
+      let mine = items.filter(b => canSee(me, b));
+      mine.sort((a, b) => (b.made || "").localeCompare(a.made || ""));
+      if (url.searchParams.has("list")) mine = mine.filter(b => statusOf(b) === "draft").concat(mine.filter(b => statusOf(b) !== "draft").slice(0, 30));
+      return json({ batches: mine.map(b => staffView(b, names)) });
     }
-    if (url.searchParams.has("batches")) {
-      if (!(await whoAmI(db, context))) return json({ error: "auth" }, 401);
-      const { blobs } = await db.list({ prefix: "batch/" });
-      const items = [];
-      for (let i = 0; i < blobs.length; i += 50) {
-        const chunk = await Promise.all(blobs.slice(i, i + 50).map(b => db.get(b.key, { type: "json" })));
-        items.push(...chunk.filter(Boolean));
-      }
-      items.sort((a, b) => (b.made || "").localeCompare(a.made || ""));
-      return json({ batches: items.map(b => ({ ...publicView(b), createdBy: b.createdBy || null })) });
+    if (url.searchParams.has("staff")) {
+      // One batch with all details, for the edit screen
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const b = await loadBatch(db, url.searchParams.get("staff"));
+      if (!b || !canSee(me, b)) return json({ error: "none" }, 404);
+      return json({ batch: staffView(b, await workshopNames(db)) });
     }
     if (url.searchParams.has("users")) {
       const me = await whoAmI(db, context);
@@ -97,7 +125,8 @@ export default async (req, context) => {
       const { blobs } = await db.list({ prefix: "users/" });
       const users = (await Promise.all(blobs.map(b => db.get(b.key, { type: "json" })))).filter(u => u && u.active);
       users.sort((a, b) => a.created.localeCompare(b.created));
-      return json({ users: users.map(userView) });
+      const workshops = (await readAll(db, "workshops/")).filter(w => w.active).sort((a, b) => a.created.localeCompare(b.created));
+      return json({ users: users.map(userView), workshops: workshops.map(w => ({ id: w.id, name: w.name, created: w.created })) });
     }
     return json({ error: "unknown" }, 400);
   }
@@ -158,6 +187,9 @@ export default async (req, context) => {
       if (!me) return json({ error: "auth" }, 401);
       const v = validateBatch(body);
       if (v.error) return json({ error: v.error }, 400);
+      // Admin picks the workshop; workshop staff always make batches for their own workshop.
+      let workshopId = me.admin ? String(body.workshopId || "") || null : me.workshopId;
+      if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
       const yymm = yymmNow();
       // Next free batch number this month: highest existing + 1, written only if the key is still new.
       const { blobs } = await db.list({ prefix: `batch/AL-${yymm}-` });
@@ -166,11 +198,43 @@ export default async (req, context) => {
         if (n > 999) return json({ error: "full" }, 409);
         const code = makeCode(yymm, n);
         if (await db.get(`batch/${code}`)) continue;
-        const batch = { ...v.batch, code, made: new Date().toISOString(), createdBy: me.name, createdById: me.id || "admin" };
+        const now = new Date().toISOString();
+        const batch = { ...v.batch, code, made: now, createdBy: me.name, createdById: me.id || "admin", workshopId };
+        if (batch.status === "complete") batch.completed = now;
         const res = await db.setJSON(`batch/${code}`, batch, { onlyIfNew: true });
-        if (!res || res.modified !== false) return json({ batch: publicView(batch) }, 201);
+        if (!res || res.modified !== false) return json({ batch: staffView(batch, await workshopNames(db)) }, 201);
       }
       return json({ error: "busy" }, 409);
+    }
+    case "update": {
+      // Fill in or correct the details of a batch. The QR code never changes.
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const batch = await loadBatch(db, body.code);
+      if (!batch || !canSee(me, batch)) return json({ error: "none" }, 404);
+      const d = validateDetails(body);
+      if (d.error) return json({ error: d.error }, 400);
+      const wasDraft = statusOf(batch) === "draft";
+      // Once a passport shows its story, the wood can be corrected but not removed again.
+      if (!d.details.origin) delete d.details.origin;
+      Object.assign(batch, d.details);
+      if (me.admin) {
+        if ("model" in body || "qty" in body) {
+          const v = validateBatch({ model: body.model ?? batch.model, qty: body.qty ?? batch.qty });
+          if (v.error) return json({ error: v.error }, 400);
+          batch.model = v.batch.model; batch.qty = v.batch.qty;
+        }
+        if ("workshopId" in body) {
+          const w = String(body.workshopId || "") || null;
+          if (w && !(await db.get(`workshops/${w}`))) return json({ error: "workshop" }, 400);
+          batch.workshopId = w;
+        }
+      }
+      batch.status = statusOf(batch);
+      batch.updated = new Date().toISOString(); batch.updatedBy = me.name;
+      if (wasDraft && batch.status === "complete") batch.completed = batch.updated;
+      await db.setJSON(`batch/${batch.code}`, batch);
+      return json({ batch: staffView(batch, await workshopNames(db)) });
     }
     case "photo": {
       // Photos of the wood before it was remade, added by workshop staff to a batch.
@@ -179,7 +243,7 @@ export default async (req, context) => {
       const p = parseCode(String(body.code || ""));
       if (p.error) return json({ error: "code" }, 400);
       const batch = await db.get(`batch/${p.code}`, { type: "json" });
-      if (!batch) return json({ error: "none" }, 404);
+      if (!batch || !canSee(me, batch)) return json({ error: "none" }, 404);
       batch.photos = batch.photos || [];
       if (batch.photos.length >= MAX_PHOTOS) return json({ error: "photos-full" }, 409);
       let bytes;
@@ -189,7 +253,7 @@ export default async (req, context) => {
       await db.set(`photo/${p.code}/${id}`, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
       batch.photos.push(id);
       await db.setJSON(`batch/${p.code}`, batch);
-      return json({ batch: publicView(batch) }, 201);
+      return json({ batch: staffView(batch, await workshopNames(db)) }, 201);
     }
     case "photo-remove": {
       const me = await whoAmI(db, context);
@@ -198,11 +262,11 @@ export default async (req, context) => {
       const id = String(body.id || "");
       if (p.error || !PHOTO_ID.test(id)) return json({ error: "none" }, 404);
       const batch = await db.get(`batch/${p.code}`, { type: "json" });
-      if (!batch || !(batch.photos || []).includes(id)) return json({ error: "none" }, 404);
+      if (!batch || !canSee(me, batch) || !(batch.photos || []).includes(id)) return json({ error: "none" }, 404);
       batch.photos = batch.photos.filter(x => x !== id);
       await db.delete(`photo/${p.code}/${id}`);
       await db.setJSON(`batch/${p.code}`, batch);
-      return json({ batch: publicView(batch) });
+      return json({ batch: staffView(batch, await workshopNames(db)) });
     }
   }
 
@@ -213,10 +277,35 @@ export default async (req, context) => {
   if (body.action === "add-user") {
     const name = cleanName(body.name);
     if (!name) return json({ error: "name" }, 400);
-    const user = { id: randomToken(9), name, active: true, created: new Date().toISOString(), devices: [] };
+    const workshopId = String(body.workshopId || "") || null;
+    if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
+    const user = { id: randomToken(9), name, active: true, created: new Date().toISOString(), devices: [], workshopId };
     const token = await newInvite(db, user);
     await db.setJSON(`users/${user.id}`, user);
     return json({ user: userView(user), token }, 201);
+  }
+  if (body.action === "add-workshop") {
+    const name = cleanName(body.name);
+    if (!name) return json({ error: "name" }, 400);
+    const ws = { id: randomToken(6), name, active: true, created: new Date().toISOString() };
+    await db.setJSON(`workshops/${ws.id}`, ws);
+    return json({ workshop: { id: ws.id, name: ws.name, created: ws.created } }, 201);
+  }
+  if (body.action === "rename-workshop") {
+    const ws = await db.get(`workshops/${String(body.id || "")}`, { type: "json" });
+    const name = cleanName(body.name);
+    if (!ws || !ws.active) return json({ error: "none" }, 404);
+    if (!name) return json({ error: "name" }, 400);
+    ws.name = name; await db.setJSON(`workshops/${ws.id}`, ws);
+    return json({ ok: true });
+  }
+  if (body.action === "set-user-workshop") {
+    const user = await db.get(`users/${String(body.id || "")}`, { type: "json" });
+    if (!user || !user.active) return json({ error: "none" }, 404);
+    const workshopId = String(body.workshopId || "") || null;
+    if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
+    user.workshopId = workshopId; await db.setJSON(`users/${user.id}`, user);
+    return json({ user: userView(user) });
   }
   if (body.action === "new-link" || body.action === "remove-user") {
     const user = await db.get(`users/${String(body.id || "")}`, { type: "json" });

@@ -38,21 +38,53 @@ export function yymmNow(date = new Date()) {
 const clean = (v, max) => String(v ?? "").replace(/[\u0000-\u001f<>]/g, "").trim().slice(0, max);
 
 // Validates a new batch from the factory form. Returns { batch } or { error }.
+// The wood details may be left empty: then the batch is a draft, so its QR code can be made
+// and engraved first, and the workshop fills in the rest later.
 export function validateBatch(body) {
   const model = clean(body.model, 40);
-  const origin = clean(body.origin, 10);
   if (!MODELS.includes(model)) return { error: "model" };
-  if (!ORIGINS.includes(origin)) return { error: "origin" };
   const qty = Number.parseInt(body.qty, 10);
   if (!Number.isFinite(qty) || qty < 1 || qty > 999) return { error: "qty" };
-  let kg = body.kg === "" || body.kg == null ? null : Number(body.kg);
-  if (kg != null && (!Number.isFinite(kg) || kg <= 0 || kg > 500)) return { error: "kg" };
-  return { batch: { model, origin, region: clean(body.region, 60), maker: clean(body.maker, 60), qty, kg, route: "jakarta-bali" } };
+  const d = validateDetails(body);
+  if (d.error) return d;
+  const batch = { model, qty, origin: d.details.origin || "", region: d.details.region || "", maker: d.details.maker || "", kg: d.details.kg ?? null, route: "jakarta-bali" };
+  batch.status = batch.origin ? "complete" : "draft";
+  return { batch };
 }
 
+// The details the workshop can fill in later. Only fields that are sent are returned.
+export function validateDetails(body) {
+  const details = {};
+  if ("origin" in body) {
+    const origin = clean(body.origin, 10);
+    if (origin && !ORIGINS.includes(origin)) return { error: "origin" };
+    details.origin = origin;
+  }
+  if ("region" in body) details.region = clean(body.region, 60);
+  if ("maker" in body) details.maker = clean(body.maker, 60);
+  if ("kg" in body) {
+    const kg = body.kg === "" || body.kg == null ? null : Number(body.kg);
+    if (kg != null && (!Number.isFinite(kg) || kg <= 0 || kg > 500)) return { error: "kg" };
+    details.kg = kg;
+  }
+  return { details };
+}
+
+// Batches made before drafts existed are complete when they have an origin.
+export const statusOf = b => (b.origin ? "complete" : "draft");
+
 // The public view of a batch: only the story, nothing private.
+// A draft shows only the product, so a scan before the details are in gives the general story.
 export function publicView(b) {
-  return { code: b.code, model: b.model, origin: b.origin, region: b.region, maker: b.maker, qty: b.qty, kg: b.kg, route: b.route, made: b.made, photos: b.photos || [] };
+  if (statusOf(b) === "draft") return { code: b.code, model: b.model, status: "draft", photos: [] };
+  return { code: b.code, model: b.model, origin: b.origin, region: b.region, maker: b.maker, qty: b.qty, kg: b.kg, route: b.route, made: b.completed || b.made, photos: b.photos || [], status: "complete" };
+}
+
+// What logged-in staff see: everything, including drafts and who made and changed what.
+export function staffView(b, workshops = {}) {
+  return { code: b.code, model: b.model, origin: b.origin || "", region: b.region || "", maker: b.maker || "", qty: b.qty, kg: b.kg ?? null, route: b.route, made: b.made,
+    photos: b.photos || [], status: statusOf(b), workshopId: b.workshopId || null, workshop: (b.workshopId && workshops[b.workshopId]) || null,
+    createdBy: b.createdBy || null, updated: b.updated || null, updatedBy: b.updatedBy || null, completed: b.completed || null };
 }
 
 // Staff session tokens: expiry + HMAC, keyed from the staff password.
