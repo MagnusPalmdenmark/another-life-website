@@ -25,7 +25,6 @@ BRAND = {
   "wordmark": "ANOTHER — LIFE",
   "one_line": "Another Life makes hospitality furniture from repurposed teak. Danish design, made in Indonesia, shipped flat and built to be repaired.",
   "mission": "We exist to make furniture that lasts a long time.",
-  "founders": ["Stine Palm", "Magnus Palm"],
   "based": "Bali, Indonesia",
   "made_in": "Indonesia",
   "collection": "SATU",
@@ -128,7 +127,7 @@ FAQ = [
   ("Can the furniture be repaired?", "Yes, and that is the heart of the design. Parts are bolted together, so any single part can be replaced and the piece goes straight back into service. It can be taken apart and put back together again and again."),
   ("What is the Another Life Passport?", "Our QR tracing system. A small QR code on the furniture opens the story of that piece: where its wood came from and what it was before, who made it, how it travelled, and how to care for it and repair it. When a piece moves to a new owner, its story moves with it. No app is needed."),
   ("Who do you make furniture for?", "Boutique hotels, resorts, restaurants and cafés, and the architects and interior designers who work with them. We love working with the people who shape what a place stands for."),
-  ("Is Another Life Danish?", "Yes. Another Life is a Danish family company. Design runs in the family: we come from a line of architects and furniture makers, and that heritage shapes everything we draw. We are Danish at heart and inspired by the world. Every piece is made by hand in Indonesia, close to the material and the makers."),
+  ("Is Another Life Danish?", "Yes. Another Life is Danish-designed, rooted in the Danish and Scandinavian design tradition. We are Danish at heart and inspired by the world. Every piece is made by hand in Indonesia, close to the material and the makers."),
   ("How do I order?", "Send us a message with your space, the pieces you like and your timeline. We will reply with options, pricing and lead times."),
 ]
 
@@ -616,7 +615,6 @@ ORG = {
   "logo": url("assets/logo-lockup.png"),
   "description": BRAND["one_line"],
   "slogan": "Made for this life. And another.",
-  "founder": [{"@type":"Person","name":n} for n in BRAND["founders"]],
   "address": {"@type":"PostalAddress","addressRegion":"Bali","addressCountry":"ID"},
   "areaServed": "Worldwide",
   "knowsAbout": ["Reclaimed teak furniture","Hospitality furniture","Contract furniture","Knock-down furniture","Repairable furniture","Circular design","Danish design","Material traceability"],
@@ -722,7 +720,6 @@ KEY_FACTS = [
   ("Construction", "Modular and knock-down. Travels flat, comes apart without damage, parts replaceable"),
   ("Design", "Danish and Scandinavian design tradition"),
   ("Made in", "Indonesia"),
-  ("Founders", "Stine Palm and Magnus Palm. A family company"),
   ("Pricing", "On request. Ex works, Indonesia"),
 ]
 
@@ -993,10 +990,9 @@ mission = f'''
 </div></section>
 
 <section id="origin"><div class="wrap split">
- <div><span class="label eyebrow muted">Origin</span><h2 class="disp">A family company, inspired by Bali.</h2><div class="lead-img">{fig("family.jpg","Black-and-white photograph of the founders and their three children in Balinese ceremonial dress, smiling, with offerings and a garden behind them","The family behind Another Life.")}</div></div>
- <div class="prose"><p>We moved to Bali for Green School. Its ethos, to do better, stayed with us, and it is also why this company exists.</p>
- <p>We wanted to build something that does good and still lets us live a healthy family life, rather than chase scale for its own sake. The idea came from looking around: hotels across Bali and the islands east of it, full of plastic furniture with short lives.</p>
- <p>Another Life was founded by Stine Palm and Magnus Palm, and it is a family company. We build it the way we want to live: for the long run.</p></div>
+ <div><span class="label eyebrow muted">Origin</span><h2 class="disp">An idea born in Bali.</h2></div>
+ <div class="prose"><p>The idea came from looking around: hotels across Bali and the islands east of it, full of plastic furniture with short lives.</p>
+ <p>We wanted to build something that does good, rather than chase scale for its own sake. We build it the way we think furniture should be made: for the long run.</p></div>
 </div></section>
 
 <section id="design"><div class="wrap split">
@@ -1020,7 +1016,7 @@ mission = f'''
 
 
 '''
-pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: why we exist, the family behind it, our design principles and our goals to give back and collaborate.", mission,
+pages["mission.html"] = ("Another Life Mission", "The mission of Another Life: why we exist, where the idea came from, our design principles and our goals to give back and collaborate.", mission,
   [breadcrumb([("index.html","Home"),("mission.html","Mission")]),
    {"@type":"AboutPage","name":"Another Life Mission","url":url("mission.html"),"about":{"@id":url("index.html")+"#org"},"dateModified":UPDATED}])
 
@@ -1337,7 +1333,7 @@ llms = f"""# Another Life
 
 > {BRAND['one_line']} {BRAND['mission']}
 
-Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia, founded by Stine Palm and Magnus Palm. Its first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
+Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand based in Bali, Indonesia. Its first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
 
 Key facts:
 - Purpose: to make furniture that lasts a long time.
@@ -1371,8 +1367,8 @@ Key facts:
 
 brand_json = {
   "name":"Another Life","wordmark":"ANOTHER — LIFE","url":SITE_URL,"updated":UPDATED,
-  "description":BRAND["one_line"],"purpose":BRAND["mission"],"founders":BRAND["founders"],
-  "based_in":BRAND["based"],"company_type":"Family company","made_in":BRAND["made_in"],"origin":"An idea born in Bali",
+  "description":BRAND["one_line"],"purpose":BRAND["mission"],
+  "based_in":BRAND["based"],"made_in":BRAND["made_in"],"origin":"An idea born in Bali",
   "category":"Hospitality furniture (B2B)","customers":BRAND["customers"],
   "design_tradition":"Danish / Scandinavian",
   "material":{"name":"Repurposed teak","botanical_name":"Tectona grandis","source":"Often old joglo houses in Indonesia, also bridges, boats and other structures"},
