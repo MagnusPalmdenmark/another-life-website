@@ -340,7 +340,7 @@ function rebuildSite() {
 }
 
 
-// ===================== QR library (same file the site uses: passport-app/qrcode.js) =====================
+// ===================== QR library (qrcode-generator, same as the site's passport-app/qrcode.js) =====================
 /* qrcode-generator 2.0.4, (c) 2009 Kazuhiko Arase, MIT License, https://github.com/kazuhikoarase/qrcode-generator */
 //---------------------------------------------------------------------
 //
@@ -2630,12 +2630,3 @@ var qrcode = function() {
 
 }();
 
-(function (factory) {
-  if (typeof define === 'function' && define.amd) {
-      define([], factory);
-  } else if (typeof exports === 'object') {
-      module.exports = factory();
-  }
-}(function () {
-    return qrcode;
-}));
