@@ -23,6 +23,12 @@ const LOT_COLS = ["Lot", "Name", "Status", "Source", "Place", "Region", "Supplie
   "Workshop", "Used in batches", "Notes", "Created", "Created by", "Photos", "_data"];
 const WS_COLS = ["Workshop", "Created", "_data"];
 
+// Run this once from the script editor (the ▷ Run button). Google asks you to allow access,
+// then it adds the READ ME tab and the "Another Life" menu appears when you reload the sheet.
+function setupSheet() {
+  readMe_(SpreadsheetApp.getActive());
+}
+
 function onOpen() {
   SpreadsheetApp.getUi().createMenu("Another Life")
     .addItem("Update now", "syncNow")
