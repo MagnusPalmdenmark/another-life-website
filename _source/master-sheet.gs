@@ -13,6 +13,7 @@
  */
 
 const SITE = "https://id.another-life.dk";
+const SHEET_ID = "1bSQ6Lwn-SVyXF4_bIWDRHDDDx000J-gR8mHBWzniAE8"; // this sheet
 const SHEET_NAME = "ANOTHER LIFE · Passport Master Record — DO NOT DELETE";
 const FOLDER_NAME = "ANOTHER LIFE · Passport Master Record — photos (DO NOT DELETE)";
 const PHOTOS_PER_RUN = 150; // the rest follow on the next run
@@ -23,25 +24,38 @@ const LOT_COLS = ["Lot", "Name", "Status", "Source", "Place", "Region", "Supplie
   "Workshop", "Used in batches", "Notes", "Created", "Created by", "Photos", "_data"];
 const WS_COLS = ["Workshop", "Created", "_data"];
 
-// Run this once from the script editor (the ▷ Run button). Google asks you to allow access,
-// then it adds the READ ME tab and the "Another Life" menu appears when you reload the sheet.
+// The sheet: the one this script is attached to, or else the sheet named above.
+function ss_() { return SpreadsheetApp.getActive() || SpreadsheetApp.openById(SHEET_ID); }
+// The sheet's menus and pop-ups exist only when someone has the sheet open; otherwise messages go to the log.
+function ui_() { try { return SpreadsheetApp.getUi(); } catch (e) { return null; } }
+function say_(title, text) { const ui = ui_(); if (ui) ui.alert(title, text, ui.ButtonSet.OK); else Logger.log(title + ": " + text); }
+
+// Run this once from the script editor (the ▷ Run button). Google asks you to allow access. It then
+// adds the READ ME tab, switches on the hourly update and adds the "Another Life" menu to the sheet.
 function setupSheet() {
-  readMe_(SpreadsheetApp.getActive());
+  const ss = ss_();
+  readMe_(ss);
+  ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger("syncNow").timeBased().everyHours(1).create();
+  ScriptApp.newTrigger("onOpen").forSpreadsheet(ss).onOpen().create();
+  Logger.log("Set up. Hourly update is on. Last step: add the export key under Project Settings → Script properties (name EXPORT_KEY).");
 }
 
 function onOpen() {
-  SpreadsheetApp.getUi().createMenu("Another Life")
+  const ui = ui_();
+  if (ui) ui.createMenu("Another Life")
     .addItem("Update now", "syncNow")
     .addItem("Turn on hourly update", "installTrigger")
     .addItem("Set export key", "setKey")
     .addSeparator()
     .addItem("Rebuild site from this sheet…", "rebuildSite")
     .addToUi();
-  try { readMe_(SpreadsheetApp.getActive()); } catch (e) {}
+  try { readMe_(ss_()); } catch (e) {}
 }
 
 function setKey() {
-  const ui = SpreadsheetApp.getUi();
+  const ui = ui_();
+  if (!ui) { Logger.log("Add the key under Project Settings → Script properties, name EXPORT_KEY."); return; }
   const r = ui.prompt("Export key", "Paste the EXPORT_KEY you added in Netlify.", ui.ButtonSet.OK_CANCEL);
   if (r.getSelectedButton() !== ui.Button.OK) return;
   PropertiesService.getScriptProperties().setProperty("EXPORT_KEY", r.getResponseText().trim());
@@ -51,12 +65,12 @@ function setKey() {
 function installTrigger() {
   ScriptApp.getProjectTriggers().filter(t => t.getHandlerFunction() === "syncNow").forEach(t => ScriptApp.deleteTrigger(t));
   ScriptApp.newTrigger("syncNow").timeBased().everyHours(1).create();
-  SpreadsheetApp.getUi().alert("Done. The sheet now updates itself every hour.");
+  say_("Hourly update", "Done. The sheet now updates itself every hour.");
 }
 
 function key_() {
   const k = PropertiesService.getScriptProperties().getProperty("EXPORT_KEY");
-  if (!k) throw new Error("No export key yet. Choose Another Life → Set export key.");
+  if (!k) throw new Error("No export key yet. Add it under Project Settings → Script properties (name EXPORT_KEY), or Another Life → Set export key.");
   return k;
 }
 function api_(site) { return site.replace(/\/+$/, "") + "/.netlify/functions/passport"; }
@@ -76,8 +90,10 @@ function postJson_(site, body) {
 // ---------- copy the site into the sheet
 
 function syncNow() {
-  const ss = SpreadsheetApp.getActive();
+  const ss = ss_();
   readMe_(ss);
+  // Before the key is added, the hourly run quietly waits instead of failing every hour.
+  if (!PropertiesService.getScriptProperties().getProperty("EXPORT_KEY")) { Logger.log("Waiting for the export key."); return; }
   const d = getJson_(SITE, "export=1");
   writeTab_(ss, "Batches", BATCH_COLS, d.batches.map(b => [b.code, b.status, b.model, b.qty, (b.lots || []).map(n => "LOT " + n).join(" "),
     b.origin, b.region, b.maker, b.kg, b.workshop, b.made, b.createdBy, b.completed, b.updated, b.updatedBy, (b.photos || []).length,
@@ -118,8 +134,8 @@ function readMe_(ss) {
       ["Tabs"],
       ["Batches: one row per furniture batch (one QR code). Wood lots: one row per delivery of reclaimed wood. Workshops: the workshops using the system. About: when the last copy was made."],
       [""],
-      ["Menu: Another Life"],
-      ["Update now: copy the latest from the site. Turn on hourly update: keeps this file current by itself. Rebuild site from this sheet: writes everything back into a site (adds only what is missing)."],
+      ["How it runs"],
+      ["It updates itself every hour. Menu Another Life (if shown): Update now, Rebuild site from this sheet. The same can be run from Extensions → Apps Script: choose syncNow or rebuildSite and press Run. Rebuilding only adds what is missing; it never overwrites."],
       [""],
       ["Keep it private. Share only with people who need it. It holds supplier names and internal notes that never appear on passports."]
     ];
@@ -144,7 +160,7 @@ function writeTab_(ss, name, cols, rows) {
 }
 
 function folder_() {
-  const file = DriveApp.getFileById(SpreadsheetApp.getActive().getId());
+  const file = DriveApp.getFileById(ss_().getId());
   const parents = file.getParents();
   const parent = parents.hasNext() ? parents.next() : DriveApp.getRootFolder();
   const it = parent.getFoldersByName(FOLDER_NAME);
@@ -194,13 +210,16 @@ const text_ = v => (v instanceof Date ? Utilities.formatDate(v, "UTC", "yyyy-MM-
 const lotNums_ = v => text_(v).split(/[\s,]+/).map(x => x.replace(/^LOT/i, "")).filter(x => /^\d+$/.test(x)).map(Number);
 
 function rebuildSite() {
-  const ui = SpreadsheetApp.getUi();
-  const a = ui.prompt("Rebuild site from this sheet",
-    "Which site should be rebuilt? Leave as it is for " + SITE + ".\nOnly missing records and photos are added; nothing on the site is overwritten.",
-    ui.ButtonSet.OK_CANCEL);
-  if (a.getSelectedButton() !== ui.Button.OK) return;
-  const site = a.getResponseText().trim() || SITE;
-  const ss = SpreadsheetApp.getActive();
+  const ui = ui_();
+  let site = PropertiesService.getScriptProperties().getProperty("REBUILD_SITE") || SITE;
+  if (ui) {
+    const a = ui.prompt("Rebuild site from this sheet",
+      "Which site should be rebuilt? Leave empty for " + site + ".\nOnly missing records and photos are added; nothing on the site is overwritten.",
+      ui.ButtonSet.OK_CANCEL);
+    if (a.getSelectedButton() !== ui.Button.OK) return;
+    site = a.getResponseText().trim() || site;
+  }
+  const ss = ss_();
   const workshops = readTab_(ss, "Workshops", WS_COLS, (w, c) => { if (c("Workshop")) w.name = text_(c("Workshop")); });
   const lots = readTab_(ss, "Wood lots", LOT_COLS, (l, c) => {
     const map = { Name: "name", Status: "status", Source: "origin", Place: "place", Region: "region", Supplier: "supplier", Volume: "volume", "Source location": "gps", Notes: "notes" };
@@ -235,8 +254,7 @@ function rebuildSite() {
       }
     }
   });
-  ui.alert("Rebuild finished",
+  say_("Rebuild finished",
     "Added: " + total.batches + " batches, " + total.lots + " wood lots, " + total.workshops + " workshops, " + photos + " photos.\n" +
-    "Already there (left as they were): " + total.skipped + ".\n" + (total.errors.length ? "Could not add: " + total.errors.join(", ") : "No problems."),
-    ui.ButtonSet.OK);
+    "Already there (left as they were): " + total.skipped + ".\n" + (total.errors.length ? "Could not add: " + total.errors.join(", ") : "No problems."));
 }
