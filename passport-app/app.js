@@ -102,7 +102,7 @@
       wsNoPeople: "No one here yet.", noWs: "Not in a workshop", noWsP: "Sees only the batches they made themselves.",
       qWs: "Which workshop?", wsPick: "Workshop", wsNoneOpt: "No workshop", adAddTo: n => `Add a person to ${n}`,
       stDraft: "Draft", stDone: "Complete", stCol: "Status", wsCol: "Workshop", abAllS: "All statuses", abOnlyD: "Drafts only",
-      woodLater: "Don't know the wood yet? Leave it empty. The code is saved as a draft, and the details can be filled in later.",
+      woodLater: "Don't know the wood yet? Leave it empty. The code is saved as a draft, and the wood can be added later.",
       createDraft: "Create code, fill in later",
       draftRes: "Draft. Engrave it now. Until the details are filled in, scanning it shows the general Another Life story.",
       finish: "Fill in the details", toFinish: "To finish", toFinishP: "Codes that are made, but still need the wood details.",
@@ -113,6 +113,22 @@
       // passport for a draft
       dLead: m => `${m} is made from reclaimed teak: wood that has already lived one life, as part of a house, a bridge or a boat. Before that, it was a teak tree growing for decades.`,
       dS2h: "A house, a bridge or a boat", dS2: "Its first life, before the workshop.", dS3: "Remade by hand in Jakarta.",
+      // wood lots
+      lotsT: "Wood lots", lotsP: "Every delivery of reclaimed wood gets a lot number. Print the tag and fix it to the stack. When furniture is made, pick the lot number from the tag.",
+      lotsLink: "Wood lots", lotNew: "New wood lot", lotNewP: "Register wood when it arrives. You get a number to print and put on the stack.",
+      lotSrc: "What was the wood?", lotPlace: "Where it came from: village or town", lotPlacePh: "e.g. Jepara", lotRegion: "Region", lotRegionPh: "e.g. Central Java",
+      lotSupplier: "Bought from (internal)", lotArrived: "Arrived", lotVolume: "How much (e.g. 2 m³, 40 beams)", lotGps: "Location of the source (internal, optional)", lotGpsBtn: "Use my location",
+      lotNotes: "Notes (internal)", lotName: "Short name on the tag", lotNamePh: "Made automatically, e.g. Joglo · Jepara",
+      lotPhotos: "Photos of the wood and where it came from", lotPubPh: "Show these photos on passports", lotCreate: "Create lot and print tag",
+      lotOpen: "In stock", lotUsed: "Used up", lotMarkUsed: "Mark as used up", lotMarkOpen: "Back in stock", lotPrint: "Print tag", lotEdit: "Edit",
+      lotNone: "No wood lots yet.", lotIn: n => `Used in ${n} batch${n === 1 ? "" : "es"}`, lotBatches: "Furniture made from this lot", lotNoB: "Not used in any batch yet.",
+      lotNotFound: "This lot doesn't exist, or it belongs to another workshop.", lotSaved: "Saved.", lotShowUsed: n => `Show ${n} used-up lot${n === 1 ? "" : "s"}`,
+      qLot: "Which wood lot? Read the number on the tag", lotTypePh: "Type lot number, e.g. 12", lotAdd: "Add", lotNo: n => `There is no lot ${n} for this workshop.`,
+      byHand: "No lot number? Choose the wood by hand", lotFromTag: "Area comes from the lot.",
+      tagTitle: "Print this tag and fix it to the wood stack", tagPrint: "Print", tagBack: "Back to the lot",
+      err_lot: "One of the lot numbers doesn't exist for this workshop.", err_lot_workshop: "That lot belongs to another workshop.", err_origin_lot: "Choose what the wood was.",
+      dlAll: "Download everything (ZIP)", dlAllP: "A copy of all batches, wood lots and photos, with spreadsheets you can open in Excel. Keep it on your computer or in Google Drive.",
+      dlBusy: (i, n) => `Preparing… ${i} of ${n} photos`, dlDone: "Downloaded.", lotsSum: (o, u) => `${o} in stock · ${u} used up`,
     },
     id: {
       lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
@@ -197,11 +213,27 @@
       err_workshop: "Bengkel itu sudah tidak ada.",
       dLead: m => `${m} dibuat dari kayu jati daur ulang: kayu yang sudah menjalani satu kehidupan, sebagai bagian dari rumah, jembatan, atau perahu. Sebelumnya, ia adalah pohon jati yang tumbuh selama puluhan tahun.`,
       dS2h: "Rumah, jembatan, atau perahu", dS2: "Kehidupan pertamanya, sebelum ke bengkel.", dS3: "Dibuat ulang dengan tangan di Jakarta.",
+      lotsT: "Lot kayu", lotsP: "Setiap kiriman kayu bekas mendapat nomor lot. Cetak labelnya dan pasang di tumpukan kayu. Saat membuat furnitur, pilih nomor lot dari label itu.",
+      lotsLink: "Lot kayu", lotNew: "Lot kayu baru", lotNewP: "Catat kayu saat tiba. Anda mendapat nomor untuk dicetak dan dipasang di tumpukan.",
+      lotSrc: "Kayunya dulu apa?", lotPlace: "Asalnya: desa atau kota", lotPlacePh: "mis. Jepara", lotRegion: "Wilayah", lotRegionPh: "mis. Jawa Tengah",
+      lotSupplier: "Dibeli dari (internal)", lotArrived: "Tiba", lotVolume: "Berapa banyak (mis. 2 m³, 40 balok)", lotGps: "Lokasi asal kayu (internal, opsional)", lotGpsBtn: "Pakai lokasi saya",
+      lotNotes: "Catatan (internal)", lotName: "Nama singkat di label", lotNamePh: "Dibuat otomatis, mis. Joglo · Jepara",
+      lotPhotos: "Foto kayu dan tempat asalnya", lotPubPh: "Tampilkan foto ini di paspor", lotCreate: "Buat lot dan cetak label",
+      lotOpen: "Tersedia", lotUsed: "Sudah habis", lotMarkUsed: "Tandai sudah habis", lotMarkOpen: "Tersedia lagi", lotPrint: "Cetak label", lotEdit: "Ubah",
+      lotNone: "Belum ada lot kayu.", lotIn: n => `Dipakai di ${n} batch`, lotBatches: "Furnitur dari lot ini", lotNoB: "Belum dipakai di batch mana pun.",
+      lotNotFound: "Lot ini tidak ada, atau milik bengkel lain.", lotSaved: "Tersimpan.", lotShowUsed: n => `Tampilkan ${n} lot yang sudah habis`,
+      qLot: "Lot kayu yang mana? Baca nomor di label", lotTypePh: "Ketik nomor lot, mis. 12", lotAdd: "Tambah", lotNo: n => `Tidak ada lot ${n} untuk bengkel ini.`,
+      byHand: "Tidak ada nomor lot? Pilih kayunya secara manual", lotFromTag: "Daerah diambil dari lot.",
+      tagTitle: "Cetak label ini dan pasang di tumpukan kayu", tagPrint: "Cetak", tagBack: "Kembali ke lot",
+      err_lot: "Salah satu nomor lot tidak ada untuk bengkel ini.", err_lot_workshop: "Lot itu milik bengkel lain.", err_origin_lot: "Pilih kayunya dulu apa.",
+      dlAll: "Unduh semua (ZIP)", dlAllP: "Salinan semua batch, lot kayu, dan foto, dengan tabel yang bisa dibuka di Excel. Simpan di komputer atau Google Drive.",
+      dlBusy: (i, n) => `Menyiapkan… ${i} dari ${n} foto`, dlDone: "Sudah diunduh.", lotsSum: (o, u) => `${o} tersedia · ${u} sudah habis`,
     }
   };
 
   const TEST_BATCH = { code: "TEST", model: "The Bench", origin: "bridge", region: "Central Java", maker: "Tim A", qty: 12, kg: 9, route: "jakarta-bali", made: new Date().toISOString(), photos: ["test1", "test2"] };
-  const photoUrl = (code, id) => code === "TEST" ? `/passport-app/wood-${id}.jpg` : `${API}?photo=${encodeURIComponent(code)}/${id}`;
+  const photoUrl = (code, id) => code === "TEST" ? `/passport-app/wood-${id}.jpg` : /^L\d+\//.test(id) ? `${API}?lphoto=${id.slice(1)}` : `${API}?photo=${encodeURIComponent(code)}/${id}`;
+  const lotPhotoUrl = (n, id) => `${API}?lphoto=${n}/${id}`;
   const SITE = "https://another-life.dk";
   const productUrl = m => `${SITE}/${m.toLowerCase().replace(/\s+/g, "-")}.html`;
 
@@ -260,6 +292,11 @@
     if (p.toLowerCase() === "batches") return { view: "batches" };
     if (/^join\//i.test(p)) return { view: "join", token: p.slice(5) };
     if (/^edit\//i.test(p)) return { view: "edit", code: p.slice(5).toUpperCase() };
+    if (p.toLowerCase() === "lots") return { view: "lots" };
+    let lm = p.match(/^lot\/(\d+)\/tag$/i);
+    if (lm) return { view: "tag", n: Number(lm[1]) };
+    lm = p.match(/^lot\/(\d+)$/i);
+    if (lm) return { view: "lot", n: Number(lm[1]) };
     const m = p.match(/^(.+)\/repair$/i);
     if (m) return { view: "repair", code: m[1].toLowerCase() === "test" ? "TEST" : m[1].toUpperCase() };
     if (p.toLowerCase() === "test") return { view: "passport", code: "TEST" };
@@ -287,6 +324,7 @@
   function render(langOnly) {
     const r = route();
     $("#banner").hidden = true;
+    document.body.classList.toggle("tagmode", r.view === "tag");
     if (r.view !== "batches" && r.view !== "admin") document.body.classList.remove("wide");
     document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
     document.documentElement.lang = lang;
@@ -297,6 +335,9 @@
     if (r.view === "batches") return viewBatches(langOnly);
     if (r.view === "join") return viewJoin(r.token);
     if (r.view === "edit") return viewEdit(r.code, langOnly);
+    if (r.view === "lots") return viewLots(langOnly);
+    if (r.view === "lot") return viewLot(r.n, langOnly);
+    if (r.view === "tag") return viewTag(r.n);
     if (r.view === "repair") return viewRepair(r.code);
     return viewPassport(r.code);
   }
@@ -430,6 +471,10 @@
         <div class="recent" id="drafts"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
       </section>
       <section>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.lotsT}</span><a class="staff" href="${BASE}/lots" data-go="lots">${L.lotsLink} →</a></div>
+        <p class="fine" id="ovLots">${L.loading}</p>
+      </section>
+      <section>
         <span class="k">${L.wsT}</span>
         <p class="fine">${L.wsP}</p>
         <div id="wsList"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
@@ -438,8 +483,15 @@
           <button class="btn ghost" type="submit" id="wsBtn">${L.wsCreate}</button>
         </form>
       </section>
-      <section class="foot" style="display:flex;gap:20px;flex-wrap:wrap"><a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a></section>`;
+      <section>
+        <span class="k">Backup</span>
+        <p class="fine">${L.dlAllP}</p>
+        <button class="btn ghost" type="button" id="dlAll">${L.dlAll}</button>
+        <p class="msg" id="dlMsg" role="status"></p>
+      </section>
+      <section class="foot" style="display:flex;gap:20px;flex-wrap:wrap"><a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a><a class="staff" href="${BASE}/lots" data-go="lots">${L.lotsLink}</a></section>`;
     $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); adminState.link = null; go(""); });
+    $("#dlAll").addEventListener("click", downloadEverything);
     if (link) {
       $("#invCopy").addEventListener("click", async () => {
         const inp = $("#invLink");
@@ -460,7 +512,8 @@
   // Everything on the admin page that needs data: the numbers, drafts, workshops and their people.
   async function loadOverview() {
     const L = t();
-    const [u, bt] = await Promise.all([api("users=1"), api("batches=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
+    const [u, bt, lt] = await Promise.all([api("users=1"), api("batches=1"), api("lots=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
+    if ($("#ovLots") && lt.status === 200) { const ls = lt.data.lots; $("#ovLots").textContent = ls.length ? L.lotsSum(ls.filter(l => l.status !== "used").length, ls.filter(l => l.status === "used").length) : L.lotNone; }
     if (!$("#wsList")) return;
     if (u.status !== 200 || bt.status !== 200) { $("#wsList").innerHTML = `<p class="fine">${L.lkErr}</p>`; return; }
     const users = u.data.users, workshops = u.data.workshops, batches = bt.data.batches;
@@ -517,6 +570,41 @@
     }));
   }
 
+  // Wood lots visible to this person; admin sees all, filtered by the chosen workshop.
+  async function loadLots() {
+    const { status, data } = await api("lots=1").catch(() => ({ status: 0, data: {} }));
+    who.lots = status === 200 ? data.lots : [];
+  }
+  const lotsForWs = wsId => (who.lots || []).filter(l => !who.admin || !wsId || !l.workshopId || l.workshopId === wsId);
+  // The "which wood" part of the batch forms. st has .lots (numbers) and .origin.
+  function woodPicker(st, wsId) {
+    const L = t(), mine = lotsForWs(wsId);
+    const shown = mine.filter(l => l.status !== "used" || st.lots.includes(l.n));
+    const unknown = st.lots.filter(n => !mine.some(l => l.n === n));
+    return `<div class="q"><span>${L.qLot}</span>
+        ${shown.length || unknown.length ? `<div class="chips lots">${shown.map(l => `<button type="button" class="chip lotchip" data-lot="${l.n}" aria-pressed="${st.lots.includes(l.n)}"><b>${l.n}</b><span>${esc(l.name)}</span></button>`).join("")}${unknown.map(n => `<button type="button" class="chip lotchip" data-lot="${n}" aria-pressed="true"><b>${n}</b></button>`).join("")}</div>` : `<p class="fine">${L.lotNone} <a class="linkish" href="${BASE}/lots" data-go="lots">${L.lotNew}</a></p>`}
+        <div class="lot-type"><input type="text" id="lotIn" inputmode="numeric" autocomplete="off" placeholder="${L.lotTypePh}" aria-label="${L.lotTypePh}"><button type="button" class="btn ghost" id="lotAdd">${L.lotAdd}</button></div>
+        <p class="msg bad" id="lotMsg" role="status"></p></div>
+      ${st.lots.length ? "" : `<details class="byhand" ${st.origin ? "open" : ""}><summary>${L.byHand}</summary>
+        <div class="chips" style="margin-top:10px">${["house", "bridge", "boat", "other"].map(o => `<button type="button" class="chip" data-o="${o}" aria-pressed="${o === st.origin}">${ICONS[o]}${L["o_" + o]}</button>`).join("")}</div></details>`}`;
+  }
+  function bindWood(st, wsId, sync, rerender) {
+    const L = t();
+    app.querySelectorAll("[data-lot]").forEach(b => b.addEventListener("click", () => {
+      sync(); const n = Number(b.dataset.lot);
+      st.lots = st.lots.includes(n) ? st.lots.filter(x => x !== n) : [...st.lots, n]; rerender();
+    }));
+    app.querySelectorAll("[data-o]").forEach(b => b.addEventListener("click", () => { sync(); st.origin = st.origin === b.dataset.o ? "" : b.dataset.o; rerender(); }));
+    const add = () => {
+      const n = parseInt(String($("#lotIn").value).replace(/\D/g, ""), 10);
+      if (!n) return;
+      if (!lotsForWs(wsId).some(l => l.n === n)) { $("#lotMsg").textContent = L.lotNo(n); return; }
+      sync(); if (!st.lots.includes(n)) st.lots = [...st.lots, n]; rerender();
+    };
+    $("#lotAdd").addEventListener("click", add);
+    $("#lotIn").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); add(); } });
+  }
+
   async function viewFactory(langOnly) {
     const L = t();
     document.title = L.newBatch + " · Another Life Passport";
@@ -525,8 +613,10 @@
       if (!me.data.staff) return go("login");
       who = me.data;
       if (who.admin) who.workshops = ((await api("users=1").catch(() => ({ data: {} }))).data.workshops) || [];
+      await loadLots();
     }
-    form = form || { model: "", origin: "", region: "", maker: "", qty: "", kg: "", workshopId: "" };
+    form = form || { model: "", origin: "", region: "", maker: "", qty: "", kg: "", workshopId: "", lots: [] };
+    form.lots = form.lots || [];
     const wsList = who.admin ? who.workshops || [] : [];
     if (wsList.length === 1 && !form.workshopId) form.workshopId = wsList[0].id;
     const res = form.result;
@@ -537,7 +627,7 @@
         <div class="recent" id="drafts"></div>
       </section>
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.newBatch}</span><span style="display:flex;gap:14px"><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a>${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.manage}</a>` : ""}<button type="button" class="staff" id="logout">${L.logout}</button></span></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.newBatch}</span><span style="display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end"><a class="staff" href="${BASE}/lots" data-go="lots">${L.lotsLink}</a><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a>${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.ovT}</a>` : ""}<button type="button" class="staff" id="logout">${L.logout}</button></span></div>
         ${who.name ? `<p class="fine">${esc(L.loggedAs(who.name))}${who.workshop ? ` · ${esc(who.workshop)}` : ""}</p>` : ""}
         <div id="fWrap" ${res ? "hidden" : ""}>
           <form class="form" id="fForm" novalidate>
@@ -545,14 +635,14 @@
             ${wsList.length ? `<div class="q"><span>${L.qWs}</span><div class="chips">${wsList.map(w => `<button type="button" class="chip" data-w="${esc(w.id)}" aria-pressed="${w.id === form.workshopId}">${esc(w.name)}</button>`).join("")}</div></div>` : ""}
             <label class="q"><span>${L.qN}</span><input type="number" id="fQty" min="1" max="999" inputmode="numeric" value="${esc(form.qty)}"></label>
             <p class="fine note">${L.woodLater}</p>
-            <div class="q"><span>${L.q2}</span><div class="chips">${["house", "bridge", "boat", "other"].map(o => `<button type="button" class="chip" data-o="${o}" aria-pressed="${o === form.origin}">${ICONS[o]}${L["o_" + o]}</button>`).join("")}</div></div>
-            <label class="q"><span>${L.q3}</span><input type="text" id="fRegion" maxlength="60" placeholder="${L.q3ph}" value="${esc(form.region)}"></label>
+            ${woodPicker(form, form.workshopId)}
+            ${form.lots.length ? `<p class="fine">${L.lotFromTag}</p><input type="hidden" id="fRegion" value="${esc(form.region)}">` : `<label class="q"><span>${L.q3}</span><input type="text" id="fRegion" maxlength="60" placeholder="${L.q3ph}" value="${esc(form.region)}"></label>`}
             <label class="q"><span>${L.q4}</span><input type="text" id="fMaker" maxlength="60" value="${esc(form.maker)}"></label>
             <label class="q"><span>${L.q5}</span><input type="number" id="fKg" min="0" step="0.1" inputmode="decimal" value="${esc(form.kg)}"></label>
             <div class="q"><span>${L.qPh}</span><small class="fine">${L.qPhHint}</small>
               <label class="photo-pick"><input type="file" id="fPhotos" accept="image/*" multiple><span>${form.files && form.files.length ? L.phSel(form.files.length) : L.phPick}</span></label></div>
             <div class="auto"><span>${L.dateLbl}</span><span>${dateStr(new Date().toISOString())}</span></div>
-            <button class="btn" type="submit" id="fBtn">${form.origin ? L.create : L.createDraft}</button>
+            <button class="btn" type="submit" id="fBtn">${form.origin || form.lots.length ? L.create : L.createDraft}</button>
             <p class="msg bad" id="fMsg" role="status"></p>
           </form>
         </div>
@@ -578,7 +668,7 @@
     $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); form = null; go(""); });
     if (res) {
       $("#dl").addEventListener("click", () => downloadSvg(res.code));
-      $("#nextB").addEventListener("click", () => { form = { model: form.model, origin: "", region: "", maker: form.maker, qty: "", kg: form.kg, workshopId: form.workshopId }; viewFactory(true); });
+      $("#nextB").addEventListener("click", () => { form = { model: form.model, origin: "", region: "", maker: form.maker, qty: "", kg: form.kg, workshopId: form.workshopId, lots: form.lots }; viewFactory(true); });
       const more = $("#moreP");
       if (more) more.addEventListener("change", async () => { await uploadPhotos(res, [...more.files]); viewFactory(true); });
       app.querySelectorAll("[data-rm]").forEach(btn => btn.addEventListener("click", async () => {
@@ -591,8 +681,8 @@
       const sync = () => { form.region = $("#fRegion").value; form.maker = $("#fMaker").value; form.qty = $("#fQty").value; form.kg = $("#fKg").value; };
       $("#fPhotos").addEventListener("change", e => { sync(); form.files = [...(form.files || []), ...e.target.files].slice(0, 6); viewFactory(true); });
       app.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => { sync(); form.model = b.dataset.m; viewFactory(true); }));
-      app.querySelectorAll("[data-o]").forEach(b => b.addEventListener("click", () => { sync(); form.origin = form.origin === b.dataset.o ? "" : b.dataset.o; viewFactory(true); }));
-      app.querySelectorAll("[data-w]").forEach(b => b.addEventListener("click", () => { sync(); form.workshopId = b.dataset.w; viewFactory(true); }));
+      bindWood(form, form.workshopId, sync, () => viewFactory(true));
+      app.querySelectorAll("[data-w]").forEach(b => b.addEventListener("click", () => { sync(); form.workshopId = b.dataset.w; form.lots = form.lots.filter(n => lotsForWs(b.dataset.w).some(l => l.n === n)); viewFactory(true); }));
       $("#fForm").addEventListener("submit", async e => {
         e.preventDefault(); sync();
         const msg = $("#fMsg"); msg.textContent = "";
@@ -601,7 +691,7 @@
         if (!(qty >= 1 && qty <= 999)) return (msg.textContent = L.err_qty);
         if (wsList.length && !form.workshopId) return (msg.textContent = L.qWs);
         const btn = $("#fBtn"); btn.disabled = true; btn.textContent = L.creating;
-        const { status, data } = await api("", { action: "create", model: form.model, origin: form.origin, region: form.region, maker: form.maker, qty, kg: form.kg, workshopId: form.workshopId }).catch(() => ({ status: 0, data: {} }));
+        const { status, data } = await api("", { action: "create", model: form.model, origin: form.lots.length ? "" : form.origin, region: form.lots.length ? "" : form.region, maker: form.maker, qty, kg: form.kg, workshopId: form.workshopId, lots: form.lots }).catch(() => ({ status: 0, data: {} }));
         btn.disabled = false; btn.textContent = L.create;
         if (status === 201) {
           form.result = data.batch; cache[data.batch.code] = data.batch;
@@ -609,7 +699,7 @@
           return viewFactory(true);
         }
         if (status === 401) return go("login");
-        msg.textContent = L["err_" + data.error] || L.err_other;
+        msg.textContent = L["err_" + String(data.error).replace(/-/g, "_")] || L.err_other;
       });
     }
     loadRecent();
@@ -662,8 +752,9 @@
       if (status === 401) return go("login");
       if (status !== 200) { app.innerHTML = `<section><span class="k">${L.edT}</span><p class="msg bad">${status === 404 ? L.edNone : L.lkErr}</p><a class="btn ghost" href="${BASE}/factory" data-go="factory">${L.edBack}</a></section>`; return; }
       const ws = me.admin ? ((await api("users=1").catch(() => ({ data: {} }))).data.workshops || []) : [];
+      await loadLots();
       const b = data.batch;
-      edit = { b, ws, msg: "", f: { model: b.model, qty: String(b.qty), workshopId: b.workshopId || "", origin: b.origin, region: b.region, maker: b.maker, kg: b.kg == null ? "" : String(b.kg) } };
+      edit = { b, ws, msg: "", f: { model: b.model, qty: String(b.qty), workshopId: b.workshopId || "", origin: (b.lots || []).length ? "" : b.origin, region: (b.lots || []).length ? "" : b.region, maker: b.maker, kg: b.kg == null ? "" : String(b.kg), lots: [...(b.lots || [])] } };
     }
     const { b, f, ws } = edit;
     const back = who.admin ? "admin" : "factory";
@@ -679,8 +770,8 @@
             ${ws.length ? `<div class="q"><span>${L.qWs}</span><div class="chips">${ws.map(w => `<button type="button" class="chip" data-w="${esc(w.id)}" aria-pressed="${w.id === f.workshopId}">${esc(w.name)}</button>`).join("")}</div></div>` : ""}
             <label class="q"><span>${L.qN}</span><input type="number" id="eQty" min="1" max="999" inputmode="numeric" value="${esc(f.qty)}"></label>`
           : `<div class="auto"><span>${esc(b.model)}</span><span>${b.qty} ${L.pcs}</span></div>`}
-          <div class="q"><span>${L.q2.replace(/ \(.*\)$/, "")}</span><div class="chips">${["house", "bridge", "boat", "other"].map(o => `<button type="button" class="chip" data-o="${o}" aria-pressed="${o === f.origin}">${ICONS[o]}${L["o_" + o]}</button>`).join("")}</div></div>
-          <label class="q"><span>${L.q3}</span><input type="text" id="eRegion" maxlength="60" placeholder="${L.q3ph}" value="${esc(f.region)}"></label>
+          ${woodPicker(f, f.workshopId)}
+          ${f.lots.length ? `<p class="fine">${L.lotFromTag}</p><input type="hidden" id="eRegion" value="${esc(f.region)}">` : `<label class="q"><span>${L.q3}</span><input type="text" id="eRegion" maxlength="60" placeholder="${L.q3ph}" value="${esc(f.region)}"></label>`}
           <label class="q"><span>${L.q4}</span><input type="text" id="eMaker" maxlength="60" value="${esc(f.maker)}"></label>
           <label class="q"><span>${L.q5}</span><input type="number" id="eKg" min="0" step="0.1" inputmode="decimal" value="${esc(f.kg)}"></label>
           <button class="btn" type="submit" id="eBtn">${L.edSave}</button>
@@ -701,17 +792,17 @@
     };
     const fresh = nb => { edit.b = nb; cache[nb.code] = nb; };
     $("#dl").addEventListener("click", () => downloadSvg(b.code));
-    app.querySelectorAll("[data-o]").forEach(x => x.addEventListener("click", () => { sync(); f.origin = x.dataset.o; viewEdit(code, true); }));
+    bindWood(f, f.workshopId, sync, () => viewEdit(code, true));
     app.querySelectorAll("[data-m]").forEach(x => x.addEventListener("click", () => { sync(); f.model = x.dataset.m; viewEdit(code, true); }));
     app.querySelectorAll("[data-w]").forEach(x => x.addEventListener("click", () => { sync(); f.workshopId = x.dataset.w; viewEdit(code, true); }));
     $("#eForm").addEventListener("submit", async e => {
       e.preventDefault(); sync();
       const btn = $("#eBtn"); btn.disabled = true; btn.textContent = L.edSaving;
-      const body = { action: "update", code: b.code, origin: f.origin, region: f.region, maker: f.maker, kg: f.kg };
+      const body = { action: "update", code: b.code, origin: f.lots.length ? "" : f.origin, region: f.lots.length ? "" : f.region, maker: f.maker, kg: f.kg, lots: f.lots };
       if (who.admin) Object.assign(body, { model: f.model, qty: parseInt(f.qty, 10), workshopId: f.workshopId });
       const { status, data } = await api("", body).catch(() => ({ status: 0, data: {} }));
       if (status === 401) return go("login");
-      if (status === 200) { fresh(data.batch); edit.msg = L.edSaved; } else edit.msg = L["err_" + data.error] || L.err_other;
+      if (status === 200) { fresh(data.batch); edit.msg = L.edSaved; } else edit.msg = L["err_" + String(data.error).replace(/-/g, "_")] || L.err_other;
       viewEdit(code, true);
     });
     const more = $("#eMore");
@@ -722,6 +813,248 @@
       if (status === 200) fresh(data.batch);
       viewEdit(code, true);
     }));
+  }
+
+  // ---------- wood lots
+  let lotState = { showUsed: false, form: null, edit: null };
+  const today = () => new Date().toISOString().slice(0, 10);
+  function lotFields(f, ws, isNew) {
+    const L = t();
+    return `${ws.length ? `<div class="q"><span>${L.qWs}</span><div class="chips">${ws.map(w => `<button type="button" class="chip" data-lw="${esc(w.id)}" aria-pressed="${w.id === f.workshopId}">${esc(w.name)}</button>`).join("")}</div></div>` : ""}
+      <div class="q"><span>${L.lotSrc}</span><div class="chips">${["house", "bridge", "boat", "other"].map(o => `<button type="button" class="chip" data-lo="${o}" aria-pressed="${o === f.origin}">${ICONS[o]}${L["o_" + o]}</button>`).join("")}</div></div>
+      <label class="q"><span>${L.lotPlace}</span><input type="text" id="lPlace" maxlength="80" placeholder="${L.lotPlacePh}" value="${esc(f.place)}"></label>
+      <label class="q"><span>${L.lotRegion}</span><input type="text" id="lRegion" maxlength="60" placeholder="${L.lotRegionPh}" value="${esc(f.region)}"></label>
+      ${isNew ? "" : `<label class="q"><span>${L.lotName}</span><input type="text" id="lName" maxlength="40" placeholder="${L.lotNamePh}" value="${esc(f.name)}"></label>`}
+      <label class="q"><span>${L.lotArrived}</span><input type="date" id="lArrived" value="${esc(f.arrived)}"></label>
+      <label class="q"><span>${L.lotVolume}</span><input type="text" id="lVolume" maxlength="30" value="${esc(f.volume)}"></label>
+      <label class="q"><span>${L.lotSupplier}</span><input type="text" id="lSupplier" maxlength="80" value="${esc(f.supplier)}"></label>
+      <div class="q"><span>${L.lotGps}</span><input type="text" id="lGps" maxlength="80" value="${esc(f.gps)}"><button type="button" class="btn ghost" id="lGpsBtn" style="margin-top:8px">${L.lotGpsBtn}</button></div>
+      <label class="q"><span>${L.lotNotes}</span><textarea id="lNotes" rows="3" maxlength="1000">${esc(f.notes)}</textarea></label>`;
+  }
+  function bindLotFields(f, rerender) {
+    const sync = () => { ["place", "region", "arrived", "volume", "supplier", "gps", "notes", "name"].forEach(k => { const el = $("#l" + k[0].toUpperCase() + k.slice(1)); if (el) f[k] = el.value; }); };
+    app.querySelectorAll("[data-lo]").forEach(b => b.addEventListener("click", () => { sync(); f.origin = b.dataset.lo; rerender(); }));
+    app.querySelectorAll("[data-lw]").forEach(b => b.addEventListener("click", () => { sync(); f.workshopId = b.dataset.lw; rerender(); }));
+    $("#lGpsBtn").addEventListener("click", () => {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(p => { $("#lGps").value = `${p.coords.latitude.toFixed(5)},${p.coords.longitude.toFixed(5)}`; }, () => {}, { enableHighAccuracy: true, timeout: 15000 });
+    });
+    return sync;
+  }
+  const lotBody = f => ({ origin: f.origin, place: f.place, region: f.region, arrived: f.arrived, volume: f.volume, supplier: f.supplier, gps: f.gps, notes: f.notes });
+
+  async function viewLots(langOnly) {
+    const L = t();
+    document.title = L.lotsT + " · Another Life Passport";
+    if (!langOnly || !lotState.form) {
+      app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
+      const me = (await api("me=1").catch(() => ({ data: {} }))).data;
+      if (!me.staff) return go("login");
+      who = me;
+      if (who.admin) who.workshops = ((await api("users=1").catch(() => ({ data: {} }))).data.workshops) || [];
+      await loadLots();
+      lotState.form = lotState.form || { origin: "", place: "", region: "", arrived: today(), volume: "", supplier: "", gps: "", notes: "", workshopId: "", files: [] };
+    }
+    const f = lotState.form, ws = who.admin ? who.workshops || [] : [];
+    if (ws.length === 1 && !f.workshopId) f.workshopId = ws[0].id;
+    const lots = who.lots || [], open = lots.filter(l => l.status !== "used"), used = lots.filter(l => l.status === "used");
+    const row = l => `<div class="rrow lotrow"><a class="lotnum" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${l.n}</a><div><b>${esc(l.name)}</b><br><small>${esc(L["o_" + l.origin] || "")}${l.arrived ? ` · ${dateStr(l.arrived)}` : ""}${l.workshop && who.admin ? ` · ${esc(l.workshop)}` : ""} · ${L.lotIn(l.usedBy.length)}</small></div>
+      <div class="acts"><a class="linkish" href="${BASE}/lot/${l.n}/tag" data-go="lot/${l.n}/tag">${L.lotPrint}</a><a class="linkish" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${L.lotEdit}</a></div></div>`;
+    app.innerHTML = `
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${PUBLIC_HOST.toLowerCase()}</span><span style="display:flex;gap:14px"><a class="staff" href="${BASE}/factory" data-go="factory">${L.newBatch}</a>${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.ovT}</a>` : ""}</span></div>
+        <h1>${L.lotsT}</h1>
+        <p class="lead">${L.lotsP}</p>
+        <div class="recent">${open.length ? open.map(row).join("") : `<p class="fine" style="padding:12px 0">${L.lotNone}</p>`}</div>
+        ${used.length ? (lotState.showUsed ? `<div class="recent used">${used.map(row).join("")}</div>` : `<button type="button" class="linkish" id="showUsed" style="margin-top:12px">${L.lotShowUsed(used.length)}</button>`) : ""}
+      </section>
+      <section>
+        <span class="k">${L.lotNew}</span>
+        <p class="fine">${L.lotNewP}</p>
+        <form class="form" id="lForm" novalidate>
+          ${lotFields(f, ws, true)}
+          <div class="q"><span>${L.lotPhotos}</span><label class="photo-pick"><input type="file" id="lPhotos" accept="image/*" multiple><span>${f.files.length ? L.phSel(f.files.length) : L.phPick}</span></label></div>
+          <button class="btn" type="submit" id="lBtn">${L.lotCreate}</button>
+          <p class="msg bad" id="lMsg" role="status"></p>
+        </form>
+      </section>`;
+    const su = $("#showUsed"); if (su) su.addEventListener("click", () => { lotState.showUsed = true; viewLots(true); });
+    const sync = bindLotFields(f, () => viewLots(true));
+    $("#lPhotos").addEventListener("change", e => { sync(); f.files = [...f.files, ...e.target.files].slice(0, 12); viewLots(true); });
+    $("#lForm").addEventListener("submit", async e => {
+      e.preventDefault(); sync();
+      if (!f.origin) return ($("#lMsg").textContent = L.err_origin_lot);
+      if (ws.length && !f.workshopId) return ($("#lMsg").textContent = L.qWs);
+      const btn = $("#lBtn"); btn.disabled = true; btn.textContent = L.creating;
+      const { status, data } = await api("", { action: "add-lot", ...lotBody(f), workshopId: f.workshopId }).catch(() => ({ status: 0, data: {} }));
+      if (status !== 201) { btn.disabled = false; btn.textContent = L.lotCreate; $("#lMsg").textContent = status === 401 ? L.err_auth : L.err_other; return; }
+      const n = data.lot.n;
+      for (let i = 0; i < f.files.length; i++) {
+        btn.textContent = L.phUp(i + 1, f.files.length);
+        const image = await toB64(await shrinkPhoto(f.files[i]));
+        await api("", { action: "lot-photo", n, image }).catch(() => {});
+      }
+      lotState.form = null;
+      go(`lot/${n}/tag`);
+    });
+  }
+
+  const toB64 = file => new Promise(r => { const fr = new FileReader(); fr.onload = () => r(String(fr.result).split(",")[1] || ""); fr.onerror = () => r(""); fr.readAsDataURL(file); });
+
+  async function viewLot(n, langOnly) {
+    const L = t();
+    document.title = `LOT ${n} · Another Life Passport`;
+    if (!langOnly || !lotState.edit || lotState.edit.lot.n !== n) {
+      app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
+      const me = (await api("me=1").catch(() => ({ data: {} }))).data;
+      if (!me.staff) return go("login");
+      who = me;
+      const { status, data } = await api("lot=" + n).catch(() => ({ status: 0, data: {} }));
+      if (status !== 200) { app.innerHTML = `<section><span class="k">${L.lotsT}</span><p class="msg bad">${status === 404 ? L.lotNotFound : L.lkErr}</p><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.lotsT}</a></section>`; return; }
+      const ws = me.admin ? ((await api("users=1").catch(() => ({ data: {} }))).data.workshops || []) : [];
+      const l = data.lot;
+      lotState.edit = { lot: l, batches: data.batches, ws, msg: "", f: { origin: l.origin, place: l.place, region: l.region, arrived: l.arrived, volume: l.volume, supplier: l.supplier, gps: l.gps, notes: l.notes, name: l.name, workshopId: l.workshopId || "" } };
+    }
+    const E = lotState.edit, l = E.lot, f = E.f;
+    app.innerHTML = `
+      <section>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.lotsT}</span><a class="staff" href="${BASE}/lots" data-go="lots">${L.edBack}</a></div>
+        <div class="lot-head"><span class="lotnum big">${l.n}</span><div><h1 style="margin:0">${esc(l.name)}</h1><span class="tag ${l.status === "used" ? "" : "ok"}">${l.status === "used" ? L.lotUsed : L.lotOpen}</span></div></div>
+        <div class="two-btn" style="margin-top:18px"><a class="btn" href="${BASE}/lot/${l.n}/tag" data-go="lot/${l.n}/tag">${L.lotPrint}</a><button class="btn ghost" type="button" id="lStatus">${l.status === "used" ? L.lotMarkOpen : L.lotMarkUsed}</button></div>
+        <form class="form" id="lForm" novalidate style="margin-top:24px">
+          ${lotFields(f, E.ws, false)}
+          <label class="check"><input type="checkbox" id="lPub" ${l.publicPhotos ? "checked" : ""}><span>${L.lotPubPh}</span></label>
+          <button class="btn" type="submit" id="lBtn">${L.edSave}</button>
+          <p class="msg ${E.msg === L.lotSaved ? "" : "bad"}" id="lMsg" role="status">${esc(E.msg)}</p>
+        </form>
+      </section>
+      <section>
+        <span class="k">${L.lotPhotos}</span>
+        <div class="before staff-ph">${l.photos.map(id => `<figure><img src="${lotPhotoUrl(l.n, id)}" alt=""><button type="button" class="linkish" data-rm="${id}">${L.phRemove}</button></figure>`).join("")}</div>
+        <p class="msg" id="phMsg" role="status"></p>
+        ${l.photos.length < 12 ? `<label class="photo-pick"><input type="file" id="lMore" accept="image/*" multiple><span>${L.phAdd}</span></label>` : ""}
+      </section>
+      <section>
+        <span class="k">${L.lotBatches}</span>
+        <div class="recent">${E.batches.length ? E.batches.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs} · ${dateStr(b.made)}</small></div><div class="acts"><a class="linkish" href="${BASE}/edit/${esc(b.code)}" data-go="edit/${esc(b.code)}">${L.edT}</a></div></div>`).join("") : `<p class="fine" style="padding:12px 0">${L.lotNoB}</p>`}</div>
+      </section>`;
+    E.msg = "";
+    const sync = bindLotFields(f, () => viewLot(n, true));
+    const save = async extra => {
+      sync();
+      const body = { action: "update-lot", n: l.n, ...lotBody(f), name: f.name, publicPhotos: $("#lPub").checked, ...extra };
+      if (who.admin) body.workshopId = f.workshopId;
+      const { status, data } = await api("", body).catch(() => ({ status: 0, data: {} }));
+      if (status === 200) { E.lot = { ...data.lot, usedBy: l.usedBy }; E.f.name = data.lot.name; E.msg = L.lotSaved; } else E.msg = L.err_other;
+      viewLot(n, true);
+    };
+    $("#lForm").addEventListener("submit", e => { e.preventDefault(); save({}); });
+    $("#lStatus").addEventListener("click", () => save({ status: l.status === "used" ? "open" : "used" }));
+    const more = $("#lMore");
+    if (more) more.addEventListener("change", async () => {
+      sync(); const files = [...more.files].slice(0, 12 - l.photos.length);
+      for (let i = 0; i < files.length; i++) {
+        $("#phMsg").textContent = L.phUp(i + 1, files.length);
+        const { status, data } = await api("", { action: "lot-photo", n: l.n, image: await toB64(await shrinkPhoto(files[i])) }).catch(() => ({ status: 0, data: {} }));
+        if (status === 201) E.lot = { ...data.lot, usedBy: l.usedBy };
+      }
+      viewLot(n, true);
+    });
+    app.querySelectorAll("[data-rm]").forEach(x => x.addEventListener("click", async () => {
+      x.disabled = true; sync();
+      const { status, data } = await api("", { action: "lot-photo-remove", n: l.n, id: x.dataset.rm }).catch(() => ({ status: 0, data: {} }));
+      if (status === 200) E.lot = { ...data.lot, usedBy: l.usedBy };
+      viewLot(n, true);
+    }));
+  }
+
+  // A4 tag for the wood stack: the number is what matters, readable from a distance and without a phone.
+  async function viewTag(n) {
+    const L = t();
+    app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
+    const { status, data } = await api("lot=" + n).catch(() => ({ status: 0, data: {} }));
+    if (status === 401) return go("login");
+    if (status !== 200) { app.innerHTML = `<section><p class="msg bad">${L.lotNotFound}</p></section>`; return; }
+    const l = data.lot;
+    document.title = `LOT ${l.n} · ${l.name}`;
+    const q = qrcode(0, "M"); q.addData(`HTTPS://${PUBLIC_HOST}/LOT/${l.n}`, "Alphanumeric"); q.make();
+    const mc = q.getModuleCount(); let d = ""; for (let r = 0; r < mc; r++) for (let c = 0; c < mc; c++) if (q.isDark(r, c)) d += `M${c + 2} ${r + 2}h1v1h-1z`;
+    const qr = `<svg viewBox="0 0 ${mc + 4} ${mc + 4}" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+    const src = { house: ["Rumah tua", "Old house"], bridge: ["Jembatan", "Bridge"], boat: ["Perahu", "Boat"], other: ["Lainnya", "Other"] }[l.origin] || ["", ""];
+    app.innerHTML = `
+      <section class="noprint">
+        <span class="k">${L.lotsT}</span>
+        <p class="lead">${L.tagTitle}</p>
+        <div class="two-btn"><button class="btn" type="button" id="doPrint">${L.tagPrint}</button><a class="btn ghost" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${L.tagBack}</a></div>
+      </section>
+      <div class="woodtag">
+        <div class="wt-top"><span>ANOTHER — LIFE</span><span>LOT KAYU · WOOD LOT</span></div>
+        <div class="wt-lot">LOT</div>
+        <div class="wt-num">${l.n}</div>
+        <div class="wt-name">${esc(l.name)}</div>
+        <div class="wt-rows">
+          <div><span>Asal · Source</span><b>${esc(src[0])} · ${esc(src[1])}</b></div>
+          <div><span>Tempat · Place</span><b>${esc([l.place, l.region].filter(Boolean).join(", ") || "–")}</b></div>
+          <div><span>Tiba · Arrived</span><b>${l.arrived ? esc(l.arrived.split("-").reverse().join(".")) : "–"}</b></div>
+          ${l.workshop ? `<div><span>Bengkel · Workshop</span><b>${esc(l.workshop)}</b></div>` : ""}
+        </div>
+        <div class="wt-foot">
+          <p><b>Saat membuat furnitur dari kayu ini, sebutkan: LOT ${l.n}</b><br>When you make furniture from this wood, say: LOT ${l.n}</p>
+          <div class="wt-qr">${qr}</div>
+        </div>
+      </div>`;
+    $("#doPrint").addEventListener("click", () => window.print());
+  }
+
+  // ---------- download everything: a ZIP made in the browser (spreadsheets, full data, photos)
+  function crc32(buf) {
+    const tb = crc32.t || (crc32.t = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; }));
+    let c = -1; for (let i = 0; i < buf.length; i++) c = tb[(c ^ buf[i]) & 255] ^ (c >>> 8); return (c ^ -1) >>> 0;
+  }
+  function makeZip(files) {
+    const te = new TextEncoder(), chunks = [], central = []; let off = 0;
+    for (const f of files) {
+      const name = te.encode(f.name), data = f.data, crc = crc32(data);
+      const h = new DataView(new ArrayBuffer(30));
+      h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, 0, true);
+      h.setUint16(10, 0, true); h.setUint16(12, 0x21, true); h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true);
+      h.setUint16(26, name.length, true); h.setUint16(28, 0, true);
+      chunks.push(new Uint8Array(h.buffer), name, data);
+      const c = new DataView(new ArrayBuffer(46));
+      c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true); c.setUint16(10, 0, true);
+      c.setUint16(12, 0, true); c.setUint16(14, 0x21, true); c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true);
+      c.setUint16(28, name.length, true); c.setUint32(42, off, true);
+      central.push(new Uint8Array(c.buffer), name);
+      off += 30 + name.length + data.length;
+    }
+    const csize = central.reduce((n, a) => n + a.length, 0);
+    const e = new DataView(new ArrayBuffer(22));
+    e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, csize, true); e.setUint32(16, off, true);
+    return new Blob([...chunks, ...central, new Uint8Array(e.buffer)], { type: "application/zip" });
+  }
+  const csv = rows => "﻿" + rows.map(r => r.map(v => { const x = v == null ? "" : String(v); return /[",\n;]/.test(x) ? `"${x.replace(/"/g, '""')}"` : x; }).join(",")).join("\r\n");
+  async function downloadEverything() {
+    const L = t(), msg = $("#dlMsg"), btn = $("#dlAll");
+    btn.disabled = true; msg.textContent = L.loading;
+    const { status, data } = await api("export=1").catch(() => ({ status: 0, data: {} }));
+    if (status !== 200) { msg.textContent = L.lkErr; btn.disabled = false; return; }
+    const te = new TextEncoder(), files = [];
+    const site = `https://${PUBLIC_HOST.toLowerCase()}`;
+    files.push({ name: "data.json", data: te.encode(JSON.stringify(data, null, 1)) });
+    files.push({ name: "batches.csv", data: te.encode(csv([["Code", "Status", "Product", "Pieces", "Wood lots", "Wood source", "Area", "Maker", "Weight kg", "Workshop", "Created", "Created by", "Completed", "Updated", "Updated by", "Photos", "Passport"],
+      ...data.batches.map(b => [b.code, b.status, b.model, b.qty, (b.lotInfo || []).map(l => l.label).join(" "), b.origin, b.region, b.maker, b.kg, b.workshop, b.made, b.createdBy, b.completed, b.updated, b.updatedBy, (b.photos || []).length, `${site}/${b.code}`])])) });
+    files.push({ name: "wood-lots.csv", data: te.encode(csv([["Lot", "Name", "Status", "Source", "Place", "Region", "Supplier", "Arrived", "Volume", "Source location", "Workshop", "Used in batches", "Notes", "Created", "Created by", "Photos"],
+      ...data.lots.map(l => [l.label, l.name, l.status, l.origin, l.place, l.region, l.supplier, l.arrived, l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length])])) });
+    const photos = [...data.batches.flatMap(b => (b.photos || []).map(id => ({ url: photoUrl(b.code, id), name: `photos/batches/${b.code}/${id}.jpg` }))),
+      ...data.lots.flatMap(l => (l.photos || []).map(id => ({ url: lotPhotoUrl(l.n, id), name: `photos/wood-lots/LOT-${l.n}/${id}.jpg` })))];
+    for (let i = 0; i < photos.length; i++) {
+      msg.textContent = L.dlBusy(i + 1, photos.length);
+      try { const r = await fetch(photos[i].url, { credentials: "same-origin" }); if (r.ok) files.push({ name: photos[i].name, data: new Uint8Array(await r.arrayBuffer()) }); } catch (e) {}
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(makeZip(files)); a.download = `another-life-passport-${data.exported.slice(0, 10)}.zip`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    msg.textContent = L.dlDone; btn.disabled = false;
   }
 
   async function viewPassport(code) {
@@ -960,14 +1293,14 @@
       const q = abState.q.trim().toLowerCase();
       const rows = allBatches.filter(b => (!abState.model || b.model === abState.model) && (!abState.month || (b.made || "").startsWith(abState.month)) &&
         (!abState.status || b.status === abState.status) &&
-        (!q || [b.code, b.region, b.maker, b.createdBy, b.model, b.workshop].some(v => String(v || "").toLowerCase().includes(q))));
+        (!q || [b.code, b.region, b.maker, b.createdBy, b.model, b.workshop, ...(b.lotInfo || []).map(l => l.label + " " + l.name)].some(v => String(v || "").toLowerCase().includes(q))));
       const pieces = rows.reduce((n, b) => n + (b.qty || 0), 0);
       $("#abSum").textContent = `${L.abCount(rows.length, allBatches.length)} · ${L.abPieces(pieces)}`;
       $("#abBody").innerHTML = rows.length ? rows.map(b => `<tr>
         <td data-l="${L.abCols[0]}"><a class="ab-code" href="${BASE}/${esc(b.code)}" data-go="${esc(b.code)}">${rows.length <= 300 ? `<span class="ab-qr">${qrSvg(b.code, false)}</span>` : ""}${esc(b.code)}</a></td>
         <td data-l="${L.abCols[1]}">${esc(b.model)}</td>
         <td data-l="${L.abCols[2]}">${b.status === "draft" ? `<a class="tag" href="${BASE}/edit/${esc(b.code)}" data-go="edit/${esc(b.code)}">${L.stDraft} · ${L.fillIn}</a>` : `<a class="linkish" href="${BASE}/edit/${esc(b.code)}" data-go="edit/${esc(b.code)}">${L.stDone}</a>`}</td>
-        <td data-l="${L.abCols[3]}">${esc(L["o_" + b.origin] || b.origin || "–")}</td>
+        <td data-l="${L.abCols[3]}">${(b.lotInfo || []).length ? b.lotInfo.map(l => `<a class="linkish" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${esc(l.label)}</a>`).join(" ") + `<br><small>${esc(L["o_" + b.origin] || "")}</small>` : esc(L["o_" + b.origin] || b.origin || "–")}</td>
         <td data-l="${L.abCols[4]}">${esc(b.region || "–")}</td><td data-l="${L.abCols[5]}" class="num">${b.qty}</td>
         <td data-l="${L.abCols[6]}">${esc(b.workshop || "–")}</td>
         <td data-l="${L.abCols[7]}">${dateStr(b.made)}</td><td data-l="${L.abCols[8]}">${esc(b.createdBy || b.maker || "–")}</td></tr>`).join("")

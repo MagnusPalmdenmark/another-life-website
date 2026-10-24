@@ -1,5 +1,5 @@
 import { getStore } from "@netlify/blobs";
-import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
+import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, lotKey, lotLabel, parseLotId, validateLot, defaultLotName, lotView, applyLots, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
 
 const ADMIN_COOKIE = "al_admin";   // signed with ADMIN_KEY, 30 days
 const DEVICE_COOKIE = "al_device"; // personal phone key from an invite link
@@ -64,6 +64,50 @@ async function loadBatch(db, code) {
   return db.get(`batch/${p.code}`, { type: "json" });
 }
 
+// Every lot by number
+async function allLots(db) {
+  return Object.fromEntries((await readAll(db, "lots/")).map(l => [l.n, l]));
+}
+async function lotsFor(db, b) {
+  const out = {};
+  for (const n of b.lots || []) { const l = await db.get(lotKey(n), { type: "json" }); if (l) out[n] = l; }
+  return out;
+}
+// Checks a list of lot numbers from a form: each must exist and belong to the batch's workshop.
+async function checkLots(db, me, list, workshopId) {
+  if (!Array.isArray(list)) return { lots: [] };
+  const ns = [...new Set(list.map(parseLotId).filter(n => n != null))].slice(0, 8);
+  for (const n of ns) {
+    const l = await db.get(lotKey(n), { type: "json" });
+    if (!l) return { error: "lot" };
+    if (!me.admin && !canSee(me, l)) return { error: "lot" };
+    if (me.admin && workshopId && l.workshopId && l.workshopId !== workshopId) return { error: "lot-workshop" };
+  }
+  return { lots: ns };
+}
+
+// Before a batch or lot is changed, the old version is kept, so a mistake can always be undone.
+async function keepHistory(db, kind, id, prev) {
+  if (prev) await db.setJSON(`history/${kind}/${id}/${new Date().toISOString()}`, prev);
+}
+
+// The export key lets the Google Sheet copy everything and rebuild the site from it.
+function exportKeyOk(req, context) {
+  const key = Netlify.env.get("EXPORT_KEY") || (isProd(context) ? null : "preview-export-key");
+  const got = req.headers.get("x-export-key") || "";
+  return Boolean(key && got && safeEqual(got, key));
+}
+
+// Saves a JPEG sent as base64. Returns { id } or { error }.
+async function savePhoto(db, prefix, image) {
+  let bytes;
+  try { bytes = Buffer.from(String(image || ""), "base64"); } catch { return { error: "photo" }; }
+  if (bytes.length < 100 || bytes.length > MAX_PHOTO_BYTES || bytes[0] !== 0xff || bytes[1] !== 0xd8) return { error: "photo" };
+  const id = crypto.randomUUID().replace(/-/g, "").slice(0, 12);
+  await db.set(`${prefix}/${id}`, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
+  return { id };
+}
+
 async function newInvite(db, user) {
   if (user.inviteHash) await db.delete(`invites/${user.inviteHash}`);
   const token = randomToken();
@@ -86,7 +130,7 @@ export default async (req, context) => {
       if (p.error) return json({ error: p.error }, 400);
       const b = await db.get(`batch/${p.code}`, { type: "json" });
       if (!b) return json({ error: "none" }, 404);
-      return json({ batch: publicView(b) });
+      return json({ batch: publicView(applyLots(b, await lotsFor(db, b))) });
     }
     if (url.searchParams.has("photo")) {
       const [c, id] = String(url.searchParams.get("photo")).split("/");
@@ -95,6 +139,31 @@ export default async (req, context) => {
       const img = await db.get(`photo/${p.code}/${id}`, { type: "arrayBuffer" });
       if (!img) return json({ error: "none" }, 404);
       return new Response(img, { headers: { "content-type": "image/jpeg", "cache-control": "public, max-age=31536000, immutable" } });
+    }
+    if (url.searchParams.has("lphoto")) {
+      // Lot photos are public only when the lot allows it; staff and the export key always see them.
+      const [ln, id] = String(url.searchParams.get("lphoto")).replace(/^L/i, "").split("/");
+      const n = parseLotId(ln);
+      if (n == null || !PHOTO_ID.test(id || "")) return json({ error: "none" }, 404);
+      const lot = await db.get(lotKey(n), { type: "json" });
+      if (!lot || !(lot.photos || []).includes(id)) return json({ error: "none" }, 404);
+      if (lot.publicPhotos === false && !exportKeyOk(req, context) && !(await whoAmI(db, context))) return json({ error: "none" }, 404);
+      const img = await db.get(`lphoto/${n}/${id}`, { type: "arrayBuffer" });
+      if (!img) return json({ error: "none" }, 404);
+      return new Response(img, { headers: { "content-type": "image/jpeg", "cache-control": lot.publicPhotos === false ? "private, no-store" : "public, max-age=31536000, immutable" } });
+    }
+    if (url.searchParams.has("export")) {
+      // Everything, for the master Google Sheet and the "Download everything" button.
+      const me = exportKeyOk(req, context) ? { admin: true } : await whoAmI(db, context);
+      if (!me?.admin) return json({ error: "auth" }, 401);
+      const [batches, lotsByN, workshops] = await Promise.all([readAll(db, "batch/"), allLots(db), readAll(db, "workshops/")]);
+      const names = Object.fromEntries(workshops.filter(w => w.active).map(w => [w.id, w.name]));
+      batches.sort((a, b) => (a.made || "").localeCompare(b.made || ""));
+      const lots = Object.values(lotsByN).sort((a, b) => a.n - b.n);
+      return json({ exported: new Date().toISOString(), site: url.origin, version: 1,
+        workshops: workshops.map(w => ({ id: w.id, name: w.name, active: w.active, created: w.created })),
+        lots: lots.map(l => ({ ...lotView(l, names, batches.filter(b => (b.lots || []).includes(l.n)).map(b => b.code)) })),
+        batches: batches.map(b => ({ ...staffView(applyLots(b, lotsByN), names), createdById: b.createdById || null })) });
     }
     if (url.searchParams.has("me")) {
       const me = await whoAmI(db, context);
@@ -105,8 +174,8 @@ export default async (req, context) => {
     if (url.searchParams.has("list") || url.searchParams.has("batches")) {
       const me = await whoAmI(db, context);
       if (!me) return json({ error: "auth" }, 401);
-      const [items, names] = await Promise.all([readAll(db, "batch/"), workshopNames(db)]);
-      let mine = items.filter(b => canSee(me, b));
+      const [items, names, lotsByN] = await Promise.all([readAll(db, "batch/"), workshopNames(db), allLots(db)]);
+      let mine = items.filter(b => canSee(me, b)).map(b => applyLots(b, lotsByN));
       mine.sort((a, b) => (b.made || "").localeCompare(a.made || ""));
       if (url.searchParams.has("list")) mine = mine.filter(b => statusOf(b) === "draft").concat(mine.filter(b => statusOf(b) !== "draft").slice(0, 30));
       return json({ batches: mine.map(b => staffView(b, names)) });
@@ -117,7 +186,24 @@ export default async (req, context) => {
       if (!me) return json({ error: "auth" }, 401);
       const b = await loadBatch(db, url.searchParams.get("staff"));
       if (!b || !canSee(me, b)) return json({ error: "none" }, 404);
-      return json({ batch: staffView(b, await workshopNames(db)) });
+      return json({ batch: staffView(applyLots(b, await lotsFor(db, b)), await workshopNames(db)) });
+    }
+    if (url.searchParams.has("lots")) {
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const [lotsByN, names, batches] = await Promise.all([allLots(db), workshopNames(db), readAll(db, "batch/")]);
+      const lots = Object.values(lotsByN).filter(l => canSee(me, l)).sort((a, b) => b.n - a.n);
+      return json({ lots: lots.map(l => lotView(l, names, batches.filter(b => (b.lots || []).includes(l.n)).map(b => b.code))) });
+    }
+    if (url.searchParams.has("lot")) {
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const n = parseLotId(url.searchParams.get("lot"));
+      const l = n == null ? null : await db.get(lotKey(n), { type: "json" });
+      if (!l || !canSee(me, l)) return json({ error: "none" }, 404);
+      const batches = (await readAll(db, "batch/")).filter(b => (b.lots || []).includes(n));
+      return json({ lot: lotView(l, await workshopNames(db), batches.map(b => b.code)),
+        batches: batches.map(b => ({ code: b.code, model: b.model, qty: b.qty, made: b.made })) });
     }
     if (url.searchParams.has("users")) {
       const me = await whoAmI(db, context);
@@ -190,6 +276,10 @@ export default async (req, context) => {
       // Admin picks the workshop; workshop staff always make batches for their own workshop.
       let workshopId = me.admin ? String(body.workshopId || "") || null : me.workshopId;
       if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
+      const cl = await checkLots(db, me, body.lots, workshopId);
+      if (cl.error) return json({ error: cl.error }, 400);
+      v.batch.lots = cl.lots;
+      v.batch.status = statusOf(v.batch);
       const yymm = yymmNow();
       // Next free batch number this month: highest existing + 1, written only if the key is still new.
       const { blobs } = await db.list({ prefix: `batch/AL-${yymm}-` });
@@ -202,7 +292,7 @@ export default async (req, context) => {
         const batch = { ...v.batch, code, made: now, createdBy: me.name, createdById: me.id || "admin", workshopId };
         if (batch.status === "complete") batch.completed = now;
         const res = await db.setJSON(`batch/${code}`, batch, { onlyIfNew: true });
-        if (!res || res.modified !== false) return json({ batch: staffView(batch, await workshopNames(db)) }, 201);
+        if (!res || res.modified !== false) return json({ batch: staffView(applyLots(batch, await lotsFor(db, batch)), await workshopNames(db)) }, 201);
       }
       return json({ error: "busy" }, 409);
     }
@@ -214,6 +304,7 @@ export default async (req, context) => {
       if (!batch || !canSee(me, batch)) return json({ error: "none" }, 404);
       const d = validateDetails(body);
       if (d.error) return json({ error: d.error }, 400);
+      const prev = { ...batch };
       const wasDraft = statusOf(batch) === "draft";
       // Once a passport shows its story, the wood can be corrected but not removed again.
       if (!d.details.origin) delete d.details.origin;
@@ -230,11 +321,84 @@ export default async (req, context) => {
           batch.workshopId = w;
         }
       }
+      if ("lots" in body) {
+        const cl = await checkLots(db, me, body.lots, batch.workshopId);
+        if (cl.error) return json({ error: cl.error }, 400);
+        // A batch that already shows its story keeps at least its origin when lots are removed.
+        if (!cl.lots.length && (batch.lots || []).length && !batch.origin) {
+          const old = await lotsFor(db, batch); const first = old[batch.lots[0]];
+          if (first) batch.origin = first.origin;
+        }
+        batch.lots = cl.lots;
+      }
       batch.status = statusOf(batch);
       batch.updated = new Date().toISOString(); batch.updatedBy = me.name;
       if (wasDraft && batch.status === "complete") batch.completed = batch.updated;
+      await keepHistory(db, "batch", batch.code, prev);
       await db.setJSON(`batch/${batch.code}`, batch);
-      return json({ batch: staffView(batch, await workshopNames(db)) });
+      return json({ batch: staffView(applyLots(batch, await lotsFor(db, batch)), await workshopNames(db)) });
+    }
+    case "add-lot": {
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const v = validateLot(body, true);
+      if (v.error) return json({ error: v.error }, 400);
+      const workshopId = me.admin ? String(body.workshopId || "") || null : me.workshopId;
+      if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
+      const { blobs } = await db.list({ prefix: "lots/" });
+      let n = blobs.reduce((max, b) => Math.max(max, Number(b.key.slice(5)) || 0), 0) + 1;
+      for (let tries = 0; tries < 5; tries++, n++) {
+        const now = new Date().toISOString();
+        const lot = { status: "open", publicPhotos: true, ...v.lot, n, workshopId, photos: [], created: now, createdBy: me.name, createdById: me.id || "admin" };
+        if (!lot.name) lot.name = defaultLotName(lot);
+        if (!lot.arrived) lot.arrived = now.slice(0, 10);
+        const res = await db.setJSON(lotKey(n), lot, { onlyIfNew: true });
+        if (!res || res.modified !== false) return json({ lot: lotView(lot, await workshopNames(db)) }, 201);
+      }
+      return json({ error: "busy" }, 409);
+    }
+    case "update-lot": {
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const n = parseLotId(body.n);
+      const lot = n == null ? null : await db.get(lotKey(n), { type: "json" });
+      if (!lot || !canSee(me, lot)) return json({ error: "none" }, 404);
+      const v = validateLot(body);
+      if (v.error) return json({ error: v.error }, 400);
+      const prev = { ...lot };
+      Object.assign(lot, v.lot);
+      if (!lot.name) lot.name = defaultLotName(lot);
+      if (me.admin && "workshopId" in body) {
+        const w = String(body.workshopId || "") || null;
+        if (w && !(await db.get(`workshops/${w}`))) return json({ error: "workshop" }, 400);
+        lot.workshopId = w;
+      }
+      lot.updated = new Date().toISOString(); lot.updatedBy = me.name;
+      await keepHistory(db, "lot", n, prev);
+      await db.setJSON(lotKey(n), lot);
+      return json({ lot: lotView(lot, await workshopNames(db)) });
+    }
+    case "lot-photo":
+    case "lot-photo-remove": {
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const n = parseLotId(body.n);
+      const lot = n == null ? null : await db.get(lotKey(n), { type: "json" });
+      if (!lot || !canSee(me, lot)) return json({ error: "none" }, 404);
+      lot.photos = lot.photos || [];
+      if (body.action === "lot-photo") {
+        if (lot.photos.length >= 12) return json({ error: "photos-full" }, 409);
+        const ph = await savePhoto(db, `lphoto/${n}`, body.image);
+        if (ph.error) return json({ error: ph.error }, 400);
+        lot.photos.push(ph.id);
+      } else {
+        const id = String(body.id || "");
+        if (!lot.photos.includes(id)) return json({ error: "none" }, 404);
+        lot.photos = lot.photos.filter(x => x !== id);
+        await db.delete(`lphoto/${n}/${id}`);
+      }
+      await db.setJSON(lotKey(n), lot);
+      return json({ lot: lotView(lot, await workshopNames(db)) }, body.action === "lot-photo" ? 201 : 200);
     }
     case "photo": {
       // Photos of the wood before it was remade, added by workshop staff to a batch.
@@ -246,12 +410,9 @@ export default async (req, context) => {
       if (!batch || !canSee(me, batch)) return json({ error: "none" }, 404);
       batch.photos = batch.photos || [];
       if (batch.photos.length >= MAX_PHOTOS) return json({ error: "photos-full" }, 409);
-      let bytes;
-      try { bytes = Buffer.from(String(body.image || ""), "base64"); } catch { return json({ error: "photo" }, 400); }
-      if (bytes.length < 100 || bytes.length > MAX_PHOTO_BYTES || bytes[0] !== 0xff || bytes[1] !== 0xd8) return json({ error: "photo" }, 400);
-      const id = crypto.randomUUID().replace(/-/g, "").slice(0, 12);
-      await db.set(`photo/${p.code}/${id}`, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
-      batch.photos.push(id);
+      const ph = await savePhoto(db, `photo/${p.code}`, body.image);
+      if (ph.error) return json({ error: ph.error }, 400);
+      batch.photos.push(ph.id);
       await db.setJSON(`batch/${p.code}`, batch);
       return json({ batch: staffView(batch, await workshopNames(db)) }, 201);
     }
@@ -268,6 +429,58 @@ export default async (req, context) => {
       await db.setJSON(`batch/${p.code}`, batch);
       return json({ batch: staffView(batch, await workshopNames(db)) });
     }
+  }
+
+  // Rebuild from the master sheet: writes back workshops, lots, batches and photos with their
+  // original codes, so every engraved QR code keeps working. Needs the export key or admin.
+  if (body.action === "restore" || body.action === "restore-photo") {
+    const ok = exportKeyOk(req, context) || (await whoAmI(db, context))?.admin;
+    if (!ok) return json({ error: "auth" }, 401);
+    const overwrite = Boolean(body.overwrite);
+    if (body.action === "restore-photo") {
+      const kind = body.kind === "lot" ? "lot" : "batch";
+      const id = String(body.id || "");
+      if (!PHOTO_ID.test(id)) return json({ error: "photo" }, 400);
+      let key;
+      if (kind === "lot") { const n = parseLotId(body.ref); if (n == null) return json({ error: "lot" }, 400); key = `lphoto/${n}/${id}`; }
+      else { const p = parseCode(String(body.ref || "")); if (p.error) return json({ error: "code" }, 400); key = `photo/${p.code}/${id}`; }
+      if (!overwrite && (await db.get(key))) return json({ ok: true, skipped: true });
+      let bytes;
+      try { bytes = Buffer.from(String(body.image || ""), "base64"); } catch { return json({ error: "photo" }, 400); }
+      if (bytes.length < 100 || bytes.length > MAX_PHOTO_BYTES || bytes[0] !== 0xff || bytes[1] !== 0xd8) return json({ error: "photo" }, 400);
+      await db.set(key, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
+      return json({ ok: true });
+    }
+    const done = { workshops: 0, lots: 0, batches: 0, skipped: 0, errors: [] };
+    const put = async (key, rec) => {
+      if (!overwrite && (await db.get(key))) { done.skipped++; return false; }
+      const prev = await db.get(key, { type: "json" });
+      if (prev) await db.setJSON(`history/restore/${key.replace(/\//g, "_")}/${new Date().toISOString()}`, prev);
+      await db.setJSON(key, rec); return true;
+    };
+    for (const w of Array.isArray(body.workshops) ? body.workshops : []) {
+      const id = String(w.id || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 20), name = cleanName(w.name);
+      if (!id || !name) { done.errors.push(`workshop ${w.id}`); continue; }
+      if (await put(`workshops/${id}`, { id, name, active: w.active !== false, created: String(w.created || new Date().toISOString()) })) done.workshops++;
+    }
+    for (const l of Array.isArray(body.lots) ? body.lots : []) {
+      const n = parseLotId(l.n), v = validateLot({ ...l, status: l.status || "open", publicPhotos: l.publicPhotos !== false }, true);
+      if (n == null || v.error) { done.errors.push(`lot ${l.n}`); continue; }
+      const rec = { ...v.lot, n, workshopId: l.workshopId || null, photos: (l.photos || []).filter(x => PHOTO_ID.test(x)),
+        created: String(l.created || new Date().toISOString()), createdBy: cleanName(l.createdBy) || null, updated: l.updated || null, updatedBy: cleanName(l.updatedBy) || null };
+      if (await put(lotKey(n), rec)) done.lots++;
+    }
+    for (const b of Array.isArray(body.batches) ? body.batches : []) {
+      const p = parseCode(String(b.code || ""));
+      const v = validateBatch({ model: b.model, qty: b.qty, origin: b.lots && b.lots.length ? "" : b.origin, region: b.lots && b.lots.length ? "" : b.region, maker: b.maker, kg: b.kg });
+      if (p.error || v.error) { done.errors.push(`batch ${b.code}`); continue; }
+      const rec = { ...v.batch, code: p.code, lots: (b.lots || []).map(parseLotId).filter(n => n != null), photos: (b.photos || []).filter(x => PHOTO_ID.test(x)),
+        made: String(b.made || new Date().toISOString()), completed: b.completed || null, workshopId: b.workshopId || null,
+        createdBy: cleanName(b.createdBy) || null, createdById: b.createdById || null, updated: b.updated || null, updatedBy: cleanName(b.updatedBy) || null };
+      rec.status = statusOf(rec);
+      if (await put(`batch/${p.code}`, rec)) done.batches++;
+    }
+    return json(done);
   }
 
   // Admin-only actions below

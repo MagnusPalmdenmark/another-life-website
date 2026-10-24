@@ -70,21 +70,76 @@ export function validateDetails(body) {
   return { details };
 }
 
-// Batches made before drafts existed are complete when they have an origin.
-export const statusOf = b => (b.origin ? "complete" : "draft");
+// A batch is complete once it knows its wood: a wood lot, or (older batches) an origin chosen by hand.
+export const statusOf = b => (b.origin || (b.lots || []).length ? "complete" : "draft");
+
+// ---------- Wood lots: one delivery or stack of reclaimed wood at the workshop.
+// Each lot gets a short number (LOT 12) that can be read off a paper tag and said out loud.
+export const lotKey = n => `lots/${String(n).padStart(5, "0")}`;
+export const lotLabel = n => `LOT ${n}`;
+export function parseLotId(v) {
+  const m = String(v ?? "").trim().toUpperCase().replace(/^LOT\s*/, "").match(/^0*(\d{1,5})$/);
+  return m ? Number(m[1]) : null;
+}
+// Validates wood lot fields. On create, the source is required. Only fields that are sent are returned.
+export function validateLot(body, create = false) {
+  const lot = {};
+  if (create || "origin" in body) {
+    const origin = clean(body.origin, 10);
+    if (!ORIGINS.includes(origin)) return { error: "origin" };
+    lot.origin = origin;
+  }
+  const text = { name: 40, place: 80, region: 60, supplier: 80, volume: 30, gps: 80, notes: 1000 };
+  for (const [k, max] of Object.entries(text)) if (k in body) lot[k] = k === "notes" ? String(body.notes ?? "").replace(/[\u0000-\u0008<>]/g, "").trim().slice(0, max) : clean(body[k], max);
+  if ("arrived" in body) {
+    const d = clean(body.arrived, 10);
+    if (d && !/^\d{4}-\d{2}-\d{2}$/.test(d)) return { error: "arrived" };
+    lot.arrived = d;
+  }
+  if ("status" in body) {
+    if (!["open", "used"].includes(body.status)) return { error: "status" };
+    lot.status = body.status;
+  }
+  if ("publicPhotos" in body) lot.publicPhotos = Boolean(body.publicPhotos);
+  return { lot };
+}
+// Readable default name from the source and place, e.g. "Joglo · Jepara"
+const ORIGIN_WORD = { house: "Joglo", bridge: "Bridge", boat: "Boat", other: "Wood" };
+export const defaultLotName = l => [ORIGIN_WORD[l.origin] || "Wood", l.place || l.region].filter(Boolean).join(" · ");
+
+export function lotView(l, workshops = {}, usedBy = []) {
+  return { n: l.n, label: lotLabel(l.n), name: l.name || defaultLotName(l), origin: l.origin, place: l.place || "", region: l.region || "",
+    supplier: l.supplier || "", arrived: l.arrived || "", volume: l.volume || "", gps: l.gps || "", notes: l.notes || "",
+    status: l.status || "open", publicPhotos: l.publicPhotos !== false, photos: l.photos || [],
+    workshopId: l.workshopId || null, workshop: (l.workshopId && workshops[l.workshopId]) || null,
+    created: l.created, createdBy: l.createdBy || null, updated: l.updated || null, updatedBy: l.updatedBy || null, usedBy };
+}
+
+// Copies the wood story from a batch's lots onto it (origin and area), so the passport always
+// shows what the lot says, even if the lot is corrected later.
+export function applyLots(b, lotsByN) {
+  const lots = (b.lots || []).map(n => lotsByN[n]).filter(Boolean);
+  if (!lots.length) return { ...b, lotInfo: [] };
+  const regions = [...new Set(lots.map(l => [l.place, l.region].filter(Boolean).join(", ")).filter(Boolean))];
+  return { ...b, origin: lots[0].origin, region: regions.join(" · "),
+    lotInfo: lots.map(l => ({ n: l.n, label: lotLabel(l.n), name: l.name || defaultLotName(l), origin: l.origin, photos: l.publicPhotos === false ? [] : (l.photos || []) })) };
+}
 
 // The public view of a batch: only the story, nothing private.
 // A draft shows only the product, so a scan before the details are in gives the general story.
 export function publicView(b) {
   if (statusOf(b) === "draft") return { code: b.code, model: b.model, status: "draft", photos: [] };
-  return { code: b.code, model: b.model, origin: b.origin, region: b.region, maker: b.maker, qty: b.qty, kg: b.kg, route: b.route, made: b.completed || b.made, photos: b.photos || [], status: "complete" };
+  const lotPhotos = (b.lotInfo || []).flatMap(l => l.photos.map(id => `L${l.n}/${id}`));
+  return { code: b.code, model: b.model, origin: b.origin, region: b.region, maker: b.maker, qty: b.qty, kg: b.kg, route: b.route, made: b.completed || b.made,
+    photos: [...(b.photos || []), ...lotPhotos].slice(0, 9), status: "complete" };
 }
 
 // What logged-in staff see: everything, including drafts and who made and changed what.
 export function staffView(b, workshops = {}) {
   return { code: b.code, model: b.model, origin: b.origin || "", region: b.region || "", maker: b.maker || "", qty: b.qty, kg: b.kg ?? null, route: b.route, made: b.made,
     photos: b.photos || [], status: statusOf(b), workshopId: b.workshopId || null, workshop: (b.workshopId && workshops[b.workshopId]) || null,
-    createdBy: b.createdBy || null, updated: b.updated || null, updatedBy: b.updatedBy || null, completed: b.completed || null };
+    createdBy: b.createdBy || null, updated: b.updated || null, updatedBy: b.updatedBy || null, completed: b.completed || null,
+    lots: b.lots || [], lotInfo: (b.lotInfo || []).map(l => ({ n: l.n, label: l.label, name: l.name })) };
 }
 
 // Staff session tokens: expiry + HMAC, keyed from the staff password.
