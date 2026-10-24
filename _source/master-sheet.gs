@@ -139,12 +139,14 @@ function syncNow() {
     l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length, JSON.stringify(l)]));
   writeTab_(ss, "Workshops", WS_COLS, d.workshops.map(w => [w.name, w.created, JSON.stringify(w)]));
   const copied = copyPhotos_(d);
+  const qrs = saveQrCodes_(d);
   writeTab_(ss, "About", ["What", "Value"], [
     ["Last updated", new Date()],
     ["Copied from", SITE],
     ["Batches", d.batches.length], ["Wood lots", d.lots.length], ["Workshops", d.workshops.length],
     ["Photos copied this time", copied.copied], ["Photos still to copy", copied.left],
     ["Photo folder", copied.folderUrl],
+    ["QR codes in Drive", qrs.total + " (" + qrs.added + " new this time), folder \"QR codes\" inside the photo folder"],
     ["Note", "This sheet is rewritten every hour from the site. Don't edit or delete the _data columns: they hold everything needed to rebuild the site."]
   ]);
 }
@@ -176,6 +178,9 @@ function readMe_(ss) {
       ["- This file"],
       ["- The photo folder next to it: \"" + FOLDER_NAME + "\""],
       ["- The grey _data columns: they hold everything needed to rebuild"],
+      [""],
+      ["QR codes"],
+      ["Every QR code is made from its batch code (column Code in the Batches tab) and points to the Passport link in the column Passport. Nothing else is needed to make it again: any QR generator can recreate it from that link. A ready-made copy of every QR code is also saved as a file in the Drive folder \"QR codes\" inside the photo folder, named by its code, e.g. AL-2610-03-Q.svg."],
       [""],
       ["Tabs"],
       ["Batches: one row per furniture batch (one QR code). Wood lots: one row per delivery of reclaimed wood. Workshops: the workshops using the system. About: when the last copy was made."],
@@ -236,6 +241,24 @@ function copyPhotos_(d) {
     if (r.getResponseCode() === 200) { f.createFile(r.getBlob().setName(j.id + ".jpg")); copied++; }
   });
   return { copied: copied, left: left, folderUrl: root.getUrl() };
+}
+
+// ---------- QR codes
+// A QR code is not stored anywhere: it is made from the batch code. The site makes the file
+// (the same one the factory form downloads) and this copies it into Drive, one per batch,
+// e.g. "QR codes/AL-2610-03-Q.svg". Files already in Drive are not copied again.
+function saveQrCodes_(d) {
+  const f = sub_(folder_(), "QR codes");
+  let added = 0;
+  d.batches.forEach(b => {
+    const name = b.code + ".svg";
+    if (f.getFilesByName(name).hasNext()) return;
+    const r = UrlFetchApp.fetch(api_(SITE) + "?qr=" + encodeURIComponent(b.code), { muteHttpExceptions: true });
+    if (r.getResponseCode() !== 200) return;
+    f.createFile(r.getBlob().setName(name));
+    added++;
+  });
+  return { added: added, total: d.batches.length };
 }
 
 // ---------- rebuild a site from the sheet

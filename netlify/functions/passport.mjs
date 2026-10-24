@@ -9,6 +9,21 @@ const MAX_PHOTOS = 6;
 const MAX_PHOTO_BYTES = 2_500_000;
 const PHOTO_ID = /^[a-f0-9]{12}$/;
 
+// Same QR as the app's qrSvg(code, true): uppercase link, alphanumeric mode, level Q, code under the QR.
+const QR_HOST = "ID.ANOTHER-LIFE.DK";
+// The QR library (same file as passport-app/qrcode.js) is loaded only when a QR file is asked for.
+async function qrSvg(code) {
+  const { default: qrcode } = await import("../qrcode.cjs");
+  const q = qrcode(0, "Q");
+  q.addData(`HTTPS://${QR_HOST}/${code}`, "Alphanumeric");
+  q.make();
+  const n = q.getModuleCount(), quiet = 4, size = n + quiet * 2;
+  let d = "";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c + quiet} ${r + quiet}h1v1h-1z`;
+  const text = `<text x="${size / 2}" y="${size + 3.6}" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="3.2" letter-spacing="0.5" fill="#000">${code}</text>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size + 6}" shape-rendering="crispEdges"><rect width="${size}" height="${size + 6}" fill="#fff"/><path d="${d}" fill="#000"/>${text}</svg>`;
+}
+
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 
@@ -139,6 +154,13 @@ export default async (req, context) => {
       const img = await db.get(`photo/${p.code}/${id}`, { type: "arrayBuffer" });
       if (!img) return json({ error: "none" }, 404);
       return new Response(img, { headers: { "content-type": "image/jpeg", "cache-control": "public, max-age=31536000, immutable" } });
+    }
+    if (url.searchParams.has("qr")) {
+      // The QR code for a batch as an SVG file, exactly as the factory form downloads it.
+      // It's made from the code alone, so it's public: the code is printed under every QR anyway.
+      const p = parseCode(url.searchParams.get("qr"));
+      if (p.error) return json({ error: p.error }, 400);
+      return new Response(await qrSvg(p.code), { headers: { "content-type": "image/svg+xml", "content-disposition": `inline; filename="${p.code}.svg"`, "cache-control": "public, max-age=31536000, immutable" } });
     }
     if (url.searchParams.has("lphoto")) {
       // Lot photos are public only when the lot allows it; staff and the export key always see them.
