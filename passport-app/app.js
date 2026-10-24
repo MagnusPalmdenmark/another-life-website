@@ -200,10 +200,47 @@
     const text = withText ? `<text x="${size / 2}" y="${size + 3.6}" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="3.2" letter-spacing="0.5" fill="#000">${esc(code)}</text>` : "";
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size + textH}" shape-rendering="crispEdges"><rect width="${size}" height="${size + textH}" fill="#fff"/><path d="${d}" fill="#000"/>${text}</svg>`;
   }
-  function downloadSvg(code) {
-    const blob = new Blob([qrSvg(code, true)], { type: "image/svg+xml" });
+  // Engraving layout (150 x 55 mm): text as outlines, transparent background. Layout data lives in plate.js.
+  let plateReady = null;
+  function loadPlate() {
+    return plateReady || (plateReady = new Promise((res, rej) => {
+      if (window.AL_PLATE) return res(window.AL_PLATE);
+      const sc = document.createElement("script"); sc.src = "/passport-app/plate.js?v=1";
+      sc.onload = () => res(window.AL_PLATE); sc.onerror = () => { plateReady = null; rej(); };
+      document.head.appendChild(sc);
+    }));
+  }
+  function plateSvg(code, P) {
+    const f = n => (Math.round(n * 1000) / 1000).toString();
+    // QR, no quiet zone (the plate around it is the margin)
+    const q = qrcode(0, "Q"); q.addData(`HTTPS://${PUBLIC_HOST}/${code}`, "Alphanumeric"); q.make();
+    const n = q.getModuleCount(), m = P.qr.s / n; let qd = "";
+    for (let r = 0; r < n; r++) {
+      let c = 0;
+      while (c < n) {
+        if (!q.isDark(r, c)) { c++; continue; }
+        let e = c; while (e < n && q.isDark(r, e)) e++;
+        qd += `M${f(P.qr.x + c * m)} ${f(P.qr.y + r * m)}h${f((e - c) * m)}v${f(m)}h${f(-(e - c) * m)}Z`;
+        c = e;
+      }
+    }
+    // Batch code, vertical, reading bottom to top, centred beside the QR
+    const C = P.code, chars = [...code].filter(ch => C.glyphs[ch] !== undefined);
+    const xs = ch => (C.glyphs[ch].match(/-?\d+(\.\d+)?/g) || []).map(Number).filter((v, i) => i % 2 === 0);
+    const first = xs(chars[0]), last = xs(chars[chars.length - 1]);
+    const lo = first.length ? Math.min(...first) : 0, hi = (chars.length - 1) * C.adv + (last.length ? Math.max(...last) : C.adv);
+    const start = C.cy + (lo + hi) / 2;
+    let cd = "";
+    chars.forEach((ch, i) => {
+      cd += C.glyphs[ch].replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, (_, x, y) => `${f(C.bx - Number(y))} ${f(start - (i * C.adv + Number(x)))}`);
+    });
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${P.w}mm" height="${P.h}mm" viewBox="0 0 ${P.w} ${P.h}"><title>Another Life ${esc(code)}</title><path fill="#000" fill-rule="evenodd" d="${P.logo}"/><path fill="#000" fill-rule="nonzero" d="${P.static}${qd}${cd}"/></svg>`;
+  }
+  async function downloadSvg(code) {
+    let P; try { P = await loadPlate(); } catch (e) { return; }
+    const blob = new Blob([plateSvg(code, P)], { type: "image/svg+xml" });
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob); a.download = `${code}.svg`;
+    a.href = URL.createObjectURL(blob); a.download = `${code}-engrave.svg`;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
@@ -462,7 +499,7 @@
         </div>
         ${res ? `<div class="label-out">
           <span class="k">${L.engrave}</span>
-          <div class="plate">${qrSvg(res.code, false)}<span class="serial">${esc(res.code)}</span></div>
+          <div class="engrave" id="engrave" aria-label="${esc(res.code)}"></div>
           <p class="fine">${L.same(res.qty)}</p>
           <div class="before staff-ph" id="resPh">${(res.photos || []).map(id => `<figure><img src="${photoUrl(res.code, id)}" alt=""><button type="button" class="linkish" data-rm="${id}">${L.phRemove}</button></figure>`).join("")}</div>
           <p class="msg bad" id="phMsg" role="status">${form.photoErr ? L.phErr : ""}</p>
@@ -481,6 +518,7 @@
     $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); form = null; go(""); });
     if (res) {
       $("#dl").addEventListener("click", () => downloadSvg(res.code));
+      loadPlate().then(P => { const el = $("#engrave"); if (el) el.innerHTML = plateSvg(res.code, P); }).catch(() => {});
       $("#nextB").addEventListener("click", () => { form = { model: form.model, origin: "", region: "", maker: form.maker, qty: "", kg: form.kg }; viewFactory(true); });
       const more = $("#moreP");
       if (more) more.addEventListener("change", async () => { await uploadPhotos(res, [...more.files]); viewFactory(true); });
