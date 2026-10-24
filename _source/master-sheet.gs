@@ -17,6 +17,7 @@ const SHEET_ID = "1bSQ6Lwn-SVyXF4_bIWDRHDDDx000J-gR8mHBWzniAE8"; // this sheet
 const SHEET_NAME = "ANOTHER LIFE · Passport Master Record — DO NOT DELETE";
 const FOLDER_NAME = "ANOTHER LIFE · Passport Master Record — photos (DO NOT DELETE)";
 const PHOTOS_PER_RUN = 150; // the rest follow on the next run
+const QR_HOST = "ID.ANOTHER-LIFE.DK"; // what every QR code points to; must match the site's app.js
 
 const BATCH_COLS = ["Code", "Status", "Product", "Pieces", "Wood lots", "Wood source", "Area", "Maker", "Weight kg", "Workshop",
   "Created", "Created by", "Completed", "Updated", "Updated by", "Photos", "Passport", "_data"];
@@ -139,12 +140,14 @@ function syncNow() {
     l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length, JSON.stringify(l)]));
   writeTab_(ss, "Workshops", WS_COLS, d.workshops.map(w => [w.name, w.created, JSON.stringify(w)]));
   const copied = copyPhotos_(d);
+  const qrs = saveQrCodes_(d);
   writeTab_(ss, "About", ["What", "Value"], [
     ["Last updated", new Date()],
     ["Copied from", SITE],
     ["Batches", d.batches.length], ["Wood lots", d.lots.length], ["Workshops", d.workshops.length],
     ["Photos copied this time", copied.copied], ["Photos still to copy", copied.left],
     ["Photo folder", copied.folderUrl],
+    ["QR codes in Drive", qrs.total + " (" + qrs.added + " new this time), folder \"QR codes\" inside the photo folder"],
     ["Note", "This sheet is rewritten every hour from the site. Don't edit or delete the _data columns: they hold everything needed to rebuild the site."]
   ]);
 }
@@ -176,6 +179,9 @@ function readMe_(ss) {
       ["- This file"],
       ["- The photo folder next to it: \"" + FOLDER_NAME + "\""],
       ["- The grey _data columns: they hold everything needed to rebuild"],
+      [""],
+      ["QR codes"],
+      ["Every QR code is made from its batch code (column Code in the Batches tab) and points to the Passport link in the column Passport. Nothing else is needed to make it again: any QR generator can recreate it from that link. A ready-made copy of every QR code is also saved as a file in the Drive folder \"QR codes\" inside the photo folder, named by its code, e.g. AL-2610-03-Q.svg."],
       [""],
       ["Tabs"],
       ["Batches: one row per furniture batch (one QR code). Wood lots: one row per delivery of reclaimed wood. Workshops: the workshops using the system. About: when the last copy was made."],
@@ -236,6 +242,32 @@ function copyPhotos_(d) {
     if (r.getResponseCode() === 200) { f.createFile(r.getBlob().setName(j.id + ".jpg")); copied++; }
   });
   return { copied: copied, left: left, folderUrl: root.getUrl() };
+}
+
+// ---------- QR codes
+// A QR code is not stored anywhere: it is made from the batch code, exactly like the site does
+// (same library, same settings), so the same code always gives the same QR. These SVG files are
+// a ready-made copy in Drive, one per batch, e.g. "QR codes/AL-2610-03-Q.svg".
+function qrSvg_(code) {
+  const q = qrcode(0, "Q");
+  q.addData("HTTPS://" + QR_HOST + "/" + code, "Alphanumeric");
+  q.make();
+  const n = q.getModuleCount(), quiet = 4, size = n + quiet * 2;
+  let d = "";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += "M" + (c + quiet) + " " + (r + quiet) + "h1v1h-1z";
+  const text = '<text x="' + size / 2 + '" y="' + (size + 3.6) + '" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="3.2" letter-spacing="0.5" fill="#000">' + code + "</text>";
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + size + " " + (size + 6) + '" shape-rendering="crispEdges"><rect width="' + size + '" height="' + (size + 6) + '" fill="#fff"/><path d="' + d + '" fill="#000"/>' + text + "</svg>";
+}
+function saveQrCodes_(d) {
+  const f = sub_(folder_(), "QR codes");
+  let added = 0;
+  d.batches.forEach(b => {
+    const name = b.code + ".svg";
+    if (f.getFilesByName(name).hasNext()) return;
+    f.createFile(Utilities.newBlob(qrSvg_(b.code), "image/svg+xml", name));
+    added++;
+  });
+  return { added: added, total: d.batches.length };
 }
 
 // ---------- rebuild a site from the sheet
