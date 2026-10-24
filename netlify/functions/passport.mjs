@@ -1,5 +1,4 @@
 import { getStore } from "@netlify/blobs";
-import qrcode from "../qrcode.cjs"; // same library as passport-app/qrcode.js
 import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, lotKey, lotLabel, parseLotId, validateLot, defaultLotName, lotView, applyLots, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
 
 const ADMIN_COOKIE = "al_admin";   // signed with ADMIN_KEY, 30 days
@@ -12,7 +11,9 @@ const PHOTO_ID = /^[a-f0-9]{12}$/;
 
 // Same QR as the app's qrSvg(code, true): uppercase link, alphanumeric mode, level Q, code under the QR.
 const QR_HOST = "ID.ANOTHER-LIFE.DK";
-function qrSvg(code) {
+// The QR library (same file as passport-app/qrcode.js) is loaded only when a QR file is asked for.
+async function qrSvg(code) {
+  const { default: qrcode } = await import("../qrcode.cjs");
   const q = qrcode(0, "Q");
   q.addData(`HTTPS://${QR_HOST}/${code}`, "Alphanumeric");
   q.make();
@@ -159,7 +160,7 @@ export default async (req, context) => {
       // It's made from the code alone, so it's public: the code is printed under every QR anyway.
       const p = parseCode(url.searchParams.get("qr"));
       if (p.error) return json({ error: p.error }, 400);
-      return new Response(qrSvg(p.code), { headers: { "content-type": "image/svg+xml", "content-disposition": `inline; filename="${p.code}.svg"`, "cache-control": "public, max-age=31536000, immutable" } });
+      return new Response(await qrSvg(p.code), { headers: { "content-type": "image/svg+xml", "content-disposition": `inline; filename="${p.code}.svg"`, "cache-control": "public, max-age=31536000, immutable" } });
     }
     if (url.searchParams.has("lphoto")) {
       // Lot photos are public only when the lot allows it; staff and the export key always see them.
