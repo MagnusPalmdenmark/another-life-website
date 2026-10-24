@@ -149,15 +149,24 @@ function syncNow() {
   ]);
 }
 
-// The first tab explains what this file is. Written once; it's never overwritten after that.
+// The first tab explains what this file is and how to find the export key. Rewritten on every update.
 function readMe_(ss) {
   if (ss.getName() !== SHEET_NAME) ss.rename(SHEET_NAME);
   let sh = ss.getSheetByName("READ ME");
   if (!sh) {
     const blank = ss.getSheetByName("Sheet1");
     sh = blank && blank.getLastRow() === 0 ? blank.setName("READ ME") : ss.insertSheet("READ ME", 0);
+  }
+  {
     const lines = [
       ["ANOTHER LIFE · PASSPORT MASTER RECORD"],
+      [""],
+      ["HOW TO FIND THE EXPORT KEY"],
+      ["The export key connects this sheet to the site. On purpose, it is not written anywhere in this sheet."],
+      ["1. In the menu bar at the top of this sheet, click Another Life (right after Help). If you don't see it, reload the page and make the window wider."],
+      ["2. Click Show export key."],
+      ["3. A small window opens with the key. Click Copy."],
+      ["Key lost or leaked? Another Life → Create export key → Copy. Then in Netlify: project super-moonbeam-c9f32c → Project configuration → Environment variables → open EXPORT_KEY → Edit → paste into the box Production → Save. Then Deploys → Trigger deploy → Deploy site."],
       [""],
       ["What this is"],
       ["The complete record behind every Another Life Passport and QR code: every furniture batch, every wood lot, every workshop, and all photos."],
@@ -176,11 +185,13 @@ function readMe_(ss) {
       [""],
       ["Keep it private. Share only with people who need it. It holds supplier names and internal notes that never appear on passports."]
     ];
-    sh.getRange(1, 1, lines.length, 1).setValues(lines);
+    sh.clearContents();
+    sh.getRange(1, 1, lines.length, 1).setValues(lines).setFontWeight("normal").setFontSize(10).setBackground(null);
     sh.setColumnWidth(1, 900);
     sh.getRange(1, 1, lines.length, 1).setWrap(true);
     sh.getRange(1, 1).setFontSize(16).setFontWeight("bold");
-    [3, 7, 12, 15].forEach(r => sh.getRange(r, 1).setFontWeight("bold"));
+    sh.getRange(3, 1, 6, 1).setBackground("#fff4d6");
+    lines.forEach((l, i) => { if (/^[A-Z][A-Za-z ]+$/.test(l[0]) && l[0].length < 40) sh.getRange(i + 1, 1).setFontWeight("bold"); });
   }
   ss.setActiveSheet(sh); ss.moveActiveSheet(1);
 }
