@@ -46,11 +46,48 @@ function onOpen() {
   if (ui) ui.createMenu("Another Life")
     .addItem("Update now", "syncNow")
     .addItem("Turn on hourly update", "installTrigger")
+    .addItem("Create export key", "createKey")
+    .addItem("Show export key", "showKey")
     .addItem("Set export key", "setKey")
     .addSeparator()
     .addItem("Rebuild site from this sheet…", "rebuildSite")
     .addToUi();
   try { readMe_(ss_()); } catch (e) {}
+}
+
+// Makes a strong random key here in Google, saves it for this script, and shows it once to copy into Netlify.
+function createKey() {
+  const ui = ui_();
+  if (!ui) { Logger.log("Open the sheet and use Another Life → Create export key."); return; }
+  const props = PropertiesService.getScriptProperties();
+  if (props.getProperty("EXPORT_KEY")) {
+    const again = ui.alert("Export key", "A key already exists. Make a new one? Then it must also be replaced in Netlify.", ui.ButtonSet.YES_NO);
+    if (again !== ui.Button.YES) return;
+  }
+  const key = (Utilities.getUuid() + Utilities.getUuid()).replace(/-/g, "");
+  props.setProperty("EXPORT_KEY", key);
+  keyDialog_(key);
+}
+
+// Shows the saved key again, e.g. to paste into Netlify a second time.
+function showKey() {
+  const ui = ui_(), key = PropertiesService.getScriptProperties().getProperty("EXPORT_KEY");
+  if (!ui) return;
+  if (!key) { ui.alert("Export key", "There is no key yet. Choose Another Life → Create export key.", ui.ButtonSet.OK); return; }
+  keyDialog_(key);
+}
+
+function keyDialog_(key) {
+  const ui = ui_();
+  const html = HtmlService.createHtmlOutput(
+    '<div style="font:14px Arial;line-height:1.5">' +
+    '<p><b>1.</b> Click <b>Copy</b>.</p>' +
+    '<input id="k" readonly value="' + key + '" style="width:100%;padding:8px;font:13px monospace;box-sizing:border-box" onclick="this.select()">' +
+    '<p><button onclick="var k=document.getElementById(\'k\');k.select();document.execCommand(\'copy\');this.textContent=\'Copied\'" style="padding:8px 16px">Copy</button></p>' +
+    '<p><b>2.</b> In Netlify, paste it into the box <b>Production</b> for the variable <b>EXPORT_KEY</b>, then click <b>Create variable</b>.</p>' +
+    '<p><b>3.</b> Close this window. The key is saved in this sheet. To see it again: Another Life → Show export key.</p></div>'
+  ).setWidth(520).setHeight(300);
+  ui.showModalDialog(html, "Export key for Netlify");
 }
 
 function setKey() {
