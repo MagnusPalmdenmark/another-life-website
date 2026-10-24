@@ -1,5 +1,5 @@
 /**
- * Another Life — Master sheet
+ * ANOTHER LIFE · Passport Master Record
  *
  * Paste this into a Google Sheet (Extensions → Apps Script), save, and reload the sheet.
  * A menu "Another Life" appears. It keeps this sheet an exact copy of the Passport system:
@@ -13,7 +13,8 @@
  */
 
 const SITE = "https://id.another-life.dk";
-const FOLDER_NAME = "Another Life — Master photos";
+const SHEET_NAME = "ANOTHER LIFE · Passport Master Record — DO NOT DELETE";
+const FOLDER_NAME = "ANOTHER LIFE · Passport Master Record — photos (DO NOT DELETE)";
 const PHOTOS_PER_RUN = 150; // the rest follow on the next run
 
 const BATCH_COLS = ["Code", "Status", "Product", "Pieces", "Wood lots", "Wood source", "Area", "Maker", "Weight kg", "Workshop",
@@ -30,6 +31,7 @@ function onOpen() {
     .addSeparator()
     .addItem("Rebuild site from this sheet…", "rebuildSite")
     .addToUi();
+  try { readMe_(SpreadsheetApp.getActive()); } catch (e) {}
 }
 
 function setKey() {
@@ -68,8 +70,9 @@ function postJson_(site, body) {
 // ---------- copy the site into the sheet
 
 function syncNow() {
-  const d = getJson_(SITE, "export=1");
   const ss = SpreadsheetApp.getActive();
+  readMe_(ss);
+  const d = getJson_(SITE, "export=1");
   writeTab_(ss, "Batches", BATCH_COLS, d.batches.map(b => [b.code, b.status, b.model, b.qty, (b.lots || []).map(n => "LOT " + n).join(" "),
     b.origin, b.region, b.maker, b.kg, b.workshop, b.made, b.createdBy, b.completed, b.updated, b.updatedBy, (b.photos || []).length,
     SITE + "/" + b.code, JSON.stringify(b)]));
@@ -85,6 +88,42 @@ function syncNow() {
     ["Photo folder", copied.folderUrl],
     ["Note", "This sheet is rewritten every hour from the site. Don't edit or delete the _data columns: they hold everything needed to rebuild the site."]
   ]);
+}
+
+// The first tab explains what this file is. Written once; it's never overwritten after that.
+function readMe_(ss) {
+  if (ss.getName() !== SHEET_NAME) ss.rename(SHEET_NAME);
+  let sh = ss.getSheetByName("READ ME");
+  if (!sh) {
+    const blank = ss.getSheetByName("Sheet1");
+    sh = blank && blank.getLastRow() === 0 ? blank.setName("READ ME") : ss.insertSheet("READ ME", 0);
+    const lines = [
+      ["ANOTHER LIFE · PASSPORT MASTER RECORD"],
+      [""],
+      ["What this is"],
+      ["The complete record behind every Another Life Passport and QR code: every furniture batch, every wood lot, every workshop, and all photos."],
+      ["The site id.another-life.dk is copied into this file every hour. If the site or Netlify ever disappeared, the whole system can be rebuilt from this file, with the same codes, so every engraved QR code keeps working."],
+      [""],
+      ["Do not delete"],
+      ["- This file"],
+      ["- The photo folder next to it: \"" + FOLDER_NAME + "\""],
+      ["- The grey _data columns: they hold everything needed to rebuild"],
+      [""],
+      ["Tabs"],
+      ["Batches: one row per furniture batch (one QR code). Wood lots: one row per delivery of reclaimed wood. Workshops: the workshops using the system. About: when the last copy was made."],
+      [""],
+      ["Menu: Another Life"],
+      ["Update now: copy the latest from the site. Turn on hourly update: keeps this file current by itself. Rebuild site from this sheet: writes everything back into a site (adds only what is missing)."],
+      [""],
+      ["Keep it private. Share only with people who need it. It holds supplier names and internal notes that never appear on passports."]
+    ];
+    sh.getRange(1, 1, lines.length, 1).setValues(lines);
+    sh.setColumnWidth(1, 900);
+    sh.getRange(1, 1, lines.length, 1).setWrap(true);
+    sh.getRange(1, 1).setFontSize(16).setFontWeight("bold");
+    [3, 7, 12, 15].forEach(r => sh.getRange(r, 1).setFontWeight("bold"));
+  }
+  ss.setActiveSheet(sh); ss.moveActiveSheet(1);
 }
 
 function writeTab_(ss, name, cols, rows) {
