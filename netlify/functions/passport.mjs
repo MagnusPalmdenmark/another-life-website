@@ -123,6 +123,13 @@ async function savePhoto(db, prefix, image) {
   return { id };
 }
 
+// Unbiased random whole number from min to max (inclusive).
+function randomInt(min, max) {
+  const span = max - min + 1, limit = Math.floor(0x100000000 / span) * span, a = new Uint32Array(1);
+  do crypto.getRandomValues(a); while (a[0] >= limit);
+  return min + (a[0] % span);
+}
+
 async function newInvite(db, user) {
   if (user.inviteHash) await db.delete(`invites/${user.inviteHash}`);
   const token = randomToken();
@@ -303,11 +310,10 @@ export default async (req, context) => {
       v.batch.lots = cl.lots;
       v.batch.status = statusOf(v.batch);
       const yymm = yymmNow();
-      // Next free batch number this month: highest existing + 1, written only if the key is still new.
-      const { blobs } = await db.list({ prefix: `batch/AL-${yymm}-` });
-      let n = blobs.reduce((max, b) => Math.max(max, Number(b.key.split("-")[2]) || 0), 0) + 1;
-      for (let tries = 0; tries < 5; tries++, n++) {
-        if (n > 999) return json({ error: "full" }, 409);
+      // A random free number this month (100–999), so a code doesn't reveal how many batches exist.
+      // Written only if the key is still new.
+      for (let tries = 0; tries < 25; tries++) {
+        const n = randomInt(100, 999);
         const code = makeCode(yymm, n);
         if (await db.get(`batch/${code}`)) continue;
         const now = new Date().toISOString();
@@ -367,9 +373,9 @@ export default async (req, context) => {
       if (v.error) return json({ error: v.error }, 400);
       const workshopId = me.admin ? String(body.workshopId || "") || null : me.workshopId;
       if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
-      const { blobs } = await db.list({ prefix: "lots/" });
-      let n = blobs.reduce((max, b) => Math.max(max, Number(b.key.slice(5)) || 0), 0) + 1;
-      for (let tries = 0; tries < 5; tries++, n++) {
+      // A random free 4-digit number, easy to read off a tag and say, that doesn't reveal how many lots exist.
+      for (let tries = 0; tries < 25; tries++) {
+        const n = randomInt(1000, 9999);
         const now = new Date().toISOString();
         const lot = { status: "open", publicPhotos: true, ...v.lot, n, workshopId, photos: [], created: now, createdBy: me.name, createdById: me.id || "admin" };
         if (!lot.name) lot.name = defaultLotName(lot);
@@ -518,6 +524,27 @@ export default async (req, context) => {
     const token = await newInvite(db, user);
     await db.setJSON(`users/${user.id}`, user);
     return json({ user: userView(user), token }, 201);
+  }
+  if (body.action === "renumber-lot") {
+    // Gives a lot a new random number. Only while no batch uses it, so no passport changes.
+    const n = parseLotId(body.n);
+    const lot = n == null ? null : await db.get(lotKey(n), { type: "json" });
+    if (!lot) return json({ error: "none" }, 404);
+    if ((await readAll(db, "batch/")).some(b => (b.lots || []).includes(n))) return json({ error: "lot-used" }, 409);
+    for (let tries = 0; tries < 25; tries++) {
+      const m = randomInt(1000, 9999);
+      const moved = { ...lot, n: m, renumberedFrom: n, updated: new Date().toISOString(), updatedBy: me.name };
+      const res = await db.setJSON(lotKey(m), moved, { onlyIfNew: true });
+      if (res && res.modified === false) continue;
+      for (const id of lot.photos || []) {
+        const img = await db.get(`lphoto/${n}/${id}`, { type: "arrayBuffer" });
+        if (img) { await db.set(`lphoto/${m}/${id}`, img); await db.delete(`lphoto/${n}/${id}`); }
+      }
+      await keepHistory(db, "lot", n, lot);
+      await db.delete(lotKey(n));
+      return json({ lot: lotView(moved, await workshopNames(db)) });
+    }
+    return json({ error: "busy" }, 409);
   }
   if (body.action === "add-workshop") {
     const name = cleanName(body.name);
