@@ -1,5 +1,5 @@
 import { getStore } from "@netlify/blobs";
-import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, lotKey, lotLabel, parseLotId, validateLot, defaultLotName, lotView, applyLots, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
+import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, lotKey, lotLabel, parseLotId, validateLot, defaultLotName, lotView, applyLots, validateMaterial, docType, cleanDocName, docView, MAX_DOC_BYTES, DOC_TYPES, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
 
 const ADMIN_COOKIE = "al_admin";   // signed with ADMIN_KEY, 30 days
 const DEVICE_COOKIE = "al_device"; // personal phone key from an invite link
@@ -123,6 +123,19 @@ async function savePhoto(db, prefix, image) {
   return { id };
 }
 
+// Unbiased random whole number from min to max (inclusive).
+function randomInt(min, max) {
+  const span = max - min + 1, limit = Math.floor(0x100000000 / span) * span, a = new Uint32Array(1);
+  do crypto.getRandomValues(a); while (a[0] >= limit);
+  return min + (a[0] % span);
+}
+
+// YYMMNN from the arrival date (or this month in Jakarta) and 2 random digits, 10–99.
+function lotNumber(arrived) {
+  const yymm = /^\d{4}-\d{2}/.test(arrived || "") ? arrived.slice(2, 4) + arrived.slice(5, 7) : yymmNow();
+  return Number(yymm + String(randomInt(10, 99)));
+}
+
 async function newInvite(db, user) {
   if (user.inviteHash) await db.delete(`invites/${user.inviteHash}`);
   const token = randomToken();
@@ -174,6 +187,19 @@ export default async (req, context) => {
       if (!img) return json({ error: "none" }, 404);
       return new Response(img, { headers: { "content-type": "image/jpeg", "cache-control": lot.publicPhotos === false ? "private, no-store" : "public, max-age=31536000, immutable" } });
     }
+    if (url.searchParams.has("ldoc")) {
+      // A lot document: staff of that lot's workshop, admin, or the export key.
+      const [ln, id] = String(url.searchParams.get("ldoc")).split("/");
+      const n = parseLotId(ln);
+      if (n == null || !PHOTO_ID.test(id || "")) return json({ error: "none" }, 404);
+      const lot = await db.get(lotKey(n), { type: "json" });
+      const doc = lot && (lot.docs || []).find(d => d.id === id);
+      if (!doc) return json({ error: "none" }, 404);
+      if (!exportKeyOk(req, context) && !canSee(await whoAmI(db, context), lot)) return json({ error: "none" }, 404);
+      const file = await db.get(`ldoc/${n}/${id}`, { type: "arrayBuffer" });
+      if (!file) return json({ error: "none" }, 404);
+      return new Response(file, { headers: { "content-type": doc.type, "content-disposition": `${url.searchParams.has("download") ? "attachment" : "inline"}; filename="${doc.name.replace(/"/g, "")}"`, "cache-control": "private, no-store" } });
+    }
     if (url.searchParams.has("export")) {
       // Everything, for the master Google Sheet and the "Download everything" button.
       const me = exportKeyOk(req, context) ? { admin: true } : await whoAmI(db, context);
@@ -215,7 +241,8 @@ export default async (req, context) => {
       if (!me) return json({ error: "auth" }, 401);
       const [lotsByN, names, batches] = await Promise.all([allLots(db), workshopNames(db), readAll(db, "batch/")]);
       const lots = Object.values(lotsByN).filter(l => canSee(me, l)).sort((a, b) => b.n - a.n);
-      return json({ lots: lots.map(l => lotView(l, names, batches.filter(b => (b.lots || []).includes(l.n)).map(b => b.code))) });
+      // The list leaves out the material record (it can be long); a single lot (?lot=) has it all.
+      return json({ lots: lots.map(l => ({ ...lotView(l, names, batches.filter(b => (b.lots || []).includes(l.n)).map(b => b.code)), material: undefined, notes: undefined })) });
     }
     if (url.searchParams.has("lot")) {
       const me = await whoAmI(db, context);
@@ -303,11 +330,10 @@ export default async (req, context) => {
       v.batch.lots = cl.lots;
       v.batch.status = statusOf(v.batch);
       const yymm = yymmNow();
-      // Next free batch number this month: highest existing + 1, written only if the key is still new.
-      const { blobs } = await db.list({ prefix: `batch/AL-${yymm}-` });
-      let n = blobs.reduce((max, b) => Math.max(max, Number(b.key.split("-")[2]) || 0), 0) + 1;
-      for (let tries = 0; tries < 5; tries++, n++) {
-        if (n > 999) return json({ error: "full" }, 409);
+      // A random free number this month (100–999), so a code doesn't reveal how many batches exist.
+      // Written only if the key is still new.
+      for (let tries = 0; tries < 25; tries++) {
+        const n = randomInt(100, 999);
         const code = makeCode(yymm, n);
         if (await db.get(`batch/${code}`)) continue;
         const now = new Date().toISOString();
@@ -367,9 +393,10 @@ export default async (req, context) => {
       if (v.error) return json({ error: v.error }, 400);
       const workshopId = me.admin ? String(body.workshopId || "") || null : me.workshopId;
       if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
-      const { blobs } = await db.list({ prefix: "lots/" });
-      let n = blobs.reduce((max, b) => Math.max(max, Number(b.key.slice(5)) || 0), 0) + 1;
-      for (let tries = 0; tries < 5; tries++, n++) {
+      // Number: arrival year and month + 2 random digits (2610-48), easy to read off a tag and say,
+      // and it doesn't reveal how many lots exist.
+      for (let tries = 0; tries < 40; tries++) {
+        const n = lotNumber(v.lot.arrived);
         const now = new Date().toISOString();
         const lot = { status: "open", publicPhotos: true, ...v.lot, n, workshopId, photos: [], created: now, createdBy: me.name, createdById: me.id || "admin" };
         if (!lot.name) lot.name = defaultLotName(lot);
@@ -390,6 +417,11 @@ export default async (req, context) => {
       const prev = { ...lot };
       Object.assign(lot, v.lot);
       if (!lot.name) lot.name = defaultLotName(lot);
+      if ("material" in body) {
+        const mv = validateMaterial(body.material);
+        if (mv.error) return json({ error: mv.error }, 400);
+        lot.material = mv.material || {};
+      }
       if (me.admin && "workshopId" in body) {
         const w = String(body.workshopId || "") || null;
         if (w && !(await db.get(`workshops/${w}`))) return json({ error: "workshop" }, 400);
@@ -399,6 +431,38 @@ export default async (req, context) => {
       await keepHistory(db, "lot", n, prev);
       await db.setJSON(lotKey(n), lot);
       return json({ lot: lotView(lot, await workshopNames(db)) });
+    }
+    case "lot-doc":
+    case "lot-doc-remove": {
+      // Documents for a lot (papers, scans, saved copies of outside records). Internal only.
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const n = parseLotId(body.n);
+      const lot = n == null ? null : await db.get(lotKey(n), { type: "json" });
+      if (!lot || !canSee(me, lot)) return json({ error: "none" }, 404);
+      lot.docs = lot.docs || [];
+      if (body.action === "lot-doc") {
+        if (lot.docs.length >= 40) return json({ error: "docs-full" }, 409);
+        let bytes;
+        try { bytes = Buffer.from(String(body.data || ""), "base64"); } catch { return json({ error: "doc" }, 400); }
+        const type = docType(bytes);
+        if (!type || bytes.length < 100 || bytes.length > MAX_DOC_BYTES) return json({ error: "doc" }, 400);
+        const id = crypto.randomUUID().replace(/-/g, "").slice(0, 12);
+        await db.set(`ldoc/${n}/${id}`, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
+        let name = cleanDocName(body.name);
+        const ext = DOC_TYPES[type];
+        if (!name.toLowerCase().endsWith("." + ext)) name += "." + ext;
+        lot.docs.push({ id, name, type, size: bytes.length, added: new Date().toISOString(), addedBy: me.name, note: String(body.note || "").replace(/[<>]/g, "").slice(0, 300) });
+      } else {
+        const id = String(body.id || "");
+        if (!lot.docs.some(d => d.id === id)) return json({ error: "none" }, 404);
+        await keepHistory(db, "lot", n, { ...lot });
+        lot.docs = lot.docs.filter(d => d.id !== id);
+        // The file itself is kept (only unlisted), so a removed document can still be recovered.
+      }
+      lot.updated = new Date().toISOString(); lot.updatedBy = me.name;
+      await db.setJSON(lotKey(n), lot);
+      return json({ lot: lotView(lot, await workshopNames(db)) }, body.action === "lot-doc" ? 201 : 200);
     }
     case "lot-photo":
     case "lot-photo-remove": {
@@ -460,9 +524,19 @@ export default async (req, context) => {
     if (!ok) return json({ error: "auth" }, 401);
     const overwrite = Boolean(body.overwrite);
     if (body.action === "restore-photo") {
-      const kind = body.kind === "lot" ? "lot" : "batch";
+      const kind = ["lot", "doc"].includes(body.kind) ? body.kind : "batch";
       const id = String(body.id || "");
       if (!PHOTO_ID.test(id)) return json({ error: "photo" }, 400);
+      if (kind === "doc") {
+        const n = parseLotId(body.ref); if (n == null) return json({ error: "lot" }, 400);
+        const key = `ldoc/${n}/${id}`;
+        if (!overwrite && (await db.get(key))) return json({ ok: true, skipped: true });
+        let bytes;
+        try { bytes = Buffer.from(String(body.image || ""), "base64"); } catch { return json({ error: "doc" }, 400); }
+        if (!docType(bytes) || bytes.length > MAX_DOC_BYTES) return json({ error: "doc" }, 400);
+        await db.set(key, bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.length));
+        return json({ ok: true });
+      }
       let key;
       if (kind === "lot") { const n = parseLotId(body.ref); if (n == null) return json({ error: "lot" }, 400); key = `lphoto/${n}/${id}`; }
       else { const p = parseCode(String(body.ref || "")); if (p.error) return json({ error: "code" }, 400); key = `photo/${p.code}/${id}`; }
@@ -488,7 +562,10 @@ export default async (req, context) => {
     for (const l of Array.isArray(body.lots) ? body.lots : []) {
       const n = parseLotId(l.n), v = validateLot({ ...l, status: l.status || "open", publicPhotos: l.publicPhotos !== false }, true);
       if (n == null || v.error) { done.errors.push(`lot ${l.n}`); continue; }
-      const rec = { ...v.lot, n, workshopId: l.workshopId || null, photos: (l.photos || []).filter(x => PHOTO_ID.test(x)),
+      const mv = validateMaterial(l.material);
+      const docs = (Array.isArray(l.docs) ? l.docs : []).filter(d => d && PHOTO_ID.test(d.id || "") && DOC_TYPES[d.type])
+        .map(d => ({ id: d.id, name: cleanDocName(d.name), type: d.type, size: Number(d.size) || 0, added: String(d.added || ""), addedBy: cleanName(d.addedBy) || null, note: String(d.note || "").slice(0, 300) }));
+      const rec = { ...v.lot, n, material: mv.material || {}, docs, workshopId: l.workshopId || null, photos: (l.photos || []).filter(x => PHOTO_ID.test(x)),
         created: String(l.created || new Date().toISOString()), createdBy: cleanName(l.createdBy) || null, updated: l.updated || null, updatedBy: cleanName(l.updatedBy) || null };
       if (await put(lotKey(n), rec)) done.lots++;
     }
@@ -518,6 +595,31 @@ export default async (req, context) => {
     const token = await newInvite(db, user);
     await db.setJSON(`users/${user.id}`, user);
     return json({ user: userView(user), token }, 201);
+  }
+  if (body.action === "renumber-lot") {
+    // Gives a lot a new random number. Only while no batch uses it, so no passport changes.
+    const n = parseLotId(body.n);
+    const lot = n == null ? null : await db.get(lotKey(n), { type: "json" });
+    if (!lot) return json({ error: "none" }, 404);
+    if ((await readAll(db, "batch/")).some(b => (b.lots || []).includes(n))) return json({ error: "lot-used" }, 409);
+    for (let tries = 0; tries < 40; tries++) {
+      const m = lotNumber(lot.arrived);
+      const moved = { ...lot, n: m, renumberedFrom: n, updated: new Date().toISOString(), updatedBy: me.name };
+      const res = await db.setJSON(lotKey(m), moved, { onlyIfNew: true });
+      if (res && res.modified === false) continue;
+      for (const id of lot.photos || []) {
+        const img = await db.get(`lphoto/${n}/${id}`, { type: "arrayBuffer" });
+        if (img) { await db.set(`lphoto/${m}/${id}`, img); await db.delete(`lphoto/${n}/${id}`); }
+      }
+      for (const d of lot.docs || []) {
+        const f = await db.get(`ldoc/${n}/${d.id}`, { type: "arrayBuffer" });
+        if (f) { await db.set(`ldoc/${m}/${d.id}`, f); await db.delete(`ldoc/${n}/${d.id}`); }
+      }
+      await keepHistory(db, "lot", n, lot);
+      await db.delete(lotKey(n));
+      return json({ lot: lotView(moved, await workshopNames(db)) });
+    }
+    return json({ error: "busy" }, 409);
   }
   if (body.action === "add-workshop") {
     const name = cleanName(body.name);

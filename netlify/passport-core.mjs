@@ -75,10 +75,12 @@ export const statusOf = b => (b.origin || (b.lots || []).length ? "complete" : "
 
 // ---------- Wood lots: one delivery or stack of reclaimed wood at the workshop.
 // Each lot gets a short number (LOT 12) that can be read off a paper tag and said out loud.
-export const lotKey = n => `lots/${String(n).padStart(5, "0")}`;
-export const lotLabel = n => `LOT ${n}`;
+// Lots made since Oct 2026 are numbered YYMM-NN (arrival month + 2 random digits) and stored as YYMMNN.
+export const lotKey = n => `lots/${String(n).padStart(5, "0")}`; // older lots (LOT 1) stay at their 5-digit key
+export const lotNo = n => { const s = String(n); return s.length === 6 ? s.slice(0, 4) + "-" + s.slice(4) : s; };
+export const lotLabel = n => `LOT ${lotNo(n)}`;
 export function parseLotId(v) {
-  const m = String(v ?? "").trim().toUpperCase().replace(/^LOT\s*/, "").match(/^0*(\d{1,5})$/);
+  const m = String(v ?? "").trim().toUpperCase().replace(/^LOT[\s-]*/, "").replace(/[\s-]/g, "").match(/^0*(\d{1,6})$/);
   return m ? Number(m[1]) : null;
 }
 // Validates wood lot fields. On create, the source is required. Only fields that are sent are returned.
@@ -104,15 +106,56 @@ export function validateLot(body, create = false) {
   return { lot };
 }
 // Readable default name from the source and place, e.g. "Joglo · Jepara"
-const ORIGIN_WORD = { house: "Joglo", bridge: "Bridge", boat: "Boat", other: "Wood" };
+const ORIGIN_WORD = { house: "House", bridge: "Bridge", boat: "Boat", other: "Wood" }; // "House", not "Joglo": only say joglo when the papers do
 export const defaultLotName = l => [ORIGIN_WORD[l.origin] || "Wood", l.place || l.region].filter(Boolean).join(" · ");
+
+// ---------- Material record: everything known about a lot, internal only (never on passports).
+const MAT_TEXT = { described: 300, species: 300, previousUse: 300, recoveryArea: 300, supplyRoute: 400, purchase: 300,
+  dimensions: 300, limits: 4000, extTitle: 200, extVersion: 40 };
+const longText = (v, max) => String(v ?? "").replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, "").replace(/[<>]/g, "").trim().slice(0, max);
+const num = (v, min, max) => { const x = Number(v); return Number.isFinite(x) && x >= min && x <= max ? x : null; };
+export function validateMaterial(m) {
+  if (!m || typeof m !== "object") return { material: null };
+  const out = {};
+  for (const [k, max] of Object.entries(MAT_TEXT)) if (m[k] != null && m[k] !== "") out[k] = longText(m[k], max);
+  if (m.extUrl) { const u = String(m.extUrl).trim(); if (!/^https?:\/\/\S{3,400}$/.test(u)) return { error: "url" }; out.extUrl = u; }
+  if (m.extIssued) { const d = clean(m.extIssued, 10); if (/^\d{4}-\d{2}-\d{2}$/.test(d)) out.extIssued = d; }
+  if (Array.isArray(m.pieces)) {
+    if (m.pieces.length > 5000) return { error: "pieces" };
+    out.pieces = [];
+    for (const p of m.pieces) {
+      const t = num(p.t, 1, 2000), w = num(p.w, 1, 2000), l = num(p.l, 1, 20000);
+      if (t == null || w == null || l == null) return { error: "pieces" };
+      out.pieces.push({ ref: clean(p.ref, 12), t, w, l });
+    }
+  }
+  if (Array.isArray(m.sources)) out.sources = m.sources.slice(0, 50).map(x => ({ title: longText(x.title, 300), date: /^\d{4}-\d{2}-\d{2}$/.test(String(x.date || "")) ? x.date : "", supports: longText(x.supports, 400) })).filter(x => x.title);
+  return { material: out };
+}
+export const pieceVolume = p => (p.t * p.w * p.l) / 1e9;
+export const piecesTotal = ps => (ps || []).reduce((a, p) => a + pieceVolume(p), 0);
+
+// Documents on a lot: PDF or image files, internal only.
+export const DOC_TYPES = { "application/pdf": "pdf", "image/jpeg": "jpg", "image/png": "png", "image/webp": "webp" };
+export const MAX_DOC_BYTES = 4_000_000;
+export function docType(bytes) {
+  if (bytes.length > 4 && bytes[0] === 0x25 && bytes[1] === 0x50 && bytes[2] === 0x44 && bytes[3] === 0x46) return "application/pdf";
+  if (bytes[0] === 0xff && bytes[1] === 0xd8) return "image/jpeg";
+  if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) return "image/png";
+  if (bytes.length > 12 && bytes.toString("latin1", 0, 4) === "RIFF" && bytes.toString("latin1", 8, 12) === "WEBP") return "image/webp";
+  return null;
+}
+export const cleanDocName = v => String(v ?? "").replace(/[\u0000-\u001f<>\\/:*?"|]/g, "").trim().slice(0, 120) || "document";
+export const docView = d => ({ id: d.id, name: d.name, type: d.type, size: d.size, added: d.added, addedBy: d.addedBy || null, note: d.note || "" });
 
 export function lotView(l, workshops = {}, usedBy = []) {
   return { n: l.n, label: lotLabel(l.n), name: l.name || defaultLotName(l), origin: l.origin, place: l.place || "", region: l.region || "",
     supplier: l.supplier || "", arrived: l.arrived || "", volume: l.volume || "", gps: l.gps || "", notes: l.notes || "",
     status: l.status || "open", publicPhotos: l.publicPhotos !== false, photos: l.photos || [],
     workshopId: l.workshopId || null, workshop: (l.workshopId && workshops[l.workshopId]) || null,
-    created: l.created, createdBy: l.createdBy || null, updated: l.updated || null, updatedBy: l.updatedBy || null, usedBy };
+    created: l.created, createdBy: l.createdBy || null, updated: l.updated || null, updatedBy: l.updatedBy || null, usedBy,
+    material: l.material || {}, docs: (l.docs || []).map(docView),
+    pieceCount: (l.material?.pieces || []).length, pieceVolume: Math.round(piecesTotal(l.material?.pieces) * 1e5) / 1e5 };
 }
 
 // Copies the wood story from a batch's lots onto it (origin and area), so the passport always

@@ -189,15 +189,15 @@ select.mini{font:400 12px/16px var(--mono);padding:6px;border:1px solid var(--li
 /* wood lots */
 .tag.ok{border-color:var(--forest);color:var(--forest)}
 .lotchip{flex-direction:column;align-items:flex-start;gap:0;min-width:86px}
-.lotchip b{font:700 26px/1 var(--display)}
+.lotchip b{font:700 24px/1 var(--display);white-space:nowrap}
 .lotchip span{font-size:11px;line-height:14px;color:var(--muted)}
 .lotchip[aria-pressed="true"] span{color:inherit;opacity:.8}
 .lot-type{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:10px}
 .byhand{border:1px solid var(--line);padding:12px}
 .byhand summary{cursor:pointer;font-size:13px}
 .lotrow{grid-template-columns:auto minmax(0,1fr) auto}
-.lotnum{font:700 30px/1 var(--display);color:var(--ink);text-decoration:none;min-width:52px;text-align:center;border:1px solid var(--ink);padding:8px 6px}
-.lotnum.big{font-size:56px;min-width:96px;padding:10px}
+.lotnum{font:700 22px/1 var(--display);white-space:nowrap;color:var(--ink);text-decoration:none;min-width:52px;text-align:center;border:1px solid var(--ink);padding:8px 6px}
+.lotnum.big{font-size:44px;min-width:96px;padding:10px;white-space:nowrap}
 .lot-head{display:flex;gap:16px;align-items:center;margin-top:8px}
 .lot-head h1{font-size:30px}
 .recent.used{opacity:.6}
@@ -207,7 +207,7 @@ input[type=date]{padding:12px;border:1px solid var(--line);background:var(--pape
 .woodtag{background:#fff;color:#000;border:2px solid #000;padding:28px;margin:24px 0;font-family:var(--mono)}
 .wt-top{display:flex;justify-content:space-between;font:500 12px var(--mono);letter-spacing:.1em;border-bottom:2px solid #000;padding-bottom:10px}
 .wt-lot{font:700 44px/1 var(--display);margin-top:24px;letter-spacing:.04em}
-.wt-num{font:700 220px/.9 var(--display);letter-spacing:-.02em}
+.wt-num{font:700 150px/.9 var(--display);letter-spacing:-.02em;white-space:nowrap}
 .wt-name{font:700 34px/1.1 var(--display);text-transform:uppercase;margin:8px 0 22px}
 .wt-rows{display:grid;gap:0;border-top:1px solid #000}
 .wt-rows div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:12px;padding:10px 0;border-bottom:1px solid #000}
@@ -216,12 +216,23 @@ input[type=date]{padding:12px;border:1px solid var(--line);background:var(--pape
 .wt-foot{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:20px;align-items:end;margin-top:22px}
 .wt-foot p{margin:0;font-size:14px;line-height:21px}
 .wt-qr svg{width:110px;height:110px;display:block}
-@media (max-width:560px){.wt-num{font-size:150px}.woodtag{padding:18px}.wt-name{font-size:26px}}
+@media (max-width:560px){.wt-num{font-size:84px}.woodtag{padding:18px}.wt-name{font-size:26px}}
 @media print{
   @page{size:A4;margin:12mm}
   body.tagmode .head,body.tagmode .noprint,body.tagmode .banner,body.tagmode .foot{display:none!important}
   body.tagmode,body.tagmode main,body.tagmode .wrap{background:#fff!important;padding:0!important;margin:0!important;max-width:none!important}
   body.tagmode .woodtag{margin:0;border-width:3px;min-height:268mm;display:flex;flex-direction:column}
-  body.tagmode .wt-num{font-size:300px}
+  body.tagmode .wt-num{font-size:200px}
   body.tagmode .wt-foot{margin-top:auto}
 }
+/* material record */
+.matrec .form{gap:14px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.mgrid{grid-template-columns:1fr}}
+textarea.mono{font:400 13px/20px var(--mono)}
+.msum{font:700 22px/1.1 var(--display);text-transform:uppercase;margin:4px 0 8px}
+.ptable{border-collapse:collapse;width:100%;font:400 12px/18px var(--mono);margin:8px 0}
+.ptable th,.ptable td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:right}
+.ptable th:first-child,.ptable td:first-child{text-align:left}
+.ptable tr.tot td{font-weight:500;border-top:1px solid var(--ink)}
+.docname{word-break:break-word}
