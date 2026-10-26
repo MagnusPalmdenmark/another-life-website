@@ -130,6 +130,12 @@ function randomInt(min, max) {
   return min + (a[0] % span);
 }
 
+// YYMMNN from the arrival date (or this month in Jakarta) and 2 random digits, 10–99.
+function lotNumber(arrived) {
+  const yymm = /^\d{4}-\d{2}/.test(arrived || "") ? arrived.slice(2, 4) + arrived.slice(5, 7) : yymmNow();
+  return Number(yymm + String(randomInt(10, 99)));
+}
+
 async function newInvite(db, user) {
   if (user.inviteHash) await db.delete(`invites/${user.inviteHash}`);
   const token = randomToken();
@@ -373,9 +379,10 @@ export default async (req, context) => {
       if (v.error) return json({ error: v.error }, 400);
       const workshopId = me.admin ? String(body.workshopId || "") || null : me.workshopId;
       if (workshopId && !(await db.get(`workshops/${workshopId}`))) return json({ error: "workshop" }, 400);
-      // A random free 4-digit number, easy to read off a tag and say, that doesn't reveal how many lots exist.
-      for (let tries = 0; tries < 25; tries++) {
-        const n = randomInt(1000, 9999);
+      // Number: arrival year and month + 2 random digits (2610-48), easy to read off a tag and say,
+      // and it doesn't reveal how many lots exist.
+      for (let tries = 0; tries < 40; tries++) {
+        const n = lotNumber(v.lot.arrived);
         const now = new Date().toISOString();
         const lot = { status: "open", publicPhotos: true, ...v.lot, n, workshopId, photos: [], created: now, createdBy: me.name, createdById: me.id || "admin" };
         if (!lot.name) lot.name = defaultLotName(lot);
@@ -531,8 +538,8 @@ export default async (req, context) => {
     const lot = n == null ? null : await db.get(lotKey(n), { type: "json" });
     if (!lot) return json({ error: "none" }, 404);
     if ((await readAll(db, "batch/")).some(b => (b.lots || []).includes(n))) return json({ error: "lot-used" }, 409);
-    for (let tries = 0; tries < 25; tries++) {
-      const m = randomInt(1000, 9999);
+    for (let tries = 0; tries < 40; tries++) {
+      const m = lotNumber(lot.arrived);
       const moved = { ...lot, n: m, renumberedFrom: n, updated: new Date().toISOString(), updatedBy: me.name };
       const res = await db.setJSON(lotKey(m), moved, { onlyIfNew: true });
       if (res && res.modified === false) continue;

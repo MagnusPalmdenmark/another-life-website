@@ -132,10 +132,10 @@ function syncNow() {
   // Before the key is added, the hourly run quietly waits instead of failing every hour.
   if (!PropertiesService.getScriptProperties().getProperty("EXPORT_KEY")) { Logger.log("Waiting for the export key."); return; }
   const d = getJson_(SITE, "export=1");
-  writeTab_(ss, "Batches", BATCH_COLS, d.batches.map(b => [b.code, b.status, b.model, b.qty, (b.lots || []).map(n => "LOT " + n).join(" "),
+  writeTab_(ss, "Batches", BATCH_COLS, d.batches.map(b => [b.code, b.status, b.model, b.qty, (b.lotInfo || []).map(l => l.label).join(" "),
     b.origin, b.region, b.maker, b.kg, b.workshop, b.made, b.createdBy, b.completed, b.updated, b.updatedBy, (b.photos || []).length,
     SITE + "/" + b.code, JSON.stringify(b)]));
-  writeTab_(ss, "Wood lots", LOT_COLS, d.lots.map(l => ["LOT " + l.n, l.name, l.status, l.origin, l.place, l.region, l.supplier, l.arrived,
+  writeTab_(ss, "Wood lots", LOT_COLS, d.lots.map(l => [l.label, l.name, l.status, l.origin, l.place, l.region, l.supplier, l.arrived,
     l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length, JSON.stringify(l)]));
   writeTab_(ss, "Workshops", WS_COLS, d.workshops.map(w => [w.name, w.created, JSON.stringify(w)]));
   const copied = copyPhotos_(d);
@@ -278,7 +278,7 @@ function readTab_(ss, name, cols, apply) {
   });
 }
 const text_ = v => (v instanceof Date ? Utilities.formatDate(v, "UTC", "yyyy-MM-dd") : v == null ? "" : String(v));
-const lotNums_ = v => text_(v).split(/[\s,]+/).map(x => x.replace(/^LOT/i, "")).filter(x => /^\d+$/.test(x)).map(Number);
+const lotNums_ = v => text_(v).split(/[\s,]+/).map(x => x.replace(/^LOT/i, "").replace(/-/g, "")).filter(x => /^\d+$/.test(x)).map(Number);
 
 function rebuildSite() {
   const ui = ui_();

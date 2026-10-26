@@ -75,10 +75,12 @@ export const statusOf = b => (b.origin || (b.lots || []).length ? "complete" : "
 
 // ---------- Wood lots: one delivery or stack of reclaimed wood at the workshop.
 // Each lot gets a short number (LOT 12) that can be read off a paper tag and said out loud.
-export const lotKey = n => `lots/${String(n).padStart(5, "0")}`;
-export const lotLabel = n => `LOT ${n}`;
+// Lots made since Oct 2026 are numbered YYMM-NN (arrival month + 2 random digits) and stored as YYMMNN.
+export const lotKey = n => `lots/${String(n).padStart(5, "0")}`; // older lots (LOT 1) stay at their 5-digit key
+export const lotNo = n => { const s = String(n); return s.length === 6 ? s.slice(0, 4) + "-" + s.slice(4) : s; };
+export const lotLabel = n => `LOT ${lotNo(n)}`;
 export function parseLotId(v) {
-  const m = String(v ?? "").trim().toUpperCase().replace(/^LOT\s*/, "").match(/^0*(\d{1,5})$/);
+  const m = String(v ?? "").trim().toUpperCase().replace(/^LOT[\s-]*/, "").replace(/[\s-]/g, "").match(/^0*(\d{1,6})$/);
   return m ? Number(m[1]) : null;
 }
 // Validates wood lot fields. On create, the source is required. Only fields that are sent are returned.

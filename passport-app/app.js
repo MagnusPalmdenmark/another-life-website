@@ -123,7 +123,7 @@
       lotOpen: "In stock", lotUsed: "Used up", lotMarkUsed: "Mark as used up", lotMarkOpen: "Back in stock", lotPrint: "Print tag", lotEdit: "Edit",
       lotNone: "No wood lots yet.", lotIn: n => `Used in ${n} batch${n === 1 ? "" : "es"}`, lotBatches: "Furniture made from this lot", lotNoB: "Not used in any batch yet.",
       lotNotFound: "This lot doesn't exist, or it belongs to another workshop.", lotSaved: "Saved.", lotShowUsed: n => `Show ${n} used-up lot${n === 1 ? "" : "s"}`,
-      qLot: "Which wood lot? Read the number on the tag", lotTypePh: "Type lot number, e.g. 4827", lotAdd: "Add", lotNo: n => `There is no lot ${n} for this workshop.`,
+      qLot: "Which wood lot? Read the number on the tag", lotTypePh: "Type lot number, e.g. 2610-48", lotAdd: "Add", lotNo: n => `There is no lot ${n} for this workshop.`,
       byHand: "No lot number? Choose the wood by hand", lotFromTag: "Area comes from the lot.",
       tagTitle: "Print this tag and fix it to the wood stack", tagPrint: "Print", tagBack: "Back to the lot",
       err_lot: "One of the lot numbers doesn't exist for this workshop.", err_lot_workshop: "That lot belongs to another workshop.", err_origin_lot: "Choose what the wood was.",
@@ -222,7 +222,7 @@
       lotOpen: "Tersedia", lotUsed: "Sudah habis", lotMarkUsed: "Tandai sudah habis", lotMarkOpen: "Tersedia lagi", lotPrint: "Cetak label", lotEdit: "Ubah",
       lotNone: "Belum ada lot kayu.", lotIn: n => `Dipakai di ${n} batch`, lotBatches: "Furnitur dari lot ini", lotNoB: "Belum dipakai di batch mana pun.",
       lotNotFound: "Lot ini tidak ada, atau milik bengkel lain.", lotSaved: "Tersimpan.", lotShowUsed: n => `Tampilkan ${n} lot yang sudah habis`,
-      qLot: "Lot kayu yang mana? Baca nomor di label", lotTypePh: "Ketik nomor lot, mis. 4827", lotAdd: "Tambah", lotNo: n => `Tidak ada lot ${n} untuk bengkel ini.`,
+      qLot: "Lot kayu yang mana? Baca nomor di label", lotTypePh: "Ketik nomor lot, mis. 2610-48", lotAdd: "Tambah", lotNo: n => `Tidak ada lot ${n} untuk bengkel ini.`,
       byHand: "Tidak ada nomor lot? Pilih kayunya secara manual", lotFromTag: "Daerah diambil dari lot.",
       tagTitle: "Cetak label ini dan pasang di tumpukan kayu", tagPrint: "Cetak", tagBack: "Kembali ke lot",
       err_lot: "Salah satu nomor lot tidak ada untuk bengkel ini.", err_lot_workshop: "Lot itu milik bengkel lain.", err_origin_lot: "Pilih kayunya dulu apa.",
@@ -234,6 +234,8 @@
   const TEST_BATCH = { code: "TEST", model: "The Bench", origin: "bridge", region: "Central Java", maker: "Tim A", qty: 12, kg: 9, route: "jakarta-bali", made: new Date().toISOString(), photos: ["test1", "test2"] };
   const photoUrl = (code, id) => code === "TEST" ? `/passport-app/wood-${id}.jpg` : /^L\d+\//.test(id) ? `${API}?lphoto=${id.slice(1)}` : `${API}?photo=${encodeURIComponent(code)}/${id}`;
   const lotPhotoUrl = (n, id) => `${API}?lphoto=${n}/${id}`;
+  // Lot numbers are stored as YYMMNN (261048) and shown as 2610-48.
+  const lotNo = n => { const s = String(n); return s.length === 6 ? s.slice(0, 4) + "-" + s.slice(4) : s; };
   const SITE = "https://another-life.dk";
   const productUrl = m => `${SITE}/${m.toLowerCase().replace(/\s+/g, "-")}.html`;
 
@@ -293,10 +295,10 @@
     if (/^join\//i.test(p)) return { view: "join", token: p.slice(5) };
     if (/^edit\//i.test(p)) return { view: "edit", code: p.slice(5).toUpperCase() };
     if (p.toLowerCase() === "lots") return { view: "lots" };
-    let lm = p.match(/^lot\/(\d+)\/tag$/i);
-    if (lm) return { view: "tag", n: Number(lm[1]) };
-    lm = p.match(/^lot\/(\d+)$/i);
-    if (lm) return { view: "lot", n: Number(lm[1]) };
+    let lm = p.match(/^lot\/([\d-]+)\/tag$/i);
+    if (lm) return { view: "tag", n: Number(lm[1].replace(/-/g, "")) };
+    lm = p.match(/^lot\/([\d-]+)$/i);
+    if (lm) return { view: "lot", n: Number(lm[1].replace(/-/g, "")) };
     const m = p.match(/^(.+)\/repair$/i);
     if (m) return { view: "repair", code: m[1].toLowerCase() === "test" ? "TEST" : m[1].toUpperCase() };
     if (p.toLowerCase() === "test") return { view: "passport", code: "TEST" };
@@ -582,7 +584,7 @@
     const shown = mine.filter(l => l.status !== "used" || st.lots.includes(l.n));
     const unknown = st.lots.filter(n => !mine.some(l => l.n === n));
     return `<div class="q"><span>${L.qLot}</span>
-        ${shown.length || unknown.length ? `<div class="chips lots">${shown.map(l => `<button type="button" class="chip lotchip" data-lot="${l.n}" aria-pressed="${st.lots.includes(l.n)}"><b>${l.n}</b><span>${esc(l.name)}</span></button>`).join("")}${unknown.map(n => `<button type="button" class="chip lotchip" data-lot="${n}" aria-pressed="true"><b>${n}</b></button>`).join("")}</div>` : `<p class="fine">${L.lotNone} <a class="linkish" href="${BASE}/lots" data-go="lots">${L.lotNew}</a></p>`}
+        ${shown.length || unknown.length ? `<div class="chips lots">${shown.map(l => `<button type="button" class="chip lotchip" data-lot="${l.n}" aria-pressed="${st.lots.includes(l.n)}"><b>${lotNo(l.n)}</b><span>${esc(l.name)}</span></button>`).join("")}${unknown.map(n => `<button type="button" class="chip lotchip" data-lot="${n}" aria-pressed="true"><b>${lotNo(n)}</b></button>`).join("")}</div>` : `<p class="fine">${L.lotNone} <a class="linkish" href="${BASE}/lots" data-go="lots">${L.lotNew}</a></p>`}
         <div class="lot-type"><input type="text" id="lotIn" inputmode="numeric" autocomplete="off" placeholder="${L.lotTypePh}" aria-label="${L.lotTypePh}"><button type="button" class="btn ghost" id="lotAdd">${L.lotAdd}</button></div>
         <p class="msg bad" id="lotMsg" role="status"></p></div>
       ${st.lots.length ? "" : `<details class="byhand" ${st.origin ? "open" : ""}><summary>${L.byHand}</summary>
@@ -598,7 +600,7 @@
     const add = () => {
       const n = parseInt(String($("#lotIn").value).replace(/\D/g, ""), 10);
       if (!n) return;
-      if (!lotsForWs(wsId).some(l => l.n === n)) { $("#lotMsg").textContent = L.lotNo(n); return; }
+      if (!lotsForWs(wsId).some(l => l.n === n)) { $("#lotMsg").textContent = L.lotNo(lotNo(n)); return; }
       sync(); if (!st.lots.includes(n)) st.lots = [...st.lots, n]; rerender();
     };
     $("#lotAdd").addEventListener("click", add);
@@ -858,7 +860,7 @@
     const f = lotState.form, ws = who.admin ? who.workshops || [] : [];
     if (ws.length === 1 && !f.workshopId) f.workshopId = ws[0].id;
     const lots = who.lots || [], open = lots.filter(l => l.status !== "used"), used = lots.filter(l => l.status === "used");
-    const row = l => `<div class="rrow lotrow"><a class="lotnum" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${l.n}</a><div><b>${esc(l.name)}</b><br><small>${esc(L["o_" + l.origin] || "")}${l.arrived ? ` · ${dateStr(l.arrived)}` : ""}${l.workshop && who.admin ? ` · ${esc(l.workshop)}` : ""} · ${L.lotIn(l.usedBy.length)}</small></div>
+    const row = l => `<div class="rrow lotrow"><a class="lotnum" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${lotNo(l.n)}</a><div><b>${esc(l.name)}</b><br><small>${esc(L["o_" + l.origin] || "")}${l.arrived ? ` · ${dateStr(l.arrived)}` : ""}${l.workshop && who.admin ? ` · ${esc(l.workshop)}` : ""} · ${L.lotIn(l.usedBy.length)}</small></div>
       <div class="acts"><a class="linkish" href="${BASE}/lot/${l.n}/tag" data-go="lot/${l.n}/tag">${L.lotPrint}</a><a class="linkish" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${L.lotEdit}</a></div></div>`;
     app.innerHTML = `
       <section>
@@ -903,7 +905,7 @@
 
   async function viewLot(n, langOnly) {
     const L = t();
-    document.title = `LOT ${n} · Another Life Passport`;
+    document.title = `LOT ${lotNo(n)} · Another Life Passport`;
     if (!langOnly || !lotState.edit || lotState.edit.lot.n !== n) {
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const me = (await api("me=1").catch(() => ({ data: {} }))).data;
@@ -919,7 +921,7 @@
     app.innerHTML = `
       <section>
         <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.lotsT}</span><a class="staff" href="${BASE}/lots" data-go="lots">${L.edBack}</a></div>
-        <div class="lot-head"><span class="lotnum big">${l.n}</span><div><h1 style="margin:0">${esc(l.name)}</h1><span class="tag ${l.status === "used" ? "" : "ok"}">${l.status === "used" ? L.lotUsed : L.lotOpen}</span></div></div>
+        <div class="lot-head"><span class="lotnum big">${lotNo(l.n)}</span><div><h1 style="margin:0">${esc(l.name)}</h1><span class="tag ${l.status === "used" ? "" : "ok"}">${l.status === "used" ? L.lotUsed : L.lotOpen}</span></div></div>
         <div class="two-btn" style="margin-top:18px"><a class="btn" href="${BASE}/lot/${l.n}/tag" data-go="lot/${l.n}/tag">${L.lotPrint}</a><button class="btn ghost" type="button" id="lStatus">${l.status === "used" ? L.lotMarkOpen : L.lotMarkUsed}</button></div>
         <form class="form" id="lForm" novalidate style="margin-top:24px">
           ${lotFields(f, E.ws, false)}
@@ -976,7 +978,7 @@
     if (status === 401) return go("login");
     if (status !== 200) { app.innerHTML = `<section><p class="msg bad">${L.lotNotFound}</p></section>`; return; }
     const l = data.lot;
-    document.title = `LOT ${l.n} · ${l.name}`;
+    document.title = `LOT ${lotNo(l.n)} · ${l.name}`;
     const q = qrcode(0, "M"); q.addData(`HTTPS://${PUBLIC_HOST}/LOT/${l.n}`, "Alphanumeric"); q.make();
     const mc = q.getModuleCount(); let d = ""; for (let r = 0; r < mc; r++) for (let c = 0; c < mc; c++) if (q.isDark(r, c)) d += `M${c + 2} ${r + 2}h1v1h-1z`;
     const qr = `<svg viewBox="0 0 ${mc + 4} ${mc + 4}" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
@@ -990,7 +992,7 @@
       <div class="woodtag">
         <div class="wt-top"><span>ANOTHER — LIFE</span><span>LOT KAYU · WOOD LOT</span></div>
         <div class="wt-lot">LOT</div>
-        <div class="wt-num">${l.n}</div>
+        <div class="wt-num">${lotNo(l.n)}</div>
         <div class="wt-name">${esc(l.name)}</div>
         <div class="wt-rows">
           <div><span>Asal · Source</span><b>${esc(src[0])} · ${esc(src[1])}</b></div>
@@ -999,7 +1001,7 @@
           ${l.workshop ? `<div><span>Bengkel · Workshop</span><b>${esc(l.workshop)}</b></div>` : ""}
         </div>
         <div class="wt-foot">
-          <p><b>Saat membuat furnitur dari kayu ini, sebutkan: LOT ${l.n}</b><br>When you make furniture from this wood, say: LOT ${l.n}</p>
+          <p><b>Saat membuat furnitur dari kayu ini, sebutkan: LOT ${lotNo(l.n)}</b><br>When you make furniture from this wood, say: LOT ${lotNo(l.n)}</p>
           <div class="wt-qr">${qr}</div>
         </div>
       </div>`;
@@ -1046,7 +1048,7 @@
     files.push({ name: "wood-lots.csv", data: te.encode(csv([["Lot", "Name", "Status", "Source", "Place", "Region", "Supplier", "Arrived", "Volume", "Source location", "Workshop", "Used in batches", "Notes", "Created", "Created by", "Photos"],
       ...data.lots.map(l => [l.label, l.name, l.status, l.origin, l.place, l.region, l.supplier, l.arrived, l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length])])) });
     const photos = [...data.batches.flatMap(b => (b.photos || []).map(id => ({ url: photoUrl(b.code, id), name: `photos/batches/${b.code}/${id}.jpg` }))),
-      ...data.lots.flatMap(l => (l.photos || []).map(id => ({ url: lotPhotoUrl(l.n, id), name: `photos/wood-lots/LOT-${l.n}/${id}.jpg` })))];
+      ...data.lots.flatMap(l => (l.photos || []).map(id => ({ url: lotPhotoUrl(l.n, id), name: `photos/wood-lots/LOT-${lotNo(l.n)}/${id}.jpg` })))];
     for (let i = 0; i < photos.length; i++) {
       msg.textContent = L.dlBusy(i + 1, photos.length);
       try { const r = await fetch(photos[i].url, { credentials: "same-origin" }); if (r.ok) files.push({ name: photos[i].name, data: new Uint8Array(await r.arrayBuffer()) }); } catch (e) {}
