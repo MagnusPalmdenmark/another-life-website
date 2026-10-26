@@ -118,7 +118,7 @@
       lotsLink: "Wood lots", lotNew: "New wood lot", lotNewP: "Register wood when it arrives. You get a number to print and put on the stack.",
       lotSrc: "What was the wood?", lotPlace: "Where it came from: village or town", lotPlacePh: "e.g. Jepara", lotRegion: "Region", lotRegionPh: "e.g. Central Java",
       lotSupplier: "Bought from (internal)", lotArrived: "Arrived", lotVolume: "How much (e.g. 2 m³, 40 beams)", lotGps: "Location of the source (internal, optional)", lotGpsBtn: "Use my location",
-      lotNotes: "Notes (internal)", lotName: "Short name on the tag", lotNamePh: "Made automatically, e.g. Joglo · Jepara",
+      lotNotes: "Notes (internal)", lotName: "Short name on the tag", lotNamePh: "Made automatically, e.g. House · Jepara",
       lotPhotos: "Photos of the wood and where it came from", lotPubPh: "Show these photos on passports", lotCreate: "Create lot and print tag",
       lotOpen: "In stock", lotUsed: "Used up", lotMarkUsed: "Mark as used up", lotMarkOpen: "Back in stock", lotPrint: "Print tag", lotEdit: "Edit",
       lotNone: "No wood lots yet.", lotIn: n => `Used in ${n} batch${n === 1 ? "" : "es"}`, lotBatches: "Furniture made from this lot", lotNoB: "Not used in any batch yet.",
@@ -129,6 +129,19 @@
       err_lot: "One of the lot numbers doesn't exist for this workshop.", err_lot_workshop: "That lot belongs to another workshop.", err_origin_lot: "Choose what the wood was.",
       dlAll: "Download everything (ZIP)", dlAllP: "A copy of all batches, wood lots and photos, with spreadsheets you can open in Excel. Keep it on your computer or in Google Drive.",
       dlBusy: (i, n) => `Preparing… ${i} of ${n} photos`, dlDone: "Downloaded.", lotsSum: (o, u) => `${o} in stock · ${u} used up`,
+      // material record (internal)
+      matK: "Material record · internal", matP: "Everything known about this wood, kept here so it never depends on an outside page. Never shown on passports.",
+      mDescribed: "Material, as described", mSpecies: "Species verified?", mPrevUse: "Previous use", mArea: "Recovery area", mRoute: "Supply route",
+      mPurchase: "Purchase status", mDims: "Dimensions (range)", mLimits: "What is not verified / limits",
+      mExtT: "Outside record (e.g. supplier passport): title", mExtU: "Link", mExtV: "Version", mExtD: "Issued",
+      mSources: "Source documents: one per line, as  title | date (YYYY-MM-DD) | what it supports",
+      mPieces: "Piece schedule", mPiecesSum: (n, v) => `${n} piece${n === 1 ? "" : "s"} · ${v} m³ gross`, mPiecesNone: "No pieces recorded yet.",
+      mPaste: "Paste or edit the piece list: one piece per line, as  number thickness width length  (mm). Copying rows from Excel or a table works.",
+      mCols: ["Piece", "T mm", "W mm", "L mm", "m³"], mShow: "Show all pieces", mSave: "Save material record", mSaved: "Material record saved.",
+      mBadLines: n => `${n} line${n === 1 ? "" : "s"} could not be read and ${n === 1 ? "was" : "were"} left out.`,
+      docsK: "Documents · internal", docsP: "Scans and files: invoices, village letters, certificates, measurement lists, saved copies of outside records. PDF or image, up to 4 MB each.",
+      docsNone: "No documents yet.", docAdd: "Add documents", docNote: "Note for the next upload (optional)", docUp: (i, n) => `Uploading ${i} of ${n}…`,
+      docBig: "Too large (over 4 MB). Make the PDF smaller or scan at a lower resolution.", docBadType: "Only PDF or image files.", docOpen: "Open", docDl: "Download",
     },
     id: {
       lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
@@ -217,7 +230,7 @@
       lotsLink: "Lot kayu", lotNew: "Lot kayu baru", lotNewP: "Catat kayu saat tiba. Anda mendapat nomor untuk dicetak dan dipasang di tumpukan.",
       lotSrc: "Kayunya dulu apa?", lotPlace: "Asalnya: desa atau kota", lotPlacePh: "mis. Jepara", lotRegion: "Wilayah", lotRegionPh: "mis. Jawa Tengah",
       lotSupplier: "Dibeli dari (internal)", lotArrived: "Tiba", lotVolume: "Berapa banyak (mis. 2 m³, 40 balok)", lotGps: "Lokasi asal kayu (internal, opsional)", lotGpsBtn: "Pakai lokasi saya",
-      lotNotes: "Catatan (internal)", lotName: "Nama singkat di label", lotNamePh: "Dibuat otomatis, mis. Joglo · Jepara",
+      lotNotes: "Catatan (internal)", lotName: "Nama singkat di label", lotNamePh: "Dibuat otomatis, mis. House · Jepara",
       lotPhotos: "Foto kayu dan tempat asalnya", lotPubPh: "Tampilkan foto ini di paspor", lotCreate: "Buat lot dan cetak label",
       lotOpen: "Tersedia", lotUsed: "Sudah habis", lotMarkUsed: "Tandai sudah habis", lotMarkOpen: "Tersedia lagi", lotPrint: "Cetak label", lotEdit: "Ubah",
       lotNone: "Belum ada lot kayu.", lotIn: n => `Dipakai di ${n} batch`, lotBatches: "Furnitur dari lot ini", lotNoB: "Belum dipakai di batch mana pun.",
@@ -228,6 +241,18 @@
       err_lot: "Salah satu nomor lot tidak ada untuk bengkel ini.", err_lot_workshop: "Lot itu milik bengkel lain.", err_origin_lot: "Pilih kayunya dulu apa.",
       dlAll: "Unduh semua (ZIP)", dlAllP: "Salinan semua batch, lot kayu, dan foto, dengan tabel yang bisa dibuka di Excel. Simpan di komputer atau Google Drive.",
       dlBusy: (i, n) => `Menyiapkan… ${i} dari ${n} foto`, dlDone: "Sudah diunduh.", lotsSum: (o, u) => `${o} tersedia · ${u} sudah habis`,
+      matK: "Catatan material · internal", matP: "Semua yang diketahui tentang kayu ini, disimpan di sini agar tidak bergantung pada halaman luar. Tidak pernah tampil di paspor.",
+      mDescribed: "Material, sesuai keterangan", mSpecies: "Jenis kayu sudah diverifikasi?", mPrevUse: "Penggunaan sebelumnya", mArea: "Daerah asal", mRoute: "Rantai pasok",
+      mPurchase: "Status pembelian", mDims: "Ukuran (rentang)", mLimits: "Yang belum diverifikasi / batasan",
+      mExtT: "Catatan luar (mis. paspor pemasok): judul", mExtU: "Tautan", mExtV: "Versi", mExtD: "Tanggal terbit",
+      mSources: "Dokumen sumber: satu per baris, sebagai  judul | tanggal (YYYY-MM-DD) | yang didukung",
+      mPieces: "Daftar potongan", mPiecesSum: (n, v) => `${n} potong · ${v} m³ kotor`, mPiecesNone: "Belum ada potongan yang dicatat.",
+      mPaste: "Tempel atau ubah daftar potongan: satu potong per baris, sebagai  nomor tebal lebar panjang  (mm). Menyalin baris dari Excel atau tabel juga bisa.",
+      mCols: ["Potong", "T mm", "L mm", "P mm", "m³"], mShow: "Tampilkan semua potongan", mSave: "Simpan catatan material", mSaved: "Catatan material tersimpan.",
+      mBadLines: n => `${n} baris tidak terbaca dan tidak dimasukkan.`,
+      docsK: "Dokumen · internal", docsP: "Pindaian dan file: faktur, surat desa, sertifikat, daftar ukur, salinan catatan luar. PDF atau gambar, maksimal 4 MB per file.",
+      docsNone: "Belum ada dokumen.", docAdd: "Tambah dokumen", docNote: "Catatan untuk unggahan berikutnya (opsional)", docUp: (i, n) => `Mengunggah ${i} dari ${n}…`,
+      docBig: "Terlalu besar (lebih dari 4 MB). Perkecil PDF atau pindai dengan resolusi lebih rendah.", docBadType: "Hanya file PDF atau gambar.", docOpen: "Buka", docDl: "Unduh",
     }
   };
 
@@ -915,7 +940,7 @@
       if (status !== 200) { app.innerHTML = `<section><span class="k">${L.lotsT}</span><p class="msg bad">${status === 404 ? L.lotNotFound : L.lkErr}</p><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.lotsT}</a></section>`; return; }
       const ws = me.admin ? ((await api("users=1").catch(() => ({ data: {} }))).data.workshops || []) : [];
       const l = data.lot;
-      lotState.edit = { lot: l, batches: data.batches, ws, msg: "", f: { origin: l.origin, place: l.place, region: l.region, arrived: l.arrived, volume: l.volume, supplier: l.supplier, gps: l.gps, notes: l.notes, name: l.name, workshopId: l.workshopId || "" } };
+      lotState.edit = { lot: l, batches: data.batches, ws, msg: "", mmsg: "", m: matForm(l.material), f: { origin: l.origin, place: l.place, region: l.region, arrived: l.arrived, volume: l.volume, supplier: l.supplier, gps: l.gps, notes: l.notes, name: l.name, workshopId: l.workshopId || "" } };
     }
     const E = lotState.edit, l = E.lot, f = E.f;
     app.innerHTML = `
@@ -930,6 +955,8 @@
           <p class="msg ${E.msg === L.lotSaved ? "" : "bad"}" id="lMsg" role="status">${esc(E.msg)}</p>
         </form>
       </section>
+      ${matSection(E)}
+      ${docsSection(E)}
       <section>
         <span class="k">${L.lotPhotos}</span>
         <div class="before staff-ph">${l.photos.map(id => `<figure><img src="${lotPhotoUrl(l.n, id)}" alt=""><button type="button" class="linkish" data-rm="${id}">${L.phRemove}</button></figure>`).join("")}</div>
@@ -940,7 +967,8 @@
         <span class="k">${L.lotBatches}</span>
         <div class="recent">${E.batches.length ? E.batches.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs} · ${dateStr(b.made)}</small></div><div class="acts"><a class="linkish" href="${BASE}/edit/${esc(b.code)}" data-go="edit/${esc(b.code)}">${L.edT}</a></div></div>`).join("") : `<p class="fine" style="padding:12px 0">${L.lotNoB}</p>`}</div>
       </section>`;
-    E.msg = "";
+    E.msg = ""; E.mmsg = "";
+    bindMaterial(E, n);
     const sync = bindLotFields(f, () => viewLot(n, true));
     const save = async extra => {
       sync();
@@ -966,6 +994,108 @@
       x.disabled = true; sync();
       const { status, data } = await api("", { action: "lot-photo-remove", n: l.n, id: x.dataset.rm }).catch(() => ({ status: 0, data: {} }));
       if (status === 200) E.lot = { ...data.lot, usedBy: l.usedBy };
+      viewLot(n, true);
+    }));
+  }
+
+  // ---------- material record: internal details, piece schedule, sources, documents
+  const MAT_FIELDS = [["described", "mDescribed"], ["species", "mSpecies"], ["previousUse", "mPrevUse"], ["recoveryArea", "mArea"], ["supplyRoute", "mRoute"], ["purchase", "mPurchase"], ["dimensions", "mDims"]];
+  const fmtVol = v => (Math.round(v * 1e5) / 1e5).toFixed(5);
+  const pieceVol = p => p.t * p.w * p.l / 1e9;
+  const piecesText = ps => (ps || []).map(p => [p.ref, p.t, p.w, p.l].join("\t")).join("\n");
+  function parsePieces(text) {
+    const pieces = []; let bad = 0;
+    String(text || "").split(/\r?\n/).forEach((line, i) => {
+      if (!line.trim()) return;
+      const nums = line.split(/[\t;, ]+/).map(x => x.trim()).filter(Boolean);
+      const vals = nums.filter(x => /^\d+(\.\d+)?$/.test(x)).map(Number);
+      if (vals.length >= 4) pieces.push({ ref: String(vals[0]), t: vals[1], w: vals[2], l: vals[3] });
+      else if (vals.length === 3) pieces.push({ ref: String(pieces.length + 1), t: vals[0], w: vals[1], l: vals[2] });
+      else if (/\d/.test(line) && !/[a-z]{3,}/i.test(line)) bad++; // headings and totals are skipped quietly
+    });
+    return { pieces, bad };
+  }
+  function matForm(m) {
+    m = m || {};
+    const f = {}; MAT_FIELDS.forEach(([k]) => { f[k] = m[k] || ""; });
+    Object.assign(f, { limits: m.limits || "", extTitle: m.extTitle || "", extUrl: m.extUrl || "", extVersion: m.extVersion || "", extIssued: m.extIssued || "",
+      sources: (m.sources || []).map(x => [x.title, x.date, x.supports].filter((v, i) => v || i < 2).join(" | ")).join("\n"),
+      pieces: piecesText(m.pieces) });
+    return f;
+  }
+  function matSection(E) {
+    const L = t(), f = E.m, ps = parsePieces(f.pieces).pieces, total = ps.reduce((a, p) => a + pieceVol(p), 0);
+    return `<section class="matrec">
+        <span class="k">${L.matK}</span>
+        <p class="fine">${L.matP}</p>
+        <form class="form" id="mForm" novalidate>
+          ${MAT_FIELDS.map(([k, lab]) => `<label class="q"><span>${L[lab]}</span><input type="text" data-mf="${k}" maxlength="300" value="${esc(f[k])}"></label>`).join("")}
+          <label class="q"><span>${L.mLimits}</span><textarea data-mf="limits" rows="4" maxlength="4000">${esc(f.limits)}</textarea></label>
+          <div class="mgrid">
+            <label class="q"><span>${L.mExtT}</span><input type="text" data-mf="extTitle" maxlength="200" value="${esc(f.extTitle)}"></label>
+            <label class="q"><span>${L.mExtU}</span><input type="text" data-mf="extUrl" maxlength="400" value="${esc(f.extUrl)}"></label>
+            <label class="q"><span>${L.mExtV}</span><input type="text" data-mf="extVersion" maxlength="40" value="${esc(f.extVersion)}"></label>
+            <label class="q"><span>${L.mExtD}</span><input type="date" data-mf="extIssued" value="${esc(f.extIssued)}"></label>
+          </div>
+          <label class="q"><span>${L.mSources}</span><textarea data-mf="sources" rows="4" class="mono">${esc(f.sources)}</textarea></label>
+          <div class="q"><span>${L.mPieces}</span>
+            <p class="msum">${ps.length ? L.mPiecesSum(ps.length, fmtVol(total)) : L.mPiecesNone}</p>
+            ${ps.length ? `<details><summary>${L.mShow}</summary><div class="ab-wrap"><table class="ptable"><thead><tr>${L.mCols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody>${ps.map(p => `<tr><td>${esc(p.ref)}</td><td>${p.t}</td><td>${p.w}</td><td>${p.l}</td><td>${fmtVol(pieceVol(p))}</td></tr>`).join("")}<tr class="tot"><td>Total</td><td></td><td></td><td></td><td>${fmtVol(total)}</td></tr></tbody></table></div></details>` : ""}
+            <small class="fine">${L.mPaste}</small>
+            <textarea data-mf="pieces" rows="6" class="mono" spellcheck="false">${esc(f.pieces)}</textarea></div>
+          <button class="btn" type="submit" id="mBtn">${L.mSave}</button>
+          <p class="msg ${E.mmsg && E.mmsg.ok ? "" : "bad"}" id="mMsg" role="status">${esc(E.mmsg ? E.mmsg.text : "")}</p>
+        </form>
+      </section>`;
+  }
+  function docsSection(E) {
+    const L = t(), l = E.lot, docs = l.docs || [];
+    const kb = b => b > 1e6 ? (b / 1e6).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1e3)) + " kB";
+    return `<section>
+        <span class="k">${L.docsK}</span>
+        <p class="fine">${L.docsP}</p>
+        <div class="recent">${docs.length ? docs.map(d => `<div class="rrow"><div><b class="docname">${esc(d.name)}</b><br><small>${kb(d.size)} · ${dateStr(d.added)}${d.addedBy ? ` · ${esc(d.addedBy)}` : ""}${d.note ? ` · ${esc(d.note)}` : ""}</small></div>
+          <div class="acts"><a class="linkish" target="_blank" rel="noopener" href="${API}?ldoc=${l.n}/${d.id}">${L.docOpen}</a><a class="linkish" href="${API}?ldoc=${l.n}/${d.id}&download=1">${L.docDl}</a><button type="button" class="linkish" data-drm="${d.id}">${L.phRemove}</button></div></div>`).join("") : `<p class="fine" style="padding:12px 0">${L.docsNone}</p>`}</div>
+        <label class="q" style="margin-top:12px"><span>${L.docNote}</span><input type="text" id="docNote" maxlength="300"></label>
+        <label class="photo-pick" style="margin-top:10px"><input type="file" id="docIn" accept="application/pdf,image/*" multiple><span>${L.docAdd}</span></label>
+        <p class="msg" id="docMsg" role="status"></p>
+      </section>`;
+  }
+  function bindMaterial(E, n) {
+    const L = t();
+    const sync = () => app.querySelectorAll("[data-mf]").forEach(el => { E.m[el.dataset.mf] = el.value; });
+    $("#mForm").addEventListener("submit", async e => {
+      e.preventDefault(); sync();
+      const f = E.m, { pieces, bad } = parsePieces(f.pieces);
+      const sources = String(f.sources || "").split(/\r?\n/).map(x => x.split("|").map(y => y.trim())).filter(x => x[0]).map(([title, date, ...rest]) => ({ title, date: date || "", supports: rest.join(" | ") }));
+      const material = { limits: f.limits, extTitle: f.extTitle, extUrl: f.extUrl, extVersion: f.extVersion, extIssued: f.extIssued, sources, pieces };
+      MAT_FIELDS.forEach(([k]) => { material[k] = f[k]; });
+      const btn = $("#mBtn"); btn.disabled = true; btn.textContent = L.edSaving;
+      const { status, data } = await api("", { action: "update-lot", n: E.lot.n, material }).catch(() => ({ status: 0, data: {} }));
+      if (status === 200) { E.lot = { ...data.lot, usedBy: E.lot.usedBy }; E.m = matForm(data.lot.material); E.mmsg = { ok: true, text: L.mSaved + (bad ? " " + L.mBadLines(bad) : "") }; }
+      else E.mmsg = { ok: false, text: data.error === "url" ? L.mExtU + "?" : L.err_other };
+      viewLot(n, true);
+    });
+    const inp = $("#docIn");
+    inp.addEventListener("change", async () => {
+      sync();
+      const files = [...inp.files], msg = $("#docMsg"), note = $("#docNote").value;
+      for (let i = 0; i < files.length; i++) {
+        let file = files[i];
+        msg.className = "msg"; msg.textContent = L.docUp(i + 1, files.length);
+        if (!/^(application\/pdf|image\/)/.test(file.type)) { msg.className = "msg bad"; msg.textContent = L.docBadType; continue; }
+        if (file.size > 4e6 && /^image\//.test(file.type)) file = await shrinkPhoto(file);
+        if (file.size > 4e6) { msg.className = "msg bad"; msg.textContent = L.docBig; continue; }
+        const { status, data } = await api("", { action: "lot-doc", n: E.lot.n, name: files[i].name, note, data: await toB64(file) }).catch(() => ({ status: 0, data: {} }));
+        if (status === 201) E.lot = { ...data.lot, usedBy: E.lot.usedBy };
+        else { msg.className = "msg bad"; msg.textContent = L.err_other; return; }
+      }
+      viewLot(n, true);
+    });
+    app.querySelectorAll("[data-drm]").forEach(x => x.addEventListener("click", async () => {
+      x.disabled = true; sync();
+      const { status, data } = await api("", { action: "lot-doc-remove", n: E.lot.n, id: x.dataset.drm }).catch(() => ({ status: 0, data: {} }));
+      if (status === 200) E.lot = { ...data.lot, usedBy: E.lot.usedBy };
       viewLot(n, true);
     }));
   }
@@ -1047,7 +1177,10 @@
       ...data.batches.map(b => [b.code, b.status, b.model, b.qty, (b.lotInfo || []).map(l => l.label).join(" "), b.origin, b.region, b.maker, b.kg, b.workshop, b.made, b.createdBy, b.completed, b.updated, b.updatedBy, (b.photos || []).length, `${site}/${b.code}`])])) });
     files.push({ name: "wood-lots.csv", data: te.encode(csv([["Lot", "Name", "Status", "Source", "Place", "Region", "Supplier", "Arrived", "Volume", "Source location", "Workshop", "Used in batches", "Notes", "Created", "Created by", "Photos"],
       ...data.lots.map(l => [l.label, l.name, l.status, l.origin, l.place, l.region, l.supplier, l.arrived, l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length])])) });
-    const photos = [...data.batches.flatMap(b => (b.photos || []).map(id => ({ url: photoUrl(b.code, id), name: `photos/batches/${b.code}/${id}.jpg` }))),
+    files.push({ name: "wood-lot-pieces.csv", data: te.encode(csv([["Lot", "Piece", "Thickness mm", "Width mm", "Length mm", "Volume m3"],
+      ...data.lots.flatMap(l => ((l.material || {}).pieces || []).map(p => [l.label, p.ref, p.t, p.w, p.l, fmtVol(pieceVol(p))]))])) });
+    const photos = [...data.lots.flatMap(l => (l.docs || []).map(d => ({ url: `${API}?ldoc=${l.n}/${d.id}`, name: `documents/LOT-${lotNo(l.n)}/${d.id}-${d.name}` }))),
+      ...data.batches.flatMap(b => (b.photos || []).map(id => ({ url: photoUrl(b.code, id), name: `photos/batches/${b.code}/${id}.jpg` }))),
       ...data.lots.flatMap(l => (l.photos || []).map(id => ({ url: lotPhotoUrl(l.n, id), name: `photos/wood-lots/LOT-${lotNo(l.n)}/${id}.jpg` })))];
     for (let i = 0; i < photos.length; i++) {
       msg.textContent = L.dlBusy(i + 1, photos.length);

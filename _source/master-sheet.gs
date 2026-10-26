@@ -23,6 +23,7 @@ const BATCH_COLS = ["Code", "Status", "Product", "Pieces", "Wood lots", "Wood so
 const LOT_COLS = ["Lot", "Name", "Status", "Source", "Place", "Region", "Supplier", "Arrived", "Volume", "Source location",
   "Workshop", "Used in batches", "Notes", "Created", "Created by", "Photos", "_data"];
 const WS_COLS = ["Workshop", "Created", "_data"];
+const PIECE_COLS = ["Lot", "Piece", "Thickness mm", "Width mm", "Length mm", "Volume m3"];
 
 // The sheet: the one this script is attached to, or else the sheet named above.
 function ss_() { return SpreadsheetApp.getActive() || SpreadsheetApp.openById(SHEET_ID); }
@@ -136,7 +137,9 @@ function syncNow() {
     b.origin, b.region, b.maker, b.kg, b.workshop, b.made, b.createdBy, b.completed, b.updated, b.updatedBy, (b.photos || []).length,
     SITE + "/" + b.code, JSON.stringify(b)]));
   writeTab_(ss, "Wood lots", LOT_COLS, d.lots.map(l => [l.label, l.name, l.status, l.origin, l.place, l.region, l.supplier, l.arrived,
-    l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length, JSON.stringify(l)]));
+    l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length, lotData_(l)]));
+  writeTab_(ss, "Pieces", PIECE_COLS, [].concat.apply([], d.lots.map(l => ((l.material || {}).pieces || []).map(p =>
+    [l.label, p.ref, p.t, p.w, p.l, Math.round(p.t * p.w * p.l / 1e4) / 1e5]))));
   writeTab_(ss, "Workshops", WS_COLS, d.workshops.map(w => [w.name, w.created, JSON.stringify(w)]));
   const copied = copyPhotos_(d);
   const qrs = saveQrCodes_(d);
@@ -183,7 +186,8 @@ function readMe_(ss) {
       ["Every QR code is made from its batch code (column Code in the Batches tab) and points to the Passport link in the column Passport. Nothing else is needed to make it again: any QR generator can recreate it from that link. A ready-made copy of every QR code is also saved as a file in the Drive folder \"QR codes\" inside the photo folder, named by its code, e.g. AL-2610-03-Q.svg."],
       [""],
       ["Tabs"],
-      ["Batches: one row per furniture batch (one QR code). Wood lots: one row per delivery of reclaimed wood. Workshops: the workshops using the system. About: when the last copy was made."],
+      ["Batches: one row per furniture batch (one QR code). Wood lots: one row per delivery of reclaimed wood, with its full material record in _data. Pieces: every measured piece of every lot. Workshops: the workshops using the system. About: when the last copy was made."],
+      ["Lot documents (letters, certificates, invoices, saved copies of outside records) are copied into the folder \"documents\" inside the photo folder, one folder per lot."],
       [""],
       ["How it runs"],
       ["It updates itself every hour. Menu Another Life (if shown): Update now, Rebuild site from this sheet. The same can be run from Extensions → Apps Script: choose syncNow or rebuildSite and press Run. Rebuilding only adds what is missing; it never overwrites."],
@@ -199,6 +203,15 @@ function readMe_(ss) {
     lines.forEach((l, i) => { if (/^[A-Z][A-Za-z ]+$/.test(l[0]) && l[0].length < 40) sh.getRange(i + 1, 1).setFontWeight("bold"); });
   }
   ss.setActiveSheet(sh); ss.moveActiveSheet(1);
+}
+
+// A sheet cell holds at most 50,000 characters. The pieces are always in the Pieces tab, so a very long
+// piece list is left out of _data; a rebuild takes the pieces from the Pieces tab.
+function lotData_(l) {
+  const full = JSON.stringify(l);
+  if (full.length < 45000) return full;
+  const m = Object.assign({}, l.material || {}); delete m.pieces;
+  return JSON.stringify(Object.assign({}, l, { material: m, piecesInTab: true }));
 }
 
 function writeTab_(ss, name, cols, rows) {
@@ -230,15 +243,18 @@ function copyPhotos_(d) {
   const jobs = [];
   d.batches.forEach(b => (b.photos || []).forEach(id => jobs.push({ dir: ["batches", b.code], id: id, q: "photo=" + encodeURIComponent(b.code) + "/" + id })));
   d.lots.forEach(l => (l.photos || []).forEach(id => jobs.push({ dir: ["wood-lots", "LOT-" + l.n], id: id, q: "lphoto=" + l.n + "/" + id })));
+  // Documents keep their id in the file name ("<id> <name>"), so they're never copied twice and can be put back.
+  d.lots.forEach(l => (l.docs || []).forEach(doc => jobs.push({ dir: ["documents", "LOT-" + l.n], id: doc.id, file: doc.id + " " + doc.name, q: "ldoc=" + l.n + "/" + doc.id })));
   let copied = 0, left = 0;
   const cache = {};
   jobs.forEach(j => {
     const path = j.dir.join("/");
     const f = cache[path] || (cache[path] = sub_(sub_(root, j.dir[0]), j.dir[1]));
-    if (f.getFilesByName(j.id + ".jpg").hasNext()) return;
+    const fileName = j.file || (j.id + ".jpg");
+    if (f.getFilesByName(fileName).hasNext()) return;
     if (copied >= PHOTOS_PER_RUN) { left++; return; }
     const r = UrlFetchApp.fetch(api_(SITE) + "?" + j.q, { headers: { "x-export-key": key_() }, muteHttpExceptions: true });
-    if (r.getResponseCode() === 200) { f.createFile(r.getBlob().setName(j.id + ".jpg")); copied++; }
+    if (r.getResponseCode() === 200) { f.createFile(r.getBlob().setName(fileName)); copied++; }
   });
   return { copied: copied, left: left, folderUrl: root.getUrl() };
 }
@@ -297,6 +313,17 @@ function rebuildSite() {
     Object.keys(map).forEach(k => { if (c(k) !== undefined) l[map[k]] = text_(c(k)); });
     if (c("Arrived") !== undefined) l.arrived = text_(c("Arrived"));
   });
+  // The Pieces tab is the full piece list for every lot.
+  const pieceSheet = ss.getSheetByName("Pieces");
+  if (pieceSheet && pieceSheet.getLastRow() > 1) {
+    const byLot = {};
+    pieceSheet.getRange(2, 1, pieceSheet.getLastRow() - 1, 5).getValues().forEach(r => {
+      const n = lotNums_(r[0])[0];
+      if (n == null || r[2] === "") return;
+      (byLot[n] = byLot[n] || []).push({ ref: text_(r[1]), t: Number(r[2]), w: Number(r[3]), l: Number(r[4]) });
+    });
+    lots.forEach(l => { if (byLot[l.n]) { l.material = l.material || {}; l.material.pieces = byLot[l.n]; } });
+  }
   const batches = readTab_(ss, "Batches", BATCH_COLS, (b, c) => {
     if (c("Product")) b.model = text_(c("Product"));
     if (c("Pieces")) b.qty = Number(c("Pieces"));
@@ -311,7 +338,7 @@ function rebuildSite() {
   // Photos from the Drive folder
   let photos = 0;
   const root = folder_();
-  [["batches", "batch"], ["wood-lots", "lot"]].forEach(([dir, kind]) => {
+  [["batches", "batch"], ["wood-lots", "lot"], ["documents", "doc"]].forEach(([dir, kind]) => {
     const top = root.getFoldersByName(dir);
     if (!top.hasNext()) return;
     const subs = top.next().getFolders();
@@ -319,7 +346,7 @@ function rebuildSite() {
       const f = subs.next(), ref = f.getName().replace(/^LOT-/, "");
       const files = f.getFiles();
       while (files.hasNext()) {
-        const file = files.next(), id = file.getName().replace(/\.jpg$/, "");
+        const file = files.next(), id = kind === "doc" ? file.getName().split(" ")[0] : file.getName().replace(/\.jpg$/, "");
         const res = postJson_(site, { action: "restore-photo", kind: kind, ref: ref, id: id, image: Utilities.base64Encode(file.getBlob().getBytes()) });
         if (!res.skipped) photos++;
       }

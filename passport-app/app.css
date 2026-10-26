@@ -225,3 +225,14 @@ input[type=date]{padding:12px;border:1px solid var(--line);background:var(--pape
   body.tagmode .wt-num{font-size:200px}
   body.tagmode .wt-foot{margin-top:auto}
 }
+/* material record */
+.matrec .form{gap:14px}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:560px){.mgrid{grid-template-columns:1fr}}
+textarea.mono{font:400 13px/20px var(--mono)}
+.msum{font:700 22px/1.1 var(--display);text-transform:uppercase;margin:4px 0 8px}
+.ptable{border-collapse:collapse;width:100%;font:400 12px/18px var(--mono);margin:8px 0}
+.ptable th,.ptable td{border-bottom:1px solid var(--line);padding:4px 8px;text-align:right}
+.ptable th:first-child,.ptable td:first-child{text-align:left}
+.ptable tr.tot td{font-weight:500;border-top:1px solid var(--ink)}
+.docname{word-break:break-word}
