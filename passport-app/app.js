@@ -301,12 +301,13 @@
     const text = withText ? `<text x="${size / 2}" y="${size + 3.6}" text-anchor="middle" font-family="IBM Plex Mono, Menlo, monospace" font-size="3.2" letter-spacing="0.5" fill="#000">${esc(code)}</text>` : "";
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size + textH}" shape-rendering="crispEdges"><rect width="${size}" height="${size + textH}" fill="#fff"/><path d="${d}" fill="#000"/>${text}</svg>`;
   }
+  // The engraving file (150 x 55 mm plate, text as outlines) is made by the server and downloaded as a normal file,
+  // which works on phones too.
+  const plateUrl = (code, view) => `${API}?plate=${encodeURIComponent(code)}${view ? "&view=1" : ""}`;
   function downloadSvg(code) {
-    const blob = new Blob([qrSvg(code, true)], { type: "image/svg+xml" });
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob); a.download = `${code}.svg`;
+    a.href = plateUrl(code); a.download = `${code}-engrave.svg`;
     document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   }
 
   // ---------- routing
@@ -676,6 +677,7 @@
         ${res ? `<div class="label-out">
           <span class="k">${L.engrave}</span>
           <div class="plate">${qrSvg(res.code, false)}<span class="serial">${esc(res.code)}</span></div>
+          <img class="engrave-prev" src="${plateUrl(res.code, true)}" alt="${esc(res.code)}" width="150" height="55">
           <p class="fine">${L.same(res.qty)}</p>
           ${res.status === "draft" ? `<p class="note">${L.draftRes}</p><a class="btn" href="${BASE}/edit/${res.code}" data-go="edit/${res.code}">${L.finish}</a>` : ""}
           <div class="before staff-ph" id="resPh">${(res.photos || []).map(id => `<figure><img src="${photoUrl(res.code, id)}" alt=""><button type="button" class="linkish" data-rm="${id}">${L.phRemove}</button></figure>`).join("")}</div>
@@ -791,6 +793,7 @@
         <h1 class="code-h">${esc(b.code)}</h1>
         <p class="note ${b.status === "draft" ? "" : "ok"}">${b.status === "draft" ? L.edDraft : L.edDone}</p>
         <div class="label-out" style="margin-top:0"><div class="plate">${qrSvg(b.code, false)}<span class="serial">${esc(b.code)}</span></div>
+          <img class="engrave-prev" src="${plateUrl(b.code, true)}" alt="${esc(b.code)}" width="150" height="55">
           <div class="two-btn"><button class="btn ghost" type="button" id="dl">${L.dl}</button><a class="btn ghost" href="${BASE}/${b.code}" data-go="${b.code}">${L.view}</a></div></div>
         <form class="form" id="eForm" novalidate>
           ${who.admin ? `<div class="q"><span>${L.q1}</span><div class="chips">${MODELS.map(m => `<button type="button" class="chip" data-m="${esc(m)}" aria-pressed="${m === f.model}">${esc(m)}</button>`).join("")}</div></div>
