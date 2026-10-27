@@ -24,6 +24,34 @@ async function qrSvg(code) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size + 6}" shape-rendering="crispEdges"><rect width="${size}" height="${size + 6}" fill="#fff"/><path d="${d}" fill="#000"/>${text}</svg>`;
 }
 
+// Engraving plate: the layout from plate-data.mjs plus this batch's QR (no quiet zone; the plate is the margin)
+// and its code, vertical, reading bottom to top beside the QR. Units are millimetres.
+async function plateSvg(code) {
+  const [{ default: qrcode }, { default: P }] = await Promise.all([import("../qrcode.cjs"), import("../plate-data.mjs")]);
+  const f = n => (Math.round(n * 1000) / 1000).toString();
+  const q = qrcode(0, "Q"); q.addData(`HTTPS://${QR_HOST}/${code}`, "Alphanumeric"); q.make();
+  const n = q.getModuleCount(), m = P.qr.s / n; let qd = "";
+  for (let r = 0; r < n; r++) {
+    let c = 0;
+    while (c < n) {
+      if (!q.isDark(r, c)) { c++; continue; }
+      let e = c; while (e < n && q.isDark(r, e)) e++;
+      qd += `M${f(P.qr.x + c * m)} ${f(P.qr.y + r * m)}h${f((e - c) * m)}v${f(m)}h${f(-(e - c) * m)}Z`;
+      c = e;
+    }
+  }
+  const C = P.code, chars = [...code].filter(ch => C.glyphs[ch] !== undefined);
+  const xs = ch => (C.glyphs[ch].match(/-?\d+(\.\d+)?/g) || []).map(Number).filter((v, i) => i % 2 === 0);
+  const first = xs(chars[0]), last = xs(chars[chars.length - 1]);
+  const lo = first.length ? Math.min(...first) : 0, hi = (chars.length - 1) * C.adv + (last.length ? Math.max(...last) : C.adv);
+  const start = C.cy + (lo + hi) / 2;
+  let cd = "";
+  chars.forEach((ch, i) => {
+    cd += C.glyphs[ch].replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, (_, x, y) => `${f(C.bx - Number(y))} ${f(start - (i * C.adv + Number(x)))}`);
+  });
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${P.w}mm" height="${P.h}mm" viewBox="0 0 ${P.w} ${P.h}"><title>Another Life ${code}</title><path fill="#000" fill-rule="evenodd" d="${P.logo}"/><path fill="#000" fill-rule="nonzero" d="${P.static}${qd}${cd}"/></svg>`;
+}
+
 const json = (data, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
 
@@ -174,6 +202,14 @@ export default async (req, context) => {
       const p = parseCode(url.searchParams.get("qr"));
       if (p.error) return json({ error: p.error }, 400);
       return new Response(await qrSvg(p.code), { headers: { "content-type": "image/svg+xml", "content-disposition": `inline; filename="${p.code}.svg"`, "cache-control": "public, max-age=31536000, immutable" } });
+    }
+    if (url.searchParams.has("plate")) {
+      // The engraving file: 150 x 55 mm plate layout, all text as outlines, transparent background.
+      const p = parseCode(url.searchParams.get("plate"));
+      if (p.error) return json({ error: p.error }, 400);
+      const svg = await plateSvg(p.code);
+      const disp = url.searchParams.has("view") ? "inline" : "attachment";
+      return new Response(svg, { headers: { "content-type": "image/svg+xml", "content-disposition": `${disp}; filename="${p.code}-engrave.svg"`, "cache-control": "public, max-age=86400" } });
     }
     if (url.searchParams.has("lphoto")) {
       // Lot photos are public only when the lot allows it; staff and the export key always see them.
