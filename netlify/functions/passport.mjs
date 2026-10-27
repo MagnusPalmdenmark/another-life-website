@@ -209,7 +209,12 @@ export default async (req, context) => {
       if (p.error) return json({ error: p.error }, 400);
       const svg = await plateSvg(p.code);
       const disp = url.searchParams.has("view") ? "inline" : "attachment";
-      return new Response(svg, { headers: { "content-type": "image/svg+xml", "content-disposition": `${disp}; filename="${p.code}-engrave.svg"`, "cache-control": "public, max-age=86400" } });
+      // File name with product and date, e.g. Sun-Lounger_AL-2610-976-B_2026-10-27_engrave.svg
+      const b = await db.get(`batch/${p.code}`, { type: "json" });
+      const product = b ? String(b.model || "").replace(/^The\s+/i, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "") : "";
+      const day = b && b.made ? new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" }).format(new Date(b.made)) : "";
+      const name = [product, p.code, day, "engrave"].filter(Boolean).join("_") + ".svg";
+      return new Response(svg, { headers: { "content-type": "image/svg+xml", "content-disposition": `${disp}; filename="${name}"`, "cache-control": "no-store" } });
     }
     if (url.searchParams.has("lphoto")) {
       // Lot photos are public only when the lot allows it; staff and the export key always see them.

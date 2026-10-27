@@ -306,7 +306,7 @@
   const plateUrl = (code, view) => `${API}?plate=${encodeURIComponent(code)}${view ? "&view=1" : ""}`;
   function downloadSvg(code) {
     const a = document.createElement("a");
-    a.href = plateUrl(code); a.download = `${code}-engrave.svg`;
+    a.href = plateUrl(code); a.download = ""; // the server names the file: product, code, date
     document.body.appendChild(a); a.click(); a.remove();
   }
 
