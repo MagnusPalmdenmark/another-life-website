@@ -30,7 +30,7 @@
       lkFmt: "Codes look like AL-2610-03-Q.", lkBad: "That code doesn't look right. Check the last letter.", lkNone: "We have no batch with that code yet.",
       lkErr: "Something went wrong. Try again in a moment.", lkHint: "Want to see an example? Type", staffLink: "Factory / staff login",
       // login
-      abT: "All batches", abLink: "All batches", abBig: "See all QR codes", newBig: "Make a new batch", abSearch: "Search code, area or maker", abAllP: "All products", abAllM: "All months",
+      abT: "All batches", abLink: "All batches", abBig: "See all QR codes", newBig: "Make a new passport", abSearch: "Search code, area or maker", abAllP: "All products", abAllM: "All months",
       abCount: (n, t) => `${n} of ${t} batches`, abPieces: (n) => `${n} pieces in total`, abNone: "No batches match.", abCols: ["Code", "Product", "Status", "Wood", "Area", "Pieces", "Workshop", "Made", "By"],
       tlT: "Test login (preview only)", tlU: "Username", tlP: "Password", tlBtn: "Log in", tlWrong: "Use test / test on the preview.",
       liT: "Staff access", liP: "This page is for the workshop and the Another Life team. Open the personal link you received on WhatsApp to get access.", adminLink: "Admin",
@@ -129,7 +129,7 @@
       err_lot: "One of the lot numbers doesn't exist for this workshop.", err_lot_workshop: "That lot belongs to another workshop.", err_origin_lot: "Choose what the wood was.",
       dlAll: "Download everything (ZIP)", dlAllP: "A copy of all batches, wood lots and photos, with spreadsheets you can open in Excel. Keep it on your computer or in Google Drive.",
       dlBusy: (i, n) => `Preparing… ${i} of ${n} photos`, dlDone: "Downloaded.", lotsSum: (o, u) => `${o} in stock · ${u} used up`,
-      navB: "Batches", navLots: "Wood lots", navNew: "New batch", navOv: "Overview", navOvS: "Home", navNewS: "New", navLotsS: "Wood", stLots: "Wood lots in stock", newLotBig: "New wood lot",
+      navB: "All furniture", navLots: "Wood", navNew: "New passport", navOv: "Home", navOvS: "Home", navNewS: "New", navBS: "Furniture", navLotsS: "Wood", navOvD: "Summary and team", navNewD: "Code for new furniture", navBD: "Every batch made", navLotsD: "Deliveries in stock", stLots: "Wood lots in stock", newLotBig: "New wood lot",
       // material record (internal)
       matK: "Material record · internal", matP: "Everything known about this wood, kept here so it never depends on an outside page. Never shown on passports.",
       mDescribed: "Material, as described", mSpecies: "Species verified?", mPrevUse: "Previous use", mArea: "Recovery area", mRoute: "Supply route",
@@ -148,7 +148,7 @@
       lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
       lkFmt: "Format kode seperti AL-2610-03-Q.", lkBad: "Kode itu sepertinya salah. Periksa huruf terakhirnya.", lkNone: "Belum ada batch dengan kode itu.",
       lkErr: "Terjadi kesalahan. Coba lagi sebentar lagi.", lkHint: "Ingin melihat contoh? Ketik", staffLink: "Login pabrik / staf",
-      abT: "Semua batch", abLink: "Semua batch", abBig: "Lihat semua kode QR", newBig: "Buat batch baru", abSearch: "Cari kode, daerah atau pembuat", abAllP: "Semua produk", abAllM: "Semua bulan",
+      abT: "Semua batch", abLink: "Semua batch", abBig: "Lihat semua kode QR", newBig: "Buat paspor baru", abSearch: "Cari kode, daerah atau pembuat", abAllP: "Semua produk", abAllM: "Semua bulan",
       abCount: (n, t) => `${n} dari ${t} batch`, abPieces: (n) => `${n} produk total`, abNone: "Tidak ada batch yang cocok.", abCols: ["Kode", "Produk", "Status", "Kayu", "Daerah", "Jumlah", "Bengkel", "Dibuat", "Oleh"],
       tlT: "Login uji (hanya pratinjau)", tlU: "Nama pengguna", tlP: "Kata sandi", tlBtn: "Masuk", tlWrong: "Gunakan test / test di pratinjau.",
       liT: "Akses staf", liP: "Halaman ini untuk bengkel dan tim Another Life. Buka tautan pribadi yang Anda terima lewat WhatsApp untuk mendapatkan akses.", adminLink: "Admin",
@@ -242,7 +242,7 @@
       err_lot: "Salah satu nomor lot tidak ada untuk bengkel ini.", err_lot_workshop: "Lot itu milik bengkel lain.", err_origin_lot: "Pilih kayunya dulu apa.",
       dlAll: "Unduh semua (ZIP)", dlAllP: "Salinan semua batch, lot kayu, dan foto, dengan tabel yang bisa dibuka di Excel. Simpan di komputer atau Google Drive.",
       dlBusy: (i, n) => `Menyiapkan… ${i} dari ${n} foto`, dlDone: "Sudah diunduh.", lotsSum: (o, u) => `${o} tersedia · ${u} sudah habis`,
-      navB: "Batch", navLots: "Lot kayu", navNew: "Batch baru", navOv: "Ringkasan", navOvS: "Awal", navNewS: "Baru", navLotsS: "Kayu", stLots: "Lot kayu tersedia", newLotBig: "Lot kayu baru",
+      navB: "Semua furnitur", navLots: "Kayu", navNew: "Paspor baru", navOv: "Beranda", navOvS: "Awal", navNewS: "Baru", navBS: "Furnitur", navLotsS: "Kayu", navOvD: "Ringkasan dan tim", navNewD: "Kode untuk furnitur baru", navBD: "Semua batch yang dibuat", navLotsD: "Kiriman kayu di gudang", stLots: "Lot kayu tersedia", newLotBig: "Lot kayu baru",
       matK: "Catatan material · internal", matP: "Semua yang diketahui tentang kayu ini, disimpan di sini agar tidak bergantung pada halaman luar. Tidak pernah tampil di paspor.",
       mDescribed: "Material, sesuai keterangan", mSpecies: "Jenis kayu sudah diverifikasi?", mPrevUse: "Penggunaan sebelumnya", mArea: "Daerah asal", mRoute: "Rantai pasok",
       mPurchase: "Status pembelian", mDims: "Ukuran (rentang)", mLimits: "Yang belum diverifikasi / batasan",
@@ -358,9 +358,15 @@
     if (!nav) return;
     if (!cur || !who.staff) { nav.hidden = true; return; }
     const L = t();
-    const items = [who.admin ? ["admin", L.navOv, L.navOvS] : null, ["factory", L.navNew, L.navNewS], ["batches", L.navB, L.navB], ["lots", L.navLots, L.navLotsS]].filter(Boolean);
-    $("#snavIn").innerHTML = items.map(([k, label, short]) => `<a href="${BASE}/${k}" data-go="${k}" ${k === cur ? 'aria-current="page"' : ""}><span class="lg">${esc(label)}</span><span class="sm">${esc(short)}</span></a>`).join("") +
-      `<span class="snav-who">${esc(who.name || "")}</span><button type="button" class="snav-out" id="snavOut" title="${L.logout}" aria-label="${L.logout}"><span class="lg">${L.logout}</span><svg class="sm" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4H4v12h4M12 6l4 4-4 4M16 10H8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+    const ic = {
+      admin: '<path d="M3 9.5 10 4l7 5.5V16H3z"/><path d="M8 16v-4h4v4"/>',
+      factory: '<rect x="3.5" y="3.5" width="13" height="13"/><path d="M10 7v6M7 10h6"/>',
+      batches: '<path d="M4 6h12M4 10h12M4 14h12"/>',
+      lots: '<ellipse cx="6" cy="10" rx="2.5" ry="4"/><path d="M6 6h9M6 14h9M15 6a2.5 4 0 0 1 0 8"/>'
+    };
+    const items = [who.admin ? ["admin", L.navOv, L.navOvS, L.navOvD] : null, ["factory", L.navNew, L.navNewS, L.navNewD], ["batches", L.navB, L.navBS, L.navBD], ["lots", L.navLots, L.navLotsS, L.navLotsD]].filter(Boolean);
+    $("#snavIn").innerHTML = items.map(([k, label, short, desc]) => `<a href="${BASE}/${k}" data-go="${k}" ${k === cur ? 'aria-current="page"' : ""}><svg class="ni" viewBox="0 0 20 20" aria-hidden="true">${ic[k]}</svg><span class="nt"><span class="lg">${esc(label)}</span><span class="sm">${esc(short)}</span><span class="nd">${esc(desc)}</span></span></a>`).join("") +
+      `<button type="button" class="snav-out" id="snavOut" title="${esc(who.name ? L.loggedAs(who.name) + " · " : "")}${L.logout}" aria-label="${L.logout}"><span class="lg">${L.logout}</span><svg class="sm" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4H4v12h4M12 6l4 4-4 4M16 10H8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
     nav.hidden = false;
     $("#snavOut").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); who = {}; form = null; adminState.link = null; nav.hidden = true; go(""); });
   }
@@ -370,7 +376,7 @@
     showNav();
     $("#banner").hidden = true;
     document.body.classList.toggle("tagmode", r.view === "tag");
-    if (r.view !== "batches" && r.view !== "admin") document.body.classList.remove("wide");
+    document.body.classList.toggle("wide", !!NAV_OF[r.view]);
     document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
     document.documentElement.lang = lang;
     if (r.view === "lookup") return viewLookup(langOnly);
@@ -495,11 +501,10 @@
       return;
     }
     who = me; showNav();
-    document.body.classList.add("wide");
     const link = adminState.link;
     app.innerHTML = `
       <section>
-        <h1>${L.ovT}</h1>
+        <h1>${L.navOv}</h1>
         <div class="stats four" id="ovStats">
           <a class="stat" href="${BASE}/batches" data-go="batches"><span class="k">${L.stB}</span><b>–</b></a>
           <div class="stat"><span class="k">${L.stP}</span><b>–</b></div>
@@ -675,14 +680,14 @@
     if (wsList.length === 1 && !form.workshopId) form.workshopId = wsList[0].id;
     const res = form.result;
     app.innerHTML = `
+      <section class="pagehead"><h1>${L.navNew}</h1><p class="fine">${L.navNewD}</p></section>
       <section id="toFinish" hidden>
         <span class="k">${L.toFinish}</span>
         <p class="fine">${L.toFinishP}</p>
         <div class="recent" id="drafts"></div>
       </section>
       <section>
-        <span class="k">${L.newBatch}</span>
-        ${who.name ? `<p class="fine">${esc(L.loggedAs(who.name))}${who.workshop ? ` · ${esc(who.workshop)}` : ""}</p>` : ""}
+        ${who.workshop ? `<p class="fine">${esc(who.workshop)}</p>` : ""}
         <div id="fWrap" ${res ? "hidden" : ""}>
           <form class="form" id="fForm" novalidate>
             <div class="q"><span>${L.q1}</span><div class="chips">${MODELS.map(m => `<button type="button" class="chip" data-m="${esc(m)}" aria-pressed="${m === form.model}">${esc(m)}</button>`).join("")}</div></div>
@@ -919,7 +924,7 @@
     app.innerHTML = `
       <section>
 
-        <h1>${L.lotsT}</h1>
+        <h1>${L.navLots}</h1>
         <p class="lead">${L.lotsP}</p>
         <div class="recent">${open.length ? open.map(row).join("") : `<p class="fine" style="padding:12px 0">${L.lotNone}</p>`}</div>
         ${used.length ? (lotState.showUsed ? `<div class="recent used">${used.map(row).join("")}</div>` : `<button type="button" class="linkish" id="showUsed" style="margin-top:12px">${L.lotShowUsed(used.length)}</button>`) : ""}
@@ -1429,7 +1434,6 @@
   async function viewBatches(langOnly) {
     const L = t();
     document.title = L.abT + " · Another Life Passport";
-    document.body.classList.add("wide");
     if (!langOnly || !allBatches) {
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const [res, me] = await Promise.all([api("batches=1"), api("me=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
@@ -1443,7 +1447,7 @@
     app.innerHTML = `
       <section>
 
-        <h1>${L.abT}</h1>
+        <h1>${L.navB}</h1>
         <div class="ab-tools">
           <input type="text" id="abQ" placeholder="${L.abSearch}" value="${esc(abState.q)}" aria-label="${L.abSearch}">
           <select id="abM" aria-label="${L.abAllP}"><option value="">${L.abAllP}</option>${MODELS.map(m => `<option ${m === abState.model ? "selected" : ""}>${esc(m)}</option>`).join("")}</select>
