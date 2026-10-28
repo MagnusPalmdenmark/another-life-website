@@ -129,6 +129,7 @@
       err_lot: "One of the lot numbers doesn't exist for this workshop.", err_lot_workshop: "That lot belongs to another workshop.", err_origin_lot: "Choose what the wood was.",
       dlAll: "Download everything (ZIP)", dlAllP: "A copy of all batches, wood lots and photos, with spreadsheets you can open in Excel. Keep it on your computer or in Google Drive.",
       dlBusy: (i, n) => `Preparing… ${i} of ${n} photos`, dlDone: "Downloaded.", lotsSum: (o, u) => `${o} in stock · ${u} used up`,
+      navB: "Batches", navLots: "Wood lots", navNew: "New batch", navOv: "Overview", navOvS: "Home", navNewS: "New", navLotsS: "Wood", stLots: "Wood lots in stock", newLotBig: "New wood lot",
       // material record (internal)
       matK: "Material record · internal", matP: "Everything known about this wood, kept here so it never depends on an outside page. Never shown on passports.",
       mDescribed: "Material, as described", mSpecies: "Species verified?", mPrevUse: "Previous use", mArea: "Recovery area", mRoute: "Supply route",
@@ -241,6 +242,7 @@
       err_lot: "Salah satu nomor lot tidak ada untuk bengkel ini.", err_lot_workshop: "Lot itu milik bengkel lain.", err_origin_lot: "Pilih kayunya dulu apa.",
       dlAll: "Unduh semua (ZIP)", dlAllP: "Salinan semua batch, lot kayu, dan foto, dengan tabel yang bisa dibuka di Excel. Simpan di komputer atau Google Drive.",
       dlBusy: (i, n) => `Menyiapkan… ${i} dari ${n} foto`, dlDone: "Sudah diunduh.", lotsSum: (o, u) => `${o} tersedia · ${u} sudah habis`,
+      navB: "Batch", navLots: "Lot kayu", navNew: "Batch baru", navOv: "Ringkasan", navOvS: "Awal", navNewS: "Baru", navLotsS: "Kayu", stLots: "Lot kayu tersedia", newLotBig: "Lot kayu baru",
       matK: "Catatan material · internal", matP: "Semua yang diketahui tentang kayu ini, disimpan di sini agar tidak bergantung pada halaman luar. Tidak pernah tampil di paspor.",
       mDescribed: "Material, sesuai keterangan", mSpecies: "Jenis kayu sudah diverifikasi?", mPrevUse: "Penggunaan sebelumnya", mArea: "Daerah asal", mRoute: "Rantai pasok",
       mPurchase: "Status pembelian", mDims: "Ukuran (rentang)", mLimits: "Yang belum diverifikasi / batasan",
@@ -349,8 +351,23 @@
   // ---------- views
   let current = null, cache = {}, form = null, who = {};
 
+  // One staff menu, always in the same place (under the logo), on every staff page.
+  const NAV_OF = { admin: "admin", factory: "factory", edit: "batches", batches: "batches", lots: "lots", lot: "lots", tag: "lots" };
+  function showNav() {
+    const nav = $("#snav"), r = route(), cur = NAV_OF[r.view];
+    if (!nav) return;
+    if (!cur || !who.staff) { nav.hidden = true; return; }
+    const L = t();
+    const items = [who.admin ? ["admin", L.navOv, L.navOvS] : null, ["factory", L.navNew, L.navNewS], ["batches", L.navB, L.navB], ["lots", L.navLots, L.navLotsS]].filter(Boolean);
+    $("#snavIn").innerHTML = items.map(([k, label, short]) => `<a href="${BASE}/${k}" data-go="${k}" ${k === cur ? 'aria-current="page"' : ""}><span class="lg">${esc(label)}</span><span class="sm">${esc(short)}</span></a>`).join("") +
+      `<span class="snav-who">${esc(who.name || "")}</span><button type="button" class="snav-out" id="snavOut" title="${L.logout}" aria-label="${L.logout}"><span class="lg">${L.logout}</span><svg class="sm" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4H4v12h4M12 6l4 4-4 4M16 10H8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+    nav.hidden = false;
+    $("#snavOut").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); who = {}; form = null; adminState.link = null; nav.hidden = true; go(""); });
+  }
+
   function render(langOnly) {
     const r = route();
+    showNav();
     $("#banner").hidden = true;
     document.body.classList.toggle("tagmode", r.view === "tag");
     if (r.view !== "batches" && r.view !== "admin") document.body.classList.remove("wide");
@@ -477,14 +494,19 @@
       });
       return;
     }
+    who = me; showNav();
     document.body.classList.add("wide");
     const link = adminState.link;
     app.innerHTML = `
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.adminLink}</span><button type="button" class="staff" id="logout">${L.logout}</button></div>
         <h1>${L.ovT}</h1>
-        <div class="stats three" id="ovStats"><div class="stat"><span class="k">${L.stB}</span><b>–</b></div><div class="stat"><span class="k">${L.stP}</span><b>–</b></div><div class="stat"><span class="k">${L.stD}</span><b>–</b></div></div>
-        <div class="two-btn" style="margin:20px 0 0"><a class="btn" href="${BASE}/factory" data-go="factory">${L.newBig}</a><a class="btn ghost" href="${BASE}/batches" data-go="batches">${L.abBig}</a></div>
+        <div class="stats four" id="ovStats">
+          <a class="stat" href="${BASE}/batches" data-go="batches"><span class="k">${L.stB}</span><b>–</b></a>
+          <div class="stat"><span class="k">${L.stP}</span><b>–</b></div>
+          <a class="stat" href="${BASE}/batches" id="ovDrafts"><span class="k">${L.stD}</span><b>–</b></a>
+          <a class="stat" href="${BASE}/lots" data-go="lots"><span class="k">${L.stLots}</span><b>–</b></a>
+        </div>
+        <div class="three-btn"><a class="btn" href="${BASE}/factory" data-go="factory">${L.newBig}</a><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.newLotBig}</a><a class="btn ghost" href="${BASE}/batches" data-go="batches">${L.abBig}</a></div>
       </section>
       ${link ? `<section><div class="invite">
           <span class="k">${esc(L.adLinkFor(link.name))}</span>
@@ -499,7 +521,7 @@
         <div class="recent" id="drafts"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
       </section>
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.lotsT}</span><a class="staff" href="${BASE}/lots" data-go="lots">${L.lotsLink} →</a></div>
+        <span class="k">${L.lotsT}</span>
         <p class="fine" id="ovLots">${L.loading}</p>
       </section>
       <section>
@@ -517,8 +539,8 @@
         <button class="btn ghost" type="button" id="dlAll">${L.dlAll}</button>
         <p class="msg" id="dlMsg" role="status"></p>
       </section>
-      <section class="foot" style="display:flex;gap:20px;flex-wrap:wrap"><a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a><a class="staff" href="${BASE}/lots" data-go="lots">${L.lotsLink}</a></section>`;
-    $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); adminState.link = null; go(""); });
+`;
+    $("#ovDrafts").addEventListener("click", e => { e.preventDefault(); abState.status = "draft"; go("batches"); });
     $("#dlAll").addEventListener("click", downloadEverything);
     if (link) {
       $("#invCopy").addEventListener("click", async () => {
@@ -541,12 +563,16 @@
   async function loadOverview() {
     const L = t();
     const [u, bt, lt] = await Promise.all([api("users=1"), api("batches=1"), api("lots=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
-    if ($("#ovLots") && lt.status === 200) { const ls = lt.data.lots; $("#ovLots").textContent = ls.length ? L.lotsSum(ls.filter(l => l.status !== "used").length, ls.filter(l => l.status === "used").length) : L.lotNone; }
+    if ($("#ovLots") && lt.status === 200) {
+      const ls = lt.data.lots, open = ls.filter(l => l.status !== "used");
+      $("#ovLots").outerHTML = `<p class="fine">${ls.length ? L.lotsSum(open.length, ls.length - open.length) : L.lotNone}</p><div class="recent">${open.slice(0, 6).map(l => `<div class="rrow lotrow"><a class="lotnum" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${lotNo(l.n)}</a><div><b>${esc(l.name)}</b><br><small>${esc(L["o_" + l.origin] || "")}${l.arrived ? ` · ${dateStr(l.arrived)}` : ""} · ${L.lotIn(l.usedBy.length)}</small></div><div class="acts"><a class="linkish" href="${BASE}/lot/${l.n}/tag" data-go="lot/${l.n}/tag">${L.lotPrint}</a></div></div>`).join("")}</div>`;
+    }
     if (!$("#wsList")) return;
     if (u.status !== 200 || bt.status !== 200) { $("#wsList").innerHTML = `<p class="fine">${L.lkErr}</p>`; return; }
     const users = u.data.users, workshops = u.data.workshops, batches = bt.data.batches;
     const drafts = batches.filter(b => b.status === "draft");
-    const stats = [batches.length, batches.reduce((n, b) => n + (b.qty || 0), 0), drafts.length];
+    const openLots = lt.status === 200 ? lt.data.lots.filter(l => l.status !== "used") : [];
+    const stats = [batches.length, batches.reduce((n, b) => n + (b.qty || 0), 0), drafts.length, openLots.length];
     $("#ovStats").querySelectorAll("b").forEach((el, i) => { el.textContent = fmt(stats[i], 0); });
     $("#ovStats").querySelectorAll(".stat")[2].classList.toggle("warn", drafts.length > 0);
     $("#drafts").innerHTML = drafts.length ? drafts.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs}${b.workshop ? ` · ${esc(b.workshop)}` : ""} · ${dateStr(b.made)}</small></div>
@@ -639,7 +665,7 @@
     if (!langOnly) {
       const me = await api("me=1").catch(() => ({ data: {} }));
       if (!me.data.staff) return go("login");
-      who = me.data;
+      who = me.data; showNav();
       if (who.admin) who.workshops = ((await api("users=1").catch(() => ({ data: {} }))).data.workshops) || [];
       await loadLots();
     }
@@ -655,7 +681,7 @@
         <div class="recent" id="drafts"></div>
       </section>
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.newBatch}</span><span style="display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end"><a class="staff" href="${BASE}/lots" data-go="lots">${L.lotsLink}</a><a class="staff" href="${BASE}/batches" data-go="batches">${L.abLink}</a>${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.ovT}</a>` : ""}<button type="button" class="staff" id="logout">${L.logout}</button></span></div>
+        <span class="k">${L.newBatch}</span>
         ${who.name ? `<p class="fine">${esc(L.loggedAs(who.name))}${who.workshop ? ` · ${esc(who.workshop)}` : ""}</p>` : ""}
         <div id="fWrap" ${res ? "hidden" : ""}>
           <form class="form" id="fForm" novalidate>
@@ -694,7 +720,7 @@
       </section>`;
 
     form.photoErr = false;
-    $("#logout").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); form = null; go(""); });
+
     if (res) {
       $("#dl").addEventListener("click", () => downloadSvg(res.code));
       $("#nextB").addEventListener("click", () => { form = { model: form.model, origin: "", region: "", maker: form.maker, qty: "", kg: form.kg, workshopId: form.workshopId, lots: form.lots }; viewFactory(true); });
@@ -776,7 +802,7 @@
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const me = (await api("me=1").catch(() => ({ data: {} }))).data;
       if (!me.staff) return go("login");
-      who = me;
+      who = me; showNav();
       const { status, data } = await api("staff=" + encodeURIComponent(code)).catch(() => ({ status: 0, data: {} }));
       if (status === 401) return go("login");
       if (status !== 200) { app.innerHTML = `<section><span class="k">${L.edT}</span><p class="msg bad">${status === 404 ? L.edNone : L.lkErr}</p><a class="btn ghost" href="${BASE}/factory" data-go="factory">${L.edBack}</a></section>`; return; }
@@ -880,7 +906,7 @@
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const me = (await api("me=1").catch(() => ({ data: {} }))).data;
       if (!me.staff) return go("login");
-      who = me;
+      who = me; showNav();
       if (who.admin) who.workshops = ((await api("users=1").catch(() => ({ data: {} }))).data.workshops) || [];
       await loadLots();
       lotState.form = lotState.form || { origin: "", place: "", region: "", arrived: today(), volume: "", supplier: "", gps: "", notes: "", workshopId: "", files: [] };
@@ -892,7 +918,7 @@
       <div class="acts"><a class="linkish" href="${BASE}/lot/${l.n}/tag" data-go="lot/${l.n}/tag">${L.lotPrint}</a><a class="linkish" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${L.lotEdit}</a></div></div>`;
     app.innerHTML = `
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${PUBLIC_HOST.toLowerCase()}</span><span style="display:flex;gap:14px"><a class="staff" href="${BASE}/factory" data-go="factory">${L.newBatch}</a>${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.ovT}</a>` : ""}</span></div>
+
         <h1>${L.lotsT}</h1>
         <p class="lead">${L.lotsP}</p>
         <div class="recent">${open.length ? open.map(row).join("") : `<p class="fine" style="padding:12px 0">${L.lotNone}</p>`}</div>
@@ -938,7 +964,7 @@
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const me = (await api("me=1").catch(() => ({ data: {} }))).data;
       if (!me.staff) return go("login");
-      who = me;
+      who = me; showNav();
       const { status, data } = await api("lot=" + n).catch(() => ({ status: 0, data: {} }));
       if (status !== 200) { app.innerHTML = `<section><span class="k">${L.lotsT}</span><p class="msg bad">${status === 404 ? L.lotNotFound : L.lkErr}</p><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.lotsT}</a></section>`; return; }
       const ws = me.admin ? ((await api("users=1").catch(() => ({ data: {} }))).data.workshops || []) : [];
@@ -1407,7 +1433,7 @@
     if (!langOnly || !allBatches) {
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const [res, me] = await Promise.all([api("batches=1"), api("me=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
-      const { status, data } = res; who = me.data || who;
+      const { status, data } = res; who = me.data || who; showNav();
       if (status === 401) return go("login");
       if (status !== 200) { app.innerHTML = `<section><p class="msg bad">${L.lkErr}</p></section>`; return; }
       allBatches = data.batches;
@@ -1416,7 +1442,7 @@
     const monthName = m => new Date(m + "-01").toLocaleDateString(lang === "id" ? "id-ID" : "en-GB", { month: "long", year: "numeric" });
     app.innerHTML = `
       <section>
-        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap"><span class="k">${PUBLIC_HOST.toLowerCase()}</span><span style="display:flex;gap:14px">${who.admin ? `<a class="staff" href="${BASE}/admin" data-go="admin">${L.ovT}</a>` : ""}<a class="staff" href="${BASE}/factory" data-go="factory">${L.toFactory}</a></span></div>
+
         <h1>${L.abT}</h1>
         <div class="ab-tools">
           <input type="text" id="abQ" placeholder="${L.abSearch}" value="${esc(abState.q)}" aria-label="${L.abSearch}">
