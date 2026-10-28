@@ -370,7 +370,7 @@
     showNav();
     $("#banner").hidden = true;
     document.body.classList.toggle("tagmode", r.view === "tag");
-    if (r.view !== "batches" && r.view !== "admin") document.body.classList.remove("wide");
+    document.body.classList.toggle("wide", !!NAV_OF[r.view]);
     document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
     document.documentElement.lang = lang;
     if (r.view === "lookup") return viewLookup(langOnly);
@@ -495,7 +495,6 @@
       return;
     }
     who = me; showNav();
-    document.body.classList.add("wide");
     const link = adminState.link;
     app.innerHTML = `
       <section>
@@ -675,14 +674,14 @@
     if (wsList.length === 1 && !form.workshopId) form.workshopId = wsList[0].id;
     const res = form.result;
     app.innerHTML = `
+      <section class="pagehead"><h1>${L.newBatch}</h1></section>
       <section id="toFinish" hidden>
         <span class="k">${L.toFinish}</span>
         <p class="fine">${L.toFinishP}</p>
         <div class="recent" id="drafts"></div>
       </section>
       <section>
-        <span class="k">${L.newBatch}</span>
-        ${who.name ? `<p class="fine">${esc(L.loggedAs(who.name))}${who.workshop ? ` · ${esc(who.workshop)}` : ""}</p>` : ""}
+        ${who.workshop ? `<p class="fine">${esc(who.workshop)}</p>` : ""}
         <div id="fWrap" ${res ? "hidden" : ""}>
           <form class="form" id="fForm" novalidate>
             <div class="q"><span>${L.q1}</span><div class="chips">${MODELS.map(m => `<button type="button" class="chip" data-m="${esc(m)}" aria-pressed="${m === form.model}">${esc(m)}</button>`).join("")}</div></div>
@@ -1429,7 +1428,6 @@
   async function viewBatches(langOnly) {
     const L = t();
     document.title = L.abT + " · Another Life Passport";
-    document.body.classList.add("wide");
     if (!langOnly || !allBatches) {
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const [res, me] = await Promise.all([api("batches=1"), api("me=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
