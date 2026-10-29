@@ -153,14 +153,14 @@
         {
           "name": "The Side Table",
           "dimensions_cm": {
-            "length": 75,
-            "width": 75,
-            "height": 32
+            "length": 45,
+            "width": 45,
+            "height": 45
           },
           "seat_height_cm": null,
           "category": "Table",
           "url": "https://another-life.dk/the-side-table.html",
-          "description": "A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair."
+          "description": "A small square table in repurposed teak, 45 by 45 cm and 45 cm high, made to stand beside a lounger or a chair."
         },
         {
           "name": "The Coffee Table",
