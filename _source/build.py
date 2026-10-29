@@ -437,7 +437,7 @@ fieldset.field{border:0;margin:0;padding:0}
 blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px,2vw,24px)}
 .forest blockquote.say{border-color:var(--on-forest)}
 
-.renders img{aspect-ratio:1/1;object-fit:contain;background:#d9d9d9}
+.renders img{display:block;width:100%;height:auto;aspect-ratio:auto;object-fit:contain}
 /* in-use grid */
 .spaces{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,40px) clamp(16px,2vw,28px)}
 .spaces img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;background:var(--hairline)}
@@ -1080,7 +1080,7 @@ material = f'''
  <div class="prose"><p>Hardware is usually the last thing anyone thinks about. It is often the cheapest part of a piece of furniture, and the first to fail: screws rust, threads strip, and a good chair is thrown out because of a part that cost almost nothing.</p>
  <p>We turned that around. Every SATU joint is held by engineered stainless steel (SUS) bolts that screw into threaded inserts set into the wood. The bolt can be opened and closed again and again without wearing out.</p>
  <p>The three-bolt clusters you see on every piece aren't decoration. They hold everything together, and they're designed to last longer than the furniture around them.</p>
- <div class="renders" style="margin-top:28px">{duo(fig("bolt-render.png","Technical drawing of the stainless steel connector bolt, with a flat head and a long thread"),"")}</div></div>
+ <div class="renders" style="margin-top:28px">{fig("bolt-render.png","Technical drawing of the stainless steel connector bolt, with a flat head and a long thread")}</div></div>
 </div></section>
 
 <section id="sign"><div class="wrap split">
