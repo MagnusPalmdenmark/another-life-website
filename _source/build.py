@@ -48,7 +48,7 @@ BRAND = {
 }
 
 PRODUCTS = [
-  dict(slug="the-chair", name="The Chair", category="Chair", order=1, dims=(80,45,45), seat=45,
+  dict(slug="the-chair", name="The Chair", category="Chair", order=1, dims=(45,45,80), seat=45,
        img="assets/chair-rear.jpg", img_alt="The Chair from behind, showing the open backrest, the slatted seat and the bolt clusters on the back legs",
        gallery=[("chair-studio-bw.jpg","Black-and-white studio photograph of an earlier version of The Chair, showing the tapered legs and the three-bolt clusters at the seat joints"),("chair-detail-bw.jpg","Close-up of The Chair's backrest and seat frame, with the burned grain and the bolt cluster visible"),("chair-saltflat-legs.jpg","Black-and-white photograph of bare legs standing on The Chair at the edge of shallow water on a salt flat"),("chair-beach-rear.jpg","The Chair from behind on a dark sand beach at dusk, the sea and a cloudy sky beyond"),("chair-beach-side.jpg","The Chair in profile on the same beach, the three-bolt clusters catching the evening light")],
        short="A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.",
@@ -57,7 +57,7 @@ PRODUCTS = [
               "The bolts are part of the look. Three-bolt clusters at the seat and leg joints hold the frame and let it be taken apart again.",
               "Every component can be replaced on its own. A broken leg is a new leg, not a new chair."],
        pairs=["the-table","the-bench"]),
-  dict(slug="the-sun-lounger", name="The Sun Lounger", category="Lounger", order=2, dims=(32,75,211), seat=32,
+  dict(slug="the-sun-lounger", name="The Sun Lounger", category="Lounger", order=2, dims=(211,75,32), seat=None,
        img="assets/sunlounger-render.jpg", img_alt="The Sun Lounger in profile: repurposed teak with a Shou Sugi Ban finish, the slatted backrest raised on its strut and a three-bolt cluster at each end",
        gallery=[("sunlounger-side.jpg","The Sun Lounger from the side, the backrest raised on its support strut and bolt clusters at each end")],
        short="A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.",
@@ -65,28 +65,28 @@ PRODUCTS = [
        notes=["The backrest adjusts, so the same piece works for reading and for lying flat in the sun.",
               "Slats, rails and backrest are separate parts. Any one of them can be replaced without replacing the lounger."],
        pairs=["the-side-table","the-lounge-chair"]),
-  dict(slug="the-bench", name="The Bench", category="Bench", order=3, dims=(45,206,40), seat=45,
+  dict(slug="the-bench", name="The Bench", category="Bench", order=3, dims=(206,45,45), seat=None,
        img="assets/bench.jpg", img_alt="The Bench, a long slatted bench in repurposed teak with a Shou Sugi Ban finish and three-bolt clusters at each leg",
        short="A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.",
        use="Dining tables, terraces and halls",
        notes=["The slats sit in a bolted frame. Any slat or leg can be replaced on its own.",
               "At 45 cm, its seat height matches The Chair, so the two work at the same table."],
        pairs=["the-chair","the-table"]),
-  dict(slug="the-lounge-chair", name="The Lounge Chair", category="Lounge chair", order=4, dims=(78,68,60), seat=32,
+  dict(slug="the-lounge-chair", name="The Lounge Chair", category="Lounge chair", order=4, dims=(75,75,67), seat=32,
        img="assets/loungechair-studio.jpg", img_alt="The Lounge Chair from the side: a low, deep slatted seat and backrest in repurposed teak, with three-bolt clusters at the front and back legs",
        short="A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.",
        use="Lounges, lobbies and terraces",
        notes=["Same repurposed teak, same Shou Sugi Ban finish, same bolted system as The Chair.",
               "Seat and backrest are made of separate slats held in a bolted frame, so parts can be replaced."],
        pairs=["the-coffee-table","the-side-table"]),
-  dict(slug="the-side-table", name="The Side Table", category="Table", order=5, dims=(32,75,75), seat=None,
+  dict(slug="the-side-table", name="The Side Table", category="Table", order=5, dims=(75,75,32), seat=None,
        img="assets/sidetable.jpg", img_alt="The Side Table from the front: repurposed teak with a Shou Sugi Ban finish, tapered legs and a three-bolt cluster at each top corner",
        short="A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.",
        use="Poolside, terraces and lounges",
        notes=["At 32 cm high it sits level with the seats of The Sun Lounger and The Lounge Chair.",
               "Like every SATU piece, it travels flat and goes together on site."],
        pairs=["the-sun-lounger","the-lounge-chair"]),
-  dict(slug="the-coffee-table", name="The Coffee Table", category="Table", order=6, dims=(32,75,100), seat=None,
+  dict(slug="the-coffee-table", name="The Coffee Table", category="Table", order=6, dims=(100,75,32), seat=None,
        img="assets/table-studio.jpg", img_alt="A low SATU table in repurposed teak with a slatted top and a Shou Sugi Ban finish",
        short="A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.",
        use="Lounges, lobbies and terraces",
@@ -94,7 +94,7 @@ PRODUCTS = [
               "Like every SATU piece, it travels flat and goes together on site."],
        pairs=["the-lounge-chair","the-bench"]),
 ]
-PRODUCTS.append(dict(slug="the-table", name="The Table", category="Table", order=7, dims=(75,100,220), seat=None,
+PRODUCTS.append(dict(slug="the-table", name="The Table", category="Table", order=7, dims=(220,100,75), seat=None,
        img="assets/table.jpg", img_alt="The Table from the side: a long dining table in repurposed teak with a Shou Sugi Ban finish, a planked top and a three-bolt cluster at each leg",
        short="A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench.",
        use="Dining rooms and restaurants",
@@ -102,15 +102,19 @@ PRODUCTS.append(dict(slug="the-table", name="The Table", category="Table", order
               "The planked top sits in a bolted frame, with the same three-bolt clusters at each leg as every SATU piece. Any part can be replaced on its own."],
        pairs=["the-chair","the-bench"]))
 for _p in PRODUCTS: _p["construction"]="Modular and knock-down. Assembled on site"
+# dims = (length, width, height) in cm. Length is always the longest side; for the chairs, height is the back.
+# Seat height is given separately, for the chairs only.
 def dims(p):
-  h,w,l = p["dims"]; return f"H {h} / W {w} / L {l} cm"
+  l,w,h = p["dims"]; return f"L {l} × W {w} × H {h} cm"
+def dims_seat(p):
+  return dims(p) + (f" · Seat {p['seat']} cm" if p["seat"] else "")
 PBY = {p["slug"]: p for p in PRODUCTS}
 # How wide each cut-out sits in its 4:3 box (% of box width), so the pieces read at a believable size
 # next to each other: long pieces (lounger, bench, table, ~210 cm) fill the width, the chairs stand tallest,
 # the low 32 cm tables sit lower than the dining table. Gently compressed, not one-to-one.
 # The long pieces and the tables are close to one shared scale; the chairs are drawn a little larger so they
 # still read clearly. Widths refer to the trimmed cut-outs (assets/cut-*.webp, cropped to the piece).
-CUT_W = {"the-chair": 27, "the-lounge-chair": 33, "the-sun-lounger": 83, "the-bench": 80,
+CUT_W = {"the-chair": 23, "the-lounge-chair": 25, "the-sun-lounger": 83, "the-bench": 86,
          "the-side-table": 26, "the-coffee-table": 35, "the-table": 85}
 
 FAQ = [
@@ -874,7 +878,7 @@ home = f'''
 <section class="h-pieces"><div class="wrap">
  <div class="h-head"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Seven pieces, one system.</h2></div>
   <div class="h-nav"><button type="button" class="h-arrow" data-dir="-1" aria-label="Previous pieces">&#8592;</button><button type="button" class="h-arrow" data-dir="1" aria-label="Next pieces">&#8594;</button></div></div>
- <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img style="width:{CUT_W[p["slug"]]}%" src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak" loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
+ <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img style="width:{CUT_W[p["slug"]]}%" src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak" loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims_seat(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
 </div></section>
 <script>(function(){{var t=document.getElementById('h-track');if(!t)return;function sp(){{t.style.scrollPaddingInline=getComputedStyle(t).paddingLeft;}}sp();t.scrollLeft=0;window.addEventListener('resize',sp);document.querySelectorAll('.h-arrow').forEach(function(b){{b.addEventListener('click',function(){{t.scrollBy({{left:(+b.dataset.dir)*t.clientWidth*0.8,behavior:'smooth'}});}});}});}})();</script>
 
@@ -905,7 +909,7 @@ coll = f'''
  <p class="pull" style="margin-top:24px;max-width:46ch">Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p>
 </div></section>
 <section class="c-grid-sec" style="padding-top:0;border-top:0"><div class="wrap">
- <div class="c-grid">{"".join(f'<a class="c-piece" href="{p["slug"]}.html"><span class="c-img"><img style="width:{CUT_W[p["slug"]]}%" src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak with a Shou Sugi Ban finish" loading="{"eager" if p["order"]<4 else "lazy"}"></span><span class="c-n">{p["order"]:02d}</span><span class="c-name disp">{p["name"]}</span><span class="c-use">{e(p["use"])}</span><span class="c-dim">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+ <div class="c-grid">{"".join(f'<a class="c-piece" href="{p["slug"]}.html"><span class="c-img"><img style="width:{CUT_W[p["slug"]]}%" src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak with a Shou Sugi Ban finish" loading="{"eager" if p["order"]<4 else "lazy"}"></span><span class="c-n">{p["order"]:02d}</span><span class="c-name disp">{p["name"]}</span><span class="c-use">{e(p["use"])}</span><span class="c-dim">{dims_seat(p)}</span></a>' for p in PRODUCTS)}</div>
 </div></section>
 {bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up")}
 <section><div class="wrap split">
@@ -965,7 +969,7 @@ for p in PRODUCTS:
 </div></section>'''
   ld = [breadcrumb([("index.html","Home"),("collection.html","SATU"),(p["slug"]+".html",p["name"])]),
         {"@type":"Product","name":f'{p["name"]} — Another Life',"url":url(p["slug"]+".html"),
-         "height":{"@type":"QuantitativeValue","value":p["dims"][0],"unitCode":"CMT"},"width":{"@type":"QuantitativeValue","value":p["dims"][1],"unitCode":"CMT"},"depth":{"@type":"QuantitativeValue","value":p["dims"][2],"unitCode":"CMT"},
+         "height":{"@type":"QuantitativeValue","value":p["dims"][2],"unitCode":"CMT"},"width":{"@type":"QuantitativeValue","value":p["dims"][0],"unitCode":"CMT"},"depth":{"@type":"QuantitativeValue","value":p["dims"][1],"unitCode":"CMT"},
          "description":p["short"],"category":f'Hospitality furniture > {p["category"]}',
          "brand":{"@type":"Brand","name":"Another Life"},"manufacturer":{"@id":url("index.html")+"#org"},
          "material":"Repurposed teak","color":"Black (Shou Sugi Ban)","countryOfOrigin":"ID",
@@ -1383,7 +1387,7 @@ brand_json = {
   "traceability":{"name":"Another Life Passport","status":"Live","url":"https://id.another-life.dk","description":"A QR tracing system that tells the story of each piece: origin, making, journey, care and repair","intended_questions":PASSPORT_Q},
   "circular_services_in_development":["Replacement parts","Refinishing","Reconfiguration","Refurbishment","Take-back"],
   "taglines":BRAND["slogans"],
-  "collections":[{"name":"SATU","meaning":"Indonesian for 'one'","products":[{"name":p["name"],"dimensions_cm":{"height":p["dims"][0],"width":p["dims"][1],"length":p["dims"][2]},"seat_height_cm":p["seat"],"category":p["category"],"url":url(p["slug"]+".html"),"description":p["short"]} for p in PRODUCTS]}],
+  "collections":[{"name":"SATU","meaning":"Indonesian for 'one'","products":[{"name":p["name"],"dimensions_cm":{"length":p["dims"][0],"width":p["dims"][1],"height":p["dims"][2]},"seat_height_cm":p["seat"],"category":p["category"],"url":url(p["slug"]+".html"),"description":p["short"]} for p in PRODUCTS]}],
   "glossary":{a:b for a,b in GLOSSARY},
   "images":[{"url":url("assets/"+src),"caption":cap} for src,lbl,cap in SPACES],
   "contact":{"enquiry":url("contact.html"),"channels":["WhatsApp","Email"]},

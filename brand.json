@@ -105,9 +105,9 @@
         {
           "name": "The Chair",
           "dimensions_cm": {
-            "height": 80,
+            "length": 45,
             "width": 45,
-            "length": 45
+            "height": 80
           },
           "seat_height_cm": 45,
           "category": "Chair",
@@ -117,11 +117,11 @@
         {
           "name": "The Sun Lounger",
           "dimensions_cm": {
-            "height": 32,
+            "length": 211,
             "width": 75,
-            "length": 211
+            "height": 32
           },
-          "seat_height_cm": 32,
+          "seat_height_cm": null,
           "category": "Lounger",
           "url": "https://another-life.dk/the-sun-lounger.html",
           "description": "A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site."
@@ -129,11 +129,11 @@
         {
           "name": "The Bench",
           "dimensions_cm": {
-            "height": 45,
-            "width": 206,
-            "length": 40
+            "length": 206,
+            "width": 45,
+            "height": 45
           },
-          "seat_height_cm": 45,
+          "seat_height_cm": null,
           "category": "Bench",
           "url": "https://another-life.dk/the-bench.html",
           "description": "A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair."
@@ -141,9 +141,9 @@
         {
           "name": "The Lounge Chair",
           "dimensions_cm": {
-            "height": 78,
-            "width": 68,
-            "length": 60
+            "length": 75,
+            "width": 75,
+            "height": 67
           },
           "seat_height_cm": 32,
           "category": "Lounge chair",
@@ -153,9 +153,9 @@
         {
           "name": "The Side Table",
           "dimensions_cm": {
-            "height": 32,
+            "length": 75,
             "width": 75,
-            "length": 75
+            "height": 32
           },
           "seat_height_cm": null,
           "category": "Table",
@@ -165,9 +165,9 @@
         {
           "name": "The Coffee Table",
           "dimensions_cm": {
-            "height": 32,
+            "length": 100,
             "width": 75,
-            "length": 100
+            "height": 32
           },
           "seat_height_cm": null,
           "category": "Table",
@@ -177,9 +177,9 @@
         {
           "name": "The Table",
           "dimensions_cm": {
-            "height": 75,
+            "length": 220,
             "width": 100,
-            "length": 220
+            "height": 75
           },
           "seat_height_cm": null,
           "category": "Table",
