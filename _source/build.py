@@ -79,18 +79,18 @@ PRODUCTS = [
        notes=["Same repurposed teak, same Shou Sugi Ban finish, same bolted system as The Chair.",
               "Seat and backrest are made of separate slats held in a bolted frame, so parts can be replaced."],
        pairs=["the-coffee-table","the-side-table"]),
-  dict(slug="the-side-table", name="The Side Table", category="Table", order=5, dims=(75,75,32), seat=None,
+  dict(slug="the-side-table", name="The Side Table", category="Table", order=5, dims=(45,45,45), seat=None,
        img="assets/sidetable.jpg", img_alt="The Side Table from the front: repurposed teak with a Shou Sugi Ban finish, tapered legs and a three-bolt cluster at each top corner",
-       short="A low square table in repurposed teak, 75 by 75 cm, at the same height as the seats of the loungers and The Lounge Chair.",
+       short="A small square table in repurposed teak, 45 by 45 cm and 45 cm high, made to stand beside a lounger or a chair.",
        use="Poolside, terraces and lounges",
-       notes=["At 32 cm high it sits level with the seats of The Sun Lounger and The Lounge Chair.",
+       notes=["Small enough to stand beside The Sun Lounger or The Lounge Chair, for a drink or a book.",
               "Like every SATU piece, it travels flat and goes together on site."],
        pairs=["the-sun-lounger","the-lounge-chair"]),
   dict(slug="the-coffee-table", name="The Coffee Table", category="Table", order=6, dims=(100,75,32), seat=None,
        img="assets/table-studio.jpg", img_alt="A low SATU table in repurposed teak with a slatted top and a Shou Sugi Ban finish",
        short="A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.",
        use="Lounges, lobbies and terraces",
-       notes=["The longer partner to The Side Table, at the same 32 cm height.",
+       notes=["At 32 cm high, it sits level with the seats of The Sun Lounger and The Lounge Chair.",
               "Like every SATU piece, it travels flat and goes together on site."],
        pairs=["the-lounge-chair","the-bench"]),
 ]
@@ -115,7 +115,7 @@ PBY = {p["slug"]: p for p in PRODUCTS}
 # The long pieces and the tables are close to one shared scale; the chairs are drawn a little larger so they
 # still read clearly. Widths refer to the trimmed cut-outs (assets/cut-*.webp, cropped to the piece).
 CUT_W = {"the-chair": 23, "the-lounge-chair": 25, "the-sun-lounger": 83, "the-bench": 86,
-         "the-side-table": 26, "the-coffee-table": 35, "the-table": 85}
+         "the-side-table": 27, "the-coffee-table": 35, "the-table": 85}
 
 FAQ = [
   ("What is Another Life?", "Another Life is a hospitality furniture brand. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
