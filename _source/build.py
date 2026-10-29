@@ -105,6 +105,13 @@ for _p in PRODUCTS: _p["construction"]="Modular and knock-down. Assembled on sit
 def dims(p):
   h,w,l = p["dims"]; return f"H {h} / W {w} / L {l} cm"
 PBY = {p["slug"]: p for p in PRODUCTS}
+# How wide each cut-out sits in its 4:3 box (% of box width), so the pieces read at a believable size
+# next to each other: long pieces (lounger, bench, table, ~210 cm) fill the width, the chairs stand tallest,
+# the low 32 cm tables sit lower than the dining table. Gently compressed, not one-to-one.
+# The long pieces and the tables are close to one shared scale; the chairs are drawn a little larger so they
+# still read clearly. Widths refer to the trimmed cut-outs (assets/cut-*.webp, cropped to the piece).
+CUT_W = {"the-chair": 27, "the-lounge-chair": 33, "the-sun-lounger": 83, "the-bench": 80,
+         "the-side-table": 26, "the-coffee-table": 35, "the-table": 85}
 
 FAQ = [
   ("What is Another Life?", "Another Life is a hospitality furniture brand. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
@@ -182,8 +189,8 @@ CSS = """
 .c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(36px,5vw,64px) clamp(16px,3vw,40px)}
 @media (min-width:900px){.c-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .c-piece{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;text-decoration:none;color:inherit;align-content:start}
-.c-img{grid-column:1/-1;display:block;aspect-ratio:4/3;margin-bottom:14px}
-.c-img img{width:86%;height:86%;margin:7% auto 0;object-fit:contain;object-position:center bottom;display:block}
+.c-img{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:center;aspect-ratio:4/3;margin-bottom:14px;padding-bottom:4%}
+.c-img img{width:86%;height:auto;max-height:90%;object-fit:contain;display:block}
 .c-n{font:500 11px/26px var(--mono);color:var(--ink-muted)}
 .c-name{font-size:clamp(22px,2.4vw,30px);line-height:1.05}
 .c-use,.c-dim{grid-column:2;font:400 12px/18px var(--mono);color:var(--ink-muted)}
@@ -194,8 +201,8 @@ CSS = """
 .h-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(28px,4vw,56px) clamp(16px,3vw,40px)}
 @media (min-width:900px){.h-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .h-piece{display:grid;gap:12px;align-content:start;text-decoration:none;color:inherit}
-.h-img{display:block;aspect-ratio:4/3}
-.h-img img{width:86%;height:86%;margin:7% auto 0;object-fit:contain;object-position:center bottom;display:block}
+.h-img{display:flex;align-items:flex-end;justify-content:center;aspect-ratio:4/3;padding-bottom:4%}
+.h-img img{width:86%;height:auto;max-height:90%;object-fit:contain;display:block}
 .h-name{font:500 12px/16px var(--mono);letter-spacing:.08em;text-transform:uppercase}
 .h-piece:hover .h-name{text-decoration:underline;text-underline-offset:4px}
 .h-door-grid{display:grid;gap:clamp(28px,4vw,40px)}
@@ -867,7 +874,7 @@ home = f'''
 <section class="h-pieces"><div class="wrap">
  <div class="h-head"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Seven pieces, one system.</h2></div>
   <div class="h-nav"><button type="button" class="h-arrow" data-dir="-1" aria-label="Previous pieces">&#8592;</button><button type="button" class="h-arrow" data-dir="1" aria-label="Next pieces">&#8594;</button></div></div>
- <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak" loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
+ <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img style="width:{CUT_W[p["slug"]]}%" src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak" loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
 </div></section>
 <script>(function(){{var t=document.getElementById('h-track');if(!t)return;function sp(){{t.style.scrollPaddingInline=getComputedStyle(t).paddingLeft;}}sp();t.scrollLeft=0;window.addEventListener('resize',sp);document.querySelectorAll('.h-arrow').forEach(function(b){{b.addEventListener('click',function(){{t.scrollBy({{left:(+b.dataset.dir)*t.clientWidth*0.8,behavior:'smooth'}});}});}});}})();</script>
 
@@ -898,7 +905,7 @@ coll = f'''
  <p class="pull" style="margin-top:24px;max-width:46ch">Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.</p>
 </div></section>
 <section class="c-grid-sec" style="padding-top:0;border-top:0"><div class="wrap">
- <div class="c-grid">{"".join(f'<a class="c-piece" href="{p["slug"]}.html"><span class="c-img"><img src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak with a Shou Sugi Ban finish" loading="{"eager" if p["order"]<4 else "lazy"}"></span><span class="c-n">{p["order"]:02d}</span><span class="c-name disp">{p["name"]}</span><span class="c-use">{e(p["use"])}</span><span class="c-dim">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
+ <div class="c-grid">{"".join(f'<a class="c-piece" href="{p["slug"]}.html"><span class="c-img"><img style="width:{CUT_W[p["slug"]]}%" src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak with a Shou Sugi Ban finish" loading="{"eager" if p["order"]<4 else "lazy"}"></span><span class="c-n">{p["order"]:02d}</span><span class="c-name disp">{p["name"]}</span><span class="c-use">{e(p["use"])}</span><span class="c-dim">{dims(p)}</span></a>' for p in PRODUCTS)}</div>
 </div></section>
 {bleed("chair-light.jpg","The Chair in a beam of window light, dust in the air and the grain of the seat lit up")}
 <section><div class="wrap split">
