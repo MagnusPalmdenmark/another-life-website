@@ -24,9 +24,11 @@ async function qrSvg(code) {
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size + 6}" shape-rendering="crispEdges"><rect width="${size}" height="${size + 6}" fill="#fff"/><path d="${d}" fill="#000"/>${text}</svg>`;
 }
 
-// Engraving plate: the layout from plate-data.mjs plus this batch's QR (no quiet zone; the plate is the margin)
-// and its code, vertical, reading bottom to top beside the QR. Units are millimetres.
-async function plateSvg(code) {
+// Engraving plate (100 x 45 mm steel plate): the layout from plate-data.mjs plus this batch's QR (no quiet zone;
+// the plate is the margin) and its code under "Scan to discover my story". Units are millimetres.
+// The download is engraving only (black). With guide=true (the on-screen preview) the plate outline and the
+// four screw holes are drawn in light grey so the layout can be checked; they are never in the engraving file.
+async function plateSvg(code, guide = false) {
   const [{ default: qrcode }, { default: P }] = await Promise.all([import("../qrcode.cjs"), import("../plate-data.mjs")]);
   const f = n => (Math.round(n * 1000) / 1000).toString();
   const q = qrcode(0, "Q"); q.addData(`HTTPS://${QR_HOST}/${code}`, "Alphanumeric"); q.make();
@@ -40,16 +42,14 @@ async function plateSvg(code) {
       c = e;
     }
   }
-  const C = P.code, chars = [...code].filter(ch => C.glyphs[ch] !== undefined);
-  const xs = ch => (C.glyphs[ch].match(/-?\d+(\.\d+)?/g) || []).map(Number).filter((v, i) => i % 2 === 0);
-  const first = xs(chars[0]), last = xs(chars[chars.length - 1]);
-  const lo = first.length ? Math.min(...first) : 0, hi = (chars.length - 1) * C.adv + (last.length ? Math.max(...last) : C.adv);
-  const start = C.cy + (lo + hi) / 2;
-  let cd = "";
-  chars.forEach((ch, i) => {
-    cd += C.glyphs[ch].replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, (_, x, y) => `${f(C.bx - Number(y))} ${f(start - (i * C.adv + Number(x)))}`);
+  const C = P.code; let cd = "";
+  [...code].filter(ch => C.glyphs[ch] !== undefined).forEach((ch, i) => {
+    cd += C.glyphs[ch].replace(/(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g, (_, x, y) => `${f(C.x + i * C.adv + Number(x))} ${f(C.baseline + Number(y))}`);
   });
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${P.w}mm" height="${P.h}mm" viewBox="0 0 ${P.w} ${P.h}"><title>Another Life ${code}</title><path fill="#000" fill-rule="evenodd" d="${P.logo}"/><path fill="#000" fill-rule="nonzero" d="${P.static}${qd}${cd}"/></svg>`;
+  const G = P.guide;
+  const guides = guide ? `<rect x="0.1" y="0.1" width="${P.w - 0.2}" height="${P.h - 0.2}" rx="${G.r}" fill="none" stroke="#c9c9c9" stroke-width="0.2"/>` +
+    G.holes.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="${G.hole / 2}" fill="none" stroke="#c9c9c9" stroke-width="0.2"/>`).join("") : "";
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${P.w}mm" height="${P.h}mm" viewBox="0 0 ${P.w} ${P.h}"><title>Another Life ${code}</title>${guides}<path fill="#000" fill-rule="evenodd" d="${P.logo}"/><path fill="#000" fill-rule="nonzero" d="${P.static}${qd}${cd}"/></svg>`;
 }
 
 const json = (data, status = 200) =>
@@ -204,10 +204,10 @@ export default async (req, context) => {
       return new Response(await qrSvg(p.code), { headers: { "content-type": "image/svg+xml", "content-disposition": `inline; filename="${p.code}.svg"`, "cache-control": "public, max-age=31536000, immutable" } });
     }
     if (url.searchParams.has("plate")) {
-      // The engraving file: 150 x 55 mm plate layout, all text as outlines, transparent background.
+      // The engraving file: 100 x 45 mm steel plate layout, all text as outlines, transparent background.
       const p = parseCode(url.searchParams.get("plate"));
       if (p.error) return json({ error: p.error }, 400);
-      const svg = await plateSvg(p.code);
+      const svg = await plateSvg(p.code, url.searchParams.has("view"));
       const disp = url.searchParams.has("view") ? "inline" : "attachment";
       // File name with product and date, e.g. Sun-Lounger_AL-2610-976-B_2026-10-27_engrave.svg
       const b = await db.get(`batch/${p.code}`, { type: "json" });
