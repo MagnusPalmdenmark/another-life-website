@@ -332,6 +332,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .motion .name-lines .nl{opacity:0;transform:translateY(48px);filter:blur(4px);transition:opacity 1.4s ease,transform 1.6s cubic-bezier(.2,.7,.2,1),filter 1.4s ease}
 .motion .name-lines .nl.in{opacity:1;transform:none;filter:none}
 .sign-img{width:min(100%,360px);height:auto;display:block}
+@media (max-width:640px){.sign-img{width:min(60%,240px)}}
 .dots3{width:clamp(56px,6vw,76px);height:auto;display:block;margin-bottom:24px;overflow:visible}
 .dots3 circle{fill:var(--ink);opacity:.22;transition:opacity .5s ease,transform .5s ease;transform-box:fill-box;transform-origin:center}
 .dots3 circle.on{opacity:1;transform:scale(1.12)}
@@ -550,7 +551,7 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
  <span class="label eyebrow">Material and making</span>
  <h1 class="disp">Timber that already lived once.</h1>
  <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, how we burn and oil it, and how every piece is built.</p>
- <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#sign">The sign</a> · <a href="#air">Shipping</a></p></nav></div>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#air">Shipping</a></p></nav></div>
  
 </div></section>
 
@@ -609,17 +610,14 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 <section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="assets/workshop-sunlight.jpg" alt="A maker in a red T-shirt sitting on a teak stool at a pillar drill, surrounded by stacks of repurposed teak boards with old holes, sawdust in the afternoon light" width="1086" height="1448" loading=lazy></div><p class="cap" style="margin-top:12px">Stacks of repurposed teak, drilled one board at a time.</p></div></section>
 
 <section id="hardware"><div class="wrap split">
- <div><span class="label eyebrow muted">The hardware</span><h2 class="disp">Bolts built to outlive the chair.</h2></div>
+ <div><span class="label eyebrow muted">The hardware</span><h2 class="disp">Bolts built to outlive the chair.</h2>
+  <div class="lead-img" id="sign"><img class="sign-img" src="assets/three-bolts-cycle.png" alt="Drawing of three dots joined in a circle by three arrows, the same layout as the three-bolt cluster on every piece" width="900" height="900" loading="lazy">
+  <p class="label muted" style="margin-top:14px">Three dots. One circle.</p></div></div>
  <div class="prose"><p>Hardware is usually the last thing anyone thinks about. It is often the cheapest part of a piece of furniture, and the first to fail: screws rust, threads strip, and a good chair is thrown out because of a part that cost almost nothing.</p>
  <p>We turned that around. Every SATU joint is held by engineered stainless steel (SUS) bolts that screw into threaded inserts set into the wood. The bolt can be opened and closed again and again without wearing out.</p>
  <p>The three-bolt clusters you see on every piece aren't decoration. They hold everything together, and they're designed to last longer than the furniture around them.</p>
+ <p>They also carry the idea behind the name. Each bolt stands for a life the piece can have, and together they form the letter A, for ANOTHER — LIFE.</p>
  <div class="renders" style="margin-top:28px"><figure class="fig"><img src="assets/bolt-render.png" alt="Technical drawing of the stainless steel connector bolt, with a flat head and a long thread" width="721" height="384" loading="lazy"></figure></div></div>
-</div></section>
-
-<section id="sign"><div class="wrap split">
- <div><span class="label eyebrow muted">The sign in the bolts</span><h2 class="disp">Three dots. One circle.</h2>
-  <div class="lead-img"><img class="sign-img" src="assets/three-bolts-cycle.png" alt="Drawing of three dots joined in a circle by three arrows, the same layout as the three-bolt cluster on every piece" width="900" height="900" loading="lazy"></div></div>
- <div><p class="prose" style="margin:0 0 24px">Look closely at any SATU joint and you'll find three bolts. They hold the piece together, and they also carry the idea behind the name. Each bolt stands for a life the piece can have, and together they form the letter A, for ANOTHER — LIFE.</p></div>
 </div></section>
 
 <section id="air"><div class="wrap">
