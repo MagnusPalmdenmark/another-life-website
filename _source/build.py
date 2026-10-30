@@ -553,6 +553,15 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .how-try{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px clamp(24px,5vw,72px);align-items:end;margin-top:clamp(36px,5vw,64px);padding-top:28px;border-top:1px solid var(--ink)}
 .how-try h3{font-size:clamp(24px,3vw,36px);line-height:1;margin:0}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.ck{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);border-top:1px solid var(--ink);padding:16px 0 calc(16px + env(safe-area-inset-bottom,0px))}
+.ck[hidden]{display:none}
+.ck-in{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.ck p{margin:0;font-size:13px;line-height:20px;max-width:640px}
+.ck p a{color:inherit}
+.ck-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:none}
+.ck-btns .btn{justify-content:center;min-width:120px}
+@media (max-width:640px){.ck-in{flex-direction:column;align-items:stretch;gap:12px}.ck-btns .btn{min-width:0}}
+@media print{.ck{display:none!important}}
 @media (max-width:820px){
  .how-grid{grid-template-columns:minmax(0,1fr)}
  .how-stage{display:none}
@@ -669,6 +678,7 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 {body}
 </main>
 {FOOTER}
+{CONSENT}
 {CF_ANALYTICS}
 {DOTS_JS}
 {OBF_JS}
@@ -681,7 +691,7 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 
 FOOTER = f'''<footer><div class="wrap">
 <div class="foot">
- <ul class="foot-links"><li><a href="collection.html">Collection</a></li><li><a href="passport.html">Passport</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html" data-obf="{E_WAD}" data-t="wa">WhatsApp</a></li></ul>
+ <ul class="foot-links"><li><a href="collection.html">Collection</a></li><li><a href="passport.html">Passport</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html" data-obf="{E_WAD}" data-t="wa">WhatsApp</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="#" data-ck-open>Cookie settings</a></li></ul>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>'''
@@ -736,6 +746,29 @@ KEY_FACTS = [
 # ------------------------------------------------------------------ pages
 FILM_JS = "<script>\n(function(){\n var ov=document.getElementById('film-ov'),v=document.getElementById('film-full'),o=document.getElementById('film-open'),c=document.getElementById('film-close');\n function open(){ov.hidden=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});c.focus();}\n function close(){v.pause();ov.hidden=true;o.focus();}\n o.addEventListener('click',open);c.addEventListener('click',close);\n ov.addEventListener('click',function(e){if(e.target===ov)close();});\n document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});\n v.addEventListener('ended',close);\n})();\n</script>"
 pages = {}
+
+# Cookie banner. Google Analytics (G-TXE3T5Z1W4) loads only after "Accept"; "No thanks" is just as easy.
+# The choice is one cookie (al_consent) shared with id.another-life.dk, kept for 6 months.
+# Cloudflare Web Analytics below sets no cookies and needs no consent.
+CONSENT = """<div class="ck" id="ck" role="dialog" aria-label="Cookies" hidden><div class="wrap ck-in">
+<p>May we use Google Analytics cookies to see how the site is used? Only if you say yes. <a href="privacy.html">Privacy</a></p>
+<div class="ck-btns"><button type="button" class="btn ghost" data-ck="denied">No thanks</button><button type="button" class="btn ghost" data-ck="granted">Accept</button></div>
+</div></div>
+<script>
+(function(){
+ var GA='G-TXE3T5Z1W4', b=document.getElementById('ck');
+ function get(){var m=document.cookie.match(/(?:^|; )al_consent=(granted|denied)/);return m?m[1]:null;}
+ function save(v){var d=/(^|\.)another-life\.dk$/.test(location.hostname)?';domain=.another-life.dk':'';
+  document.cookie='al_consent='+v+';path=/;max-age=15552000;SameSite=Lax'+(location.protocol==='https:'?';Secure':'')+d;}
+ function load(){if(window.__alGa)return;window.__alGa=1;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(s);
+  window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',GA);}
+ function clear(){document.cookie.split('; ').forEach(function(c){var n=c.split('=')[0];if(/^_ga/.test(n)){['',';domain=.another-life.dk',';domain='+location.hostname].forEach(function(d){document.cookie=n+'=;path=/;max-age=0'+d;});}});}
+ b.addEventListener('click',function(e){var v=e.target.getAttribute&&e.target.getAttribute('data-ck');if(!v)return;save(v);b.hidden=true;
+  if(v==='granted')load();else{clear();if(window.__alGa)location.reload();}});
+ document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-ck-open]')){e.preventDefault();b.hidden=false;}});
+ var c=get(); if(c==='granted')load(); else if(!c) b.hidden=false;
+})();
+</script>"""
 
 CF_ANALYTICS = """<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2bde136b23f84ce3be21365d0d57673f"}'></script><!-- End Cloudflare Web Analytics -->"""
 
@@ -1319,6 +1352,29 @@ contact = f'''
 }})();
 </script>
 '''
+privacy_body = f'''
+<section class="page-head"><div class="wrap">
+ <span class="label eyebrow">Privacy</span>
+ <h1 class="disp">What we measure, and what we don't.</h1>
+</div></section>
+<section style="padding-top:0;border-top:0"><div class="wrap"><div class="prose" style="max-width:760px">
+ <h2 class="disp" style="font-size:28px">Visitor statistics without cookies</h2>
+ <p>We use Cloudflare Web Analytics to count visits to another-life.dk: which pages are read, roughly where visitors come from, and how fast the pages load. It sets no cookies and does not follow you from site to site.</p>
+ <h2 class="disp" style="font-size:28px">Google Analytics, only if you say yes</h2>
+ <p>If you click Accept in the cookie banner, we also use Google Analytics (Google Ireland Ltd.) on another-life.dk and on the passport pages at id.another-life.dk. It sets cookies (names starting with _ga) to tell visits apart, and helps us see how the site and the furniture passports are used, for example which products are looked at and which passports are opened. Google may process this data in the United States under the EU-US Data Privacy Framework.</p>
+ <p>If you click No thanks, Google Analytics is never loaded. You can change your choice at any time under <a href="#" data-ck-open>Cookie settings</a>.</p>
+ <p>Your choice is kept in one cookie, al_consent, for six months, so we don't ask again on every page.</p>
+ <h2 class="disp" style="font-size:28px">Passport scans</h2>
+ <p>When a furniture passport is opened, we add one to a simple counter for that batch. Nothing about you is stored with it: no cookie, no IP address.</p>
+ <h2 class="disp" style="font-size:28px">Enquiries</h2>
+ <p>The enquiry form on the contact page does not send anything to us by itself. It writes your message so you can send it yourself by WhatsApp or email, and we only receive what you send.</p>
+ <h2 class="disp" style="font-size:28px">Questions</h2>
+ <p>Write to us through the <a href="contact.html">contact page</a> if you want to know what we hold about you or want it deleted.</p>
+</div></div></section>
+'''
+pages["privacy.html"] = ("Privacy", "How Another Life measures visits to its website and passport pages: Cloudflare Web Analytics without cookies, and Google Analytics only with your consent.", privacy_body,
+  [breadcrumb([("index.html","Home"),("privacy.html","Privacy")])])
+
 pages["contact.html"] = ("Contact Another Life", "Enquire about Another Life furniture for your hotel, resort, restaurant or café. Send us your project on WhatsApp or by email.", contact,
   [breadcrumb([("index.html","Home"),("contact.html","Contact")]),
    {"@type":"ContactPage","url":url("contact.html"),"about":{"@id":url("index.html")+"#org"}}])
