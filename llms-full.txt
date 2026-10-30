@@ -535,7 +535,7 @@ Visitor statistics without cookies
 We use Cloudflare Web Analytics to count visits to another-life.dk: which pages are read, roughly where visitors come from, and how fast the pages load. It sets no cookies and does not follow you from site to site.
 Google Analytics, only if you say yes
 If you click Accept in the cookie banner, we also use Google Analytics (Google Ireland Ltd.) on another-life.dk and on the passport pages at id.another-life.dk. It sets cookies (names starting with _ga) to tell visits apart, and helps us see how the site and the furniture passports are used, for example which products are looked at and which passports are opened. Google may process this data in the United States under the EU-US Data Privacy Framework.
-If you click No thanks, Google Analytics is never loaded. You can change your choice at any time under Cookie settings.
+If you click Decline, Google Analytics is never loaded. You can change your choice at any time under Cookie settings.
 Your choice is kept in one cookie, al_consent, for six months, so we don't ask again on every page.
 Passport scans
 When a furniture passport is opened, we add one to a simple counter for that batch. Nothing about you is stored with it: no cookie, no IP address.

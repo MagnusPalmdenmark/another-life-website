@@ -557,6 +557,7 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .ck[hidden]{display:none}
 .ck-in{display:flex;align-items:center;justify-content:space-between;gap:20px}
 .ck p{margin:0;font-size:13px;line-height:20px;max-width:640px}
+.ck p b{font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:11px}
 .ck p a{color:inherit}
 .ck-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:none}
 .ck-btns .btn{justify-content:center;min-width:120px}
@@ -747,12 +748,12 @@ KEY_FACTS = [
 FILM_JS = "<script>\n(function(){\n var ov=document.getElementById('film-ov'),v=document.getElementById('film-full'),o=document.getElementById('film-open'),c=document.getElementById('film-close');\n function open(){ov.hidden=false;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});c.focus();}\n function close(){v.pause();ov.hidden=true;o.focus();}\n o.addEventListener('click',open);c.addEventListener('click',close);\n ov.addEventListener('click',function(e){if(e.target===ov)close();});\n document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ov.hidden)close();});\n v.addEventListener('ended',close);\n})();\n</script>"
 pages = {}
 
-# Cookie banner. Google Analytics (G-TXE3T5Z1W4) loads only after "Accept"; "No thanks" is just as easy.
+# Cookie banner. Google Analytics (G-TXE3T5Z1W4) loads only after "Accept"; "Decline" is just as easy.
 # The choice is one cookie (al_consent) shared with id.another-life.dk, kept for 6 months.
 # Cloudflare Web Analytics below sets no cookies and needs no consent.
 CONSENT = """<div class="ck" id="ck" role="dialog" aria-label="Cookies" hidden><div class="wrap ck-in">
-<p>May we use Google Analytics cookies to see how the site is used? Only if you say yes. <a href="privacy.html">Privacy</a></p>
-<div class="ck-btns"><button type="button" class="btn ghost" data-ck="denied">No thanks</button><button type="button" class="btn ghost" data-ck="granted">Accept</button></div>
+<p><b>We respect your privacy</b><br>This website uses cookies to give you the best experience. <a href="privacy.html">Learn more</a></p>
+<div class="ck-btns"><button type="button" class="btn ghost" data-ck="denied">Decline</button><button type="button" class="btn ghost" data-ck="granted">Accept</button></div>
 </div></div>
 <script>
 (function(){
@@ -1362,7 +1363,7 @@ privacy_body = f'''
  <p>We use Cloudflare Web Analytics to count visits to another-life.dk: which pages are read, roughly where visitors come from, and how fast the pages load. It sets no cookies and does not follow you from site to site.</p>
  <h2 class="disp" style="font-size:28px">Google Analytics, only if you say yes</h2>
  <p>If you click Accept in the cookie banner, we also use Google Analytics (Google Ireland Ltd.) on another-life.dk and on the passport pages at id.another-life.dk. It sets cookies (names starting with _ga) to tell visits apart, and helps us see how the site and the furniture passports are used, for example which products are looked at and which passports are opened. Google may process this data in the United States under the EU-US Data Privacy Framework.</p>
- <p>If you click No thanks, Google Analytics is never loaded. You can change your choice at any time under <a href="#" data-ck-open>Cookie settings</a>.</p>
+ <p>If you click Decline, Google Analytics is never loaded. You can change your choice at any time under <a href="#" data-ck-open>Cookie settings</a>.</p>
  <p>Your choice is kept in one cookie, al_consent, for six months, so we don't ask again on every page.</p>
  <h2 class="disp" style="font-size:28px">Passport scans</h2>
  <p>When a furniture passport is opened, we add one to a simple counter for that batch. Nothing about you is stored with it: no cookie, no IP address.</p>

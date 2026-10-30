@@ -91,7 +91,7 @@
       rpNeed: "Tick at least one box or add a photo.", rpErr: "Couldn't send. Check the connection and try again.", rpBig: "That photo is too large. Try another one.",
       rpThanks: "Thank you so much for reporting.", rpThanksP: "We've received it and will take a look. It helps this piece keep going, and keeps its story right.", rpBack: "Back to the passport",
       another: "Look up another code", site: "Visit another-life.dk", loading: "Loading…",
-      ckText: "May we use Google Analytics cookies to see how passports are used? Only if you say yes.", ckYes: "Accept", ckNo: "No thanks", ckMore: "Privacy", ckSet: "Cookie settings",
+      ckHead: "We respect your privacy", ckText: "This website uses cookies to give you the best experience.", ckYes: "Accept", ckNo: "Decline", ckMore: "Learn more", ckSet: "Cookie settings",
       stScans: "Passport scans", stScansP: "Times a passport was opened by visitors. Staff are not counted.",
       // overview, workshops, drafts
       ovT: "Overview", stB: "Batches", stP: "Pieces", stD: "Waiting for details",
@@ -210,7 +210,7 @@
       rpNeed: "Centang minimal satu kotak atau tambahkan foto.", rpErr: "Gagal mengirim. Periksa koneksi dan coba lagi.", rpBig: "Foto itu terlalu besar. Coba foto lain.",
       rpThanks: "Terima kasih banyak atas laporannya.", rpThanksP: "Laporan sudah kami terima dan akan kami periksa. Ini membantu produk ini terus dipakai, dan kisahnya tetap benar.", rpBack: "Kembali ke paspor",
       another: "Cari kode lain", site: "Kunjungi another-life.dk", loading: "Memuat…",
-      ckText: "Bolehkah kami memakai cookie Google Analytics untuk melihat bagaimana paspor digunakan? Hanya jika Anda setuju.", ckYes: "Setuju", ckNo: "Tidak", ckMore: "Privasi", ckSet: "Pengaturan cookie",
+      ckHead: "Kami menghormati privasi Anda", ckText: "Situs ini memakai cookie agar Anda mendapat pengalaman terbaik.", ckYes: "Setuju", ckNo: "Tolak", ckMore: "Selengkapnya", ckSet: "Pengaturan cookie",
       stScans: "Paspor dipindai", stScansP: "Berapa kali paspor dibuka oleh pengunjung. Staf tidak dihitung.",
       ovT: "Ringkasan", stB: "Batch", stP: "Produk", stD: "Menunggu detail",
       drT: "Menunggu detail", drP: "Kode-kode ini sudah dibuat dan bisa digrafir. Bengkel masih perlu mengisi asal kayunya.",
@@ -411,7 +411,7 @@
     if (!show) { if (el) el.hidden = true; return; }
     const L = t();
     if (!el) { el = document.createElement("div"); el.id = "ck"; el.className = "ck"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Cookies"); document.body.appendChild(el); }
-    el.innerHTML = `<div class="wrap ck-in"><p>${L.ckText} <a href="${SITE}/privacy.html">${L.ckMore}</a></p>
+    el.innerHTML = `<div class="wrap ck-in"><p><b>${L.ckHead}</b><br>${L.ckText} <a href="${SITE}/privacy.html">${L.ckMore}</a></p>
       <div class="ck-btns"><button type="button" class="btn ghost" data-ck="denied">${L.ckNo}</button><button type="button" class="btn ghost" data-ck="granted">${L.ckYes}</button></div></div>`;
     el.hidden = false;
     el.querySelectorAll("[data-ck]").forEach(x => x.addEventListener("click", () => {
