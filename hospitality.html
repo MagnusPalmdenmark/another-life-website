@@ -386,16 +386,6 @@ blockquote.say{margin:0;border-left:2px solid var(--ink);padding-left:clamp(16px
 .how-try{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px clamp(24px,5vw,72px);align-items:end;margin-top:clamp(36px,5vw,64px);padding-top:28px;border-top:1px solid var(--ink)}
 .how-try h3{font-size:clamp(24px,3vw,36px);line-height:1;margin:0}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
-.ck{position:fixed;left:0;right:0;bottom:0;z-index:60;background:var(--paper);border-top:1px solid var(--ink);padding:16px 0 calc(16px + env(safe-area-inset-bottom,0px))}
-.ck[hidden]{display:none}
-.ck-in{display:flex;align-items:center;justify-content:space-between;gap:20px}
-.ck p{margin:0;font-size:13px;line-height:20px;max-width:640px}
-.ck p b{font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:11px}
-.ck p a{color:inherit}
-.ck-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;flex:none}
-.ck-btns .btn{justify-content:center;min-width:120px}
-@media (max-width:640px){.ck-in{flex-direction:column;align-items:stretch;gap:12px}.ck-btns .btn{min-width:0}}
-@media print{.ck{display:none!important}}
 @media (max-width:820px){
  .how-grid{grid-template-columns:minmax(0,1fr)}
  .how-stage{display:none}
@@ -576,29 +566,10 @@ footer{border-top:1px solid var(--ink);padding-block:48px}
 </main>
 <footer><div class="wrap">
 <div class="foot">
- <ul class="foot-links"><li><a href="collection.html">Collection</a></li><li><a href="passport.html">Passport</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html" data-obf="NTA0MDM1MDM1NA==" data-t="wa">WhatsApp</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="#" data-ck-open>Cookie settings</a></li></ul>
+ <ul class="foot-links"><li><a href="collection.html">Collection</a></li><li><a href="passport.html">Passport</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html" data-obf="NTA0MDM1MDM1NA==" data-t="wa">WhatsApp</a></li><li><a href="privacy.html">Privacy</a></li></ul>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>
-<div class="ck" id="ck" role="dialog" aria-label="Cookies" hidden><div class="wrap ck-in">
-<p><b>We respect your privacy</b><br>This website uses cookies to give you the best experience. <a href="privacy.html">Learn more</a></p>
-<div class="ck-btns"><button type="button" class="btn ghost" data-ck="denied">Decline</button><button type="button" class="btn ghost" data-ck="granted">Accept</button></div>
-</div></div>
-<script>
-(function(){
- var GA='G-TXE3T5Z1W4', b=document.getElementById('ck');
- function get(){var m=document.cookie.match(/(?:^|; )al_consent=(granted|denied)/);return m?m[1]:null;}
- function save(v){var d=/(^|\.)another-life\.dk$/.test(location.hostname)?';domain=.another-life.dk':'';
-  document.cookie='al_consent='+v+';path=/;max-age=15552000;SameSite=Lax'+(location.protocol==='https:'?';Secure':'')+d;}
- function load(){if(window.__alGa)return;window.__alGa=1;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+GA;document.head.appendChild(s);
-  window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',GA);}
- function clear(){document.cookie.split('; ').forEach(function(c){var n=c.split('=')[0];if(/^_ga/.test(n)){['',';domain=.another-life.dk',';domain='+location.hostname].forEach(function(d){document.cookie=n+'=;path=/;max-age=0'+d;});}});}
- b.addEventListener('click',function(e){var v=e.target.getAttribute&&e.target.getAttribute('data-ck');if(!v)return;save(v);b.hidden=true;
-  if(v==='granted')load();else{clear();if(window.__alGa)location.reload();}});
- document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-ck-open]')){e.preventDefault();b.hidden=false;}});
- var c=get(); if(c==='granted')load(); else if(!c) b.hidden=false;
-})();
-</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2bde136b23f84ce3be21365d0d57673f"}'></script><!-- End Cloudflare Web Analytics -->
 <script>
 (function(){

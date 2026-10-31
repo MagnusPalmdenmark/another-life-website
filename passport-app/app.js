@@ -91,7 +91,6 @@
       rpNeed: "Tick at least one box or add a photo.", rpErr: "Couldn't send. Check the connection and try again.", rpBig: "That photo is too large. Try another one.",
       rpThanks: "Thank you so much for reporting.", rpThanksP: "We've received it and will take a look. It helps this piece keep going, and keeps its story right.", rpBack: "Back to the passport",
       another: "Look up another code", site: "Visit another-life.dk", loading: "Loading…",
-      ckHead: "We respect your privacy", ckText: "This website uses cookies to give you the best experience.", ckYes: "Accept", ckNo: "Decline", ckMore: "Learn more", ckSet: "Cookie settings",
       stScans: "Passport scans", stScansP: "Times a passport was opened by visitors. Staff are not counted.",
       // overview, workshops, drafts
       ovT: "Overview", stB: "Batches", stP: "Pieces", stD: "Waiting for details",
@@ -210,7 +209,6 @@
       rpNeed: "Centang minimal satu kotak atau tambahkan foto.", rpErr: "Gagal mengirim. Periksa koneksi dan coba lagi.", rpBig: "Foto itu terlalu besar. Coba foto lain.",
       rpThanks: "Terima kasih banyak atas laporannya.", rpThanksP: "Laporan sudah kami terima dan akan kami periksa. Ini membantu produk ini terus dipakai, dan kisahnya tetap benar.", rpBack: "Kembali ke paspor",
       another: "Cari kode lain", site: "Kunjungi another-life.dk", loading: "Memuat…",
-      ckHead: "Kami menghormati privasi Anda", ckText: "Situs ini memakai cookie agar Anda mendapat pengalaman terbaik.", ckYes: "Setuju", ckNo: "Tolak", ckMore: "Selengkapnya", ckSet: "Pengaturan cookie",
       stScans: "Paspor dipindai", stScansP: "Berapa kali paspor dibuka oleh pengunjung. Staf tidak dihitung.",
       ovT: "Ringkasan", stB: "Batch", stP: "Produk", stD: "Menunggu detail",
       drT: "Menunggu detail", drP: "Kode-kode ini sudah dibuat dan bisa digrafir. Bengkel masih perlu mengisi asal kayunya.",
@@ -377,55 +375,8 @@
     $("#snavOut").addEventListener("click", async () => { await api("", { action: "logout" }).catch(() => {}); who = {}; form = null; adminState.link = null; nav.hidden = true; go(""); });
   }
 
-  // ---- Cookie consent and Google Analytics -------------------------------------------------
-  // Google Analytics only ever loads on the public passport pages, only after "Accept", and never
-  // for staff. The choice is kept in one cookie shared with another-life.dk (al_consent), so a
-  // visitor who already answered on the website isn't asked again here, and the other way round.
-  const GA_ID = "G-TXE3T5Z1W4", PUBLIC_VIEWS = { lookup: 1, passport: 1, repair: 1 };
-  let viewerStaff = false;
-  const ckGet = () => (document.cookie.match(/(?:^|; )al_consent=(granted|denied)/) || [])[1] || null;
-  function ckSave(v) {
-    const dom = /(^|\.)another-life\.dk$/.test(location.hostname) ? ";domain=.another-life.dk" : "";
-    document.cookie = `al_consent=${v};path=/;max-age=15552000;SameSite=Lax${location.protocol === "https:" ? ";Secure" : ""}${dom}`;
-  }
-  function gaLoad() {
-    if (window.__alGa) return; window.__alGa = true;
-    const sc = document.createElement("script"); sc.async = true; sc.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID; document.head.appendChild(sc);
-    window.dataLayer = window.dataLayer || []; window.gtag = function () { dataLayer.push(arguments); };
-    gtag("js", new Date()); gtag("config", GA_ID);
-  }
-  function gaClear() {
-    document.cookie.split("; ").map(c => c.split("=")[0]).filter(n => /^_ga/.test(n)).forEach(n => {
-      ["", ";domain=.another-life.dk", ";domain=" + location.hostname].forEach(d => { document.cookie = `${n}=;path=/;max-age=0${d}`; });
-    });
-  }
-  const isStaffViewer = () => Boolean(who.staff || viewerStaff);
-  function gaPassport(b) {
-    if (!b || b.code === "TEST" || isStaffViewer() || ckGet() !== "granted") return;
-    const first = !window.__alGa; gaLoad();
-    if (!first) gtag("event", "page_view", { page_location: location.href, page_title: document.title });
-    gtag("event", "passport_view", { batch_code: b.code, product: b.model });
-  }
-  function ckBanner(show) {
-    let el = $("#ck");
-    if (!show) { if (el) el.hidden = true; return; }
-    const L = t();
-    if (!el) { el = document.createElement("div"); el.id = "ck"; el.className = "ck"; el.setAttribute("role", "dialog"); el.setAttribute("aria-label", "Cookies"); document.body.appendChild(el); }
-    el.innerHTML = `<div class="wrap ck-in"><p><b>${L.ckHead}</b><br>${L.ckText} <a href="${SITE}/privacy.html">${L.ckMore}</a></p>
-      <div class="ck-btns"><button type="button" class="btn ghost" data-ck="denied">${L.ckNo}</button><button type="button" class="btn ghost" data-ck="granted">${L.ckYes}</button></div></div>`;
-    el.hidden = false;
-    el.querySelectorAll("[data-ck]").forEach(x => x.addEventListener("click", () => {
-      const v = x.dataset.ck; ckSave(v); el.hidden = true;
-      if (v === "granted") { const r = route(); if (r.view === "passport") gaPassport(cache[r.code]); }
-      else { gaClear(); if (window.__alGa) location.reload(); }
-    }));
-  }
-  function ckForView(r) { ckBanner(Boolean(PUBLIC_VIEWS[r.view]) && !isStaffViewer() && !ckGet()); }
-  document.addEventListener("click", e => { if (e.target.closest && e.target.closest("[data-ck-open]")) { e.preventDefault(); ckBanner(true); } });
-
   function render(langOnly) {
     const r = route();
-    ckForView(r);
     showNav();
     $("#banner").hidden = true;
     document.body.classList.toggle("tagmode", r.view === "tag");
@@ -1319,8 +1270,6 @@
       const { status, data } = await api("code=" + encodeURIComponent(p.code) + "&scan=1").catch(() => ({ status: 0, data: {} }));
       if (status !== 200) return notFound(status === 404 ? L.lkNone : L.lkErr);
       b = cache[code] = data.batch;
-      if (data.viewerStaff) { viewerStaff = true; ckBanner(false); }
-      gaPassport(b);
     }
     if (code === "TEST") { $("#banner").textContent = L.testBanner; $("#banner").hidden = false; }
     document.title = `${b.model} · ${b.code} · Another Life Passport`;
@@ -1402,7 +1351,7 @@
         <a class="btn ghost" href="${productUrl(b.model)}">${esc(L.seeOn(b.model))}</a>
         <a class="btn ghost" href="${BASE}/" data-go="">${L.another}</a>
       </section>
-      <section class="foot"><a class="staff" href="${SITE}">${L.site}</a> · <a class="staff" href="#" data-ck-open>${L.ckSet}</a></section>`;
+      <section class="foot"><a class="staff" href="${SITE}">${L.site}</a></section>`;
     const setPack = p => {
       $("#box").className = "box " + p; $("#box").innerHTML = "<i></i>".repeat(p === "flat" ? 300 : 30);
       $("#tFlat").setAttribute("aria-pressed", String(p === "flat")); $("#tAsm").setAttribute("aria-pressed", String(p === "asm"));
