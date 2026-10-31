@@ -280,3 +280,7 @@ a.stat:active,a.stat:focus{background:var(--soft)}
   .snav a .sm{font:500 10px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase}
 }
 .snav-out{margin-left:auto}
+/* passport scans tile: its own full-width row under the four numbers */
+.stats.four .stat.wide{grid-column:1/-1;border-left:0;border-top:1px solid var(--line);grid-template-columns:auto auto 1fr;align-items:baseline;gap:4px 16px}
+.stats.four .stat.wide small{justify-self:end;text-align:right}
+@media (max-width:700px){.stats.four .stat.wide{grid-template-columns:1fr}.stats.four .stat.wide small{justify-self:start;text-align:left}}
