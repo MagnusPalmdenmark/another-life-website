@@ -852,7 +852,7 @@ LIFE = ["Made by hand from wood that has already lived once.","Shipped flat and 
 # HOME (simple: film, the pieces, three doors, one line)
 DOORS = [("material.html","joglo-beams.jpg","Old house beams stacked on gravel, with the joinery holes from their first life still in them","Our wood has stories","Teak from old houses, bridges and boats, given another life."),
          ("passport.html","timber-racks.jpg","Racks of sorted teak boards in a timber store, each board marked by hand with its length","Every piece has a Passport","Scan a piece and read where its wood comes from."),
-         ("mission.html","chair-salt-flat.jpg","A woman in a flowing cream dress walking past The Chair on wet sand at dusk","Reuse beats recycling","Why we make furniture to be kept, repaired and passed on.")]
+         ("mission.html","lounge-terrace.jpg","Three Lounge Chairs and a low table on a stone terrace in a garden, with cushions, a throw and a basket","Reuse beats recycling","Why we make furniture to be kept, repaired and passed on.")]
 home = f'''
 <section class="hero">
 <div class="hero-stage">
