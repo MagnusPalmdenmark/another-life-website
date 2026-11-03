@@ -1,6 +1,6 @@
 // Shared rules for Another Life Passport codes. Imported by the function and by local tests.
 
-export const MODELS = ["The Chair", "The Sun Lounger", "The Bench", "The Lounge Chair", "The Side Table", "The Coffee Table", "The Table"];
+export const MODELS = ["The Chair", "The Sun Lounger", "The Bench", "The Lounge Chair", "The Side Table", "The Coffee Table", "The Table", "The High Stool"];
 export const ORIGINS = ["house", "bridge", "boat", "other"];
 export const CHECK = "ABCDEFGHJKMNPQRSTUVWXYZ"; // no I, L or O
 
