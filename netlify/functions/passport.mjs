@@ -68,6 +68,18 @@ function adminSecret(context) {
 }
 
 // Who is calling: { admin: true, name: "Admin" }, { id, name, workshopId } for workshop staff, or null.
+// Passport scans: one small record per batch, { code, n, first, last }. Read back with readAll("scans/").
+const BOT_UA = /bot|crawl|spider|slurp|preview|facebookexternalhit|headless|lighthouse/i;
+async function countScan(db, code) {
+  const key = `scans/${code}`, now = new Date().toISOString();
+  const s = (await db.get(key, { type: "json" })) || { code, n: 0, first: now };
+  s.n = (s.n || 0) + 1; s.last = now;
+  await db.setJSON(key, s);
+}
+async function scanCounts(db) {
+  return Object.fromEntries((await readAll(db, "scans/")).map(s => [s.code, s.n || 0]));
+}
+
 async function whoAmI(db, context) {
   const secret = adminSecret(context);
   if (secret && (await checkToken(secret, context.cookies.get(ADMIN_COOKIE)))) return { admin: true, name: "Admin" };
@@ -186,7 +198,14 @@ export default async (req, context) => {
       if (p.error) return json({ error: p.error }, 400);
       const b = await db.get(`batch/${p.code}`, { type: "json" });
       if (!b) return json({ error: "none" }, 404);
-      return json({ batch: publicView(applyLots(b, await lotsFor(db, b))) });
+      // scan=1 comes from the passport page itself: count it, unless it's staff or a bot.
+      // No cookies, no IP, nothing about the visitor is stored: only a number per batch.
+      let viewerStaff = false;
+      if (url.searchParams.has("scan")) {
+        viewerStaff = Boolean(await whoAmI(db, context));
+        if (!viewerStaff && !BOT_UA.test(req.headers.get("user-agent") || "")) await countScan(db, p.code).catch(() => {});
+      }
+      return json({ batch: publicView(applyLots(b, await lotsFor(db, b))), viewerStaff });
     }
     if (url.searchParams.has("photo")) {
       const [c, id] = String(url.searchParams.get("photo")).split("/");
@@ -245,14 +264,14 @@ export default async (req, context) => {
       // Everything, for the master Google Sheet and the "Download everything" button.
       const me = exportKeyOk(req, context) ? { admin: true } : await whoAmI(db, context);
       if (!me?.admin) return json({ error: "auth" }, 401);
-      const [batches, lotsByN, workshops] = await Promise.all([readAll(db, "batch/"), allLots(db), readAll(db, "workshops/")]);
+      const [batches, lotsByN, workshops, scans] = await Promise.all([readAll(db, "batch/"), allLots(db), readAll(db, "workshops/"), scanCounts(db)]);
       const names = Object.fromEntries(workshops.filter(w => w.active).map(w => [w.id, w.name]));
       batches.sort((a, b) => (a.made || "").localeCompare(b.made || ""));
       const lots = Object.values(lotsByN).sort((a, b) => a.n - b.n);
       return json({ exported: new Date().toISOString(), site: url.origin, version: 1,
         workshops: workshops.map(w => ({ id: w.id, name: w.name, active: w.active, created: w.created })),
         lots: lots.map(l => ({ ...lotView(l, names, batches.filter(b => (b.lots || []).includes(l.n)).map(b => b.code)) })),
-        batches: batches.map(b => ({ ...staffView(applyLots(b, lotsByN), names), createdById: b.createdById || null })) });
+        batches: batches.map(b => ({ ...staffView(applyLots(b, lotsByN), names), createdById: b.createdById || null, scans: scans[b.code] || 0 })) });
     }
     if (url.searchParams.has("me")) {
       const me = await whoAmI(db, context);
@@ -263,11 +282,11 @@ export default async (req, context) => {
     if (url.searchParams.has("list") || url.searchParams.has("batches")) {
       const me = await whoAmI(db, context);
       if (!me) return json({ error: "auth" }, 401);
-      const [items, names, lotsByN] = await Promise.all([readAll(db, "batch/"), workshopNames(db), allLots(db)]);
+      const [items, names, lotsByN, scans] = await Promise.all([readAll(db, "batch/"), workshopNames(db), allLots(db), scanCounts(db)]);
       let mine = items.filter(b => canSee(me, b)).map(b => applyLots(b, lotsByN));
       mine.sort((a, b) => (b.made || "").localeCompare(a.made || ""));
       if (url.searchParams.has("list")) mine = mine.filter(b => statusOf(b) === "draft").concat(mine.filter(b => statusOf(b) !== "draft").slice(0, 30));
-      return json({ batches: mine.map(b => staffView(b, names)) });
+      return json({ batches: mine.map(b => ({ ...staffView(b, names), scans: scans[b.code] || 0 })) });
     }
     if (url.searchParams.has("staff")) {
       // One batch with all details, for the edit screen

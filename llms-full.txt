@@ -526,6 +526,22 @@ Send us a message with your space, the pieces you like and your timeline. We wil
 
 ---
 
+# Privacy
+URL: https://another-life.dk/privacy.html
+
+Privacy
+What we measure, and what we don't.
+Visitor statistics without cookies
+We use Cloudflare Web Analytics to count visits to another-life.dk: which pages are read, roughly where visitors come from, and how fast the pages load. It sets no cookies and does not follow you from site to site.
+Passport scans
+When a furniture passport is opened, we add one to a simple counter for that batch. Nothing about you is stored with it: no cookie, no IP address.
+Enquiries
+The enquiry form on the contact page does not send anything to us by itself. It writes your message so you can send it yourself by WhatsApp or email, and we only receive what you send.
+Questions
+Write to us through the contact page if you want to know what we hold about you or want it deleted.
+
+---
+
 # Contact Another Life
 URL: https://another-life.dk/contact.html
 

@@ -31,7 +31,7 @@
       lkErr: "Something went wrong. Try again in a moment.", lkHint: "Want to see an example? Type", staffLink: "Factory / staff login",
       // login
       abT: "All batches", abLink: "All batches", abBig: "See all QR codes", newBig: "Make a new passport", abSearch: "Search code, area or maker", abAllP: "All products", abAllM: "All months",
-      abCount: (n, t) => `${n} of ${t} batches`, abPieces: (n) => `${n} pieces in total`, abNone: "No batches match.", abCols: ["Code", "Product", "Status", "Wood", "Area", "Pieces", "Workshop", "Made", "By"],
+      abCount: (n, t) => `${n} of ${t} batches`, abPieces: (n) => `${n} pieces in total`, abNone: "No batches match.", abCols: ["Code", "Product", "Status", "Wood", "Area", "Pieces", "Workshop", "Made", "By", "Scans"],
       tlT: "Test login (preview only)", tlU: "Username", tlP: "Password", tlBtn: "Log in", tlWrong: "Use test / test on the preview.",
       liT: "Staff access", liP: "This page is for the workshop and the Another Life team. Open the personal link you received on WhatsApp to get access.", adminLink: "Admin",
       joining: "Opening your link…", joinUsed: "This link has already been used or has expired. Ask Another Life for a new one.",
@@ -91,6 +91,7 @@
       rpNeed: "Tick at least one box or add a photo.", rpErr: "Couldn't send. Check the connection and try again.", rpBig: "That photo is too large. Try another one.",
       rpThanks: "Thank you so much for reporting.", rpThanksP: "We've received it and will take a look. It helps this piece keep going, and keeps its story right.", rpBack: "Back to the passport",
       another: "Look up another code", site: "Visit another-life.dk", loading: "Loading…",
+      stScans: "Passport scans", stScansP: "Times a passport was opened by visitors. Staff are not counted.",
       // overview, workshops, drafts
       ovT: "Overview", stB: "Batches", stP: "Pieces", stD: "Waiting for details",
       drT: "Waiting for details", drP: "These codes are made and can be engraved. The workshop still needs to add where the wood came from.",
@@ -150,7 +151,7 @@
       lkFmt: "Format kode seperti AL-2610-03-Q.", lkBad: "Kode itu sepertinya salah. Periksa huruf terakhirnya.", lkNone: "Belum ada batch dengan kode itu.",
       lkErr: "Terjadi kesalahan. Coba lagi sebentar lagi.", lkHint: "Ingin melihat contoh? Ketik", staffLink: "Login pabrik / staf",
       abT: "Semua batch", abLink: "Semua batch", abBig: "Lihat semua kode QR", newBig: "Buat paspor baru", abSearch: "Cari kode, daerah atau pembuat", abAllP: "Semua produk", abAllM: "Semua bulan",
-      abCount: (n, t) => `${n} dari ${t} batch`, abPieces: (n) => `${n} produk total`, abNone: "Tidak ada batch yang cocok.", abCols: ["Kode", "Produk", "Status", "Kayu", "Daerah", "Jumlah", "Bengkel", "Dibuat", "Oleh"],
+      abCount: (n, t) => `${n} dari ${t} batch`, abPieces: (n) => `${n} produk total`, abNone: "Tidak ada batch yang cocok.", abCols: ["Kode", "Produk", "Status", "Kayu", "Daerah", "Jumlah", "Bengkel", "Dibuat", "Oleh", "Dipindai"],
       tlT: "Login uji (hanya pratinjau)", tlU: "Nama pengguna", tlP: "Kata sandi", tlBtn: "Masuk", tlWrong: "Gunakan test / test di pratinjau.",
       liT: "Akses staf", liP: "Halaman ini untuk bengkel dan tim Another Life. Buka tautan pribadi yang Anda terima lewat WhatsApp untuk mendapatkan akses.", adminLink: "Admin",
       joining: "Membuka tautan Anda…", joinUsed: "Tautan ini sudah dipakai atau sudah kedaluwarsa. Minta tautan baru ke Another Life.",
@@ -208,6 +209,7 @@
       rpNeed: "Centang minimal satu kotak atau tambahkan foto.", rpErr: "Gagal mengirim. Periksa koneksi dan coba lagi.", rpBig: "Foto itu terlalu besar. Coba foto lain.",
       rpThanks: "Terima kasih banyak atas laporannya.", rpThanksP: "Laporan sudah kami terima dan akan kami periksa. Ini membantu produk ini terus dipakai, dan kisahnya tetap benar.", rpBack: "Kembali ke paspor",
       another: "Cari kode lain", site: "Kunjungi another-life.dk", loading: "Memuat…",
+      stScans: "Paspor dipindai", stScansP: "Berapa kali paspor dibuka oleh pengunjung. Staf tidak dihitung.",
       ovT: "Ringkasan", stB: "Batch", stP: "Produk", stD: "Menunggu detail",
       drT: "Menunggu detail", drP: "Kode-kode ini sudah dibuat dan bisa digrafir. Bengkel masih perlu mengisi asal kayunya.",
       drNone: "Tidak ada yang menunggu. Setiap batch sudah punya kisahnya.", fillIn: "Isi",
@@ -512,6 +514,7 @@
           <div class="stat"><span class="k">${L.stP}</span><b>–</b></div>
           <a class="stat" href="${BASE}/batches" id="ovDrafts"><span class="k">${L.stD}</span><b>–</b></a>
           <a class="stat" href="${BASE}/lots" data-go="lots"><span class="k">${L.stLots}</span><b>–</b></a>
+          <a class="stat wide" href="${BASE}/batches" data-go="batches"><span class="k">${L.stScans}</span><b>–</b><small>${L.stScansP}</small></a>
         </div>
         <div class="three-btn"><a class="btn" href="${BASE}/factory" data-go="factory">${L.newBig}</a><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.newLotBig}</a><a class="btn ghost" href="${BASE}/batches" data-go="batches">${L.abBig}</a></div>
       </section>
@@ -586,7 +589,7 @@
     const users = u.data.users, workshops = u.data.workshops, batches = bt.data.batches;
     const drafts = batches.filter(b => b.status === "draft");
     const openLots = lt.status === 200 ? lt.data.lots.filter(l => l.status !== "used") : [];
-    const stats = [batches.length, batches.reduce((n, b) => n + (b.qty || 0), 0), drafts.length, openLots.length];
+    const stats = [batches.length, batches.reduce((n, b) => n + (b.qty || 0), 0), drafts.length, openLots.length, batches.reduce((n, b) => n + (b.scans || 0), 0)];
     $("#ovStats").querySelectorAll("b").forEach((el, i) => { el.textContent = fmt(stats[i], 0); });
     $("#ovStats").querySelectorAll(".stat")[2].classList.toggle("warn", drafts.length > 0);
     $("#drafts").innerHTML = drafts.length ? drafts.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs}${b.workshop ? ` · ${esc(b.workshop)}` : ""} · ${dateStr(b.made)}</small></div>
@@ -1264,7 +1267,7 @@
       const p = parseCode(code);
       if (p.error) return notFound(p.error === "check" ? L.lkBad : L.lkFmt);
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
-      const { status, data } = await api("code=" + encodeURIComponent(p.code)).catch(() => ({ status: 0, data: {} }));
+      const { status, data } = await api("code=" + encodeURIComponent(p.code) + "&scan=1").catch(() => ({ status: 0, data: {} }));
       if (status !== 200) return notFound(status === 404 ? L.lkNone : L.lkErr);
       b = cache[code] = data.batch;
     }
@@ -1502,7 +1505,7 @@
         <td data-l="${L.abCols[3]}">${(b.lotInfo || []).length ? b.lotInfo.map(l => `<a class="linkish" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${esc(l.label)}</a>`).join(" ") + `<br><small>${esc(L["o_" + b.origin] || "")}</small>` : esc(L["o_" + b.origin] || b.origin || "–")}</td>
         <td data-l="${L.abCols[4]}">${esc(b.region || "–")}</td><td data-l="${L.abCols[5]}" class="num">${b.qty}</td>
         <td data-l="${L.abCols[6]}">${esc(b.workshop || "–")}</td>
-        <td data-l="${L.abCols[7]}">${dateStr(b.made)}</td><td data-l="${L.abCols[8]}">${esc(b.createdBy || b.maker || "–")}</td></tr>`).join("")
+        <td data-l="${L.abCols[7]}">${dateStr(b.made)}</td><td data-l="${L.abCols[8]}">${esc(b.createdBy || b.maker || "–")}</td><td data-l="${L.abCols[9]}" class="num">${b.scans || 0}</td></tr>`).join("")
         : `<tr><td colspan="9" class="fine">${L.abNone}</td></tr>`;
     };
     $("#abQ").addEventListener("input", e => { abState.q = e.target.value; draw(); });

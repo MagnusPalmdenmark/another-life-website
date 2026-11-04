@@ -681,7 +681,7 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 
 FOOTER = f'''<footer><div class="wrap">
 <div class="foot">
- <ul class="foot-links"><li><a href="collection.html">Collection</a></li><li><a href="passport.html">Passport</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html" data-obf="{E_WAD}" data-t="wa">WhatsApp</a></li></ul>
+ <ul class="foot-links"><li><a href="collection.html">Collection</a></li><li><a href="passport.html">Passport</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li><li><a href="contact.html" data-obf="{E_WAD}" data-t="wa">WhatsApp</a></li><li><a href="privacy.html">Privacy</a></li></ul>
 </div>
 <div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
 </div></footer>'''
@@ -1319,6 +1319,25 @@ contact = f'''
 }})();
 </script>
 '''
+privacy_body = f'''
+<section class="page-head"><div class="wrap">
+ <span class="label eyebrow">Privacy</span>
+ <h1 class="disp">What we measure, and what we don't.</h1>
+</div></section>
+<section style="padding-top:0;border-top:0"><div class="wrap"><div class="prose" style="max-width:760px">
+ <h2 class="disp" style="font-size:28px">Visitor statistics without cookies</h2>
+ <p>We use Cloudflare Web Analytics to count visits to another-life.dk: which pages are read, roughly where visitors come from, and how fast the pages load. It sets no cookies and does not follow you from site to site.</p>
+ <h2 class="disp" style="font-size:28px">Passport scans</h2>
+ <p>When a furniture passport is opened, we add one to a simple counter for that batch. Nothing about you is stored with it: no cookie, no IP address.</p>
+ <h2 class="disp" style="font-size:28px">Enquiries</h2>
+ <p>The enquiry form on the contact page does not send anything to us by itself. It writes your message so you can send it yourself by WhatsApp or email, and we only receive what you send.</p>
+ <h2 class="disp" style="font-size:28px">Questions</h2>
+ <p>Write to us through the <a href="contact.html">contact page</a> if you want to know what we hold about you or want it deleted.</p>
+</div></div></section>
+'''
+pages["privacy.html"] = ("Privacy", "How Another Life measures visits to its website and passport pages: Cloudflare Web Analytics and a simple scan counter, both without cookies.", privacy_body,
+  [breadcrumb([("index.html","Home"),("privacy.html","Privacy")])])
+
 pages["contact.html"] = ("Contact Another Life", "Enquire about Another Life furniture for your hotel, resort, restaurant or café. Send us your project on WhatsApp or by email.", contact,
   [breadcrumb([("index.html","Home"),("contact.html","Contact")]),
    {"@type":"ContactPage","url":url("contact.html"),"about":{"@id":url("index.html")+"#org"}}])
