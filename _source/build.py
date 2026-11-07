@@ -235,8 +235,8 @@ button.tlink{background:none;border:0;padding:0;color:inherit;cursor:pointer}
 
 /* Layout: an editorial ledger. Hairline-ruled rows, one forest spread per page, mono body, condensed display. */
 :root{
-  --paper:#f2ede4; --ink:#14120f; --ink-muted:#6b6459; --hairline:#d9d2c4;
-  --forest:#1b2b1e; --on-forest:#f2ede4; --on-forest-muted:#b9b6a8;
+  --paper:#f0e5db; --ink:#474329; --ink-muted:#7d7860; --hairline:#d6cbb6; --accent:#ff6900;
+  --forest:#474329; --on-forest:#f0e5db; --on-forest-muted:#cfc6b2;
   --font-display:"AL Display","Helvetica Neue Condensed Bold","Helvetica Neue","Arial Narrow",sans-serif;
   --font-mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
   color-scheme:light;
@@ -654,7 +654,7 @@ def page(path, title, desc, body, ld=None, standalone=False, og="chair-studio-wi
 <link rel="icon" type="image/png" sizes="192x192" href="assets/icon-192.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="mask-icon" href="assets/icon.svg" color="#182120">
-<meta name="theme-color" content="#182120">
+<meta name="theme-color" content="#474329">
 {FONTS}
 <style>{CSS}</style>
 {jsonld(graph)}'''
