@@ -96,6 +96,7 @@ PRODUCTS = [
 ]
 PRODUCTS.append(dict(slug="the-table", name="The Table", category="Table", order=7, dims=(220,100,75), seat=None,
        img="assets/table.jpg", img_alt="The Table from the side: a long dining table in repurposed teak with a Shou Sugi Ban finish, a planked top and a three-bolt cluster at each leg",
+       gallery=[("table-top.jpg","The Table seen from above: three wide planks of flame-darkened repurposed teak in a bolted frame, the grain and old knots still visible")],
        short="A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench.",
        use="Dining rooms and restaurants",
        notes=["At 75 cm high, it meets the 45 cm seat height of The Chair and The Bench.",
