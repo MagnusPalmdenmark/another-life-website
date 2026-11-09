@@ -4,7 +4,7 @@
 
   const API = "/.netlify/functions/passport";
   const PUBLIC_HOST = "ID.ANOTHER-LIFE.DK";
-  const MODELS = ["The Chair", "The Sun Lounger", "The Bench", "The Lounge Chair", "The Side Table", "The Coffee Table", "The Table"];
+  const MODELS = ["The Chair", "The Sun Lounger", "The Bench", "The Lounge Chair", "The Side Table", "The Coffee Table", "The Table", "The High Stool"];
   const CHECK = "ABCDEFGHJKMNPQRSTUVWXYZ";
   const WA = "NTA0MDM1MDM1NA=="; // WhatsApp number, encoded against scrapers
   const LEGS = [1080, 5, 125];   // Jakarta → Bali by road and ferry, usual route (km)

@@ -8,9 +8,9 @@ Made from what came before. Made for what comes next.
 Danish-designed furniture in reclaimed teak. Made for longevity, repair and another life.
 See the collectionWatch the film · 0:34
 Another Life · Film · 0:34Close
-CollectionSATU. Seven pieces, one system.
+CollectionSATU. Eight pieces, one system.
 ←→
-The ChairL 45 × W 45 × H 80 cm · Seat 45 cmThe Sun LoungerL 211 × W 75 × H 32 cmThe BenchL 206 × W 45 × H 45 cmThe Lounge ChairL 75 × W 75 × H 67 cm · Seat 32 cmThe Side TableL 45 × W 45 × H 45 cmThe Coffee TableL 100 × W 75 × H 32 cmThe TableL 220 × W 100 × H 75 cmAll of SATU →
+The ChairL 45 × W 45 × H 80 cm · Seat 45 cmThe Sun LoungerL 211 × W 75 × H 32 cmThe BenchL 206 × W 45 × H 45 cmThe Lounge ChairL 75 × W 75 × H 67 cm · Seat 32 cmThe Side TableL 45 × W 45 × H 45 cmThe Coffee TableL 100 × W 75 × H 32 cmThe TableL 220 × W 100 × H 75 cmThe High StoolL 35 × W 35 × H 75 cmAll of SATU →
 Our wood has storiesTeak from old houses, bridges and boats, given another life.Every piece has a PassportScan a piece and read where its wood comes from.Reuse beats recyclingWhy we make furniture to be kept, repaired and passed on.
 Another material. Another owner. Another place. Another life.
 Furnishing a hotel or restaurant? Get in touch
@@ -23,7 +23,7 @@ URL: https://another-life.dk/collection.html
 Collection
 The SATU collection.
 Satu means one in Indonesian. One material, one system, one idea carried through every piece. The collection is made from repurposed teak, timber that has already lived a life, often in old joglo houses, and given another through Danish design and Indonesian hands.
-01The ChairDining rooms, restaurants and terracesL 45 × W 45 × H 80 cm · Seat 45 cm02The Sun LoungerPoolside and outdoorsL 211 × W 75 × H 32 cm03The BenchDining tables, terraces and hallsL 206 × W 45 × H 45 cm04The Lounge ChairLounges, lobbies and terracesL 75 × W 75 × H 67 cm · Seat 32 cm05The Side TablePoolside, terraces and loungesL 45 × W 45 × H 45 cm06The Coffee TableLounges, lobbies and terracesL 100 × W 75 × H 32 cm07The TableDining rooms and restaurantsL 220 × W 100 × H 75 cm
+01The ChairDining rooms, restaurants and terracesL 45 × W 45 × H 80 cm · Seat 45 cm02The Sun LoungerPoolside and outdoorsL 211 × W 75 × H 32 cm03The BenchDining tables, terraces and hallsL 206 × W 45 × H 45 cm04The Lounge ChairLounges, lobbies and terracesL 75 × W 75 × H 67 cm · Seat 32 cm05The Side TablePoolside, terraces and loungesL 45 × W 45 × H 45 cm06The Coffee TableLounges, lobbies and terracesL 100 × W 75 × H 32 cm07The TableDining rooms and restaurantsL 220 × W 100 × H 75 cm08The High StoolBars, counters and kitchensL 35 × W 35 × H 75 cm
 About SATUOld wood, new purpose, long life.
 Every piece is modular and knock-down. It travels flat, comes apart without damage, and goes back together as it was. If one part reaches its end, only that part is changed.
 The surface is finished with Shou Sugi Ban: the teak is darkened with flame and finished with natural oil. What is left is the material itself: honest, tactile, and made to age well.
@@ -46,7 +46,7 @@ On request. Ex works, Indonesia
 # The Chair — SATU
 URL: https://another-life.dk/the-chair.html
 
-SATU · 01 / 07
+SATU · 01 / 08
 The Chair
 A knock-down dining chair in repurposed teak. It travels flat, goes together on site and is designed to be repaired for decades rather than replaced.
 Collection
@@ -89,7 +89,7 @@ SATU · 07The TableDining rooms and restaurantsSATU · 03The BenchDining tables,
 # The Sun Lounger — SATU
 URL: https://another-life.dk/the-sun-lounger.html
 
-SATU · 02 / 07
+SATU · 02 / 08
 The Sun Lounger
 A slatted sun lounger in repurposed teak with an adjustable backrest, made for pools and gardens. It travels flat and goes together on site.
 Collection
@@ -129,7 +129,7 @@ SATU · 05The Side TablePoolside, terraces and loungesSATU · 04The Lounge Chair
 # The Bench — SATU
 URL: https://another-life.dk/the-bench.html
 
-SATU · 03 / 07
+SATU · 03 / 08
 The Bench
 A long slatted bench in repurposed teak, 206 cm long, at the same seat height as The Chair.
 Collection
@@ -168,7 +168,7 @@ SATU · 01The ChairDining rooms, restaurants and terracesSATU · 07The TableDini
 # The Lounge Chair — SATU
 URL: https://another-life.dk/the-lounge-chair.html
 
-SATU · 04 / 07
+SATU · 04 / 08
 The Lounge Chair
 A low, deep chair in repurposed teak with a 32 cm seat height, for lounges, lobbies and terraces.
 Collection
@@ -209,7 +209,7 @@ SATU · 06The Coffee TableLounges, lobbies and terracesSATU · 05The Side TableP
 # The Side Table — SATU
 URL: https://another-life.dk/the-side-table.html
 
-SATU · 05 / 07
+SATU · 05 / 08
 The Side Table
 A small square table in repurposed teak, 45 by 45 cm and 45 cm high, made to stand beside a lounger or a chair.
 Collection
@@ -248,7 +248,7 @@ SATU · 02The Sun LoungerPoolside and outdoorsSATU · 04The Lounge ChairLounges,
 # The Coffee Table — SATU
 URL: https://another-life.dk/the-coffee-table.html
 
-SATU · 06 / 07
+SATU · 06 / 08
 The Coffee Table
 A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.
 Collection
@@ -287,7 +287,7 @@ SATU · 04The Lounge ChairLounges, lobbies and terracesSATU · 03The BenchDining
 # The Table — SATU
 URL: https://another-life.dk/the-table.html
 
-SATU · 07 / 07
+SATU · 07 / 08
 The Table
 A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench.
 Collection
@@ -321,6 +321,45 @@ Each piece carries a QR code that opens its own story: where the wood of The Tab
 About the Passport
 Pairs with
 SATU · 01The ChairDining rooms, restaurants and terracesSATU · 03The BenchDining tables, terraces and halls
+
+---
+
+# The High Stool — SATU
+URL: https://another-life.dk/the-high-stool.html
+
+SATU · 08 / 08
+The High Stool
+A tall stool in repurposed teak, 35 by 35 cm and 75 cm high, for bars and counters.
+Collection
+SATU
+Category
+Stool
+Dimensions
+L 35 × W 35 × H 75 cm
+Material
+Repurposed teak, often from old joglo houses
+Finish
+Shou Sugi Ban: flame-darkened teak, finished with natural oil.
+Construction
+Modular and knock-down. Assembled on site
+Use
+Bars, counters and kitchens
+Made in
+Indonesia
+Price
+On request. Ex works, Indonesia
+Shipping
+Flat-packed, assembled on site
+Enquire about The High Stool
+DetailsAbout The High Stool.
+Same repurposed teak, same Shou Sugi Ban finish and the same three-bolt clusters as every SATU piece.
+Like every SATU piece, it travels flat and goes together on site, and any part can be replaced on its own.
+Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.
+Another Life PassportIts own story, one scan away.
+Each piece carries a QR code that opens its own story: where the wood of The High Stool lived before, who made it, and how to care for it and repair it.
+About the Passport
+Pairs with
+SATU · 03The BenchDining tables, terraces and hallsSATU · 05The Side TablePoolside, terraces and lounges
 
 ---
 
@@ -545,7 +584,7 @@ Name
 Business
 Type of placeBoutique hotelResortRestaurantCaféArchitect or interior designerCollaboration: planting, community or partner projectOther
 Location
-Pieces you are interested in The Chair The Sun Lounger The Bench The Lounge Chair The Side Table The Coffee Table The Table
+Pieces you are interested in The Chair The Sun Lounger The Bench The Lounge Chair The Side Table The Coffee Table The Table The High Stool
 About the project
 Add your name and business so we know who to reply to.
 Prepare enquiry

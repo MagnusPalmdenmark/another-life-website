@@ -102,6 +102,13 @@ PRODUCTS.append(dict(slug="the-table", name="The Table", category="Table", order
        notes=["At 75 cm high, it meets the 45 cm seat height of The Chair and The Bench.",
               "The planked top sits in a bolted frame, with the same three-bolt clusters at each leg as every SATU piece. Any part can be replaced on its own."],
        pairs=["the-chair","the-bench"]))
+PRODUCTS.append(dict(slug="the-high-stool", name="The High Stool", category="Stool", order=8, dims=(35,35,75), seat=None,
+       img="assets/highstool.jpg", img_alt="The High Stool from the front: a tall stool in repurposed teak with a Shou Sugi Ban finish, a planked seat, tapered legs and a three-bolt cluster at each top corner",
+       short="A tall stool in repurposed teak, 35 by 35 cm and 75 cm high, for bars and counters.",
+       use="Bars, counters and kitchens",
+       notes=["Same repurposed teak, same Shou Sugi Ban finish and the same three-bolt clusters as every SATU piece.",
+              "Like every SATU piece, it travels flat and goes together on site, and any part can be replaced on its own."],
+       pairs=["the-bench","the-side-table"]))
 for _p in PRODUCTS: _p["construction"]="Modular and knock-down. Assembled on site"
 # dims = (length, width, height) in cm. Length is always the longest side; for the chairs, height is the back.
 # Seat height is given separately, for the chairs only.
@@ -119,7 +126,7 @@ PBY = {p["slug"]: p for p in PRODUCTS}
 # The long pieces and the tables are close to one shared scale; the chairs are drawn a little larger so they
 # still read clearly. Widths refer to the trimmed cut-outs (assets/cut-*.webp, cropped to the piece).
 CUT_W = {"the-chair": 23, "the-lounge-chair": 25, "the-sun-lounger": 83, "the-bench": 86,
-         "the-side-table": 27, "the-coffee-table": 35, "the-table": 85}
+         "the-side-table": 27, "the-coffee-table": 35, "the-table": 85, "the-high-stool": 19}
 
 FAQ = [
   ("What is Another Life?", "Another Life is a hospitality furniture brand. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
@@ -146,7 +153,7 @@ FAQ = [
 ]
 
 GLOSSARY = [
-  ("SATU", "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table and The Table."),
+  ("SATU", "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table, The Table and The High Stool."),
   ("Repurposed teak", "Teak that has already been cut and used. Much of ours comes from old joglo houses."),
   ("Joglo", "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses."),
   ("Shou Sugi Ban", "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil."),
@@ -727,7 +734,7 @@ KEY_FACTS = [
   ("Brand", "Another Life (wordmark: ANOTHER — LIFE)"),
   ("What we make", "Furniture for hospitality: hotels, resorts, restaurants and cafés"),
   ("Purpose", e(BRAND["mission"])),
-  ("First collection", 'SATU: seven pieces. <a href="collection.html">See the collection</a>'),
+  ("First collection", 'SATU: eight pieces. <a href="collection.html">See the collection</a>'),
   ("Material", "Repurposed teak, often from old joglo houses"),
   ("Finish", "Shou Sugi Ban. Flame-darkened, finished with natural oil."),
   ("Point of view", "Use it again, before you make it again"),
@@ -881,7 +888,7 @@ home = f'''
 
 
 <section class="h-pieces"><div class="wrap">
- <div class="h-head"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Seven pieces, one system.</h2></div>
+ <div class="h-head"><div><span class="label eyebrow muted">Collection</span><h2 class="disp">SATU. Eight pieces, one system.</h2></div>
   <div class="h-nav"><button type="button" class="h-arrow" data-dir="-1" aria-label="Previous pieces">&#8592;</button><button type="button" class="h-arrow" data-dir="1" aria-label="Next pieces">&#8594;</button></div></div>
  <div class="h-track" id="h-track">{"".join(f'<a class="h-piece" href="{p["slug"]}.html"><span class="h-img"><img style="width:{CUT_W[p["slug"]]}%" src="assets/cut-{p["img"][7:].rsplit(".",1)[0]}.webp" alt="{e(p["name"])}, {e(p["category"].lower())} in reclaimed teak" loading="lazy"></span><span class="h-name">{p["name"]}</span><span class="h-meta">{dims_card(p)}</span></a>' for p in PRODUCTS)}<a class="h-piece h-all" href="collection.html"><span class="h-img"><span class="disp">All of SATU &#8594;</span></span></a></div>
 </div></section>
@@ -926,7 +933,7 @@ coll = f'''
  {ledger([("Material","Repurposed teak"),("Finish","Shou Sugi Ban. Flame-darkened, natural oil."),("Construction","Modular, knock-down, replaceable parts"),("Shipping","Flat-packed. Assembled on site."),("Made in","Indonesia"),("Pricing","On request. Ex works, Indonesia")])}
 </div></section>
 '''
-pages["collection.html"] = ("SATU Collection", "SATU is Another Life's first collection of seven pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table and The Table, in repurposed teak with a Shou Sugi Ban finish.", coll,
+pages["collection.html"] = ("SATU Collection", "SATU is Another Life's first collection of eight pieces: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table, The Table and The High Stool, in repurposed teak with a Shou Sugi Ban finish.", coll,
   [breadcrumb([("index.html","Home"),("collection.html","SATU")]),
    {"@type":"CollectionPage","name":"SATU collection","url":url("collection.html"),"about":{"@id":url("index.html")+"#org"},
     "mainEntity":{"@type":"ItemList","numberOfItems":len(PRODUCTS),"itemListElement":[{"@type":"ListItem","position":p["order"],"url":url(p["slug"]+".html"),"name":p["name"]} for p in PRODUCTS]}}])
@@ -1338,7 +1345,7 @@ llms = f"""# Another Life
 
 > {BRAND['one_line']} {BRAND['mission']}
 
-Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand. Its first collection, SATU, has seven pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
+Another Life (wordmark: ANOTHER — LIFE) is a hospitality furniture brand. Its first collection, SATU, has eight pieces made from repurposed teak, often from old joglo houses, and finished with Shou Sugi Ban (flame-darkened and finished with natural oil). It is made in Indonesia. Every piece is knock-down: it ships flat, bolts together on site, and has replaceable parts. Customers are boutique hotels, resorts, restaurants and cafés. Prices are on request, ex works Indonesia.
 
 Key facts:
 - Purpose: to make furniture that lasts a long time.

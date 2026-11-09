@@ -185,12 +185,24 @@
           "category": "Table",
           "url": "https://another-life.dk/the-table.html",
           "description": "A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench."
+        },
+        {
+          "name": "The High Stool",
+          "dimensions_cm": {
+            "length": 35,
+            "width": 35,
+            "height": 75
+          },
+          "seat_height_cm": null,
+          "category": "Stool",
+          "url": "https://another-life.dk/the-high-stool.html",
+          "description": "A tall stool in repurposed teak, 35 by 35 cm and 75 cm high, for bars and counters."
         }
       ]
     }
   ],
   "glossary": {
-    "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table and The Table.",
+    "SATU": "The first Another Life collection: The Chair, The Sun Lounger, The Bench, The Lounge Chair, The Side Table, The Coffee Table, The Table and The High Stool.",
     "Repurposed teak": "Teak that has already been cut and used. Much of ours comes from old joglo houses.",
     "Joglo": "A traditional Indonesian house built in teak. Much of the timber we reuse comes from old joglo houses.",
     "Shou Sugi Ban": "A Japanese technique of charring wood with flame, known in Japan as yakisugi and made for cedar. We apply it to hardwood teak and finish it with natural oil.",
