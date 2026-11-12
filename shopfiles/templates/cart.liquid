@@ -37,16 +37,16 @@
   <dl class="sum-rows">
    <div><dt>Subtotal</dt><dd>{{ cart.items_subtotal_price | money_with_currency }}</dd></div>
    {%- if cart.cart_level_discount_applications.size > 0 -%}{%- for d in cart.cart_level_discount_applications -%}<div><dt>{{ d.title }}</dt><dd>&minus;{{ d.total_allocated_amount | money_with_currency }}</dd></div>{%- endfor -%}{%- endif -%}
-   <div><dt>Delivery</dt><dd class="muted">Calculated at checkout</dd></div>
+   <div><dt>Delivery</dt><dd>{{ 20000 | money_with_currency }}</dd></div>
    <div><dt>Delivery time</dt><dd>14 weeks</dd></div>
-   <div class="sum-total"><dt>Total</dt><dd>{{ cart.total_price | money_with_currency }}</dd></div>
+   <div class="sum-total"><dt>Total</dt><dd>{{ cart.total_price | plus: 20000 | money_with_currency }}</dd></div>
   </dl>
-  <p class="cap">VAT included. Every piece is made to order and delivered 14 weeks after your order. Discount codes can be entered at checkout.</p>
+  <p class="cap">Prices in USD, excl. VAT. VAT and import duty are added at checkout where they apply. Every piece is made to order and delivered 14 weeks after your order. Discount codes can be entered at checkout.</p>
   <button class="btn btn-wide" type="submit" name="checkout">Checkout</button>
   <a class="tlink cap" href="/collections/all">Continue browsing</a>
   <a class="tlink cap" href="/pages/contact">Ordering for a hotel or project? Ask for a quote</a>
  </aside>
- <div class="cart-bar"><div><span class="cap">Total</span><strong>{{ cart.total_price | money_with_currency }}</strong></div><button class="btn" type="submit" name="checkout">Checkout</button></div>
+ <div class="cart-bar"><div><span class="cap">Total</span><strong>{{ cart.total_price | plus: 20000 | money_with_currency }}</strong></div><button class="btn" type="submit" name="checkout">Checkout</button></div>
 </form>
 </div></section>
 {%- endif -%}

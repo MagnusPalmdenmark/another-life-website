@@ -2,14 +2,14 @@
 {%- if product.price > 0 -%}
 <form class="buy" action="/cart/add" method="post" data-buy>
  <input type="hidden" name="id" value="{{ v.id }}">
- <p class="buy-price"><span class="buy-amt">{{ product.price | money_with_currency }}</span> <span class="cap">incl. VAT</span></p>
+ <p class="buy-price"><span class="buy-amt">{{ product.price | money_with_currency }}</span> <span class="cap">excl. VAT</span></p>
  {%- if v.available -%}
  <div class="buy-row">
   <div class="qty"><button type="button" class="qty-b" data-q="-1" aria-label="One fewer">&minus;</button><input type="number" name="quantity" value="1" min="1" max="999" inputmode="numeric" aria-label="Quantity"><button type="button" class="qty-b" data-q="1" aria-label="One more">+</button></div>
   <button class="btn" type="submit">Add to basket</button>
  </div>
  <p class="buy-msg cap" data-buy-msg role="status" hidden>Added to your basket. <a class="tlink" href="/cart">Go to checkout</a></p>
- <p class="cap buy-note">Made to order. Delivery time 14 weeks. Delivery cost is calculated at checkout.</p>
+ <p class="cap buy-note">Made to order. Delivery time 14 weeks. Delivery is {{ 20000 | money_with_currency }} per order, anywhere in the world.</p>
  {%- else -%}
  <p class="cap buy-note">Not available to order online right now.</p>
  {%- endif -%}
