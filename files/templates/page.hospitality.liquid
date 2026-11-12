@@ -1,0 +1,94 @@
+{% layout 'theme' %}
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head" id="site-head"><div class="wrap head-row">
+<a class="brand" href="/" aria-label="Another Life, home"><img class="wordmark" src="{{ 'logo-wordmark.png' | asset_url }}" alt="ANOTHER — LIFE" width="1200" height="149"></a>
+<nav class="nav" aria-label="Main"><a class="label" href="/collections/all">Collection</a><a class="label" href="/pages/in-use">In use</a><a class="label" href="/pages/mission">Mission</a><a class="label" href="/pages/material">Material</a><a class="label" href="/pages/passport">Passport</a><a class="label" href="/pages/hospitality" aria-current=page>Hospitality</a><a class="label" href="/pages/contact">Contact</a></nav>
+<svg class="bdots" id="bdots" viewBox="0 0 30 27" aria-hidden="true"><circle class="d0" cx="15" cy="6" r="4.2"/><circle class="d1" cx="25" cy="22" r="4.2"/><circle class="d2" cx="5" cy="22" r="4.2"/></svg>
+</div></header>
+<main id="main">
+
+<section class="page-head"><div class="wrap">
+ <span class="label eyebrow">For hospitality</span>
+ <h1 class="disp">Furniture that outlasts the fit-out.</h1>
+ <figure class="head-media"><video src="https://cdn.shopify.com/videos/c/vp/d7f02ae535634679a9ea7c29bc2f8c93/d7f02ae535634679a9ea7c29bc2f8c93.HD-720p-1.6Mbps-100986241.mp4" poster="{{ 'hosp-restaurant.jpg' | asset_url }}" width="1280" height="720" autoplay muted loop playsinline preload="auto" aria-label="A slow pan across a restaurant dining room, The Chair at the tables and forested hills through tall windows"></video><figcaption class="cap">The Chair in a restaurant above the forest.</figcaption></figure>
+ <p class="pull" style="margin-top:28px">We make furniture for places that host people: boutique hotels, resorts, restaurants and cafés.</p>
+ 
+</div></section>
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">Who we work with</span><h2 class="disp">The people who shape a place.</h2></div>
+ <div class="prose"><p>We like to work directly with owners and the people who define what a hospitality brand stands for, not only how it looks. If your place is built on values, your furniture should carry them.</p>
+ <p>We also work with the architects and interior designers who specify furniture for hotels and restaurants.</p>
+ <p>Choosing Another Life is a way to adopt better decisions without building the supply chain yourself. The story comes with the piece.</p></div>
+</div></section>
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">What you get</span><h2 class="disp">Why it fits hospitality.</h2><div class="lead-img"><figure class="fig"><img src="{{ 'chair-detail-sky.jpg' | asset_url }}" alt="The Chair&#x27;s backrest against an evening sky, with low sun on the teak and the bolt cluster on the rear leg" width="1385" height="1800" loading="lazy"><figcaption class="cap">Made to live outdoors.</figcaption></figure></div></div>
+ <div class="rows"><div class="row"><h3 class="disp">Indoors and outdoors</h3><p>Made for pools, terraces, gardens, dining rooms and lobbies.</p></div><div class="row"><h3 class="disp">Repair, not replace</h3><p>When a part wears, you replace the part. The piece stays in service.</p></div><div class="row"><h3 class="disp">Flat to your door</h3><p>Ships knocked down, assembles on site, comes apart again when you move or store it.</p></div><div class="row"><h3 class="disp">Something to talk about</h3><p>Guests ask about furniture with a history. Yours has one.</p></div></div>
+</div></section>
+<section class="forest"><div class="wrap split">
+ <div><span class="label eyebrow muted">How it works</span><h2 class="disp">From enquiry to installation.</h2></div>
+ <div class="rows"><div class="row num"><span class="n">01</span><p>Tell us about the space, the pieces you need and your timeline.</p></div><div class="row num"><span class="n">02</span><p>Your pieces are made by hand in Indonesia in small batches.</p></div><div class="row num"><span class="n">03</span><p>They ship flat and are bolted together on site.</p></div></div>
+</div></section>
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">Start</span><h2 class="disp">Ready when you are.</h2></div>
+ <div class="prose"><p>Prices are on request. We reply to every enquiry.</p><div class="btns" style="margin-top:24px"><a class="btn" href="/pages/contact">Enquire</a><a class="label tlink" href="/collections/all">See SATU</a></div></div>
+</div></section>
+
+</main>
+<footer><div class="wrap">
+<div class="foot">
+ <ul class="foot-links"><li><a href="/collections/all">Collection</a></li><li><a href="/pages/passport">Passport</a></li><li><a href="/pages/faq">FAQ</a></li><li><a href="/pages/contact">Contact</a></li><li><a href="/pages/contact" data-obf="NTA0MDM1MDM1NA==" data-t="wa">WhatsApp</a></li></ul>
+</div>
+<div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
+</div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2bde136b23f84ce3be21365d0d57673f"}'></script><!-- End Cloudflare Web Analytics -->
+<script>
+(function(){
+ var svg=document.getElementById('bdots'); if(!svg) return;
+ if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ var moves=['swap','swap','swap','hop','spin','wave','swap','tumble'], busy=false, last='';
+ function play(name){ if(busy) return; busy=true;
+  if(!name){ do{ name=moves[Math.floor(Math.random()*moves.length)]; }while(name===last&&name!=='swap'); }
+  last=name; svg.setAttribute('class','bdots '+name);
+  setTimeout(function(){ svg.setAttribute('class','bdots'); busy=false; },1500); }
+ function loop(){ setTimeout(function(){ if(!document.hidden) play(); loop(); }, 4500+Math.random()*7000); }
+ setTimeout(function(){ play('swap'); loop(); }, 1400);
+ svg.addEventListener('mouseenter',function(){ play(); }); document.querySelector('.site-head .brand').addEventListener('mouseenter',function(){ play(); });
+})();
+</script>
+<script>(function(){function d(s){try{return atob(s).split('').reverse().join('')}catch(e){return ''}}document.querySelectorAll('[data-obf]').forEach(function(el){var v=d(el.getAttribute('data-obf')),t=el.getAttribute('data-t');if(t==='mail'){el.innerHTML='<a href="mailto:'+v+'">'+v+'</a>';}else if(t==='text'){el.textContent=v;}else if(t==='wa'){el.setAttribute('href','https://wa.me/'+v);el.setAttribute('target','_blank');el.setAttribute('rel','noopener');}});})();</script>
+<script>
+(function(){
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('motion');
+ var main=document.getElementById('main');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var seen=new Set();
+ targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
+ var nls=[];
+ main.querySelectorAll('.name-lines').forEach(function(h){ h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(function(t){return '<span class="nl">'+t+'</span>';}).join(''); nls.push(h); });
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+ main.querySelectorAll('.rv').forEach(function(el){
+  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
+ var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var wins=[].slice.call(main.querySelectorAll('.win-img'));
+ var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
+ var tick=false;
+ function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
+  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
+   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
+   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
+  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+  nls.forEach(function(h){ var r=h.getBoundingClientRect(), pr=(vh-r.top)/(vh*0.95);
+   [].forEach.call(h.children,function(sp,i){ sp.classList.toggle('in', pr>0.15+i*0.13); }); });
+  wins.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/(vh+r.height); img.style.transform='translate3d(0,'+(d*-34)+'%,0)'; });
+ }
+ window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
+ frame();
+})();
+</script>
+<script>(function(){var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){h.classList.toggle('show',window.scrollY>40);}t();window.addEventListener('scroll',t,{passive:true});})();</script>
+<script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('video[autoplay]').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.controls=true;});}</script>

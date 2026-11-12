@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+{%- liquid
+  assign k = 'index'
+  if template.name == 'product'
+    assign k = product.handle
+  elsif template.name == 'page'
+    assign k = page.handle
+  elsif template.name == 'collection' or template.name == 'list-collections'
+    assign k = 'collection'
+  endif
+-%}
+{%- case k -%}
+  {%- when 'collection' -%}{%- render 'head-collection' -%}
+  {%- when 'contact' -%}{%- render 'head-contact' -%}
+  {%- when 'faq' -%}{%- render 'head-faq' -%}
+  {%- when 'hospitality' -%}{%- render 'head-hospitality' -%}
+  {%- when 'in-use' -%}{%- render 'head-in-use' -%}
+  {%- when 'index' -%}{%- render 'head-index' -%}
+  {%- when 'material' -%}{%- render 'head-material' -%}
+  {%- when 'mission' -%}{%- render 'head-mission' -%}
+  {%- when 'passport' -%}{%- render 'head-passport' -%}
+  {%- when 'the-bench' -%}{%- render 'head-the-bench' -%}
+  {%- when 'the-chair' -%}{%- render 'head-the-chair' -%}
+  {%- when 'the-coffee-table' -%}{%- render 'head-the-coffee-table' -%}
+  {%- when 'the-high-stool' -%}{%- render 'head-the-high-stool' -%}
+  {%- when 'the-lounge-chair' -%}{%- render 'head-the-lounge-chair' -%}
+  {%- when 'the-side-table' -%}{%- render 'head-the-side-table' -%}
+  {%- when 'the-sun-lounger' -%}{%- render 'head-the-sun-lounger' -%}
+  {%- when 'the-table' -%}{%- render 'head-the-table' -%}
+  {%- else -%}<title>{{ page_title }} — Another Life</title>{%- render 'head-generic' -%}
+{%- endcase -%}
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});
+gtag('js',new Date());gtag('config','G-TXE3T5Z1W4');
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TXE3T5Z1W4"></script>
+{%- render 'site-css' -%}
+{{ content_for_header }}
+<script>
+(function(){
+  function apply(){
+    var cp=window.Shopify&&Shopify.customerPrivacy; if(!cp) return;
+    var a=cp.analyticsProcessingAllowed?cp.analyticsProcessingAllowed():false;
+    var m=cp.marketingAllowed?cp.marketingAllowed():false;
+    gtag('consent','update',{analytics_storage:a?'granted':'denied',ad_storage:m?'granted':'denied',ad_user_data:m?'granted':'denied',ad_personalization:m?'granted':'denied'});
+  }
+  document.addEventListener('visitorConsentCollected',apply);
+  if(window.Shopify&&Shopify.loadFeatures){Shopify.loadFeatures([{name:'consent-tracking-api',version:'0.1'}],function(e){if(!e)apply();});}
+})();
+</script>
+</head>
+<body>
+{{ content_for_layout }}
+</body>
+</html>
