@@ -26,8 +26,8 @@
   const T = {
     en: {
       // lookup
-      lkT: "Find a piece", lkP: "Enter the code under the QR code on your furniture.", lkPh: "e.g. AL-2610-03-Q", lkBtn: "Look up",
-      lkFmt: "Codes look like AL-2610-03-Q.", lkBad: "That code doesn't look right. Check the last letter.", lkNone: "We have no batch with that code yet.",
+      lkT: "Find a piece", lkP: "Enter the code under the QR code on your furniture.", lkPh: "e.g. 7K4M-2QXH", lkBtn: "Look up",
+      lkFmt: "Codes look like 7K4M-2QXH: 8 letters and numbers.", lkBad: "That code doesn't look right. Check each character.", lkNone: "We have no piece with that code yet.",
       lkErr: "Something went wrong. Try again in a moment.", lkHint: "Want to see an example? Type", staffLink: "Factory / staff login",
       // login
       abT: "All batches", abLink: "All batches", abBig: "See all QR codes", newBig: "Make a new passport", abSearch: "Search code, area or maker", abAllP: "All products", abAllM: "All months",
@@ -95,10 +95,10 @@
       ovT: "Overview", stB: "Batches", stP: "Pieces", stD: "Waiting for details",
       drT: "Waiting for details", drP: "These codes are made and can be engraved. The workshop still needs to add where the wood came from.",
       drNone: "Nothing waiting. Every batch has its story.", fillIn: "Fill in",
-      wsT: "Workshops", wsP: "Each workshop only sees its own batches. Add the people who work there.",
+      wsT: "Workshops", wsP: "Each workshop only sees the plates it linked and its own wood lots. Add the people who work there.",
       wsAdd: "Add a workshop", wsName: "Workshop name, e.g. Jakarta workshop", wsCreate: "Add workshop",
       wsNone: "No workshops yet. Add one, then add the people who work there.",
-      wsSum: (b, d) => `${b} batch${b === 1 ? "" : "es"}${d ? ` · ${d} waiting for details` : ""}`,
+      wsSum: (b, d) => `${b} plate${b === 1 ? "" : "s"} linked${d ? ` · ${d} waiting for approval` : ""}`,
       wsNoPeople: "No one here yet.", noWs: "Not in a workshop", noWsP: "Sees only the batches they made themselves.",
       qWs: "Which workshop?", wsPick: "Workshop", wsNoneOpt: "No workshop", adAddTo: n => `Add a person to ${n}`,
       stDraft: "Draft", stDone: "Complete", stCol: "Status", wsCol: "Workshop", abAllS: "All statuses", abOnlyD: "Drafts only",
@@ -121,14 +121,14 @@
       lotNotes: "Notes (internal)", lotName: "Short name on the tag", lotNamePh: "Made automatically, e.g. House · Jepara",
       lotPhotos: "Photos of the wood and where it came from", lotPubPh: "Show these photos on passports", lotCreate: "Create lot and print tag",
       lotOpen: "In stock", lotUsed: "Used up", lotMarkUsed: "Mark as used up", lotMarkOpen: "Back in stock", lotPrint: "Print tag", lotEdit: "Edit",
-      lotNone: "No wood lots yet.", lotIn: n => `Used in ${n} batch${n === 1 ? "" : "es"}`, lotBatches: "Furniture made from this lot", lotNoB: "Not used in any batch yet.",
+      lotNone: "No wood lots yet.", lotIn: n => `Linked to ${n} code${n === 1 ? "" : "s"}`, lotBatches: "Furniture made from this lot", lotNoB: "No plates linked yet.",
       lotNotFound: "This lot doesn't exist, or it belongs to another workshop.", lotSaved: "Saved.", lotShowUsed: n => `Show ${n} used-up lot${n === 1 ? "" : "s"}`,
       qLot: "Which wood lot? Read the number on the tag", lotTypePh: "Type lot number, e.g. 2610-48", lotAdd: "Add", lotNo: n => `There is no lot ${n} for this workshop.`,
       byHand: "No lot number? Choose the wood by hand", lotFromTag: "Area comes from the lot.",
       tagTitle: "Print this tag and fix it to the wood stack", tagPrint: "Print", tagBack: "Back to the lot",
       err_lot: "One of the lot numbers doesn't exist for this workshop.", err_lot_workshop: "That lot belongs to another workshop.", err_origin_lot: "Choose what the wood was.",
-      plT: "Engraving files", plP: "The steel plate file (100 × 45 mm) for every batch, in the current design. Use this after the plate design changes.", plBtn: "Download all engraving files (ZIP)", plDone: n => `Done. ${n} files.`,
-      dlAll: "Download everything (ZIP)", dlAllP: "A copy of all batches, wood lots and photos, with spreadsheets you can open in Excel. Keep it on your computer or in Google Drive.",
+      plT: "Engraving files", plP: "The steel plate file (100 × 45 mm) for every blank plate, in the current design. Use this after the plate design changes.", plBtn: "Download engraving files for blank plates (ZIP)", plDone: n => `Done. ${n} files.`,
+      dlAll: "Download everything (ZIP)", dlAllP: "A copy of all plates, wood lots, older batches and photos, with spreadsheets you can open in Excel. Keep it on your computer or in Google Drive.",
       dlBusy: (i, n) => `Preparing… ${i} of ${n} photos`, dlDone: "Downloaded.", lotsSum: (o, u) => `${o} in stock · ${u} used up`,
       navB: "All furniture", navLots: "Wood", navNew: "New passport", navOv: "Home", navOvS: "Home", navNewS: "New", navBS: "Furniture", navLotsS: "Wood", navOvD: "Summary and team", navNewD: "Code for new furniture", navBD: "Every batch made", navLotsD: "Deliveries in stock", stLots: "Wood lots in stock", newLotBig: "New wood lot",
       // material record (internal)
@@ -144,10 +144,39 @@
       docsK: "Documents · internal", docsP: "Scans and files: invoices, village letters, certificates, measurement lists, saved copies of outside records. PDF or image, up to 4 MB each.",
       docsNone: "No documents yet.", docAdd: "Add documents", docNote: "Note for the next upload (optional)", docUp: (i, n) => `Uploading ${i} of ${n}…`,
       docBig: "Too large (over 4 MB). Make the PDF smaller or scan at a lower resolution.", docBadType: "Only PDF or image files.", docOpen: "Open", docDl: "Download",
+      // plates: one per piece, linked only to the wood
+      pBlankH: "This piece is still being made.", pBlankP: "Its plate is ready, but its story hasn't been written yet. Come back soon.",
+      pWaitH: "Almost ready.", pWaitP: "The story of this piece is being checked. Come back in a few days.",
+      plCode: "Plate", pLook: "Repurposed teak", pLead: o => `Before it became furniture, it was ${o}. Before that, it was a teak tree growing for decades. Here is its story.`,
+      pLeadUnsure: "This piece is made from reclaimed teak: wood that has already lived one life, as part of a house, a bridge or a boat. Before that, it was a teak tree growing for decades.",
+      pUnsure: "We don't know for sure which delivery this wood came from, so we don't guess.", and: "and",
+      pStarted: "This wood started as a tree.", pBefore: "Before it became furniture", pSee: "See the collection on another-life.dk", pSince: "Since then",
+      navLink: "Link a plate", navLinkS: "Link", navLinkD: "Scan a plate, choose the wood", navPl: "All plates", navPlS: "Plates", navPlD: "Every plate made",
+      lnT: "Link a plate", lnP: "Fix a blank plate on the back frame of the finished piece. Then scan it with the phone camera, or type the code under the QR code.",
+      lnBtn: "Open plate", lnNotPlate: "That isn't a plate code. Plate codes look like 7K4M-2QXH.", lnNone: "There is no plate with that code.",
+      st_blank: "Blank", st_linked: "Waiting for approval", st_public: "Public",
+      lnQ: "Which wood? Read the lot number on the tag. Choose all that were used.", lnUnsure: "Not sure", lnUnsureP: "Don't guess. The passport will say we don't know.",
+      lnPhoto: "Photo of the finished piece (optional)", lnGo: "Link plate", lnSave: "Save change", lnNeed: "Choose a wood lot, or Not sure.",
+      lnDone: "Done. Another Life will check it before it goes public.", lnNext: "Link the next plate",
+      lnPublic: "This plate is approved and public. Only Another Life can change it.", lnOther: "This plate was already linked by another workshop.",
+      lnBlankNote: "Blank: scanning it shows “still being made”.", lnWaitNote: "Waiting for approval: scanning it shows “almost ready”.", lnPubNote: "Public: scanning it shows the full story.",
+      plApprove: "Approve and make public", plApproved: "Approved. The passport is public.", plLinkPub: "Link and make public",
+      plReset: "Remove link (wrong piece)", plResetQ: "Remove the link? The plate becomes blank again. Its history is kept.", plYes: "Yes, remove",
+      plEvent: "Add to its story: a repair, a new part, a move", plEventPh: "e.g. Leg replaced, moved to the pool terrace", plEventBtn: "Add",
+      plHist: "History · can be added to, never changed", plMade: "Code made", plWood: "Wood", plWs: "Workshop", plLinkedK: "Linked", plApprovedK: "Approved",
+      plsMake: "Make new plates", plsMakeP: "Makes new blank codes. Each code is random and never used again. Download the engraving files and send them to the plate maker.",
+      plsCount: "How many plates?", plsBtn: "Make plates", plsMade: n => `${n} new plates made`, plsZip: "Download their engraving files (ZIP)",
+      plsCols: ["Plate", "Status", "Wood", "Workshop", "Code made", "Linked"], plsSearch: "Search plate or lot", plsAll: "All", plsNone: "No plates match.",
+      plsOf: (n, t) => `${n} of ${t} plates`, plsBlankLeft: n => `${n} blank plate${n === 1 ? "" : "s"} left`,
+      stBl: "Blank plates", stWait: "Waiting for approval", stPub: "Public passports",
+      toApprove: "To approve", toApproveP: "Plates linked by the workshop. Check the wood, then approve.", toApproveNone: "Nothing to approve.",
+      newPlatesBig: "Make new plates", allPlatesBig: "See all plates", lotPlates: "Plates linked to this lot",
+      err_plate_public: "This plate is approved. Only Another Life can change it.", err_plate_linked: "This plate was already linked by another workshop.",
+      err_wood: "Choose a wood lot, or Not sure.", err_count: "Enter a number from 1 to 500.", err_plate_status: "That can't be done in this plate's current status.", err_text: "Write a few words.",
     },
     id: {
-      lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. AL-2610-03-Q", lkBtn: "Cari",
-      lkFmt: "Format kode seperti AL-2610-03-Q.", lkBad: "Kode itu sepertinya salah. Periksa huruf terakhirnya.", lkNone: "Belum ada batch dengan kode itu.",
+      lkT: "Cari produk", lkP: "Masukkan kode di bawah kode QR pada furnitur Anda.", lkPh: "mis. 7K4M-2QXH", lkBtn: "Cari",
+      lkFmt: "Format kode seperti 7K4M-2QXH: 8 huruf dan angka.", lkBad: "Kode itu sepertinya salah. Periksa setiap karakternya.", lkNone: "Belum ada produk dengan kode itu.",
       lkErr: "Terjadi kesalahan. Coba lagi sebentar lagi.", lkHint: "Ingin melihat contoh? Ketik", staffLink: "Login pabrik / staf",
       abT: "Semua batch", abLink: "Semua batch", abBig: "Lihat semua kode QR", newBig: "Buat paspor baru", abSearch: "Cari kode, daerah atau pembuat", abAllP: "Semua produk", abAllM: "Semua bulan",
       abCount: (n, t) => `${n} dari ${t} batch`, abPieces: (n) => `${n} produk total`, abNone: "Tidak ada batch yang cocok.", abCols: ["Kode", "Produk", "Status", "Kayu", "Daerah", "Jumlah", "Bengkel", "Dibuat", "Oleh"],
@@ -211,10 +240,10 @@
       ovT: "Ringkasan", stB: "Batch", stP: "Produk", stD: "Menunggu detail",
       drT: "Menunggu detail", drP: "Kode-kode ini sudah dibuat dan bisa digrafir. Bengkel masih perlu mengisi asal kayunya.",
       drNone: "Tidak ada yang menunggu. Setiap batch sudah punya kisahnya.", fillIn: "Isi",
-      wsT: "Bengkel", wsP: "Setiap bengkel hanya melihat batch miliknya sendiri. Tambahkan orang yang bekerja di sana.",
+      wsT: "Bengkel", wsP: "Setiap bengkel hanya melihat plat yang dihubungkannya dan lot kayunya sendiri. Tambahkan orang yang bekerja di sana.",
       wsAdd: "Tambah bengkel", wsName: "Nama bengkel, mis. Bengkel Jakarta", wsCreate: "Tambah bengkel",
       wsNone: "Belum ada bengkel. Tambahkan satu, lalu tambahkan orang yang bekerja di sana.",
-      wsSum: (b, d) => `${b} batch${d ? ` · ${d} menunggu detail` : ""}`,
+      wsSum: (b, d) => `${b} plat dihubungkan${d ? ` · ${d} menunggu persetujuan` : ""}`,
       wsNoPeople: "Belum ada orang di sini.", noWs: "Belum masuk bengkel", noWsP: "Hanya melihat batch yang dibuatnya sendiri.",
       qWs: "Bengkel yang mana?", wsPick: "Bengkel", wsNoneOpt: "Tanpa bengkel", adAddTo: n => `Tambah orang ke ${n}`,
       stDraft: "Draf", stDone: "Lengkap", stCol: "Status", wsCol: "Bengkel", abAllS: "Semua status", abOnlyD: "Hanya draf",
@@ -235,14 +264,14 @@
       lotNotes: "Catatan (internal)", lotName: "Nama singkat di label", lotNamePh: "Dibuat otomatis, mis. House · Jepara",
       lotPhotos: "Foto kayu dan tempat asalnya", lotPubPh: "Tampilkan foto ini di paspor", lotCreate: "Buat lot dan cetak label",
       lotOpen: "Tersedia", lotUsed: "Sudah habis", lotMarkUsed: "Tandai sudah habis", lotMarkOpen: "Tersedia lagi", lotPrint: "Cetak label", lotEdit: "Ubah",
-      lotNone: "Belum ada lot kayu.", lotIn: n => `Dipakai di ${n} batch`, lotBatches: "Furnitur dari lot ini", lotNoB: "Belum dipakai di batch mana pun.",
+      lotNone: "Belum ada lot kayu.", lotIn: n => `Terhubung ke ${n} kode`, lotBatches: "Furnitur dari lot ini", lotNoB: "Belum ada plat yang terhubung.",
       lotNotFound: "Lot ini tidak ada, atau milik bengkel lain.", lotSaved: "Tersimpan.", lotShowUsed: n => `Tampilkan ${n} lot yang sudah habis`,
       qLot: "Lot kayu yang mana? Baca nomor di label", lotTypePh: "Ketik nomor lot, mis. 2610-48", lotAdd: "Tambah", lotNo: n => `Tidak ada lot ${n} untuk bengkel ini.`,
       byHand: "Tidak ada nomor lot? Pilih kayunya secara manual", lotFromTag: "Daerah diambil dari lot.",
       tagTitle: "Cetak label ini dan pasang di tumpukan kayu", tagPrint: "Cetak", tagBack: "Kembali ke lot",
       err_lot: "Salah satu nomor lot tidak ada untuk bengkel ini.", err_lot_workshop: "Lot itu milik bengkel lain.", err_origin_lot: "Pilih kayunya dulu apa.",
-      plT: "File grafir", plP: "File pelat baja (100 × 45 mm) untuk setiap batch, dalam desain terbaru. Pakai ini setelah desain pelat berubah.", plBtn: "Unduh semua file grafir (ZIP)", plDone: n => `Selesai. ${n} file.`,
-      dlAll: "Unduh semua (ZIP)", dlAllP: "Salinan semua batch, lot kayu, dan foto, dengan tabel yang bisa dibuka di Excel. Simpan di komputer atau Google Drive.",
+      plT: "File grafir", plP: "File pelat baja (100 × 45 mm) untuk setiap plat kosong, dalam desain terbaru. Pakai ini setelah desain pelat berubah.", plBtn: "Unduh file grafir plat kosong (ZIP)", plDone: n => `Selesai. ${n} file.`,
+      dlAll: "Unduh semua (ZIP)", dlAllP: "Salinan semua plat, lot kayu, batch lama, dan foto, dengan tabel yang bisa dibuka di Excel. Simpan di komputer atau Google Drive.",
       dlBusy: (i, n) => `Menyiapkan… ${i} dari ${n} foto`, dlDone: "Sudah diunduh.", lotsSum: (o, u) => `${o} tersedia · ${u} sudah habis`,
       navB: "Semua furnitur", navLots: "Kayu", navNew: "Paspor baru", navOv: "Beranda", navOvS: "Awal", navNewS: "Baru", navBS: "Furnitur", navLotsS: "Kayu", navOvD: "Ringkasan dan tim", navNewD: "Kode untuk furnitur baru", navBD: "Semua batch yang dibuat", navLotsD: "Kiriman kayu di gudang", stLots: "Lot kayu tersedia", newLotBig: "Lot kayu baru",
       matK: "Catatan material · internal", matP: "Semua yang diketahui tentang kayu ini, disimpan di sini agar tidak bergantung pada halaman luar. Tidak pernah tampil di paspor.",
@@ -257,10 +286,38 @@
       docsK: "Dokumen · internal", docsP: "Pindaian dan file: faktur, surat desa, sertifikat, daftar ukur, salinan catatan luar. PDF atau gambar, maksimal 4 MB per file.",
       docsNone: "Belum ada dokumen.", docAdd: "Tambah dokumen", docNote: "Catatan untuk unggahan berikutnya (opsional)", docUp: (i, n) => `Mengunggah ${i} dari ${n}…`,
       docBig: "Terlalu besar (lebih dari 4 MB). Perkecil PDF atau pindai dengan resolusi lebih rendah.", docBadType: "Hanya file PDF atau gambar.", docOpen: "Buka", docDl: "Unduh",
+      pBlankH: "Produk ini masih dibuat.", pBlankP: "Platnya sudah siap, tetapi kisahnya belum ditulis. Kembali lagi nanti.",
+      pWaitH: "Hampir siap.", pWaitP: "Kisah produk ini sedang diperiksa. Kembali lagi dalam beberapa hari.",
+      plCode: "Plat", pLook: "Jati daur ulang", pLead: o => `Sebelum menjadi furnitur, kayu ini adalah ${o}. Sebelumnya lagi, ia adalah pohon jati yang tumbuh selama puluhan tahun. Inilah kisahnya.`,
+      pLeadUnsure: "Produk ini dibuat dari kayu jati daur ulang: kayu yang sudah menjalani satu kehidupan, sebagai bagian dari rumah, jembatan, atau perahu. Sebelumnya, ia adalah pohon jati yang tumbuh selama puluhan tahun.",
+      pUnsure: "Kami tidak tahu pasti dari kiriman mana kayu ini berasal, jadi kami tidak menebak.", and: "dan",
+      pStarted: "Kayu ini berawal dari sebatang pohon.", pBefore: "Sebelum menjadi furnitur", pSee: "Lihat koleksinya di another-life.dk", pSince: "Sejak itu",
+      navLink: "Hubungkan plat", navLinkS: "Plat", navLinkD: "Pindai plat, pilih kayu", navPl: "Semua plat", navPlS: "Daftar", navPlD: "Semua plat yang dibuat",
+      lnT: "Hubungkan plat", lnP: "Pasang plat kosong di rangka belakang furnitur yang sudah jadi. Lalu pindai dengan kamera ponsel, atau ketik kode di bawah kode QR.",
+      lnBtn: "Buka plat", lnNotPlate: "Itu bukan kode plat. Kode plat seperti 7K4M-2QXH.", lnNone: "Tidak ada plat dengan kode itu.",
+      st_blank: "Kosong", st_linked: "Menunggu persetujuan", st_public: "Publik",
+      lnQ: "Kayu yang mana? Baca nomor lot di label. Pilih semua yang dipakai.", lnUnsure: "Tidak yakin", lnUnsureP: "Jangan menebak. Paspor akan menyebut kami tidak tahu.",
+      lnPhoto: "Foto furnitur yang sudah jadi (opsional)", lnGo: "Hubungkan plat", lnSave: "Simpan perubahan", lnNeed: "Pilih lot kayu, atau Tidak yakin.",
+      lnDone: "Selesai. Another Life akan memeriksanya sebelum tampil publik.", lnNext: "Hubungkan plat berikutnya",
+      lnPublic: "Plat ini sudah disetujui dan publik. Hanya Another Life yang bisa mengubahnya.", lnOther: "Plat ini sudah dihubungkan oleh bengkel lain.",
+      lnBlankNote: "Kosong: pindaian menampilkan “masih dibuat”.", lnWaitNote: "Menunggu persetujuan: pindaian menampilkan “hampir siap”.", lnPubNote: "Publik: pindaian menampilkan kisah lengkapnya.",
+      plApprove: "Setujui dan tampilkan", plApproved: "Disetujui. Paspor sudah publik.", plLinkPub: "Hubungkan dan tampilkan",
+      plReset: "Hapus tautan (furnitur salah)", plResetQ: "Hapus tautan? Plat menjadi kosong lagi. Riwayatnya tetap disimpan.", plYes: "Ya, hapus",
+      plEvent: "Tambahkan ke kisahnya: perbaikan, bagian baru, pindah", plEventPh: "mis. Kaki diganti, dipindah ke teras kolam", plEventBtn: "Tambah",
+      plHist: "Riwayat · bisa ditambah, tidak bisa diubah", plMade: "Kode dibuat", plWood: "Kayu", plWs: "Bengkel", plLinkedK: "Dihubungkan", plApprovedK: "Disetujui",
+      plsMake: "Buat plat baru", plsMakeP: "Membuat kode kosong baru. Setiap kode acak dan tidak pernah dipakai lagi. Unduh file grafir dan kirim ke pembuat plat.",
+      plsCount: "Berapa plat?", plsBtn: "Buat plat", plsMade: n => `${n} plat baru dibuat`, plsZip: "Unduh file grafirnya (ZIP)",
+      plsCols: ["Plat", "Status", "Kayu", "Bengkel", "Kode dibuat", "Dihubungkan"], plsSearch: "Cari plat atau lot", plsAll: "Semua", plsNone: "Tidak ada plat yang cocok.",
+      plsOf: (n, t) => `${n} dari ${t} plat`, plsBlankLeft: n => `${n} plat kosong tersisa`,
+      stBl: "Plat kosong", stWait: "Menunggu persetujuan", stPub: "Paspor publik",
+      toApprove: "Perlu disetujui", toApproveP: "Plat yang dihubungkan bengkel. Periksa kayunya, lalu setujui.", toApproveNone: "Tidak ada yang perlu disetujui.",
+      newPlatesBig: "Buat plat baru", allPlatesBig: "Lihat semua plat", lotPlates: "Plat yang terhubung ke lot ini",
+      err_plate_public: "Plat ini sudah disetujui. Hanya Another Life yang bisa mengubahnya.", err_plate_linked: "Plat ini sudah dihubungkan oleh bengkel lain.",
+      err_wood: "Pilih lot kayu, atau Tidak yakin.", err_count: "Isi angka 1 sampai 500.", err_plate_status: "Itu tidak bisa dilakukan pada status plat ini.", err_text: "Tulis beberapa kata.",
     }
   };
 
-  const TEST_BATCH = { code: "TEST", model: "The Bench", origin: "bridge", region: "Central Java", maker: "Tim A", qty: 12, kg: 9, route: "jakarta-bali", made: new Date().toISOString(), photos: ["test1", "test2"] };
+  const TEST_BATCH = { kind: "plate", code: "TEST", status: "complete", unsure: false, origins: ["bridge"], origin: "bridge", region: "Central Java", lots: [{ label: "LOT 2610-48", origin: "bridge" }], route: "jakarta-bali", made: new Date().toISOString(), photos: ["test1", "test2"], events: [] };
   const photoUrl = (code, id) => code === "TEST" ? `/passport-app/wood-${id}.jpg` : /^L\d+\//.test(id) ? `${API}?lphoto=${id.slice(1)}` : `${API}?photo=${encodeURIComponent(code)}/${id}`;
   const lotPhotoUrl = (n, id) => `${API}?lphoto=${n}/${id}`;
   // Lot numbers are stored as YYMMNN (261048) and shown as 2610-48.
@@ -285,6 +342,21 @@
     if (!m) return { error: "format" };
     if (checkLetter(`AL-${m[1]}-${m[2]}`) !== m[3]) return { error: "check" };
     return { code: v };
+  }
+  // Plate codes: 7 random characters + 1 check character, shown as 7K4M-2QXH. No 0, O, 1, I or L.
+  const PLATE_ALPHA = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+  function plateCheck(b) { let s = 0; for (let i = 0; i < b.length; i++) s += (PLATE_ALPHA.indexOf(b[i]) + 1) * (i + 2); return PLATE_ALPHA[s % PLATE_ALPHA.length]; }
+  function parsePlate(input) {
+    const v = String(input || "").trim().toUpperCase().replace(/[\s-]+/g, "");
+    if (v.length !== 8 || [...v].some(c => !PLATE_ALPHA.includes(c))) return { error: "format" };
+    if (plateCheck(v.slice(0, 7)) !== v[7]) return { error: "check" };
+    return { code: v.slice(0, 4) + "-" + v.slice(4), plate: true };
+  }
+  // A plate code, or an older batch code (AL-2610-03-Q), which keeps working.
+  function parseAny(input) {
+    const b = parseCode(input); if (!b.error) return b;
+    const p = parsePlate(input); if (!p.error) return p;
+    return { error: b.error === "check" || p.error === "check" ? "check" : "format" };
   }
   async function api(params, body) {
     const opts = body ? { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), credentials: "same-origin" } : { credentials: "same-origin" };
@@ -322,6 +394,9 @@
     if (p.toLowerCase() === "factory") return { view: "factory" };
     if (p.toLowerCase() === "admin") return { view: "admin" };
     if (p.toLowerCase() === "batches") return { view: "batches" };
+    if (p.toLowerCase() === "link") return { view: "link" };
+    if (p.toLowerCase() === "plates") return { view: "plates" };
+    if (/^plate\//i.test(p)) return { view: "plate", code: p.slice(6).toUpperCase() };
     if (/^join\//i.test(p)) return { view: "join", token: p.slice(5) };
     if (/^edit\//i.test(p)) return { view: "edit", code: p.slice(5).toUpperCase() };
     if (p.toLowerCase() === "lots") return { view: "lots" };
@@ -330,9 +405,10 @@
     lm = p.match(/^lot\/([\d-]+)$/i);
     if (lm) return { view: "lot", n: Number(lm[1].replace(/-/g, "")) };
     const m = p.match(/^(.+)\/repair$/i);
-    if (m) return { view: "repair", code: m[1].toLowerCase() === "test" ? "TEST" : m[1].toUpperCase() };
+    if (m) { const pl = parsePlate(m[1]); return { view: "repair", code: m[1].toLowerCase() === "test" ? "TEST" : pl.error ? m[1].toUpperCase() : pl.code }; }
     if (p.toLowerCase() === "test") return { view: "passport", code: "TEST" };
-    return { view: "passport", code: p.toUpperCase() };
+    const pl = parsePlate(p);
+    return { view: "passport", code: pl.error ? p.toUpperCase() : pl.code };
   }
   function go(path) { history.pushState(null, "", BASE + "/" + path); render(); window.scrollTo(0, 0); }
   window.addEventListener("popstate", render);
@@ -354,7 +430,7 @@
   let current = null, cache = {}, form = null, who = {};
 
   // One staff menu, always in the same place (under the logo), on every staff page.
-  const NAV_OF = { admin: "admin", factory: "factory", edit: "batches", batches: "batches", lots: "lots", lot: "lots", tag: "lots" };
+  const NAV_OF = { admin: "admin", link: "link", plate: "plates", plates: "plates", factory: "plates", edit: "plates", batches: "plates", lots: "lots", lot: "lots", tag: "lots" };
   function showNav() {
     const nav = $("#snav"), r = route(), cur = NAV_OF[r.view];
     if (!nav) return;
@@ -364,9 +440,11 @@
       admin: '<path d="M3 9.5 10 4l7 5.5V16H3z"/><path d="M8 16v-4h4v4"/>',
       factory: '<rect x="3.5" y="3.5" width="13" height="13"/><path d="M10 7v6M7 10h6"/>',
       batches: '<path d="M4 6h12M4 10h12M4 14h12"/>',
+      plates: '<path d="M4 6h12M4 10h12M4 14h12"/>',
+      link: '<rect x="3.5" y="5.5" width="13" height="9" rx="1"/><path d="M6.5 8.5h3v3h-3zM12 9h2M12 11h2"/>',
       lots: '<ellipse cx="6" cy="10" rx="2.5" ry="4"/><path d="M6 6h9M6 14h9M15 6a2.5 4 0 0 1 0 8"/>'
     };
-    const items = [who.admin ? ["admin", L.navOv, L.navOvS, L.navOvD] : null, ["factory", L.navNew, L.navNewS, L.navNewD], ["batches", L.navB, L.navBS, L.navBD], ["lots", L.navLots, L.navLotsS, L.navLotsD]].filter(Boolean);
+    const items = [who.admin ? ["admin", L.navOv, L.navOvS, L.navOvD] : null, ["link", L.navLink, L.navLinkS, L.navLinkD], ["plates", L.navPl, L.navPlS, L.navPlD], ["lots", L.navLots, L.navLotsS, L.navLotsD]].filter(Boolean);
     $("#snavIn").innerHTML = items.map(([k, label, short, desc]) => `<a href="${BASE}/${k}" data-go="${k}" ${k === cur ? 'aria-current="page"' : ""}><svg class="ni" viewBox="0 0 20 20" aria-hidden="true">${ic[k]}</svg><span class="nt"><span class="lg">${esc(label)}</span><span class="sm">${esc(short)}</span><span class="nd">${esc(desc)}</span></span></a>`).join("") +
       `<button type="button" class="snav-out" id="snavOut" title="${esc(who.name ? L.loggedAs(who.name) + " · " : "")}${L.logout}" aria-label="${L.logout}"><span class="lg">${L.logout}</span><svg class="sm" viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4H4v12h4M12 6l4 4-4 4M16 10H8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
     nav.hidden = false;
@@ -386,6 +464,9 @@
     if (r.view === "factory") return viewFactory(langOnly);
     if (r.view === "admin") return viewAdmin(langOnly);
     if (r.view === "batches") return viewBatches(langOnly);
+    if (r.view === "link") return viewLink();
+    if (r.view === "plates") return viewPlates(langOnly);
+    if (r.view === "plate") return viewPlate(r.code, langOnly);
     if (r.view === "join") return viewJoin(r.token);
     if (r.view === "edit") return viewEdit(r.code, langOnly);
     if (r.view === "lots") return viewLots(langOnly);
@@ -418,11 +499,11 @@
       const v = $("#lkIn").value.trim(), msg = $("#lkMsg");
       msg.className = "msg";
       if (v.toLowerCase() === "test") return go("test");
-      const p = parseCode(v);
+      const p = parseAny(v);
       if (p.error) { msg.textContent = p.error === "check" ? L.lkBad : L.lkFmt; msg.classList.add("bad"); return; }
       msg.textContent = L.loading;
       const { status, data } = await api("code=" + encodeURIComponent(p.code)).catch(() => ({ status: 0, data: {} }));
-      if (status === 200) { cache[p.code] = data.batch; return go(p.code); }
+      if (status === 200) { cache[p.code] = data.plate || data.batch; return go(p.code); }
       msg.textContent = status === 404 ? L.lkNone : L.lkErr; msg.classList.add("bad");
     });
   }
@@ -447,7 +528,7 @@
       </section>
       <section class="foot"><a class="staff" href="${BASE}/admin" data-go="admin">${L.adminLink}</a></section>`;
     const me = (await api("me=1").catch(() => ({ data: {} }))).data;
-    if (me.staff) return go("factory");
+    if (me.staff) return go(me.admin ? "admin" : "link");
     if (!me.testLogin || !$("#testBox")) return;
     $("#testBox").hidden = false;
     $("#tlForm").addEventListener("submit", async e => {
@@ -455,7 +536,7 @@
       const btn = $("#tlBtn"); btn.disabled = true;
       const { status } = await api("", { action: "test-login", username: $("#tlU").value, password: $("#tlP").value }).catch(() => ({ status: 0 }));
       btn.disabled = false;
-      if (status === 200) return go("factory");
+      if (status === 200) return go("admin");
       $("#tlMsg").textContent = status === 401 ? L.tlWrong : L.lkErr;
     });
   }
@@ -468,7 +549,7 @@
     const { status, data } = await api("", { action: "join", token }).catch(() => ({ status: 0, data: {} }));
     if (status === 200) {
       $("#jMsg").textContent = L.welcome(data.name);
-      setTimeout(() => go("factory"), 1400);
+      setTimeout(() => go("link"), 1400);
     } else {
       $("#jMsg").textContent = status === 404 ? L.joinUsed : L.lkErr;
       $("#jMsg").className = "msg bad";
@@ -508,12 +589,12 @@
       <section>
         <h1>${L.navOv}</h1>
         <div class="stats four" id="ovStats">
-          <a class="stat" href="${BASE}/batches" data-go="batches"><span class="k">${L.stB}</span><b>–</b></a>
-          <div class="stat"><span class="k">${L.stP}</span><b>–</b></div>
-          <a class="stat" href="${BASE}/batches" id="ovDrafts"><span class="k">${L.stD}</span><b>–</b></a>
+          <a class="stat" href="${BASE}/plates" data-st="linked"><span class="k">${L.stWait}</span><b>–</b></a>
+          <a class="stat" href="${BASE}/plates" data-st="public"><span class="k">${L.stPub}</span><b>–</b></a>
+          <a class="stat" href="${BASE}/plates" data-st="blank"><span class="k">${L.stBl}</span><b>–</b></a>
           <a class="stat" href="${BASE}/lots" data-go="lots"><span class="k">${L.stLots}</span><b>–</b></a>
         </div>
-        <div class="three-btn"><a class="btn" href="${BASE}/factory" data-go="factory">${L.newBig}</a><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.newLotBig}</a><a class="btn ghost" href="${BASE}/batches" data-go="batches">${L.abBig}</a></div>
+        <div class="three-btn"><a class="btn" href="${BASE}/plates" data-go="plates">${L.newPlatesBig}</a><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.newLotBig}</a><a class="btn ghost" href="${BASE}/plates" data-go="plates">${L.allPlatesBig}</a></div>
       </section>
       ${link ? `<section><div class="invite">
           <span class="k">${esc(L.adLinkFor(link.name))}</span>
@@ -523,8 +604,8 @@
           <a class="btn ghost" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(L.adWaMsg(link.name, link.url))}">${L.adWa}</a></div>
         </div></section>` : ""}
       <section>
-        <span class="k">${L.drT}</span>
-        <p class="fine">${L.drP}</p>
+        <span class="k">${L.toApprove}</span>
+        <p class="fine">${L.toApproveP}</p>
         <div class="recent" id="drafts"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
       </section>
       <section>
@@ -553,7 +634,7 @@
         <p class="msg" id="plMsg" role="status"></p>
       </section>
 `;
-    $("#ovDrafts").addEventListener("click", e => { e.preventDefault(); abState.status = "draft"; go("batches"); });
+    app.querySelectorAll("[data-st]").forEach(a => a.addEventListener("click", e => { e.preventDefault(); plState.status = a.dataset.st; allPlates = null; go("plates"); }));
     $("#dlAll").addEventListener("click", downloadEverything);
     $("#dlPlates").addEventListener("click", downloadPlates);
     if (link) {
@@ -576,23 +657,23 @@
   // Everything on the admin page that needs data: the numbers, drafts, workshops and their people.
   async function loadOverview() {
     const L = t();
-    const [u, bt, lt] = await Promise.all([api("users=1"), api("batches=1"), api("lots=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
+    const [u, bt, lt] = await Promise.all([api("users=1"), api("plates=1"), api("lots=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
     if ($("#ovLots") && lt.status === 200) {
       const ls = lt.data.lots, open = ls.filter(l => l.status !== "used");
       $("#ovLots").outerHTML = `<p class="fine">${ls.length ? L.lotsSum(open.length, ls.length - open.length) : L.lotNone}</p><div class="recent">${open.slice(0, 6).map(l => `<div class="rrow lotrow"><a class="lotnum" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${lotNo(l.n)}</a><div><b>${esc(l.name)}</b><br><small>${esc(L["o_" + l.origin] || "")}${l.arrived ? ` · ${dateStr(l.arrived)}` : ""} · ${L.lotIn(l.usedBy.length)}</small></div><div class="acts"><a class="linkish" href="${BASE}/lot/${l.n}/tag" data-go="lot/${l.n}/tag">${L.lotPrint}</a></div></div>`).join("")}</div>`;
     }
     if (!$("#wsList")) return;
     if (u.status !== 200 || bt.status !== 200) { $("#wsList").innerHTML = `<p class="fine">${L.lkErr}</p>`; return; }
-    const users = u.data.users, workshops = u.data.workshops, batches = bt.data.batches;
-    const drafts = batches.filter(b => b.status === "draft");
+    const users = u.data.users, workshops = u.data.workshops, plates = bt.data.plates;
+    const waiting = plates.filter(p => p.status === "linked");
     const openLots = lt.status === 200 ? lt.data.lots.filter(l => l.status !== "used") : [];
-    const stats = [batches.length, batches.reduce((n, b) => n + (b.qty || 0), 0), drafts.length, openLots.length];
+    const stats = [waiting.length, plates.filter(p => p.status === "public").length, bt.data.blank, openLots.length];
     $("#ovStats").querySelectorAll("b").forEach((el, i) => { el.textContent = fmt(stats[i], 0); });
-    $("#ovStats").querySelectorAll(".stat")[2].classList.toggle("warn", drafts.length > 0);
-    $("#drafts").innerHTML = drafts.length ? drafts.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs}${b.workshop ? ` · ${esc(b.workshop)}` : ""} · ${dateStr(b.made)}</small></div>
-      <div class="acts"><button type="button" class="linkish" data-dl="${esc(b.code)}">SVG</button><a class="linkish" href="${BASE}/edit/${esc(b.code)}" data-go="edit/${esc(b.code)}">${L.fillIn}</a></div></div>`).join("")
-      : `<p class="fine" style="padding:12px 0">${L.drNone}</p>`;
-    $("#drafts").querySelectorAll("[data-dl]").forEach(x => x.addEventListener("click", () => downloadSvg(x.dataset.dl)));
+    $("#ovStats").querySelectorAll(".stat")[0].classList.toggle("warn", waiting.length > 0);
+    $("#drafts").innerHTML = waiting.length ? waiting.map(p => `<div class="rrow"><div><b>${esc(p.code)}</b><br><small>${woodOf(p)}${p.workshop ? ` · ${esc(p.workshop)}` : ""} · ${dateStr(p.linked)}${p.linkedBy ? ` · ${L.by} ${esc(p.linkedBy)}` : ""}</small></div>
+      <div class="acts"><a class="linkish" href="${BASE}/plate/${esc(p.code)}" data-go="plate/${esc(p.code)}">${L.lotEdit}</a><button type="button" class="linkish" data-ap="${esc(p.code)}">${L.plApprove}</button></div></div>`).join("")
+      : `<p class="fine" style="padding:12px 0">${L.toApproveNone}</p>`;
+    $("#drafts").querySelectorAll("[data-ap]").forEach(x => x.addEventListener("click", async () => { x.disabled = true; await api("", { action: "approve-plate", code: x.dataset.ap }).catch(() => {}); loadOverview(); }));
 
     const person = p => {
       const st = p.joined ? L.stActive(dateStr(p.joined)) : p.waiting ? L.stWaiting : L.stExpired;
@@ -604,7 +685,7 @@
     const known = new Set(workshops.map(w => w.id));
     const loose = users.filter(p => !p.workshopId || !known.has(p.workshopId));
     $("#wsList").innerHTML = (workshops.length ? workshops.map(w => {
-      const wb = batches.filter(b => b.workshopId === w.id), wd = wb.filter(b => b.status === "draft").length, people = users.filter(p => p.workshopId === w.id);
+      const wb = plates.filter(p => p.workshopId === w.id), wd = wb.filter(p => p.status === "linked").length, people = users.filter(p => p.workshopId === w.id);
       return `<div class="ws"><div class="ws-h"><h3>${esc(w.name)}</h3><small>${esc(L.wsSum(wb.length, wd))}</small></div>
         <div class="recent">${people.length ? people.map(person).join("") : `<p class="fine" style="padding:12px 0">${L.wsNoPeople}</p>`}</div>
         ${addForm(w.id, L.adAddTo(w.name))}</div>`;
@@ -983,7 +1064,7 @@
       if (status !== 200) { app.innerHTML = `<section><span class="k">${L.lotsT}</span><p class="msg bad">${status === 404 ? L.lotNotFound : L.lkErr}</p><a class="btn ghost" href="${BASE}/lots" data-go="lots">${L.lotsT}</a></section>`; return; }
       const ws = me.admin ? ((await api("users=1").catch(() => ({ data: {} }))).data.workshops || []) : [];
       const l = data.lot;
-      lotState.edit = { lot: l, batches: data.batches, ws, msg: "", mmsg: "", m: matForm(l.material), f: { origin: l.origin, place: l.place, region: l.region, arrived: l.arrived, volume: l.volume, supplier: l.supplier, gps: l.gps, notes: l.notes, name: l.name, workshopId: l.workshopId || "" } };
+      lotState.edit = { lot: l, batches: data.batches, plates: data.plates || [], ws, msg: "", mmsg: "", m: matForm(l.material), f: { origin: l.origin, place: l.place, region: l.region, arrived: l.arrived, volume: l.volume, supplier: l.supplier, gps: l.gps, notes: l.notes, name: l.name, workshopId: l.workshopId || "" } };
     }
     const E = lotState.edit, l = E.lot, f = E.f;
     app.innerHTML = `
@@ -1007,9 +1088,13 @@
         ${l.photos.length < 12 ? `<label class="photo-pick"><input type="file" id="lMore" accept="image/*" multiple><span>${L.phAdd}</span></label>` : ""}
       </section>
       <section>
+        <span class="k">${L.lotPlates}</span>
+        <div class="recent">${(E.plates || []).length ? E.plates.map(p => `<div class="rrow"><div><a class="linkish" href="${BASE}/plate/${p.code}" data-go="plate/${p.code}"><b>${esc(p.code)}</b></a> ${stTag(p.status)}<br><small>${p.linked ? dateStr(p.linked) : ""}${p.linkedBy ? ` · ${esc(p.linkedBy)}` : ""}</small></div></div>`).join("") : `<p class="fine" style="padding:12px 0">${L.lotNoB}</p>`}</div>
+      </section>
+      ${E.batches.length ? `<section>
         <span class="k">${L.lotBatches}</span>
         <div class="recent">${E.batches.length ? E.batches.map(b => `<div class="rrow"><div><b>${esc(b.code)}</b><br><small>${esc(b.model)} · ${b.qty} ${L.pcs} · ${dateStr(b.made)}</small></div><div class="acts"><a class="linkish" href="${BASE}/edit/${esc(b.code)}" data-go="edit/${esc(b.code)}">${L.edT}</a></div></div>`).join("") : `<p class="fine" style="padding:12px 0">${L.lotNoB}</p>`}</div>
-      </section>`;
+      </section>` : ""}`;
     E.msg = ""; E.mmsg = "";
     bindMaterial(E, n);
     const sync = bindLotFields(f, () => viewLot(n, true));
@@ -1218,12 +1303,15 @@
     files.push({ name: "data.json", data: te.encode(JSON.stringify(data, null, 1)) });
     files.push({ name: "batches.csv", data: te.encode(csv([["Code", "Status", "Product", "Pieces", "Wood lots", "Wood source", "Area", "Maker", "Weight kg", "Workshop", "Created", "Created by", "Completed", "Updated", "Updated by", "Photos", "Passport"],
       ...data.batches.map(b => [b.code, b.status, b.model, b.qty, (b.lotInfo || []).map(l => l.label).join(" "), b.origin, b.region, b.maker, b.kg, b.workshop, b.made, b.createdBy, b.completed, b.updated, b.updatedBy, (b.photos || []).length, `${site}/${b.code}`])])) });
+    files.push({ name: "plates.csv", data: te.encode(csv([["Plate", "Status", "Wood lots", "Not sure", "Workshop", "Code made", "Linked", "Linked by", "Approved", "Approved by", "Photos", "Passport"],
+      ...(data.plates || []).map(p => [p.code, p.status, (p.lotInfo || []).map(l => l.label).join(" "), p.unsure ? "yes" : "", p.workshop, p.made, p.linked, p.linkedBy, p.approved, p.approvedBy, (p.photos || []).length, `${site}/${p.code}`])])) });
     files.push({ name: "wood-lots.csv", data: te.encode(csv([["Lot", "Name", "Status", "Source", "Place", "Region", "Supplier", "Arrived", "Volume", "Source location", "Workshop", "Used in batches", "Notes", "Created", "Created by", "Photos"],
       ...data.lots.map(l => [l.label, l.name, l.status, l.origin, l.place, l.region, l.supplier, l.arrived, l.volume, l.gps, l.workshop, (l.usedBy || []).join(" "), l.notes, l.created, l.createdBy, (l.photos || []).length])])) });
     files.push({ name: "wood-lot-pieces.csv", data: te.encode(csv([["Lot", "Piece", "Thickness mm", "Width mm", "Length mm", "Volume m3"],
       ...data.lots.flatMap(l => ((l.material || {}).pieces || []).map(p => [l.label, p.ref, p.t, p.w, p.l, fmtVol(pieceVol(p))]))])) });
     const photos = [...data.lots.flatMap(l => (l.docs || []).map(d => ({ url: `${API}?ldoc=${l.n}/${d.id}`, name: `documents/LOT-${lotNo(l.n)}/${d.id}-${d.name}` }))),
       ...data.batches.flatMap(b => (b.photos || []).map(id => ({ url: photoUrl(b.code, id), name: `photos/batches/${b.code}/${id}.jpg` }))),
+      ...(data.plates || []).flatMap(p => (p.photos || []).map(id => ({ url: photoUrl(p.code, id), name: `photos/plates/${p.code}/${id}.jpg` }))),
       ...data.lots.flatMap(l => (l.photos || []).map(id => ({ url: lotPhotoUrl(l.n, id), name: `photos/wood-lots/LOT-${lotNo(l.n)}/${id}.jpg` })))];
     for (let i = 0; i < photos.length; i++) {
       msg.textContent = L.dlBusy(i + 1, photos.length);
@@ -1239,9 +1327,9 @@
   async function downloadPlates() {
     const L = t(), msg = $("#plMsg"), btn = $("#dlPlates");
     btn.disabled = true; msg.textContent = L.loading;
-    const { status, data } = await api("export=1").catch(() => ({ status: 0, data: {} }));
+    const { status, data } = await api("plates=1").catch(() => ({ status: 0, data: {} }));
     if (status !== 200) { msg.textContent = L.lkErr; btn.disabled = false; return; }
-    const codes = (data.batches || []).map(b => b.code), files = [];
+    const codes = (data.plates || []).filter(p => p.status === "blank").map(p => p.code), files = [];
     for (let i = 0; i < codes.length; i++) {
       msg.textContent = L.dlBusy(i + 1, codes.length);
       try {
@@ -1261,17 +1349,26 @@
     const L = t();
     let b = code === "TEST" ? TEST_BATCH : cache[code];
     if (!b) {
-      const p = parseCode(code);
+      const p = parseAny(code);
       if (p.error) return notFound(p.error === "check" ? L.lkBad : L.lkFmt);
       app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
       const { status, data } = await api("code=" + encodeURIComponent(p.code)).catch(() => ({ status: 0, data: {} }));
       if (status !== 200) return notFound(status === 404 ? L.lkNone : L.lkErr);
-      b = cache[code] = data.batch;
+      b = data.plate || data.batch;
+      if (b.status !== "blank" && b.status !== "waiting") cache[code] = b;
+    }
+    const plate = b.kind === "plate";
+    if (plate && (b.status === "blank" || b.status === "waiting")) {
+      // Workshop staff scan a plate with the phone camera: a plate that isn't public yet opens the link screen.
+      const me = (await api("me=1").catch(() => ({ data: {} }))).data;
+      if (me.staff) { who = me; history.replaceState(null, "", `${BASE}/plate/${b.code}`); return render(); }
+      return platePending(b);
     }
     if (code === "TEST") { $("#banner").textContent = L.testBanner; $("#banner").hidden = false; }
-    document.title = `${b.model} · ${b.code} · Another Life Passport`;
+    document.title = plate ? `${L.passport} · ${b.code} · Another Life Passport` : `${b.model} · ${b.code} · Another Life Passport`;
     const by = (b.maker || "").trim(), reg = (b.region || "").trim();
-    const draft = b.status === "draft" || !b.origin;
+    const origins = plate ? (b.origins || []) : [b.origin];
+    const draft = plate ? b.unsure || !origins.length : b.status === "draft" || !b.origin;
     const lives = draft ? [
       ["tree", L.l1h, L.s1, ""],
       ["house", L.dS2h, L.dS2, ""],
@@ -1279,7 +1376,7 @@
       ["now", L.l4h, L.s4, "now"]
     ] : [
       ["tree", L.l1h, L.s1, ""],
-      [b.origin, L.l2h[b.origin], L.s2[b.origin] + (reg ? ` · ${reg}` : ""), ""],
+      ...origins.map((o, i) => [o, L.l2h[o], L.s2[o] + (reg && i === 0 ? ` · ${reg}` : ""), ""]),
       ["work", L.l3h, L.s3(by, dateStr(b.made)), ""],
       ["now", L.l4h, L.s4, "now"]
     ];
@@ -1291,18 +1388,22 @@
       <section>
         <span class="k">${L.passport} · ${esc(b.code)}</span>
         <svg class="rings" viewBox="0 0 300 300" aria-hidden="true">${rings}<circle class="core" cx="150" cy="150" r="5"></circle></svg>
-        <span class="k">${L.look} ${esc(b.model)}</span>
+        <span class="k">${plate ? L.pLook : `${L.look} ${esc(b.model)}`}</span>
         <h1>${L.h1}</h1>
-        <p class="lead">${esc(draft ? L.dLead(b.model) : L.lead(b.model, L.oPhrase[b.origin]))}</p>
+        <p class="lead">${esc(plate ? (draft ? `${L.pLeadUnsure} ${L.pUnsure}` : L.pLead(origins.map(o => L.oPhrase[o]).join(` ${L.and} `))) : draft ? L.dLead(b.model) : L.lead(b.model, L.oPhrase[b.origin]))}</p>
       </section>
       <section>
         <span class="k">${L.livesK}</span>
-        <p class="h2">${esc(L.started(b.model))}</p>
+        <p class="h2">${esc(plate ? L.pStarted : L.started(b.model))}</p>
         <div>${lives.map((l, i) => `<div class="life ${l[3]}" style="animation-delay:${.15 + i * .2}s">${ICONS[l[0]] || ICONS.other}<div><h3>${esc(l[1])}</h3><p>${esc(l[2])}</p></div></div>`).join("")}</div>
       </section>
       ${photos.length ? `<section>
-        <span class="k">${esc(L.beforeK(b.model))}</span>
-        <div class="before">${photos.map(id => `<a href="${photoUrl(b.code, id)}" target="_blank" rel="noopener"><img src="${photoUrl(b.code, id)}" alt="${esc(L.beforeK(b.model))}" loading="lazy"></a>`).join("")}</div>
+        <span class="k">${esc(plate ? L.pBefore : L.beforeK(b.model))}</span>
+        <div class="before">${photos.map(id => `<a href="${photoUrl(b.code, id)}" target="_blank" rel="noopener"><img src="${photoUrl(b.code, id)}" alt="${esc(plate ? L.pBefore : L.beforeK(b.model))}" loading="lazy"></a>`).join("")}</div>
+      </section>` : ""}
+      ${plate && (b.events || []).length ? `<section>
+        <span class="k">${L.pSince}</span>
+        <div class="recent">${b.events.map(e => `<div class="rrow"><div><b>${esc(e.text)}</b><br><small>${dateStr(e.at)}</small></div></div>`).join("")}</div>
       </section>` : ""}
       <section>
         <span class="k">${L.journeyK}</span>
@@ -1345,7 +1446,7 @@
           ${[L.c1, L.c2, L.c3].map((c, i) => `<li><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M4 11.5l4.5 4.5L18 6.5" style="animation-delay:${.2 + i * .3}s"/></svg><span>${c}</span></li>`).join("")}
         </ul>
         <a class="btn" href="${BASE}/${b.code === "TEST" ? "test" : b.code}/repair" data-go="${b.code === "TEST" ? "test" : b.code}/repair">${L.repair}</a>
-        <a class="btn ghost" href="${productUrl(b.model)}">${esc(L.seeOn(b.model))}</a>
+        <a class="btn ghost" href="${plate ? SITE + "/collection.html" : productUrl(b.model)}">${esc(plate ? L.pSee : L.seeOn(b.model))}</a>
         <a class="btn ghost" href="${BASE}/" data-go="">${L.another}</a>
       </section>
       <section class="foot"><a class="staff" href="${SITE}">${L.site}</a></section>`;
@@ -1355,6 +1456,23 @@
     };
     $("#tFlat").addEventListener("click", () => setPack("flat"));
     $("#tAsm").addEventListener("click", () => setPack("asm"));
+  }
+
+  // A plate that is made but not public yet: no wood details, just where it stands.
+  function platePending(b) {
+    const L = t(), blank = b.status === "blank";
+    document.title = `${L.passport} · ${b.code} · Another Life Passport`;
+    let rings = ""; for (let i = 1; i <= 12; i++) rings += `<circle cx="150" cy="150" r="${(6 + i * 9).toFixed(1)}" style="animation-delay:${(i * .05).toFixed(2)}s;opacity:${(1 - i * .05).toFixed(2)}"></circle>`;
+    app.innerHTML = `
+      <section>
+        <span class="k">${L.passport} · ${esc(b.code)}</span>
+        <svg class="rings" viewBox="0 0 300 300" aria-hidden="true">${rings}<circle class="core" cx="150" cy="150" r="5"></circle></svg>
+        <h1>${blank ? L.pBlankH : L.pWaitH}</h1>
+        <p class="lead">${blank ? L.pBlankP : L.pWaitP}</p>
+        <a class="btn ghost" href="${SITE}/collection.html">${L.pSee}</a>
+        <a class="btn ghost" href="${BASE}/" data-go="" style="margin-top:10px">${L.another}</a>
+      </section>
+      <section class="foot"><a class="staff" href="${BASE}/login" data-go="login">${L.staffLink}</a></section>`;
   }
 
   // Shrink photos on the phone before upload: max 1600 px, JPEG, well under the 8 MB form limit.
@@ -1378,11 +1496,11 @@
     const L = t();
     let b = code === "TEST" ? TEST_BATCH : cache[code];
     if (!b) {
-      const p = parseCode(code);
+      const p = parseAny(code);
       if (p.error) return notFound(p.error === "check" ? L.lkBad : L.lkFmt);
       const { status, data } = await api("code=" + encodeURIComponent(p.code)).catch(() => ({ status: 0, data: {} }));
       if (status !== 200) return notFound(status === 404 ? L.lkNone : L.lkErr);
-      b = cache[code] = data.batch;
+      b = cache[code] = data.plate || data.batch;
     }
     if (code === "TEST") { $("#banner").textContent = L.testBanner; $("#banner").hidden = false; }
     document.title = `${L.rpT} · ${b.code} · Another Life Passport`;
@@ -1390,7 +1508,7 @@
     const issues = [["issue_loose", L.rpLoose], ["issue_broken", L.rpBroken], ["issue_surface", L.rpSurface], ["issue_missing", L.rpMissing], ["issue_other", L.rpOther], ["issue_location", L.rpLocation]];
     app.innerHTML = `
       <section>
-        <span class="k">${L.passport} · ${esc(b.code)} · ${esc(b.model)}</span>
+        <span class="k">${L.passport} · ${esc(b.code)}${b.model ? ` · ${esc(b.model)}` : ""}</span>
         <h1>${L.rpT}</h1>
         <p class="lead">${L.rpP}</p>
         <form class="form" id="rpForm" name="repair" novalidate>
@@ -1442,7 +1560,7 @@
       const fd = new FormData(form);
       fd.set("code", b.code);
       fd.set("lang", lang);
-      fd.set("subject", `${wrongPlace ? "Wrong location" : "Report"} · ${b.code} · ${b.model}`);
+      fd.set("subject", `${wrongPlace ? "Wrong location" : "Report"} · ${b.code}${b.model ? ` · ${b.model}` : ""}`);
       if (photo) fd.set("photo", photo, photo.name || "repair-photo.jpg");
       const btn = $("#rpBtn"); btn.disabled = true; btn.textContent = L.rpSending; out.textContent = "";
       let ok = false;
@@ -1510,6 +1628,284 @@
     $("#abD").addEventListener("change", e => { abState.month = e.target.value; draw(); });
     $("#abS").addEventListener("change", e => { abState.status = e.target.value; draw(); });
     draw();
+  }
+
+  // ---------- plates (staff)
+  const timeStr = iso => new Date(iso).toLocaleString(lang === "id" ? "id-ID" : "en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" });
+  const stTag = st => `<span class="tag ${st === "public" ? "ok" : st === "linked" ? "warn" : "mute"}">${esc(t()["st_" + st] || st)}</span>`;
+  const woodOf = p => p.unsure ? esc(t().lnUnsure) : (p.lotInfo || []).map(l => `<a class="linkish" href="${BASE}/lot/${l.n}" data-go="lot/${l.n}">${esc(l.label)}</a>`).join(" ") || "–";
+
+  async function viewLink() {
+    const L = t();
+    document.title = L.lnT + " · Another Life Passport";
+    const me = (await api("me=1").catch(() => ({ data: {} }))).data;
+    if (!me.staff) return go("login");
+    who = me; showNav();
+    app.innerHTML = `
+      <section class="pagehead">
+        <h1>${L.lnT}</h1>
+        <p class="lead">${L.lnP}</p>
+        <form class="form" id="lnForm" style="gap:10px" novalidate>
+          <input type="text" class="code-in" id="lnIn" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="7K4M-2QXH" aria-label="${L.lnT}">
+          <button class="btn" type="submit">${L.lnBtn}</button>
+          <p class="msg bad" id="lnMsg" role="status"></p>
+        </form>
+        ${who.workshop ? `<p class="fine">${esc(who.workshop)}</p>` : ""}
+      </section>
+      <section>
+        <span class="k">${L.recent}</span>
+        <p class="fine" id="lnLeft"></p>
+        <div class="recent" id="lnRecent"><p class="fine" style="padding:12px 0">${L.loading}</p></div>
+      </section>`;
+    $("#lnForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const p = parsePlate($("#lnIn").value);
+      if (p.error) { $("#lnMsg").textContent = p.error === "check" ? L.lkBad : L.lnNotPlate; return; }
+      plateEd = null; go("plate/" + p.code);
+    });
+    const { status, data } = await api("plates=1").catch(() => ({ status: 0, data: {} }));
+    const box = $("#lnRecent"); if (!box) return;
+    if (status !== 200) { box.innerHTML = `<p class="fine" style="padding:12px 0">${L.lkErr}</p>`; return; }
+    $("#lnLeft").textContent = L.plsBlankLeft(data.blank);
+    const done = data.plates.filter(p => p.status !== "blank").slice(0, 10);
+    box.innerHTML = done.length ? done.map(p => `<div class="rrow"><div><a class="linkish" href="${BASE}/plate/${p.code}" data-go="plate/${p.code}"><b>${esc(p.code)}</b></a> ${stTag(p.status)}<br><small>${woodOf(p)} · ${dateStr(p.linked)}${p.linkedBy ? ` · ${L.by} ${esc(p.linkedBy)}` : ""}</small></div></div>`).join("")
+      : `<p class="fine" style="padding:12px 0">${L.none}</p>`;
+  }
+
+  // One plate: link it to the wood, correct it, approve it, add to its story.
+  let plateEd = null;
+  async function viewPlate(code, langOnly) {
+    const L = t();
+    document.title = `${code} · Another Life Passport`;
+    if (!langOnly || !plateEd || plateEd.p.code !== code) {
+      app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
+      const me = (await api("me=1").catch(() => ({ data: {} }))).data;
+      if (!me.staff) return go("login");
+      who = me; showNav();
+      const pc = parsePlate(code);
+      const { status, data } = pc.error ? { status: 400, data: {} } : await api("pstaff=" + encodeURIComponent(pc.code)).catch(() => ({ status: 0, data: {} }));
+      if (status === 401) return go("login");
+      if (status !== 200) { app.innerHTML = `<section><span class="k">${L.lnT}</span><h1 class="code-h">${esc(code)}</h1><p class="msg bad">${status === 404 ? L.lnNone : status === 400 ? L.lnNotPlate : L.lkErr}</p><a class="btn ghost" href="${BASE}/link" data-go="link">${L.edBack}</a></section>`; return; }
+      await loadLots();
+      const p = data.plate;
+      plateEd = { p, lots: [...(p.lots || [])], unsure: Boolean(p.unsure), files: [], msg: "", ok: false, done: false, reset: false };
+    }
+    const E = plateEd, p = E.p;
+    const back = `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span class="k">${L.plCode}</span><a class="staff" href="${BASE}/${who.admin ? "plates" : "link"}" data-go="${who.admin ? "plates" : "link"}">${L.edBack}</a></div>`;
+    if (p.other) {
+      app.innerHTML = `<section>${back}<h1 class="code-h">${esc(p.code)}</h1>${stTag(p.status)}<p class="msg bad">${L.lnOther}</p><a class="btn ghost" href="${BASE}/link" data-go="link">${L.lnNext}</a></section>`;
+      return;
+    }
+    if (E.done) {
+      app.innerHTML = `<section>${back}<h1 class="code-h">${esc(p.code)}</h1>
+        <svg class="thanks-mark" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30"/><path d="M19 33l9 9 17-19"/></svg>
+        <p class="lead">${p.status === "public" ? L.plApproved : L.lnDone}</p>
+        <p class="fine">${L.plWood}: ${woodOf(p)}</p>
+        <a class="btn" href="${BASE}/link" data-go="link">${L.lnNext}</a>
+        <a class="btn ghost" href="${BASE}/plate/${p.code}" id="pAgain" style="margin-top:10px">${L.edT}</a></section>`;
+      $("#pAgain").addEventListener("click", e => { e.preventDefault(); E.done = false; viewPlate(code, true); });
+      return;
+    }
+    const canEdit = who.admin || p.status !== "public";
+    const mine = lotsForWs(who.admin ? "" : who.workshopId);
+    const shown = mine.filter(l => l.status !== "used" || E.lots.includes(l.n));
+    const unknown = E.lots.filter(n => !mine.some(l => l.n === n));
+    const note = { blank: L.lnBlankNote, linked: L.lnWaitNote, public: L.lnPubNote }[p.status];
+    app.innerHTML = `
+      <section>
+        ${back}
+        <h1 class="code-h">${esc(p.code)}</h1>
+        <p>${stTag(p.status)}</p>
+        <p class="note ${p.status === "public" ? "ok" : ""}">${note}</p>
+        ${canEdit ? `<form class="form" id="pForm" novalidate>
+          <div class="q"><span>${L.lnQ}</span>
+            ${shown.length || unknown.length ? `<div class="chips lots">${shown.map(l => `<button type="button" class="chip lotchip" data-lot="${l.n}" aria-pressed="${E.lots.includes(l.n)}"><b>${lotNo(l.n)}</b><span>${esc(l.name)}</span></button>`).join("")}${unknown.map(n => `<button type="button" class="chip lotchip" data-lot="${n}" aria-pressed="true"><b>${lotNo(n)}</b></button>`).join("")}</div>`
+              : `<p class="fine">${L.lotNone} <a class="linkish" href="${BASE}/lots" data-go="lots">${L.lotNew}</a></p>`}
+            <div class="lot-type"><input type="text" id="lotIn" inputmode="numeric" autocomplete="off" placeholder="${L.lotTypePh}" aria-label="${L.lotTypePh}"><button type="button" class="btn ghost" id="lotAdd">${L.lotAdd}</button></div>
+            <p class="msg bad" id="lotMsg" role="status"></p>
+            <div class="chips"><button type="button" class="chip" id="pUnsure" aria-pressed="${E.unsure}">${L.lnUnsure}</button></div>
+            <small class="fine">${L.lnUnsureP}</small>
+          </div>
+          <div class="q"><span>${L.lnPhoto}</span>
+            ${(p.photos || []).length ? `<div class="before staff-ph">${p.photos.map(id => `<figure><img src="${photoUrl(p.code, id)}" alt=""><button type="button" class="linkish" data-rm="${id}">${L.phRemove}</button></figure>`).join("")}</div>` : ""}
+            ${(p.photos || []).length < 6 ? `<label class="photo-pick"><input type="file" id="pPhotos" accept="image/*" multiple><span>${E.files.length ? L.phSel(E.files.length) : L.phPick}</span></label>` : `<p class="fine">${L.phFull}</p>`}
+          </div>
+          <button class="btn" type="submit" id="pBtn">${p.status === "blank" ? L.lnGo : L.lnSave}</button>
+          ${who.admin && p.status !== "public" ? `<button class="btn ghost" type="button" id="pBtnPub">${L.plLinkPub}</button>` : ""}
+          <p class="msg ${E.ok ? "" : "bad"}" id="pMsg" role="status">${esc(E.msg)}</p>
+        </form>` : `<p class="fine">${L.plWood}: ${woodOf(p)}</p><p class="msg">${L.lnPublic}</p>`}
+      </section>
+      ${who.admin && p.status === "linked" ? `<section>
+        <span class="k">${L.toApprove}</span>
+        <p class="fine">${L.plWood}: ${woodOf(p)}${p.workshop ? ` · ${esc(p.workshop)}` : ""}</p>
+        <button class="btn" type="button" id="pApprove">${L.plApprove}</button>
+        <div id="pResetBox" style="margin-top:12px">${E.reset ? `<p class="msg bad">${L.plResetQ}</p><div class="two-btn"><button class="btn ghost" type="button" id="pResetYes">${L.plYes}</button><button class="btn ghost" type="button" id="pResetNo">${L.adNo}</button></div>` : `<button type="button" class="linkish" id="pReset">${L.plReset}</button>`}</div>
+      </section>` : ""}
+      ${who.admin && p.status === "public" ? `<section>
+        <span class="k">${L.plEvent}</span>
+        <form class="form inline-add" id="evForm"><label class="q"><span>${L.plEvent}</span><input type="text" id="evIn" maxlength="200" placeholder="${L.plEventPh}" required></label><button class="btn ghost" type="submit">${L.plEventBtn}</button></form>
+      </section>` : ""}
+      <section>
+        <div class="label-out" style="margin-top:0">
+          <img class="engrave-prev" src="${plateUrl(p.code, true)}" alt="${esc(p.code)}" width="100" height="45">
+          <div class="two-btn"><button class="btn ghost" type="button" id="dl">${L.dl}</button><a class="btn ghost" href="${BASE}/${p.code}" id="pView">${L.view}</a></div>
+        </div>
+        <div class="recent">
+          <div class="rrow"><div><small>${L.plMade}</small><br><b>${timeStr(p.made)}</b></div></div>
+          ${p.linked ? `<div class="rrow"><div><small>${L.plLinkedK}</small><br><b>${timeStr(p.linked)}${p.linkedBy ? ` · ${esc(p.linkedBy)}` : ""}</b></div></div>` : ""}
+          ${p.workshop ? `<div class="rrow"><div><small>${L.plWs}</small><br><b>${esc(p.workshop)}</b></div></div>` : ""}
+          ${p.approved ? `<div class="rrow"><div><small>${L.plApprovedK}</small><br><b>${timeStr(p.approved)}${p.approvedBy ? ` · ${esc(p.approvedBy)}` : ""}</b></div></div>` : ""}
+        </div>
+      </section>
+      <section>
+        <span class="k">${L.plHist}</span>
+        <div class="recent">${[...(p.log || [])].reverse().map(e => `<div class="rrow"><div><b>${esc(e.text)}</b><br><small>${timeStr(e.at)}${e.by ? ` · ${esc(e.by)}` : ""}</small></div></div>`).join("")}</div>
+      </section>`;
+    E.msg = ""; E.ok = false;
+    const fresh = np => { E.p = np; E.lots = [...(np.lots || [])]; E.unsure = Boolean(np.unsure); };
+    const err = d => L["err_" + String(d.error).replace(/-/g, "_")] || L.err_other;
+    $("#dl").addEventListener("click", () => downloadSvg(p.code));
+    // "View as customer" must show the public page, not jump back here
+    $("#pView").addEventListener("click", e => { e.preventDefault(); history.pushState(null, "", `${BASE}/${p.code}`); delete cache[p.code]; if (p.status === "public") render(); else platePending({ code: p.code, status: p.status === "linked" ? "waiting" : "blank" }); });
+    if (canEdit) {
+      app.querySelectorAll("[data-lot]").forEach(x => x.addEventListener("click", () => { const n = Number(x.dataset.lot); E.unsure = false; E.lots = E.lots.includes(n) ? E.lots.filter(v => v !== n) : [...E.lots, n]; viewPlate(code, true); }));
+      $("#pUnsure").addEventListener("click", () => { E.unsure = !E.unsure; if (E.unsure) E.lots = []; viewPlate(code, true); });
+      const add = () => {
+        const n = parseInt(String($("#lotIn").value).replace(/\D/g, ""), 10); if (!n) return;
+        if (!mine.some(l => l.n === n)) { $("#lotMsg").textContent = L.lotNo(lotNo(n)); return; }
+        E.unsure = false; if (!E.lots.includes(n)) E.lots = [...E.lots, n]; viewPlate(code, true);
+      };
+      $("#lotAdd").addEventListener("click", add);
+      $("#lotIn").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); add(); } });
+      const pick = $("#pPhotos");
+      if (pick) pick.addEventListener("change", async () => {
+        const files = [...pick.files];
+        if (p.status === "blank") { E.files = [...E.files, ...files].slice(0, 6); return viewPlate(code, true); }
+        await uploadPlatePhotos(files); viewPlate(code, true);
+      });
+      app.querySelectorAll("[data-rm]").forEach(x => x.addEventListener("click", async () => {
+        x.disabled = true;
+        const { status, data } = await api("", { action: "plate-photo-remove", code: p.code, id: x.dataset.rm }).catch(() => ({ status: 0, data: {} }));
+        if (status === 200) fresh(data.plate);
+        viewPlate(code, true);
+      }));
+      const save = async approve => {
+        if (!E.lots.length && !E.unsure) { $("#pMsg").textContent = L.lnNeed; return; }
+        const btn = $("#pBtn"); btn.disabled = true; btn.textContent = L.edSaving;
+        const wasBlank = p.status === "blank";
+        const { status, data } = await api("", { action: "link-plate", code: p.code, lots: E.lots, unsure: E.unsure, approve }).catch(() => ({ status: 0, data: {} }));
+        if (status === 401) return go("login");
+        if (status !== 200) { E.msg = err(data); return viewPlate(code, true); }
+        fresh(data.plate);
+        if (E.files.length) { await uploadPlatePhotos(E.files); E.files = []; }
+        if (wasBlank || approve) E.done = true; else { E.msg = L.edSaved; E.ok = true; }
+        viewPlate(code, true);
+      };
+      $("#pForm").addEventListener("submit", e => { e.preventDefault(); save(false); });
+      const pub = $("#pBtnPub"); if (pub) pub.addEventListener("click", () => save(true));
+    }
+    const admin = async (action, extra) => {
+      const { status, data } = await api("", { action, code: p.code, ...extra }).catch(() => ({ status: 0, data: {} }));
+      if (status === 200) { fresh(data.plate); E.msg = action === "approve-plate" ? L.plApproved : L.edSaved; E.ok = true; } else E.msg = err(data);
+      E.reset = false; viewPlate(code, true);
+    };
+    const ap = $("#pApprove"); if (ap) ap.addEventListener("click", () => { ap.disabled = true; admin("approve-plate"); });
+    const rs = $("#pReset"); if (rs) rs.addEventListener("click", () => { E.reset = true; viewPlate(code, true); });
+    const ry = $("#pResetYes"); if (ry) ry.addEventListener("click", () => admin("reset-plate"));
+    const rn = $("#pResetNo"); if (rn) rn.addEventListener("click", () => { E.reset = false; viewPlate(code, true); });
+    const ev = $("#evForm"); if (ev) ev.addEventListener("submit", e => { e.preventDefault(); const text = $("#evIn").value.trim(); if (text.length < 3) return; admin("plate-event", { text }); });
+  }
+  async function uploadPlatePhotos(files) {
+    const L = t(), E = plateEd;
+    files = files.slice(0, Math.max(0, 6 - (E.p.photos || []).length));
+    for (let i = 0; i < files.length; i++) {
+      const m = $("#pMsg"); if (m) { m.className = "msg"; m.textContent = L.phUp(i + 1, files.length); }
+      const { status, data } = await api("", { action: "plate-photo", code: E.p.code, image: await toB64(await shrinkPhoto(files[i])) }).catch(() => ({ status: 0, data: {} }));
+      if (status === 201) E.p = data.plate;
+    }
+  }
+
+  // Every plate. Admin also makes new ones here.
+  let allPlates = null, plState = { q: "", status: "", made: null, msg: "" };
+  async function viewPlates(langOnly) {
+    const L = t();
+    document.title = L.navPl + " · Another Life Passport";
+    if (!langOnly || !allPlates) {
+      app.innerHTML = `<section><p class="fine">${L.loading}</p></section>`;
+      const [res, me] = await Promise.all([api("plates=1"), api("me=1")].map(p => p.catch(() => ({ status: 0, data: {} }))));
+      who = me.data || who; showNav();
+      if (res.status === 401) return go("login");
+      if (res.status !== 200) { app.innerHTML = `<section><p class="msg bad">${L.lkErr}</p></section>`; return; }
+      allPlates = res.data;
+    }
+    const plates = allPlates.plates, made = plState.made;
+    app.innerHTML = `
+      <section>
+        <h1>${L.navPl}</h1>
+        <p class="fine">${L.plsBlankLeft(allPlates.blank)}</p>
+      </section>
+      ${who.admin ? `<section>
+        <span class="k">${L.plsMake}</span>
+        <p class="fine">${L.plsMakeP}</p>
+        <form class="form inline-add" id="mkForm" novalidate><label class="q"><span>${L.plsCount}</span><input type="number" id="mkN" min="1" max="500" inputmode="numeric" value="50"></label><button class="btn" type="submit" id="mkBtn">${L.plsBtn}</button></form>
+        <p class="msg bad" id="mkMsg" role="status">${esc(plState.msg)}</p>
+        ${made ? `<div class="label-out"><span class="k">${L.plsMade(made.codes.length)} · ${timeStr(made.set)}</span>
+          <div class="chips">${made.codes.map(c => `<a class="chip" href="${BASE}/plate/${c}" data-go="plate/${c}"><b>${esc(c)}</b></a>`).join("")}</div>
+          <button class="btn" type="button" id="mkZip">${L.plsZip}</button><p class="msg" id="mkZipMsg" role="status"></p></div>` : ""}
+      </section>` : ""}
+      <section>
+        <div class="ab-tools">
+          <input type="text" id="plQ" placeholder="${L.plsSearch}" value="${esc(plState.q)}" aria-label="${L.plsSearch}">
+          <select id="plS" aria-label="${L.stCol}"><option value="">${L.plsAll}</option>${["blank", "linked", "public"].map(st => `<option value="${st}" ${plState.status === st ? "selected" : ""}>${esc(L["st_" + st])}</option>`).join("")}</select>
+        </div>
+        <p class="fine" id="plSum"></p>
+        <div class="ab-wrap"><table class="ab-table"><thead><tr>${L.plsCols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody id="plBody"></tbody></table></div>
+      </section>`;
+    plState.msg = "";
+    const draw = () => {
+      const q = plState.q.trim().toUpperCase().replace(/\s+/g, "");
+      const rows = plates.filter(p => (!plState.status || p.status === plState.status) &&
+        (!q || p.code.replace("-", "").includes(q.replace("-", "")) || (p.lotInfo || []).some(l => l.label.replace(/\s/g, "").includes(q) || String(l.n).includes(q.replace(/\D/g, "") || "x"))));
+      $("#plSum").textContent = L.plsOf(rows.length, plates.length);
+      $("#plBody").innerHTML = rows.length ? rows.slice(0, 500).map(p => `<tr>
+        <td data-l="${L.plsCols[0]}"><a class="ab-code" href="${BASE}/plate/${p.code}" data-go="plate/${p.code}">${rows.length <= 200 ? `<span class="ab-qr">${qrSvg(p.code, false)}</span>` : ""}${esc(p.code)}</a></td>
+        <td data-l="${L.plsCols[1]}">${stTag(p.status)}</td>
+        <td data-l="${L.plsCols[2]}">${p.status === "blank" ? "–" : woodOf(p)}</td>
+        <td data-l="${L.plsCols[3]}">${esc(p.workshop || "–")}</td>
+        <td data-l="${L.plsCols[4]}">${dateStr(p.made)}</td>
+        <td data-l="${L.plsCols[5]}">${p.linked ? `${dateStr(p.linked)}${p.linkedBy ? `<br><small>${esc(p.linkedBy)}</small>` : ""}` : "–"}</td></tr>`).join("")
+        : `<tr><td colspan="6" class="fine">${L.plsNone}</td></tr>`;
+    };
+    $("#plQ").addEventListener("input", e => { plState.q = e.target.value; draw(); });
+    $("#plS").addEventListener("change", e => { plState.status = e.target.value; draw(); });
+    draw();
+    const mk = $("#mkForm");
+    if (mk) mk.addEventListener("submit", async e => {
+      e.preventDefault();
+      const count = parseInt($("#mkN").value, 10);
+      if (!(count >= 1 && count <= 500)) { $("#mkMsg").textContent = L.err_count; return; }
+      const btn = $("#mkBtn"); btn.disabled = true; btn.textContent = L.creating;
+      const { status, data } = await api("", { action: "make-plates", count }).catch(() => ({ status: 0, data: {} }));
+      if (status === 201) { plState.made = data; allPlates = null; return viewPlates(); }
+      plState.msg = L["err_" + String(data.error)] || L.err_other; viewPlates(true);
+    });
+    const zb = $("#mkZip"); if (zb) zb.addEventListener("click", () => zipPlates(made.codes, zb, $("#mkZipMsg")));
+  }
+  // Engraving files for a list of plate codes, in one ZIP.
+  async function zipPlates(codes, btn, msg) {
+    const L = t(); btn.disabled = true; const files = [];
+    for (let i = 0; i < codes.length; i++) {
+      msg.textContent = L.dlBusy(i + 1, codes.length);
+      try {
+        const r = await fetch(plateUrl(codes[i]), { credentials: "same-origin" }); if (!r.ok) continue;
+        const m = /filename="([^"]+)"/.exec(r.headers.get("content-disposition") || "");
+        files.push({ name: m ? m[1] : `Plate_${codes[i]}_engrave.svg`, data: new Uint8Array(await r.arrayBuffer()) });
+      } catch (e) {}
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(makeZip(files)); a.download = `another-life-plates-${new Date().toISOString().slice(0, 10)}.zip`;
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+    msg.textContent = L.plDone(files.length); btn.disabled = false;
   }
 
   function notFound(message) {

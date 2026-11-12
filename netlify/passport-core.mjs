@@ -185,6 +185,54 @@ export function staffView(b, workshops = {}) {
     lots: b.lots || [], lotInfo: (b.lotInfo || []).map(l => ({ n: l.n, label: l.label, name: l.name })) };
 }
 
+// ---------- Plates: one stainless steel plate per piece, each with its own code.
+// A plate is made blank (code only), fixed to a finished piece, then linked to the wood lot(s) the
+// piece was made from. It never knows the product. Code: 7 random characters + 1 check character,
+// shown as XXXX-XXXX (e.g. 7K4M-2QXH). No 0, O, 1, I or L, so it reads and types without mix-ups.
+export const PLATE_ALPHA = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+export function plateCheck(body) {
+  let sum = 0;
+  for (let i = 0; i < body.length; i++) sum += (PLATE_ALPHA.indexOf(body[i]) + 1) * (i + 2);
+  return PLATE_ALPHA[sum % PLATE_ALPHA.length];
+}
+// Formats 8 characters as XXXX-XXXX.
+export const plateShow = k => `${k.slice(0, 4)}-${k.slice(4)}`;
+// Makes a code from 7 random alphabet characters.
+export function makePlate(rand7) { const k = rand7 + plateCheck(rand7); return { key: k, code: plateShow(k) }; }
+// Returns { code: "7K4M-2QXH", key: "7K4M2QXH" } or { error: "format" | "check" }.
+export function parsePlate(input) {
+  const v = String(input || "").trim().toUpperCase().replace(/[\s-]+/g, "");
+  if (v.length !== 8 || [...v].some(c => !PLATE_ALPHA.includes(c))) return { error: "format" };
+  if (plateCheck(v.slice(0, 7)) !== v[7]) return { error: "check" };
+  return { code: plateShow(v), key: v };
+}
+export const plateKey = k => `plate/${k}`;
+export const PLATE_STATUS = ["blank", "linked", "public"];
+
+// Public: a blank plate and a plate waiting for approval show nothing about the wood.
+export function platePublicView(p, lotsByN = {}) {
+  if (p.status === "blank") return { kind: "plate", code: p.code, status: "blank" };
+  if (p.status !== "public") return { kind: "plate", code: p.code, status: "waiting" };
+  const a = applyLots(p, lotsByN);
+  const lots = (a.lotInfo || []);
+  const lotPhotos = lots.flatMap(l => l.photos.map(id => `L${l.n}/${id}`));
+  return { kind: "plate", code: p.code, status: "complete", unsure: Boolean(p.unsure) || !lots.length,
+    origins: [...new Set(lots.map(l => l.origin))], origin: a.origin || "", region: a.region || "",
+    lots: lots.map(l => ({ label: l.label, name: l.name, origin: l.origin })), made: p.linked, route: "jakarta-bali",
+    photos: [...(p.photos || []), ...lotPhotos].slice(0, 9),
+    events: (p.log || []).filter(e => e.public).map(e => ({ at: e.at, text: e.text })) };
+}
+
+// Staff: everything, including who made, linked and approved it.
+export function plateStaffView(p, lotsByN = {}, workshops = {}) {
+  const lots = (p.lots || []).map(n => lotsByN[n]).filter(Boolean);
+  return { kind: "plate", code: p.code, status: p.status, made: p.made, madeBy: p.madeBy || null, set: p.set || null,
+    lots: p.lots || [], unsure: Boolean(p.unsure), lotInfo: lots.map(l => ({ n: l.n, label: lotLabel(l.n), name: l.name || defaultLotName(l), origin: l.origin })),
+    workshopId: p.workshopId || null, workshop: (p.workshopId && workshops[p.workshopId]) || null,
+    linked: p.linked || null, linkedBy: p.linkedBy || null, approved: p.approved || null, approvedBy: p.approvedBy || null,
+    photos: p.photos || [], log: p.log || [] };
+}
+
 // Staff session tokens: expiry + HMAC, keyed from the staff password.
 const enc = new TextEncoder();
 async function hmac(secret, msg) {

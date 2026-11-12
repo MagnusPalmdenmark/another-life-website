@@ -1,5 +1,6 @@
 import { getStore } from "@netlify/blobs";
-import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, lotKey, lotLabel, parseLotId, validateLot, defaultLotName, lotView, applyLots, validateMaterial, docType, cleanDocName, docView, MAX_DOC_BYTES, DOC_TYPES, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName } from "../passport-core.mjs";
+import { parseCode, makeCode, yymmNow, validateBatch, validateDetails, statusOf, publicView, staffView, lotKey, lotLabel, parseLotId, validateLot, defaultLotName, lotView, applyLots, validateMaterial, docType, cleanDocName, docView, MAX_DOC_BYTES, DOC_TYPES, makeToken, checkToken, safeEqual, randomToken, sha256, cleanName,
+  PLATE_ALPHA, makePlate, parsePlate, plateKey, platePublicView, plateStaffView } from "../passport-core.mjs";
 
 const ADMIN_COOKIE = "al_admin";   // signed with ADMIN_KEY, 30 days
 const DEVICE_COOKIE = "al_device"; // personal phone key from an invite link
@@ -107,6 +108,25 @@ async function loadBatch(db, code) {
   return db.get(`batch/${p.code}`, { type: "json" });
 }
 
+// A batch code (AL-2610-03-Q) or a plate code (7K4M-2QXH). Returns { code, plate: true, key } for plates.
+function anyCode(input) {
+  const b = parseCode(String(input || ""));
+  if (!b.error) return b;
+  const p = parsePlate(input);
+  if (!p.error) return { ...p, plate: true };
+  return { error: b.error === "check" || p.error === "check" ? "check" : "format" };
+}
+// Staff see a plate once their workshop (or they) linked it; admin sees all. Blank plates belong to no one yet.
+function canSeePlate(me, p) {
+  if (!me || !p) return false;
+  if (me.admin) return true;
+  return me.workshopId ? p.workshopId === me.workshopId : p.linkedById === me.id;
+}
+// Codes of the batches and plates that use a lot
+const usedBy = (n, batches, plates) => [...batches.filter(b => (b.lots || []).includes(n)).map(b => b.code), ...plates.filter(p => (p.lots || []).includes(n)).map(p => p.code)];
+// A history line on a plate. Lines are only ever added, never changed or removed.
+const logLine = (me, text, extra = {}) => ({ at: new Date().toISOString(), by: me?.name || null, text, ...extra });
+
 // Every lot by number
 async function allLots(db) {
   return Object.fromEntries((await readAll(db, "lots/")).map(l => [l.n, l]));
@@ -182,33 +202,51 @@ export default async (req, context) => {
 
   if (req.method === "GET") {
     if (url.searchParams.has("code")) {
-      const p = parseCode(url.searchParams.get("code"));
+      const p = anyCode(url.searchParams.get("code"));
       if (p.error) return json({ error: p.error }, 400);
+      if (p.plate) {
+        const pl = await db.get(plateKey(p.key), { type: "json" });
+        if (!pl) return json({ error: "none" }, 404);
+        return json({ plate: platePublicView(pl, pl.status === "public" ? await lotsFor(db, pl) : {}) });
+      }
       const b = await db.get(`batch/${p.code}`, { type: "json" });
       if (!b) return json({ error: "none" }, 404);
       return json({ batch: publicView(applyLots(b, await lotsFor(db, b))) });
     }
     if (url.searchParams.has("photo")) {
       const [c, id] = String(url.searchParams.get("photo")).split("/");
-      const p = parseCode(c || "");
+      const p = anyCode(c || "");
       if (p.error || !PHOTO_ID.test(id || "")) return json({ error: "none" }, 404);
-      const img = await db.get(`photo/${p.code}/${id}`, { type: "arrayBuffer" });
+      if (p.plate) {
+        // A plate's photos are public only once its story is approved; staff always see them.
+        const pl = await db.get(plateKey(p.key), { type: "json" });
+        if (!pl || !(pl.photos || []).includes(id)) return json({ error: "none" }, 404);
+        if (pl.status !== "public" && !exportKeyOk(req, context) && !(await whoAmI(db, context))) return json({ error: "none" }, 404);
+      }
+      const img = await db.get(p.plate ? `pphoto/${p.key}/${id}` : `photo/${p.code}/${id}`, { type: "arrayBuffer" });
       if (!img) return json({ error: "none" }, 404);
       return new Response(img, { headers: { "content-type": "image/jpeg", "cache-control": "public, max-age=31536000, immutable" } });
     }
     if (url.searchParams.has("qr")) {
-      // The QR code for a batch as an SVG file, exactly as the factory form downloads it.
+      // The QR code for a batch or plate as an SVG file, exactly as the factory form downloads it.
       // It's made from the code alone, so it's public: the code is printed under every QR anyway.
-      const p = parseCode(url.searchParams.get("qr"));
+      const p = anyCode(url.searchParams.get("qr"));
       if (p.error) return json({ error: p.error }, 400);
       return new Response(await qrSvg(p.code), { headers: { "content-type": "image/svg+xml", "content-disposition": `inline; filename="${p.code}.svg"`, "cache-control": "public, max-age=31536000, immutable" } });
     }
     if (url.searchParams.has("plate")) {
       // The engraving file: 100 x 45 mm steel plate layout, all text as outlines, transparent background.
-      const p = parseCode(url.searchParams.get("plate"));
+      const p = anyCode(url.searchParams.get("plate"));
       if (p.error) return json({ error: p.error }, 400);
       const svg = await plateSvg(p.code, url.searchParams.has("view"));
       const disp = url.searchParams.has("view") ? "inline" : "attachment";
+      if (p.plate) {
+        // Plates: Plate_7K4M-2QXH_2026-11-10_engrave.svg (the day the code was made)
+        const pl = await db.get(plateKey(p.key), { type: "json" });
+        const day = pl && pl.made ? new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Jakarta" }).format(new Date(pl.made)) : "";
+        const name = ["Plate", p.code, day, "engrave"].filter(Boolean).join("_") + ".svg";
+        return new Response(svg, { headers: { "content-type": "image/svg+xml", "content-disposition": `${disp}; filename="${name}"`, "cache-control": "no-store" } });
+      }
       // File name with product and date, e.g. Sun-Lounger_AL-2610-976-B_2026-10-27_engrave.svg
       const b = await db.get(`batch/${p.code}`, { type: "json" });
       const product = b ? String(b.model || "").replace(/^The\s+/i, "").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "") : "";
@@ -245,14 +283,16 @@ export default async (req, context) => {
       // Everything, for the master Google Sheet and the "Download everything" button.
       const me = exportKeyOk(req, context) ? { admin: true } : await whoAmI(db, context);
       if (!me?.admin) return json({ error: "auth" }, 401);
-      const [batches, lotsByN, workshops] = await Promise.all([readAll(db, "batch/"), allLots(db), readAll(db, "workshops/")]);
+      const [batches, lotsByN, workshops, plates] = await Promise.all([readAll(db, "batch/"), allLots(db), readAll(db, "workshops/"), readAll(db, "plate/")]);
       const names = Object.fromEntries(workshops.filter(w => w.active).map(w => [w.id, w.name]));
       batches.sort((a, b) => (a.made || "").localeCompare(b.made || ""));
+      plates.sort((a, b) => (a.made || "").localeCompare(b.made || "") || a.code.localeCompare(b.code));
       const lots = Object.values(lotsByN).sort((a, b) => a.n - b.n);
-      return json({ exported: new Date().toISOString(), site: url.origin, version: 1,
+      return json({ exported: new Date().toISOString(), site: url.origin, version: 2,
         workshops: workshops.map(w => ({ id: w.id, name: w.name, active: w.active, created: w.created })),
-        lots: lots.map(l => ({ ...lotView(l, names, batches.filter(b => (b.lots || []).includes(l.n)).map(b => b.code)) })),
-        batches: batches.map(b => ({ ...staffView(applyLots(b, lotsByN), names), createdById: b.createdById || null })) });
+        lots: lots.map(l => ({ ...lotView(l, names, usedBy(l.n, batches, plates)) })),
+        batches: batches.map(b => ({ ...staffView(applyLots(b, lotsByN), names), createdById: b.createdById || null })),
+        plates: plates.map(p => ({ ...plateStaffView(p, lotsByN, names), linkedById: p.linkedById || null })) });
     }
     if (url.searchParams.has("me")) {
       const me = await whoAmI(db, context);
@@ -280,10 +320,10 @@ export default async (req, context) => {
     if (url.searchParams.has("lots")) {
       const me = await whoAmI(db, context);
       if (!me) return json({ error: "auth" }, 401);
-      const [lotsByN, names, batches] = await Promise.all([allLots(db), workshopNames(db), readAll(db, "batch/")]);
+      const [lotsByN, names, batches, plates] = await Promise.all([allLots(db), workshopNames(db), readAll(db, "batch/"), readAll(db, "plate/")]);
       const lots = Object.values(lotsByN).filter(l => canSee(me, l)).sort((a, b) => b.n - a.n);
       // The list leaves out the material record (it can be long); a single lot (?lot=) has it all.
-      return json({ lots: lots.map(l => ({ ...lotView(l, names, batches.filter(b => (b.lots || []).includes(l.n)).map(b => b.code)), material: undefined, notes: undefined })) });
+      return json({ lots: lots.map(l => ({ ...lotView(l, names, usedBy(l.n, batches, plates)), material: undefined, notes: undefined })) });
     }
     if (url.searchParams.has("lot")) {
       const me = await whoAmI(db, context);
@@ -292,8 +332,32 @@ export default async (req, context) => {
       const l = n == null ? null : await db.get(lotKey(n), { type: "json" });
       if (!l || !canSee(me, l)) return json({ error: "none" }, 404);
       const batches = (await readAll(db, "batch/")).filter(b => (b.lots || []).includes(n));
-      return json({ lot: lotView(l, await workshopNames(db), batches.map(b => b.code)),
-        batches: batches.map(b => ({ code: b.code, model: b.model, qty: b.qty, made: b.made })) });
+      const plates = (await readAll(db, "plate/")).filter(p => (p.lots || []).includes(n));
+      plates.sort((a, b) => (b.linked || "").localeCompare(a.linked || ""));
+      return json({ lot: lotView(l, await workshopNames(db), [...batches.map(b => b.code), ...plates.map(p => p.code)]),
+        batches: batches.map(b => ({ code: b.code, model: b.model, qty: b.qty, made: b.made })),
+        plates: plates.map(p => ({ code: p.code, status: p.status, linked: p.linked, linkedBy: p.linkedBy || null })) });
+    }
+    if (url.searchParams.has("plates")) {
+      // Admin: every plate. Workshop staff: the plates their workshop (or they) linked, and how many blank plates exist.
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const [plates, lotsByN, names] = await Promise.all([readAll(db, "plate/"), allLots(db), workshopNames(db)]);
+      const mine = plates.filter(p => canSeePlate(me, p));
+      mine.sort((a, b) => (b.linked || b.made || "").localeCompare(a.linked || a.made || "") || a.code.localeCompare(b.code));
+      return json({ plates: mine.map(p => ({ ...plateStaffView(p, lotsByN, names), log: undefined })), blank: plates.filter(p => p.status === "blank").length });
+    }
+    if (url.searchParams.has("pstaff")) {
+      // One plate with everything, for the link screen. Any staff member may open a blank plate to link it.
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const p = parsePlate(url.searchParams.get("pstaff"));
+      if (p.error) return json({ error: p.error }, 400);
+      const pl = await db.get(plateKey(p.key), { type: "json" });
+      if (!pl) return json({ error: "none" }, 404);
+      const lotsByN = await lotsFor(db, pl);
+      if (pl.status !== "blank" && !canSeePlate(me, pl)) return json({ plate: { code: pl.code, status: pl.status, other: true, linked: pl.linked || null } });
+      return json({ plate: plateStaffView(pl, lotsByN, await workshopNames(db)) });
     }
     if (url.searchParams.has("users")) {
       const me = await whoAmI(db, context);
@@ -556,6 +620,63 @@ export default async (req, context) => {
       await db.setJSON(`batch/${p.code}`, batch);
       return json({ batch: staffView(batch, await workshopNames(db)) });
     }
+    case "link-plate": {
+      // Links a plate to the wood it was made from: one or more lots, or "not sure". Never a product.
+      // Workshop staff link blank plates, and may correct their own until Another Life approves them.
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const pp = parsePlate(body.code);
+      if (pp.error) return json({ error: "code" }, 400);
+      const pl = await db.get(plateKey(pp.key), { type: "json" });
+      if (!pl) return json({ error: "none" }, 404);
+      if (pl.status === "public" && !me.admin) return json({ error: "plate-public" }, 409);
+      if (pl.status === "linked" && !canSeePlate(me, pl)) return json({ error: "plate-linked" }, 409);
+      const unsure = Boolean(body.unsure);
+      const cl = unsure ? { lots: [] } : await checkLots(db, me, body.lots, me.admin ? null : me.workshopId);
+      if (cl.error) return json({ error: cl.error }, 400);
+      if (!cl.lots.length && !unsure) return json({ error: "wood" }, 400);
+      const prev = { ...pl, log: [...(pl.log || [])] };
+      const firstLot = cl.lots.length ? await db.get(lotKey(cl.lots[0]), { type: "json" }) : null;
+      const wood = unsure ? "not sure" : cl.lots.map(lotLabel).join(" + ");
+      pl.log = pl.log || [];
+      if (pl.status === "blank") {
+        pl.status = "linked"; pl.linked = new Date().toISOString(); pl.linkedBy = me.name; pl.linkedById = me.id || "admin";
+        pl.log.push(logLine(me, `Linked to ${wood}`));
+      } else pl.log.push(logLine(me, `Wood corrected to ${wood}`));
+      pl.lots = cl.lots; pl.unsure = unsure;
+      pl.workshopId = me.admin ? (firstLot?.workshopId || pl.workshopId || null) : me.workshopId;
+      if (me.admin && body.approve && pl.status === "linked") {
+        pl.status = "public"; pl.approved = new Date().toISOString(); pl.approvedBy = me.name;
+        pl.log.push(logLine(me, "Approved and public"));
+      }
+      await keepHistory(db, "plate", pp.key, prev);
+      await db.setJSON(plateKey(pp.key), pl);
+      return json({ plate: plateStaffView(pl, await lotsFor(db, pl), await workshopNames(db)) });
+    }
+    case "plate-photo":
+    case "plate-photo-remove": {
+      // A photo of the finished piece. Staff can add one until the plate is approved; admin any time.
+      const me = await whoAmI(db, context);
+      if (!me) return json({ error: "auth" }, 401);
+      const pp = parsePlate(body.code);
+      if (pp.error) return json({ error: "code" }, 400);
+      const pl = await db.get(plateKey(pp.key), { type: "json" });
+      if (!pl || pl.status === "blank" || !canSeePlate(me, pl)) return json({ error: "none" }, 404);
+      if (pl.status === "public" && !me.admin) return json({ error: "plate-public" }, 409);
+      pl.photos = pl.photos || [];
+      if (body.action === "plate-photo") {
+        if (pl.photos.length >= MAX_PHOTOS) return json({ error: "photos-full" }, 409);
+        const ph = await savePhoto(db, `pphoto/${pp.key}`, body.image);
+        if (ph.error) return json({ error: ph.error }, 400);
+        pl.photos.push(ph.id);
+      } else {
+        const id = String(body.id || "");
+        if (!pl.photos.includes(id)) return json({ error: "none" }, 404);
+        pl.photos = pl.photos.filter(x => x !== id); // the file is kept, only unlisted
+      }
+      await db.setJSON(plateKey(pp.key), pl);
+      return json({ plate: plateStaffView(pl, await lotsFor(db, pl), await workshopNames(db)) }, body.action === "plate-photo" ? 201 : 200);
+    }
   }
 
   // Rebuild from the master sheet: writes back workshops, lots, batches and photos with their
@@ -580,6 +701,7 @@ export default async (req, context) => {
       }
       let key;
       if (kind === "lot") { const n = parseLotId(body.ref); if (n == null) return json({ error: "lot" }, 400); key = `lphoto/${n}/${id}`; }
+      else if (kind === "batch" && !parsePlate(body.ref).error) key = `pphoto/${parsePlate(body.ref).key}/${id}`;
       else { const p = parseCode(String(body.ref || "")); if (p.error) return json({ error: "code" }, 400); key = `photo/${p.code}/${id}`; }
       if (!overwrite && (await db.get(key))) return json({ ok: true, skipped: true });
       let bytes;
@@ -620,6 +742,18 @@ export default async (req, context) => {
       rec.status = statusOf(rec);
       if (await put(`batch/${p.code}`, rec)) done.batches++;
     }
+    done.plates = 0;
+    for (const x of Array.isArray(body.plates) ? body.plates : []) {
+      const pp = parsePlate(x.code);
+      if (pp.error || !["blank", "linked", "public"].includes(x.status)) { done.errors.push(`plate ${x.code}`); continue; }
+      const iso = v => (v && !Number.isNaN(Date.parse(v)) ? String(v) : null);
+      const rec = { code: pp.code, status: x.status, made: iso(x.made) || new Date().toISOString(), madeBy: cleanName(x.madeBy) || null, set: x.set ? String(x.set).slice(0, 40) : null,
+        lots: (x.lots || []).map(parseLotId).filter(n => n != null), unsure: Boolean(x.unsure), workshopId: x.workshopId || null,
+        linked: iso(x.linked), linkedBy: cleanName(x.linkedBy) || null, linkedById: x.linkedById || null, approved: iso(x.approved), approvedBy: cleanName(x.approvedBy) || null,
+        photos: (x.photos || []).filter(id => PHOTO_ID.test(id)),
+        log: (Array.isArray(x.log) ? x.log : []).slice(0, 500).map(e => ({ at: iso(e.at), by: cleanName(e.by) || null, text: String(e.text || "").replace(/[<>]/g, "").slice(0, 300), ...(e.public ? { public: true } : {}) })) };
+      if (await put(plateKey(pp.key), rec)) done.plates++;
+    }
     return json(done);
   }
 
@@ -642,7 +776,7 @@ export default async (req, context) => {
     const n = parseLotId(body.n);
     const lot = n == null ? null : await db.get(lotKey(n), { type: "json" });
     if (!lot) return json({ error: "none" }, 404);
-    if ((await readAll(db, "batch/")).some(b => (b.lots || []).includes(n))) return json({ error: "lot-used" }, 409);
+    if ((await readAll(db, "batch/")).some(b => (b.lots || []).includes(n)) || (await readAll(db, "plate/")).some(p => (p.lots || []).includes(n))) return json({ error: "lot-used" }, 409);
     for (let tries = 0; tries < 40; tries++) {
       const m = lotNumber(lot.arrived);
       const moved = { ...lot, n: m, renumberedFrom: n, updated: new Date().toISOString(), updatedBy: me.name };
@@ -700,6 +834,50 @@ export default async (req, context) => {
     const token = await newInvite(db, user);
     await db.setJSON(`users/${user.id}`, user);
     return json({ user: userView(user), token });
+  }
+  if (body.action === "make-plates") {
+    // New blank plates: random codes, never reused. Each keeps the exact time it was made.
+    const count = Number.parseInt(body.count, 10);
+    if (!(count >= 1 && count <= 500)) return json({ error: "count" }, 400);
+    const set = new Date().toISOString();
+    const made = [];
+    for (let i = 0, tries = 0; i < count && tries < count * 20; tries++) {
+      let r = ""; for (let j = 0; j < 7; j++) r += PLATE_ALPHA[randomInt(0, PLATE_ALPHA.length - 1)];
+      const { key, code } = makePlate(r);
+      const now = new Date().toISOString();
+      const pl = { code, status: "blank", made: now, madeBy: me.name, set, lots: [], unsure: false, workshopId: null, photos: [], log: [logLine(me, "Plate code made")] };
+      const res = await db.setJSON(plateKey(key), pl, { onlyIfNew: true });
+      if (res && res.modified === false) continue;
+      made.push(code); i++;
+    }
+    return json({ codes: made, set }, 201);
+  }
+  if (body.action === "approve-plate" || body.action === "reset-plate" || body.action === "plate-event") {
+    const pp = parsePlate(body.code);
+    if (pp.error) return json({ error: "code" }, 400);
+    const pl = await db.get(plateKey(pp.key), { type: "json" });
+    if (!pl) return json({ error: "none" }, 404);
+    const prev = { ...pl, log: [...(pl.log || [])] };
+    pl.log = pl.log || [];
+    if (body.action === "approve-plate") {
+      if (pl.status !== "linked") return json({ error: "plate-status" }, 409);
+      pl.status = "public"; pl.approved = new Date().toISOString(); pl.approvedBy = me.name;
+      pl.log.push(logLine(me, "Approved and public"));
+    } else if (body.action === "reset-plate") {
+      // A plate put on the wrong piece, before it was approved: back to blank. Its history stays.
+      if (pl.status !== "linked") return json({ error: "plate-status" }, 409);
+      pl.log.push(logLine(me, "Link removed, plate is blank again"));
+      Object.assign(pl, { status: "blank", lots: [], unsure: false, workshopId: null, linked: null, linkedBy: null, linkedById: null });
+    } else {
+      // Something that happened to the piece later: a repair, a new part, a move. Shown on the passport.
+      const text = String(body.text || "").replace(/[\u0000-\u001f<>]/g, " ").trim().slice(0, 200);
+      if (text.length < 3) return json({ error: "text" }, 400);
+      if (pl.status !== "public") return json({ error: "plate-status" }, 409);
+      pl.log.push(logLine(me, text, { public: true }));
+    }
+    await keepHistory(db, "plate", pp.key, prev);
+    await db.setJSON(plateKey(pp.key), pl);
+    return json({ plate: plateStaffView(pl, await lotsFor(db, pl), await workshopNames(db)) });
   }
   return json({ error: "unknown" }, 400);
 };
