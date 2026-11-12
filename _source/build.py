@@ -86,9 +86,9 @@ PRODUCTS = [
        notes=["Small enough to stand beside The Sun Lounger or The Lounge Chair, for a drink or a book.",
               "Like every SATU piece, it travels flat and goes together on site."],
        pairs=["the-sun-lounger","the-lounge-chair"]),
-  dict(slug="the-coffee-table", name="The Coffee Table", category="Table", order=6, dims=(100,75,32), seat=None,
+  dict(slug="the-coffee-table", name="The Coffee Table", category="Table", order=6, dims=(75,75,32), seat=None,
        img="assets/table-studio.jpg", img_alt="A low SATU table in repurposed teak with a slatted top and a Shou Sugi Ban finish",
-       short="A low table in repurposed teak, 75 by 100 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.",
+       short="A low table in repurposed teak, 75 by 75 cm, made to sit between Lounge Chairs in lounges, lobbies and terraces.",
        use="Lounges, lobbies and terraces",
        notes=["At 32 cm high, it sits level with the seats of The Sun Lounger and The Lounge Chair.",
               "Like every SATU piece, it travels flat and goes together on site."],
@@ -126,7 +126,7 @@ PBY = {p["slug"]: p for p in PRODUCTS}
 # The long pieces and the tables are close to one shared scale; the chairs are drawn a little larger so they
 # still read clearly. Widths refer to the trimmed cut-outs (assets/cut-*.webp, cropped to the piece).
 CUT_W = {"the-chair": 23, "the-lounge-chair": 25, "the-sun-lounger": 83, "the-bench": 86,
-         "the-side-table": 27, "the-coffee-table": 35, "the-table": 85, "the-high-stool": 19}
+         "the-side-table": 27, "the-coffee-table": 31, "the-table": 85, "the-high-stool": 19}
 
 FAQ = [
   ("What is Another Life?", "Another Life is a hospitality furniture brand. We make furniture from repurposed teak, designed in a Danish tradition, shipped flat and built to be kept for a very long time."),
