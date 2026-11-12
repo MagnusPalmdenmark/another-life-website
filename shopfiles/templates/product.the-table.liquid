@@ -1,0 +1,93 @@
+{% layout 'theme' %}
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head" id="site-head"><div class="wrap head-row">
+<a class="brand" href="/" aria-label="Another Life, home"><img class="wordmark" src="{{ 'logo-wordmark.png' | asset_url }}" alt="ANOTHER — LIFE" width="1200" height="149"></a>
+<nav class="nav" aria-label="Main"><a class="label" href="/collections/all">Collection</a><a class="label" href="/pages/in-use">In use</a><a class="label" href="/pages/mission">Mission</a><a class="label" href="/pages/material">Material</a><a class="label" href="/pages/passport">Passport</a><a class="label" href="/pages/hospitality">Hospitality</a><a class="label" href="/pages/contact">Contact</a></nav>
+<span class="head-end"><a class="bag" href="/cart" aria-label="Basket"><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M2.5 7.5h15l-1.2 13H3.7z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 7.5V5.2a3.5 3.5 0 0 1 7 0v2.3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="bag-n" data-bag-n hidden>0</span></a><script>(function(){try{var b=JSON.parse(localStorage.getItem("al-basket")||"[]"),n=b.reduce(function(s,i){return s+(i.q||0)},0);document.querySelectorAll("[data-bag-n]").forEach(function(e){e.textContent=n;e.hidden=!n;});}catch(e){}})();</script><svg class="bdots" id="bdots" viewBox="0 0 30 27" aria-hidden="true"><circle class="d0" cx="15" cy="6" r="4.2"/><circle class="d1" cx="25" cy="22" r="4.2"/><circle class="d2" cx="5" cy="22" r="4.2"/></svg></span>
+</div></header>
+<main id="main">
+
+<section class="page-head"><div class="wrap">
+ <span class="label eyebrow"><a href="/collections/all" class="tlink">SATU</a> · 07 / 08</span>
+ <h1 class="disp">The Table</h1>
+ <p class="pull" style="margin-top:24px">A dining table in repurposed teak, 100 by 220 cm, made to sit with The Chair and The Bench.</p>
+</div></section>
+<section><div class="wrap split">
+ <div><figure style="margin:0"><img class="pphoto" src="{{ 'table.jpg' | asset_url }}" alt="The Table from the side: a long dining table in repurposed teak with a Shou Sugi Ban finish, a planked top and a three-bolt cluster at each leg" width="1800" height="720"></figure></div>
+ <div><dl class="ledger"><div><dt>Collection</dt><dd>SATU</dd></div><div><dt>Category</dt><dd>Table</dd></div><div><dt>Dimensions</dt><dd>L 220 × W 100 × H 75 cm</dd></div><div><dt>Material</dt><dd>Repurposed teak, often from old joglo houses</dd></div><div><dt>Finish</dt><dd>Shou Sugi Ban: flame-darkened teak, finished with natural oil.</dd></div><div><dt>Construction</dt><dd>Modular and knock-down. Assembled on site</dd></div><div><dt>Use</dt><dd>Dining rooms and restaurants</dd></div><div><dt>Made in</dt><dd>Indonesia</dd></div><div><dt>Price</dt><dd>{% if product.price > 0 %}{{ product.price | money_with_currency }} incl. VAT{% else %}On request{% endif %}</dd></div><div><dt>Delivery</dt><dd>Worldwide. Confirmed with your quote</dd></div><div><dt>Shipping</dt><dd>Flat-packed, assembled on site</dd></div></dl><div style="margin-top:28px">{% render 'buy-box', product: product %}</div></div>
+</div></section>
+<section><div class="wrap split">
+ <div><span class="label eyebrow muted">Details</span><h2 class="disp">About The Table.</h2></div>
+ <div class="prose"><p>At 75 cm high, it meets the 45 cm seat height of The Chair and The Bench.</p><p>The planked top sits in a bolted frame, with the same three-bolt clusters at each leg as every SATU piece. Any part can be replaced on its own.</p>
+ <p>Like every Another Life piece, it is made from timber that already had a first life. Marks from that life stay visible, wherever they don't reduce strength. And if a part ever wears out: replace the part, not the piece.</p></div>
+</div></section>
+<section><div class="wrap stack"><span class="label muted">In detail</span><div class="duo"><figure class="fig"><img src="{{ 'table-top.jpg' | asset_url }}" alt="The Table seen from above: three wide planks of flame-darkened repurposed teak in a bolted frame, the grain and old knots still visible" width="2053" height="766" loading="lazy"></figure></div></div></section>
+<section class="forest"><div class="wrap split">
+ <div><span class="label eyebrow muted">Another Life Passport</span><h2 class="disp">Its own story, one scan away.</h2></div>
+ <div class="prose"><p>Each piece carries a QR code that opens its own story: where the wood of The Table lived before, who made it, and how to care for it and repair it.</p><p class="cap" style="margin-top:20px"><a href="/pages/passport">About the Passport</a></p></div>
+</div></section>
+<section><div class="wrap">
+ <span class="label eyebrow muted">Pairs with</span>
+ <div class="pairs"><a href="/products/the-chair"><span class="label muted">SATU · 01</span><span class="disp" style="font-size:26px">The Chair</span><span class="cap">Dining rooms, restaurants and terraces</span></a><a href="/products/the-bench"><span class="label muted">SATU · 03</span><span class="disp" style="font-size:26px">The Bench</span><span class="cap">Dining tables, terraces and halls</span></a></div>
+ 
+</div></section>
+</main>
+{% render 'shop-js' %}
+<footer><div class="wrap">
+<div class="foot">
+ <ul class="foot-links"><li><a href="/collections/all">Collection</a></li><li><a href="/pages/passport">Passport</a></li><li><a href="/pages/faq">FAQ</a></li><li><a href="/pages/contact">Contact</a></li><li><a href="/pages/contact" data-obf="NTA0MDM1MDM1NA==" data-t="wa">WhatsApp</a></li></ul>
+</div>
+<div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
+</div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2bde136b23f84ce3be21365d0d57673f"}'></script><!-- End Cloudflare Web Analytics -->
+<script>
+(function(){
+ var svg=document.getElementById('bdots'); if(!svg) return;
+ if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ var moves=['swap','swap','swap','hop','spin','wave','swap','tumble'], busy=false, last='';
+ function play(name){ if(busy) return; busy=true;
+  if(!name){ do{ name=moves[Math.floor(Math.random()*moves.length)]; }while(name===last&&name!=='swap'); }
+  last=name; svg.setAttribute('class','bdots '+name);
+  setTimeout(function(){ svg.setAttribute('class','bdots'); busy=false; },1500); }
+ function loop(){ setTimeout(function(){ if(!document.hidden) play(); loop(); }, 4500+Math.random()*7000); }
+ setTimeout(function(){ play('swap'); loop(); }, 1400);
+ svg.addEventListener('mouseenter',function(){ play(); }); document.querySelector('.site-head .brand').addEventListener('mouseenter',function(){ play(); });
+})();
+</script>
+<script>(function(){function d(s){try{return atob(s).split('').reverse().join('')}catch(e){return ''}}document.querySelectorAll('[data-obf]').forEach(function(el){var v=d(el.getAttribute('data-obf')),t=el.getAttribute('data-t');if(t==='mail'){el.innerHTML='<a href="mailto:'+v+'">'+v+'</a>';}else if(t==='text'){el.textContent=v;}else if(t==='wa'){el.setAttribute('href','https://wa.me/'+v);el.setAttribute('target','_blank');el.setAttribute('rel','noopener');}});})();</script>
+<script>
+(function(){
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('motion');
+ var main=document.getElementById('main');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var seen=new Set();
+ targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
+ var nls=[];
+ main.querySelectorAll('.name-lines').forEach(function(h){ h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(function(t){return '<span class="nl">'+t+'</span>';}).join(''); nls.push(h); });
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+ main.querySelectorAll('.rv').forEach(function(el){
+  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
+ var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var wins=[].slice.call(main.querySelectorAll('.win-img'));
+ var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
+ var tick=false;
+ function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
+  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
+   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
+   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
+  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+  nls.forEach(function(h){ var r=h.getBoundingClientRect(), pr=(vh-r.top)/(vh*0.95);
+   [].forEach.call(h.children,function(sp,i){ sp.classList.toggle('in', pr>0.15+i*0.13); }); });
+  wins.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/(vh+r.height); img.style.transform='translate3d(0,'+(d*-34)+'%,0)'; });
+ }
+ window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
+ frame();
+})();
+</script>
+<script>(function(){var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){h.classList.toggle('show',window.scrollY>40);}t();window.addEventListener('scroll',t,{passive:true});})();</script>
+<script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('video[autoplay]').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.controls=true;});}</script>

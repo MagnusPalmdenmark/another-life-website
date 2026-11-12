@@ -1,0 +1,162 @@
+{% layout 'theme' %}
+
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head" id="site-head"><div class="wrap head-row">
+<a class="brand" href="/" aria-label="Another Life, home"><img class="wordmark" src="{{ 'logo-wordmark.png' | asset_url }}" alt="ANOTHER — LIFE" width="1200" height="149"></a>
+<nav class="nav" aria-label="Main"><a class="label" href="/collections/all">Collection</a><a class="label" href="/pages/in-use">In use</a><a class="label" href="/pages/mission">Mission</a><a class="label" href="/pages/material" aria-current=page>Material</a><a class="label" href="/pages/passport">Passport</a><a class="label" href="/pages/hospitality">Hospitality</a><a class="label" href="/pages/contact">Contact</a></nav>
+<span class="head-end"><a class="bag" href="/cart" aria-label="Basket"><svg viewBox="0 0 20 22" aria-hidden="true"><path d="M2.5 7.5h15l-1.2 13H3.7z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 7.5V5.2a3.5 3.5 0 0 1 7 0v2.3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span class="bag-n" data-bag-n hidden>0</span></a><script>(function(){try{var b=JSON.parse(localStorage.getItem("al-basket")||"[]"),n=b.reduce(function(s,i){return s+(i.q||0)},0);document.querySelectorAll("[data-bag-n]").forEach(function(e){e.textContent=n;e.hidden=!n;});}catch(e){}})();</script><svg class="bdots" id="bdots" viewBox="0 0 30 27" aria-hidden="true"><circle class="d0" cx="15" cy="6" r="4.2"/><circle class="d1" cx="25" cy="22" r="4.2"/><circle class="d2" cx="5" cy="22" r="4.2"/></svg></span>
+</div></header>
+<main id="main">
+
+<section class="page-head"><div class="wrap">
+ <span class="label eyebrow">Material and making</span>
+ <h1 class="disp">Timber that already lived once.</h1>
+ <div class="split" style="margin-top:32px"><p class="pull">Where our wood comes from, how we burn and oil it, and how every piece is built.</p>
+ <nav class="prose" aria-label="On this page"><p class="label muted" style="margin-bottom:8px">On this page</p><p><a href="#source">Where our wood comes from</a> · <a href="#finish">Shou Sugi Ban, our way</a> · <a href="#making">Making</a> · <a href="#hardware">Hardware</a> · <a href="#air">Shipping</a></p></nav></div>
+ 
+</div></section>
+
+<section id="source"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 1 · Where our wood comes from</span><h2 class="disp">17,000 islands, built in wood.</h2><div class="lead-img"><figure class="fig"><img src="{{ 'workshop-door.jpg' | asset_url }}" alt="Looking out of a dark timber shed onto a pile of old wood offcuts in the sun" width="1200" height="1800" loading="lazy"></figure></div></div>
+ <div class="prose"><p>Indonesia has more than 17,000 islands, and for centuries much of it was built in wood.</p>
+ <p>Today many of them are making way for concrete. The teak inside is often older than our grandparents. Throw it away? Not on our watch. We'd rather give it another life.</p>
+ <p>Our teak is repurposed: timber that has already lived a life, often in old joglo houses, and also in bridges, boats and other structures. Each piece's own story can be traced through the <a href="/pages/passport">Passport</a>.</p></div>
+</div></section>
+<section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="{{ 'timber-yard.jpg' | asset_url }}" alt="A yard stacked with old teak posts and beams, their cut ends marked in chalk" width="1800" height="1200" loading=lazy></div><p class="cap" style="margin-top:12px">Old posts and beams, marked and sorted before they are cut.</p></div></section>
+
+<section class="recl" id="reclaimed"><div class="wrap">
+ <div class="rc-head"><span class="label eyebrow muted">Reclaimed? Not always.</span><h2 class="disp">Ask where it stood.</h2>
+  <p class="prose" style="margin-top:20px">“Reclaimed” is one of the easiest words to put on a label, and one of the hardest to check. It matters, because a new tree is never just one tree.</p></div>
+</div></section>
+<section class="rc-teak"><div class="wrap split">
+ <div><span class="label eyebrow muted">And teak?</span><h2 class="disp">New teak isn’t old teak.</h2></div>
+ <div class="prose">
+  <p>Most new teak in Indonesia is grown in plantations, and some of it is cut very young. A 2018 study compared 10-year-old plantation teak with 40-year-old teak:</p>
+  <div class="rc-bars" role="img" aria-label="10-year-old teak: about 40 percent heartwood. 40-year-old teak: about 80 percent heartwood.">
+   <p class="label muted">Heartwood, the durable core</p>
+   <div class="rc-bar"><span>10 years</span><i style="--w:40%"></i><b>≈ 40%</b></div>
+   <div class="rc-bar"><span>40 years</span><i style="--w:80%"></i><b>≈ 80%</b></div>
+  </div>
+  <p>The young wood was also less resistant to rot. The teak in an old joglo grew slowly, often for many decades, before it was ever cut. That kind of teak is no longer easy to buy new. Reclaiming it is how we work with it.</p>
+  <p class="cap rc-src">Source: <a href="https://doi.org/10.1007/s13595-018-0716-8">Rizanti et al., Comparison of teak wood properties: short versus long rotation, Annals of Forest Science 2018</a></p>
+ </div>
+</div></section>
+<script>
+(function(){
+ var sec=document.getElementById('reclaimed'); if(!sec) return;
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('rc-anim');
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target);
+   var c=e.target.querySelector&&e.target.querySelector('.rc-count');
+   if(c){ var to=+c.dataset.to, t0=performance.now(); (function step(t){ var k=Math.min(1,(t-t0)/1400); c.textContent=Math.round(to*(1-Math.pow(1-k,3))); if(k<1) requestAnimationFrame(step); })(t0); }
+ }); },{threshold:0.35});
+ [].forEach.call(document.querySelectorAll('.rc-card, .rc-joglo, .rc-row, .rc-stat, .rc-bars'),function(el){ io.observe(el); });
+})();
+</script>
+
+<section class="forest" id="finish"><div class="wrap split">
+ <div><span class="label eyebrow muted">Chapter 2 · Shou Sugi Ban, our way</span><h2 class="disp">Fire, borrowed from Japan.</h2><div class="lead-img"><figure class="fig"><video src="https://cdn.shopify.com/videos/c/vp/73e81b18898b4d35b8755a172d78cb95/73e81b18898b4d35b8755a172d78cb95.HD-720p-1.6Mbps-100986240.mp4" poster="{{ 'burning-poster.jpg' | asset_url }}" width="1280" height="720" autoplay muted loop playsinline preload="metadata" aria-label="Flames running along the surface of a teak board as it is burned"></video><figcaption class="cap">Burning the surface of the timber.</figcaption></figure></div></div>
+ <div class="prose"><p>In Japan, carpenters have protected wood by setting it on fire for centuries. Really. It's called yakisugi, and a charred surface helps wood stand up to weather and bugs.</p>
+ <p>We borrowed the idea and tried it on something harder: repurposed teak. We burn the surface, then rub in natural oil. The idea is to help the wood handle the sun and almost any weather.</p>
+ <p>An old Japanese technique, moved to a hard wood.</p></div>
+</div></section>
+
+<section id="making"><div class="wrap split">
+ <div><span class="label eyebrow muted">Making</span><h2 class="disp">Made in Indonesia.</h2></div>
+ <div class="prose"><p>Every piece is made by hand in Indonesia by makers we work with directly, in small batches.</p>
+ <p>Producing close to the material keeps the supply chain short and visible.</p></div>
+</div></section>
+
+<section class="win"><div class="wrap"><div class="win-hole"><img class="win-img" src="{{ 'workshop-sunlight.jpg' | asset_url }}" alt="A maker in a red T-shirt sitting on a teak stool at a pillar drill, surrounded by stacks of repurposed teak boards with old holes, sawdust in the afternoon light" width="1086" height="1448" loading=lazy></div><p class="cap" style="margin-top:12px">Stacks of repurposed teak, drilled one board at a time.</p></div></section>
+
+<section id="hardware"><div class="wrap split">
+ <div><span class="label eyebrow muted">The hardware</span><h2 class="disp">Bolts built to outlive the chair.</h2>
+  <div class="lead-img" id="sign"><img class="sign-img" src="{{ 'three-bolts-cycle.png' | asset_url }}" alt="Drawing of three dots joined in a circle by three arrows, the same layout as the three-bolt cluster on every piece" width="900" height="900" loading="lazy">
+  <p class="label muted" style="margin-top:14px">Three dots. One circle.</p></div></div>
+ <div class="prose"><p>Hardware is usually the last thing anyone thinks about. It is often the cheapest part of a piece of furniture, and the first to fail: screws rust, threads strip, and a good chair is thrown out because of a part that cost almost nothing.</p>
+ <p>We turned that around. Every SATU joint is held by engineered stainless steel (SUS) bolts that screw into threaded inserts set into the wood. The bolt can be opened and closed again and again without wearing out.</p>
+ <p>The three-bolt clusters you see on every piece aren't decoration. They hold everything together, and they're designed to last longer than the furniture around them.</p>
+ <p>They also carry the idea behind the name. Each bolt stands for a life the piece can have, and together they form the letter A, for ANOTHER — LIFE.</p>
+ <div class="renders" style="margin-top:28px"><figure class="fig"><img src="{{ 'bolt-render.png' | asset_url }}" alt="Technical drawing of the stainless steel connector bolt, with a flat head and a long thread" width="721" height="384" loading="lazy"></figure></div></div>
+</div></section>
+
+<section id="air"><div class="wrap">
+ <div class="split" style="margin-bottom:36px"><div><span class="label eyebrow muted">Shipping</span><h2 class="disp">Stop shipping air.</h2></div>
+ <div class="prose"><p>An assembled chair is mostly empty space: between the legs, under the seat, behind the backrest. Ship it like that and you pay to move air across the ocean.</p>
+ <p>Flat-packed, a <span data-k="name">40 ft high-cube</span> container holds around <span data-k="flat">1,300</span> of our chairs, against roughly <span data-k="asm">350</span> assembled. Almost four times as many chairs per trip, so fewer containers, less fuel and a lower cost for every chair.</p>
+ <p class="cap">Our estimates. The final figures depend on packaging and loading.</p></div></div>
+ <div class="seg" role="group" aria-label="Container size"><button type="button" data-c="20">20 ft</button><button type="button" data-c="40" aria-pressed="true">40 ft high-cube</button></div>
+ <div class="compare" id="cmp">
+  <img src="{{ 'container-assembled.jpg' | asset_url }}" alt="Illustration of a shipping container filled with sixteen large boxes of assembled chairs" width="1536" height="1024" loading="lazy">
+  <div class="compare-top"><img src="{{ 'container-flat.jpg' | asset_url }}" alt="Illustration of the same container filled with dozens of thin boxes of flat-packed chairs" width="1536" height="1024" loading="lazy"></div>
+  <span class="compare-tag l label">Flat-packed · ~<span data-k="flat">1,300</span></span><span class="compare-tag r label">Assembled · ~<span data-k="asm">350</span></span>
+  <div class="compare-line" aria-hidden="true"><span></span></div>
+  <input type="range" min="0" max="100" value="50" aria-label="Slide to compare flat-packed and assembled shipping">
+ </div>
+ <p class="cap" style="margin-top:12px">Drag the slider to compare. Illustration.</p>
+</div></section>
+<script>(function(){var c=document.getElementById('cmp');if(!c)return;var r=c.querySelector('input');function u(){c.style.setProperty('--p',r.value+'%');}r.addEventListener('input',u);u();
+ var D={"20":{name:"20 ft",flat:"550",asm:"150"},"40":{name:"40 ft high-cube",flat:"1,300",asm:"350"}},sec=document.getElementById('air');
+ sec.querySelectorAll('.seg button').forEach(function(b){b.addEventListener('click',function(){var d=D[b.dataset.c];
+  sec.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+  sec.querySelectorAll('[data-k]').forEach(function(el){el.textContent=d[el.dataset.k];});});});})();</script>
+
+</main>
+<footer><div class="wrap">
+<div class="foot">
+ <ul class="foot-links"><li><a href="/collections/all">Collection</a></li><li><a href="/pages/passport">Passport</a></li><li><a href="/pages/faq">FAQ</a></li><li><a href="/pages/contact">Contact</a></li><li><a href="/pages/contact" data-obf="NTA0MDM1MDM1NA==" data-t="wa">WhatsApp</a></li></ul>
+</div>
+<div class="foot-base"><span class="label">Danish design · Made in Indonesia</span><span class="label muted">Make it once. Let it live.</span></div>
+</div></footer>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "2bde136b23f84ce3be21365d0d57673f"}'></script><!-- End Cloudflare Web Analytics -->
+<script>
+(function(){
+ var svg=document.getElementById('bdots'); if(!svg) return;
+ if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ var moves=['swap','swap','swap','hop','spin','wave','swap','tumble'], busy=false, last='';
+ function play(name){ if(busy) return; busy=true;
+  if(!name){ do{ name=moves[Math.floor(Math.random()*moves.length)]; }while(name===last&&name!=='swap'); }
+  last=name; svg.setAttribute('class','bdots '+name);
+  setTimeout(function(){ svg.setAttribute('class','bdots'); busy=false; },1500); }
+ function loop(){ setTimeout(function(){ if(!document.hidden) play(); loop(); }, 4500+Math.random()*7000); }
+ setTimeout(function(){ play('swap'); loop(); }, 1400);
+ svg.addEventListener('mouseenter',function(){ play(); }); document.querySelector('.site-head .brand').addEventListener('mouseenter',function(){ play(); });
+})();
+</script>
+<script>(function(){function d(s){try{return atob(s).split('').reverse().join('')}catch(e){return ''}}document.querySelectorAll('[data-obf]').forEach(function(el){var v=d(el.getAttribute('data-obf')),t=el.getAttribute('data-t');if(t==='mail'){el.innerHTML='<a href="mailto:'+v+'">'+v+'</a>';}else if(t==='text'){el.textContent=v;}else if(t==='wa'){el.setAttribute('href','https://wa.me/'+v);el.setAttribute('target','_blank');el.setAttribute('rel','noopener');}});})();</script>
+<script>
+(function(){
+ var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(still||!('IntersectionObserver' in window)) return;
+ document.documentElement.classList.add('motion');
+ var main=document.getElementById('main');
+ var targets=main.querySelectorAll('section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .wrap > *, section:not(.hero):not(.build):not(.win):not(.how):not(.recl):not(.rc-stat):not(.rc-ours):not(.rc-teak) .split > *, .how-head, .how-try, .rc-head, .win-text, .once > div, .pindex > a, .rows > .row, .build-head, figure.bleed figcaption');
+ var seen=new Set();
+ targets.forEach(function(el){ if(el.closest('.hero')||el.classList.contains('name-lines')) return; el.classList.add('rv'); });
+ var nls=[];
+ main.querySelectorAll('.name-lines').forEach(function(h){ h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(function(t){return '<span class="nl">'+t+'</span>';}).join(''); nls.push(h); });
+ var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{rootMargin:'0px 0px -8% 0px',threshold:0.08});
+ main.querySelectorAll('.rv').forEach(function(el){
+  var sib=el.parentElement?[].indexOf.call(el.parentElement.children,el):0; el.style.transitionDelay=Math.min(sib,5)*70+'ms'; io.observe(el); });
+ var par=[].slice.call(main.querySelectorAll('figure.bleed img, figure.bleed video')).map(function(img){ img.classList.add('px'); return img; });
+ var wins=[].slice.call(main.querySelectorAll('.win-img'));
+ var hero=main.querySelector('.hero-over'), logo=main.querySelector('.hero-logo'), film=main.querySelector('.hero-film');
+ var tick=false;
+ function frame(){ tick=false; var vh=window.innerHeight, y=window.scrollY;
+  if(y<vh*1.2){ if(hero){ hero.style.transform='translateY('+(y*0.35)+'px)'; hero.style.opacity=Math.max(0,1-y/(vh*0.7)); }
+   if(logo){ logo.style.transform='translateY('+(y*0.5)+'px)'; logo.style.opacity=Math.max(0,1-y/(vh*0.5)); }
+   if(film){ film.style.transform='scale('+(1+y/vh*0.08)+')'; } }
+  par.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/vh; img.style.transform='translateY('+(d*-9)+'%) scale(1.18)'; });
+  nls.forEach(function(h){ var r=h.getBoundingClientRect(), pr=(vh-r.top)/(vh*0.95);
+   [].forEach.call(h.children,function(sp,i){ sp.classList.toggle('in', pr>0.15+i*0.13); }); });
+  wins.forEach(function(img){ var r=img.parentElement.getBoundingClientRect(); if(r.bottom<0||r.top>vh) return;
+   var d=(r.top+r.height/2-vh/2)/(vh+r.height); img.style.transform='translate3d(0,'+(d*-34)+'%,0)'; });
+ }
+ window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(frame); } },{passive:true});
+ frame();
+})();
+</script>
+<script>(function(){var h=document.getElementById('site-head');if(!h||!h.classList.contains('autohide'))return;function t(){h.classList.toggle('show',window.scrollY>40);}t();window.addEventListener('scroll',t,{passive:true});})();</script>
+<script>if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('video[autoplay]').forEach(function(v){v.pause();v.removeAttribute('autoplay');v.controls=true;});}</script>

@@ -1,0 +1,17 @@
+<script>
+(function(){
+ var K='al-basket';
+ function get(){try{return JSON.parse(localStorage.getItem(K)||'[]')}catch(e){return null}}
+ function put(b){try{localStorage.setItem(K,JSON.stringify(b));return true}catch(e){return false}}
+ function count(b){var n=(b||[]).reduce(function(s,i){return s+(i.q||0)},0);document.querySelectorAll('[data-bag-n]').forEach(function(e){e.textContent=n;e.hidden=!n;});}
+ window.ALBasket={get:get,put:put,count:count};
+ document.querySelectorAll('.qty').forEach(function(q){var i=q.querySelector('input');if(!i)return;q.querySelectorAll('[data-q]').forEach(function(b){b.addEventListener('click',function(){i.value=Math.max(1,(parseInt(i.value,10)||1)+parseInt(b.getAttribute('data-q'),10));});});});
+ document.querySelectorAll('form[data-buy]').forEach(function(f){f.addEventListener('submit',function(ev){
+  var b=get(); if(b===null) return; ev.preventDefault();
+  var h=f.getAttribute('data-handle'),q=Math.max(1,parseInt(f.quantity.value,10)||1),it=b.filter(function(x){return x.h===h})[0];
+  if(it){it.q+=q}else{b.push({h:h,t:f.getAttribute('data-title'),img:f.getAttribute('data-img'),p:+f.getAttribute('data-price')||0,pt:f.getAttribute('data-price-txt')||'',q:q})}
+  if(!put(b)){f.submit();return;}
+  count(b);var m=f.querySelector('[data-buy-msg]');m.hidden=false;f.querySelector('button[type=submit]').textContent='Add more';f.quantity.value=1;
+ });});
+})();
+</script>

@@ -1,0 +1,10 @@
+<form class="buy" action="/pages/contact" method="get" data-buy data-handle="{{ product.handle }}" data-title="{{ product.title | escape }}" data-img="{{ product.featured_image | image_url: width: 240 }}" data-price="{{ product.price }}" data-price-txt="{% if product.price > 0 %}{{ product.price | money_with_currency }}{% endif %}">
+ <input type="hidden" name="piece" value="{{ product.handle }}">
+ <div class="buy-row">
+  <div class="qty"><button type="button" class="qty-b" data-q="-1" aria-label="One fewer">&minus;</button><input type="number" name="quantity" value="1" min="1" max="999" inputmode="numeric" aria-label="Quantity"><button type="button" class="qty-b" data-q="1" aria-label="One more">+</button></div>
+  <button class="btn" type="submit">Add to basket</button>
+ </div>
+ <p class="buy-msg cap" data-buy-msg role="status" hidden>Added. <a class="tlink" href="/cart">View basket</a></p>
+ <p class="cap buy-note">Made to order. Add the pieces you need and send the basket as a quote request. We reply with price, lead time and delivery to your country.</p>
+ <a class="tlink buy-ask" href="/pages/contact?piece={{ product.handle }}">Or ask us about {{ product.title }}</a>
+</form>
