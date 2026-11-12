@@ -28,7 +28,7 @@
    <input type="hidden" name="contact[Request]" value="Message from the contact page">
    <div class="quote-fields">
    {% render 'quote-fields', form: form %}
-   <fieldset class="field"><legend>Pieces you are interested in</legend><div class="checks"><label><input type="checkbox" name="contact[Interested in: The Chair]" value="Yes" id="pc-the-chair"> The Chair</label><label><input type="checkbox" name="contact[Interested in: The Sun Lounger]" value="Yes" id="pc-the-sun-lounger"> The Sun Lounger</label><label><input type="checkbox" name="contact[Interested in: The Bench]" value="Yes" id="pc-the-bench"> The Bench</label><label><input type="checkbox" name="contact[Interested in: The Lounge Chair]" value="Yes" id="pc-the-lounge-chair"> The Lounge Chair</label><label><input type="checkbox" name="contact[Interested in: The Side Table]" value="Yes" id="pc-the-side-table"> The Side Table</label><label><input type="checkbox" name="contact[Interested in: The Coffee Table]" value="Yes" id="pc-the-coffee-table"> The Coffee Table</label><label><input type="checkbox" name="contact[Interested in: The Table]" value="Yes" id="pc-the-table"> The Table</label><label><input type="checkbox" name="contact[Interested in: The High Stool]" value="Yes" id="pc-the-high-stool"> The High Stool</label></div></fieldset>
+   <input type="hidden" name="contact[About piece]" id="q-piece" disabled>
    <div class="field"><label for="f-msg">About the project</label><textarea id="f-msg" name="contact[body]" placeholder="The space, quantities, timeline"></textarea></div>
    <div class="btns"><button class="btn" type="submit">Send message</button><a class="tlink" href="/pages/contact" data-obf="NTA0MDM1MDM1NA==" data-t="wa">Or message us on WhatsApp</a></div>
    </div>
@@ -38,7 +38,7 @@
 </div></section>
 <script>
 (function(){
- var q=(location.search.match(/piece=([a-z-]+)/)||[])[1]; if(q){var c=document.getElementById('pc-'+q); if(c)c.checked=true;}
+ var q=(location.search.match(/piece=([a-z-]+)/)||[])[1]; if(q){var h=document.getElementById('q-piece'); if(h){h.value=q.replace(/-/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase()}); h.disabled=false;} var m=document.getElementById('f-msg'); if(m&&!m.value) m.placeholder='Your question about '+h.value;}
  if(/type=collab/.test(location.search)){var t=document.getElementById('q-type'); if(t)t.value='Collaboration';}
 })();
 </script>
