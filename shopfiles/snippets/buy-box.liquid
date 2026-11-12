@@ -1,10 +1,23 @@
-<form class="buy" action="/pages/contact" method="get" data-buy data-handle="{{ product.handle }}" data-title="{{ product.title | escape }}" data-img="{{ product.featured_image | image_url: width: 240 }}" data-price="{{ product.price }}" data-price-txt="{% if product.price > 0 %}{{ product.price | money_with_currency }}{% endif %}">
- <input type="hidden" name="piece" value="{{ product.handle }}">
+{%- assign v = product.selected_or_first_available_variant | default: product.variants.first -%}
+{%- if product.price > 0 -%}
+<form class="buy" action="/cart/add" method="post" data-buy>
+ <input type="hidden" name="id" value="{{ v.id }}">
+ <p class="buy-price"><span class="buy-amt">{{ product.price | money_with_currency }}</span> <span class="cap">incl. VAT</span></p>
+ {%- if v.available -%}
  <div class="buy-row">
   <div class="qty"><button type="button" class="qty-b" data-q="-1" aria-label="One fewer">&minus;</button><input type="number" name="quantity" value="1" min="1" max="999" inputmode="numeric" aria-label="Quantity"><button type="button" class="qty-b" data-q="1" aria-label="One more">+</button></div>
   <button class="btn" type="submit">Add to basket</button>
  </div>
- <p class="buy-msg cap" data-buy-msg role="status" hidden>Added. <a class="tlink" href="/cart">View basket</a></p>
- <p class="cap buy-note">Made to order. Add the pieces you need and send the basket as a quote request. We reply with price, lead time and delivery to your country.</p>
- <a class="tlink buy-ask" href="/pages/contact?piece={{ product.handle }}">Or ask us about {{ product.title }}</a>
+ <p class="buy-msg cap" data-buy-msg role="status" hidden>Added to your basket. <a class="tlink" href="/cart">Go to checkout</a></p>
+ <p class="cap buy-note">Made to order. Delivery is calculated at checkout, and we confirm the delivery time after your order.</p>
+ {%- else -%}
+ <p class="cap buy-note">Not available to order online right now.</p>
+ {%- endif -%}
+ <a class="tlink buy-ask" href="/pages/contact?piece={{ product.handle }}">Ordering for a project? Ask for a quote</a>
 </form>
+{%- else -%}
+<div class="buy">
+ <div class="buy-row"><a class="btn" href="/pages/contact?piece={{ product.handle }}">Ask for a price</a></div>
+ <p class="cap buy-note">Made to order. Send us a message and we reply with price, lead time and delivery to your country.</p>
+</div>
+{%- endif -%}

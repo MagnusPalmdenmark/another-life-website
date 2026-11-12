@@ -1,65 +1,54 @@
 {% render 'site-header' %}
-<main id="main">
+<main id="main" class="cart-page">
 <section class="page-head"><div class="wrap">
  <span class="label eyebrow">Basket</span>
- <h1 class="disp">Your quote request.</h1>
+ <h1 class="disp">Your basket.</h1>
 </div></section>
-{%- form 'contact', id: 'quote', class: 'quote-form' -%}
-{%- if form.posted_successfully? -%}
-<section style="padding-top:0;border-top:0"><div class="wrap prose" data-sent>
- <p class="pull">Thank you. Your request is with us.</p>
- <p>We reply by email with price, lead time and delivery, usually within two working days.</p>
- <div class="btns" style="margin-top:28px"><a class="btn" href="/collections/all">Back to the collection</a></div>
-</div></section>
-<script>try{localStorage.removeItem('al-basket')}catch(e){}</script>
-{%- else -%}
-<section style="padding-top:0;border-top:0" data-empty hidden><div class="wrap prose">
+{%- if cart.item_count == 0 -%}
+<section style="padding-top:0;border-top:0"><div class="wrap prose">
  <p class="pull">Your basket is empty.</p>
- <p>Add the pieces you need from the collection, then send the basket to us as a quote request.</p>
- <div class="btns" style="margin-top:28px"><a class="btn" href="/collections/all">See the SATU collection</a><a class="tlink" href="/pages/contact">Or write to us</a></div>
+ <p>Every SATU piece is made to order in repurposed teak.</p>
+ <div class="btns" style="margin-top:28px"><a class="btn" href="/collections/all">See the SATU collection</a><a class="tlink" href="/pages/contact">Ordering for a project? Ask for a quote</a></div>
 </div></section>
-<section style="padding-top:0;border-top:0" data-full hidden><div class="wrap split">
- <div>
-  <ul class="bag-list" data-list></ul>
-  <p class="bag-total" data-total hidden><span class="label">Indicative total</span> <span data-total-v></span></p>
-  <p class="cap" style="margin-top:16px">Every piece is made to order. Delivery is quoted per order, worldwide.</p>
+{%- else -%}
+<section style="padding-top:0;border-top:0"><div class="wrap">
+<form action="{{ routes.cart_url }}" method="post" class="cart-grid" id="cart">
+ <div class="cart-items">
+  <div class="cart-colhead label muted"><span>Piece</span><span>Total</span></div>
+  <ul class="bag-list">
+  {%- for item in cart.items -%}
+   <li class="bag-item">
+    <a class="bag-img" href="{{ item.url | split: '?' | first }}">{%- if item.image -%}<img src="{{ item.image | image_url: width: 240 }}" alt="{{ item.product.title | escape }}" width="96" height="96" loading="lazy">{%- endif -%}</a>
+    <div class="bag-info">
+     <div class="bag-top"><a class="bag-title" href="{{ item.url | split: '?' | first }}">{{ item.product.title }}</a><span class="bag-line">{{ item.final_line_price | money_with_currency }}</span></div>
+     <span class="cap">{{ item.final_price | money_with_currency }} each</span>
+     <div class="bag-ctrl">
+      <div class="qty"><a class="qty-b" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ item.quantity | minus: 1 }}" aria-label="One fewer">&minus;</a><span class="qty-v">{{ item.quantity }}</span><a class="qty-b" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity={{ item.quantity | plus: 1 }}" aria-label="One more">+</a></div>
+      <a class="tlink cap" href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0">Remove</a>
+     </div>
+    </div>
+   </li>
+  {%- endfor -%}
+  </ul>
+  <div class="field cart-note"><label for="cart-note">Note for us <span class="muted">(optional)</span></label><textarea id="cart-note" name="note" placeholder="Delivery wishes, the space, anything we should know">{{ cart.note }}</textarea></div>
  </div>
- <div>
-  <p class="prose" style="margin-top:0">Send us your basket and a few details. We reply with price, lead time and delivery.</p>
-  {%- if form.errors -%}<p class="cap form-err">{{ form.errors | default_errors }}</p>{%- endif -%}
-  <input type="hidden" name="contact[Request]" value="Quote request from the basket">
-  <textarea name="contact[Basket]" hidden aria-hidden="true" data-basket-field></textarea>
-  <div class="quote-fields">
-   {% render 'quote-fields', form: form %}
-   <div class="field"><label for="q-msg">About the project <span class="muted">(optional)</span></label><textarea id="q-msg" name="contact[body]" placeholder="The space, timeline, anything we should know"></textarea></div>
-   <button class="btn" type="submit" style="justify-self:start">Send quote request</button>
-  </div>
- </div>
+ <aside class="cart-sum">
+  <span class="label">Order summary</span>
+  <dl class="sum-rows">
+   <div><dt>Subtotal</dt><dd>{{ cart.items_subtotal_price | money_with_currency }}</dd></div>
+   {%- if cart.cart_level_discount_applications.size > 0 -%}{%- for d in cart.cart_level_discount_applications -%}<div><dt>{{ d.title }}</dt><dd>&minus;{{ d.total_allocated_amount | money_with_currency }}</dd></div>{%- endfor -%}{%- endif -%}
+   <div><dt>Delivery</dt><dd class="muted">Calculated at checkout</dd></div>
+   <div class="sum-total"><dt>Total</dt><dd>{{ cart.total_price | money_with_currency }}</dd></div>
+  </dl>
+  <p class="cap">VAT included. Made to order; we confirm the delivery time after your order. Discount codes can be entered at checkout.</p>
+  <button class="btn btn-wide" type="submit" name="checkout">Checkout</button>
+  <a class="tlink cap" href="/collections/all">Continue browsing</a>
+  <a class="tlink cap" href="/pages/contact">Ordering for a hotel or project? Ask for a quote</a>
+ </aside>
+ <div class="cart-bar"><div><span class="cap">Total</span><strong>{{ cart.total_price | money_with_currency }}</strong></div><button class="btn" type="submit" name="checkout">Checkout</button></div>
+</form>
 </div></section>
-<noscript><section><div class="wrap prose"><p>The basket needs JavaScript. <a href="/pages/contact">Write to us instead</a>.</p></div></section></noscript>
 {%- endif -%}
-{%- endform -%}
 </main>
-{% render 'shop-js' %}
-<script>
-(function(){
- var B=window.ALBasket; if(!B||!document.querySelector('[data-list]')) return;
- var list=document.querySelector('[data-list]'), field=document.querySelector('[data-basket-field]');
- function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML;}
- function money(o){try{return new Intl.NumberFormat('da-DK',{style:'currency',currency:'DKK'}).format(o/100)}catch(e){return (o/100)+' DKK'}}
- function render(){
-  var b=B.get()||[]; B.count(b);
-  document.querySelector('[data-empty]').hidden=!!b.length; document.querySelector('[data-full]').hidden=!b.length;
-  list.innerHTML=b.map(function(i,n){return '<li class="bag-item"><a class="bag-img" href="/products/'+esc(i.h)+'"><img src="'+esc(i.img)+'" alt="'+esc(i.t)+'" width="96" height="96"></a><div class="bag-info"><a class="bag-title" href="/products/'+esc(i.h)+'">'+esc(i.t)+'</a><span class="cap">'+(i.p>0?money(i.p*i.q)+' incl. VAT':'Price on request')+'</span><div class="bag-ctrl"><div class="qty"><button type="button" class="qty-b" data-n="'+n+'" data-d="-1" aria-label="One fewer">&minus;</button><span class="qty-v">'+i.q+'</span><button type="button" class="qty-b" data-n="'+n+'" data-d="1" aria-label="One more">+</button></div><button type="button" class="tlink cap" data-rm="'+n+'">Remove</button></div></div></li>';}).join('');
-  var tot=b.reduce(function(s,i){return s+i.p*i.q},0), all=b.every(function(i){return i.p>0});
-  document.querySelector('[data-total]').hidden=!(tot>0); document.querySelector('[data-total-v]').textContent=money(tot)+(all?'':' + pieces on request');
-  field.value=b.map(function(i){return i.q+' × '+i.t+(i.p>0?' ('+money(i.p*i.q)+')':'')}).join('\n');
- }
- list.addEventListener('click',function(e){var t=e.target.closest('button');if(!t)return;var b=B.get()||[];
-  if(t.hasAttribute('data-rm')){b.splice(+t.getAttribute('data-rm'),1)}else if(t.hasAttribute('data-d')){var i=b[+t.getAttribute('data-n')];i.q=Math.max(1,i.q+(+t.getAttribute('data-d')))}
-  B.put(b);render();});
- render();
-})();
-</script>
 {% render 'site-footer' %}
 {% render 'site-scripts' %}
