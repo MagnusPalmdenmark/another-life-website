@@ -9,7 +9,7 @@
   <button class="btn" type="submit">Add to basket</button>
  </div>
  <p class="buy-msg cap" data-buy-msg role="status" hidden>Added to your basket. <a class="tlink" href="/cart">Go to checkout</a></p>
- <p class="cap buy-note">Made to order. Delivery is calculated at checkout, and we confirm the delivery time after your order.</p>
+ <p class="cap buy-note">Made to order. Delivery time 14 weeks. Delivery cost is calculated at checkout.</p>
  {%- else -%}
  <p class="cap buy-note">Not available to order online right now.</p>
  {%- endif -%}
@@ -18,6 +18,6 @@
 {%- else -%}
 <div class="buy">
  <div class="buy-row"><a class="btn" href="/pages/contact?piece={{ product.handle }}">Ask for a price</a></div>
- <p class="cap buy-note">Made to order. Send us a message and we reply with price, lead time and delivery to your country.</p>
+ <p class="cap buy-note">Made to order, delivery time 14 weeks. Send us a message and we reply with price and delivery to your country.</p>
 </div>
 {%- endif -%}
